@@ -130,9 +130,9 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
             title="MaxR Home"
           >
             <img 
-              src="/assets/maxr-logo-dark.svg" 
+              src="/assets/maxr-logo.png" 
               alt="maxr." 
-              style={{ height: '36px', width: 'auto', display: 'block' }} 
+              style={{ height: '38px', width: 'auto', display: 'block' }} 
             />
           </div>
 

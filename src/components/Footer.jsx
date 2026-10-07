@@ -90,7 +90,7 @@ export default function Footer({ onNavigate }) {
               style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '1.25rem', cursor: 'pointer' }}
               onClick={() => onNavigate('home')}
             >
-              <img src="/assets/maxr-logo-dark.svg" alt="maxr." style={{ height: '36px', width: 'auto' }} />
+              <img src="/assets/maxr-logo.png" alt="maxr." style={{ height: '38px', width: 'auto' }} />
             </div>
 
             <p style={{ color: '#64748b', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
