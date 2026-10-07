@@ -8,7 +8,8 @@ import {
   Zap, 
   ArrowRight, 
   Globe2, 
-  Sparkles 
+  Sparkles,
+  Mail 
 } from 'lucide-react';
 
 export default function AboutPage({ onOpenContact }) {
@@ -184,8 +185,8 @@ export default function AboutPage({ onOpenContact }) {
               Serving businesses across Dubai, the UAE, and global markets with tailored AI automation, conversational voice bots, and business growth consultation.
             </p>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: '#94a3b8' }}>
-              <Globe2 size={15} color="#00bba7" />
-              <span>Official Global Website: <strong>maxr.io</strong></span>
+              <Mail size={15} color="#00bba7" />
+              <span>Contact: <strong>contact@maxr.ae</strong></span>
             </div>
           </div>
 

@@ -220,16 +220,22 @@ export default function HomePage({ onNavigate, onOpenContact }) {
               </div>
 
               {/* Social Proof */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex' }}>
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 34, height: 34, borderRadius: '50%', border: '2px solid #ffffff', objectFit: 'cover' }} />
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 34, height: 34, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -8, objectFit: 'cover' }} />
-                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 34, height: 34, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -8, objectFit: 'cover' }} />
-                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 34, height: 34, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -8, objectFit: 'cover' }} />
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #ffffff', objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -10, objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -10, objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
+                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -10, objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
                 </div>
-                <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 500 }}>
-                  Trusted by growing businesses across the UAE and global markets.
-                </span>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '2px' }}>
+                    <span style={{ color: '#f59e0b', fontSize: '0.85rem' }}>★★★★★</span>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#0f172a' }}>4.9/5 Rating</span>
+                  </div>
+                  <div style={{ fontSize: '0.825rem', color: '#475569', fontWeight: 600 }}>
+                    Trusted by 50+ growing businesses across the UAE and global markets.
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -648,62 +654,76 @@ export default function HomePage({ onNavigate, onOpenContact }) {
         </div>
       </section>
 
-      {/* ── ACTION DISCOVERY BANNER (Vibrant Clean Theme) ── */}
-      <section 
-        style={{ 
-          padding: 'clamp(4rem, 6vh, 5.5rem) 0', 
-          background: 'linear-gradient(135deg, #0a1428 0%, #061122 100%)', 
-          color: '#ffffff',
-          textAlign: 'center' 
-        }}
-      >
-        <div className="container" style={{ maxWidth: '740px' }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#2dd4bf', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            START YOUR TRANSFORMATION
-          </span>
-          <h2 style={{ fontSize: 'clamp(2rem, 3.4vw, 2.7rem)', fontWeight: 900, color: '#ffffff', marginTop: '0.5rem', marginBottom: '0.85rem' }}>
-            Ready to Build Your Automation & Software Roadmap?
-          </h2>
-          <p style={{ fontSize: '1.05rem', color: '#cbd5e1', lineHeight: 1.65, marginBottom: '2.25rem' }}>
-            Speak directly with our engineering and consulting team to identify high-ROI automations, custom applications, and growth pipelines.
-          </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <button 
-              onClick={onOpenContact} 
-              className="btn-primary" 
-              style={{ 
-                background: '#00bba7', 
-                color: '#040811', 
-                fontWeight: 800, 
-                padding: '0.95rem 2.25rem', 
-                fontSize: '1rem',
-                borderRadius: '10px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              Book Discovery Session
-              <ArrowRight size={17} />
-            </button>
-            <button 
-              onClick={() => onNavigate('contact')} 
-              style={{ 
-                background: 'transparent',
-                color: '#ffffff',
-                border: '1.5px solid rgba(255,255,255,0.3)',
-                padding: '0.95rem 2.25rem', 
-                fontSize: '1rem',
-                fontWeight: 600,
-                borderRadius: '10px',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.borderColor = '#ffffff'}
-              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'}
-            >
-              Contact Us
-            </button>
+      {/* ── ACTION DISCOVERY BANNER (Matching Clean Light Design) ── */}
+            {/* ── ACTION DISCOVERY BANNER (Matching Clean Light Design) ── */}
+      <section style={{ padding: 'clamp(4rem, 7vh, 5.5rem) 0', background: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
+        <div className="container" style={{ maxWidth: '820px' }}>
+          <div 
+            style={{ 
+              background: '#ffffff', 
+              borderRadius: '24px', 
+              border: '1px solid #e2e8f0', 
+              padding: 'clamp(3rem, 5vw, 4.25rem) clamp(2rem, 4vw, 3.5rem)', 
+              textAlign: 'center', 
+              boxShadow: '0 20px 45px rgba(15, 23, 42, 0.05)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#00bba7', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              START YOUR TRANSFORMATION
+            </span>
+            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)', fontWeight: 900, color: '#0f172a', marginTop: '0.5rem', marginBottom: '1rem', letterSpacing: '-0.025em' }}>
+              Ready to Build Your Automation & Software Roadmap?
+            </h2>
+            <p style={{ fontSize: '1.05rem', color: '#64748b', lineHeight: 1.65, maxWidth: '640px', margin: '0 auto 2.25rem' }}>
+              Speak directly with our engineering and consulting team to identify high-ROI automations, custom applications, and scalable growth pipelines.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+              <button 
+                onClick={onOpenContact} 
+                className="btn-primary" 
+                style={{ 
+                  background: '#00bba7', 
+                  color: '#ffffff', 
+                  fontWeight: 700, 
+                  padding: '0.9rem 2.25rem', 
+                  fontSize: '1rem', 
+                  borderRadius: '10px', 
+                  display: 'inline-flex', 
+                  alignItems: 'center', 
+                  gap: '8px',
+                  boxShadow: '0 8px 24px rgba(0, 187, 167, 0.25)'
+                }}
+              >
+                Book Discovery Session
+                <ArrowRight size={17} />
+              </button>
+              <button 
+                onClick={() => onNavigate('contact')} 
+                style={{ 
+                  background: '#ffffff', 
+                  color: '#0f172a', 
+                  border: '1.5px solid #0f172a', 
+                  padding: '0.9rem 2.25rem', 
+                  fontSize: '1rem', 
+                  fontWeight: 700, 
+                  borderRadius: '10px', 
+                  cursor: 'pointer', 
+                  transition: 'all 0.2s' 
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#00bba7';
+                  e.currentTarget.style.color = '#00bba7';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#0f172a';
+                  e.currentTarget.style.color = '#0f172a';
+                }}
+              >
+                Contact Us
+              </button>
+            </div>
           </div>
         </div>
       </section>

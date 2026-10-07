@@ -40,13 +40,13 @@ export default function ContactPage() {
             Let's Automate Your Growth
           </h1>
           <p style={{ fontSize: '1.1rem', color: '#64748b', lineHeight: 1.6 }}>
-            Ready to deploy AI automation or explore strategic business growth? Reach our team at MaxR Technologies Dubai or connect online at maxr.io.
+            Ready to deploy AI automation or explore strategic business growth? Reach our engineering and consulting team directly.
           </p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'flex-start' }}>
           
-          {/* Left: Dubai Office Information */}
+          {/* Left: Office Information */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             
             <div style={{ background: '#0a1428', color: '#ffffff', borderRadius: '20px', padding: '2.5rem', border: '1px solid rgba(0,187,167,0.3)' }}>
@@ -65,17 +65,13 @@ export default function ContactPage() {
               </div>
 
               <p style={{ color: '#cbd5e1', fontSize: '0.925rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                MaxR Technologies FZ · Supporting real estate, healthcare, and enterprise leaders across Dubai and the UAE with tailored AI automations and consulting.
+                MaxR Technologies FZ · Supporting healthcare, retail, fintech, and enterprise leaders across Dubai, the UAE, and global markets with tailored AI automations and custom software.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.875rem', color: '#e2e8f0' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Globe2 size={16} color="#00bba7" />
-                  <span>Official Website: <strong>maxr.io</strong></span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Mail size={16} color="#00bba7" />
-                  <span>Email: <strong>contact@maxr.io</strong></span>
+                  <span>Email: <strong>contact@maxr.ae</strong></span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Clock size={16} color="#00bba7" />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Linkedin, Twitter, Youtube, Instagram, Check, ArrowRight, Mail, MapPin, Globe2 } from 'lucide-react';
+import { Linkedin, Twitter, Youtube, Instagram, Check, ArrowRight, Mail, MapPin, Globe2, Phone } from 'lucide-react';
 
 export default function Footer({ onNavigate }) {
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -16,23 +16,23 @@ export default function Footer({ onNavigate }) {
   };
 
   return (
-    <footer className="footer" role="contentinfo" style={{ background: '#040811', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+    <footer className="footer" role="contentinfo" style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', color: '#0f172a', padding: '4rem 0 2rem' }}>
       <div className="container">
         
-        {/* Newsletter Bar */}
-        <div style={{ paddingBottom: '2.5rem', marginBottom: '2.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1.5rem' }}>
+        {/* Newsletter Bar (Light Theme) */}
+        <div style={{ paddingBottom: '2.5rem', marginBottom: '3rem', borderBottom: '1px solid #e2e8f0', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1.5rem' }}>
           <div>
-            <h3 style={{ color: '#ffffff', fontSize: '1.25rem', fontWeight: 800 }}>
+            <h3 style={{ color: '#0f172a', fontSize: '1.3rem', fontWeight: 800 }}>
               Subscribe to MaxR Growth Briefing
             </h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.85rem', marginTop: '0.2rem' }}>
-              Practical insights on AI automation, business growth strategy, and operational optimization.
+            <p style={{ color: '#64748b', fontSize: '0.9rem', marginTop: '0.25rem' }}>
+              Practical insights on AI automation, software engineering, and business growth strategy.
             </p>
           </div>
 
-          <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '0.5rem', width: '100%', maxWidth: '420px' }}>
+          <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '0.5rem', width: '100%', maxWidth: '440px' }}>
             {subscribed ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(0, 187, 167, 0.2)', border: '1px solid #00bba7', color: '#2dd4bf', padding: '0.6rem 1rem', borderRadius: '8px', fontSize: '0.85rem', width: '100%' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#ecfdf5', border: '1px solid #10b981', color: '#059669', padding: '0.65rem 1rem', borderRadius: '10px', fontSize: '0.85rem', width: '100%', fontWeight: 600 }}>
                 <Check size={16} /> Subscribed to MaxR Growth Briefing!
               </div>
             ) : (
@@ -44,12 +44,35 @@ export default function Footer({ onNavigate }) {
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
                     placeholder="Enter business email..."
-                    style={{ width: '100%', padding: '0.65rem 1rem', borderRadius: '8px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.85rem' }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '0.7rem 1.1rem', 
+                      borderRadius: '10px', 
+                      background: '#ffffff', 
+                      border: '1.5px solid #cbd5e1', 
+                      color: '#0f172a', 
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
                   />
                 </div>
                 <button
                   type="submit"
-                  style={{ background: '#00bba7', color: '#040811', padding: '0.65rem 1.25rem', borderRadius: '8px', border: 'none', fontWeight: 700, fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer', whiteSpace: 'nowrap' }}
+                  style={{ 
+                    background: '#00bba7', 
+                    color: '#ffffff', 
+                    padding: '0.7rem 1.35rem', 
+                    borderRadius: '10px', 
+                    border: 'none', 
+                    fontWeight: 700, 
+                    fontSize: '0.875rem', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '6px', 
+                    cursor: 'pointer', 
+                    whiteSpace: 'nowrap',
+                    boxShadow: '0 4px 12px rgba(0, 187, 167, 0.2)'
+                  }}
                 >
                   Join Briefing <ArrowRight size={14} />
                 </button>
@@ -58,73 +81,84 @@ export default function Footer({ onNavigate }) {
           </form>
         </div>
 
-        {/* Directory Grid */}
-        <div className="footer-grid">
+        {/* Directory Grid (Light Theme) */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '3rem', marginBottom: '3.5rem' }}>
           
           {/* Brand Column */}
-          <div className="footer-brand">
+          <div style={{ maxWidth: '340px' }}>
             <div 
               style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '1.25rem', cursor: 'pointer' }}
               onClick={() => onNavigate('home')}
             >
-              <img src="/assets/maxr-logo-white.png" alt="MaxR" style={{ height: '44px', width: 'auto' }} />
+              <img src="/assets/maxr-logo-dark.svg" alt="maxr." style={{ height: '36px', width: 'auto' }} />
             </div>
 
-            <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6 }}>
+            <p style={{ color: '#64748b', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
               AI Automation, Web & Mobile Applications, Software Development, and Strategic Business Consulting. Engineering sustainable digital growth for modern enterprises worldwide.
             </p>
 
-            <div style={{ marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.825rem', color: '#cbd5e1' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.85rem', color: '#475569' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <MapPin size={15} color="#00bba7" />
-                <span><strong>Dubai Headquarters:</strong> Dubai, United Arab Emirates</span>
+                <MapPin size={16} color="#00bba7" />
+                <span>Dubai Headquarters: Dubai, United Arab Emirates</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Globe2 size={15} color="#00bba7" />
-                <span><strong>Official Website:</strong> <a href="https://maxr.io" target="_blank" rel="noopener noreferrer" style={{ color: '#00bba7', fontWeight: 600 }}>maxr.io</a></span>
+                <Mail size={16} color="#00bba7" />
+                <span>contact@maxr.ae</span>
               </div>
             </div>
           </div>
 
           {/* Column: Services */}
-          <div className="footer-col">
-            <h4>What We Do</h4>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>AI Automation & Voice Agents</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Web & Mobile Applications</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Custom Software Development</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Workflow & CRM Automation</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Business Consultation</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Digital Marketing & SEO</a>
+          <div>
+            <h4 style={{ fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#0f172a', marginBottom: '1.25rem' }}>
+              What We Do
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
+              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>AI Automation & Voice Agents</a>
+              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Web & Mobile Applications</a>
+              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Custom Software Development</a>
+              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Workflow & CRM Automation</a>
+              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Business Consultation</a>
+              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Digital Marketing & SEO</a>
+            </div>
           </div>
 
           {/* Column: Industries */}
-          <div className="footer-col">
-            <h4>Industries</h4>
-            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Healthcare & Clinics</a>
-            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>E-Commerce & Retail</a>
-            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Legal & Professional Services</a>
-            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Logistics & Supply Chain</a>
-            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>FinTech & Financial Services</a>
+          <div>
+            <h4 style={{ fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#0f172a', marginBottom: '1.25rem' }}>
+              Industries
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
+              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Healthcare & Clinics</a>
+              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>E-Commerce & Retail</a>
+              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Legal & Professional Services</a>
+              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Logistics & Supply Chain</a>
+              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>FinTech & Financial Services</a>
+            </div>
           </div>
 
-          {/* Column: Company & Navigation */}
-          <div className="footer-col">
-            <h4>Company</h4>
-            <a href="#about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }}>Who We Are (Our Mission)</a>
-            <a href="#about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }}>Leadership: Shagul & Gopi</a>
-            <a href="https://maxr.io" target="_blank" rel="noopener noreferrer">Official Site (maxr.io)</a>
-            <a href="#contact" onClick={(e) => { e.preventDefault(); onNavigate('contact'); }}>Contact Dubai Team</a>
+          {/* Column: Company */}
+          <div>
+            <h4 style={{ fontSize: '0.85rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#0f172a', marginBottom: '1.25rem' }}>
+              Company
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
+              <a href="#about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Who We Are (Our Mission)</a>
+              <a href="#about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Leadership: Shagul & Gopi</a>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); onNavigate('contact'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Contact Us</a>
+            </div>
           </div>
 
         </div>
 
         {/* Bottom Legal bar */}
-        <div className="footer-bottom" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1.5rem', marginTop: '3rem' }}>
-          <p>© 2026 MaxR Technologies. All rights reserved. MaxR Technologies Dubai & maxr.io</p>
-          <div className="footer-bottom-links">
-            <a href="#privacy">Privacy Statement</a>
-            <a href="#terms">Terms of Service</a>
-            <a href="#security">Bank-Grade Security</a>
+        <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '1.75rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', fontSize: '0.825rem', color: '#64748b' }}>
+          <p>© 2026 MaxR Technologies. All rights reserved.</p>
+          <div style={{ display: 'flex', gap: '1.5rem' }}>
+            <a href="#privacy" style={{ color: '#64748b', textDecoration: 'none' }}>Privacy Statement</a>
+            <a href="#terms" style={{ color: '#64748b', textDecoration: 'none' }}>Terms of Service</a>
+            <a href="#security" style={{ color: '#64748b', textDecoration: 'none' }}>Bank-Grade Security</a>
           </div>
         </div>
 
