@@ -219,25 +219,6 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 </button>
               </div>
 
-              {/* Social Proof */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex' }}>
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #ffffff', objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -10, objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
-                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -10, objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
-                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop&q=80" alt="Client" style={{ width: 36, height: 36, borderRadius: '50%', border: '2px solid #ffffff', marginLeft: -10, objectFit: 'cover', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }} />
-                </div>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '2px' }}>
-                    <span style={{ color: '#f59e0b', fontSize: '0.85rem' }}>★★★★★</span>
-                    <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#0f172a' }}>4.9/5 Rating</span>
-                  </div>
-                  <div style={{ fontSize: '0.825rem', color: '#475569', fontWeight: 600 }}>
-                    Trusted by 50+ growing businesses across the UAE and global markets.
-                  </div>
-                </div>
-              </div>
-
             </div>
 
             {/* Right Column: Architectural Terrace Skyline & Connected Tech Hub */}
