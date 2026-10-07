@@ -111,17 +111,18 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
         id="site-header" 
         role="banner" 
         style={{ 
-          background: 'rgba(7, 13, 26, 0.96)', 
-          backdropFilter: 'blur(16px)', 
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          background: '#ffffff', 
+          borderBottom: '1px solid #f1f5f9',
+          boxShadow: isScrolled ? '0 4px 20px rgba(0, 0, 0, 0.04)' : 'none',
           position: 'sticky',
           top: 0,
-          zIndex: 1000
+          zIndex: 1000,
+          transition: 'all 0.25s ease'
         }}
       >
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px' }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '78px' }}>
           
-          {/* Official White Logo (Enlarged and prominent) */}
+          {/* Official Dark Logo: maxr. (with Teal Dot) */}
           <div 
             onClick={() => handleNavClick('home')} 
             className="logo-container" 
@@ -129,67 +130,102 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
             title="MaxR Home"
           >
             <img 
-              src="/assets/maxr-logo-white.png" 
-              alt="MaxR" 
-              style={{ height: '46px', width: 'auto', display: 'block', objectFit: 'contain' }} 
+              src="/assets/maxr-logo-dark.svg" 
+              alt="maxr." 
+              style={{ height: '36px', width: 'auto', display: 'block' }} 
             />
           </div>
 
-          {/* Primary Navigation */}
-          <nav className="nav-primary" id="navbar-main" aria-label="Primary navigation" style={{ display: 'flex', alignItems: 'center', gap: '1.75rem' }}>
+          {/* Primary Navigation (Light Mode) */}
+          <nav className="nav-primary" id="navbar-main" aria-label="Primary navigation" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
             
             {/* What We Do Dropdown */}
             <div 
               className="nav-item-dropdown"
               onMouseEnter={() => setActiveMega('services')}
               onMouseLeave={() => setActiveMega(null)}
+              style={{ position: 'relative' }}
             >
               <button 
-                onClick={() => handleNavClick('services')}
-                className="dropdown-toggle" 
+                onClick={() => handleNavClick('services')} 
                 style={{ 
                   display: 'inline-flex', 
                   alignItems: 'center', 
-                  gap: '4px',
+                  gap: '5px',
                   background: 'none', 
                   border: 'none', 
-                  color: currentPage === 'services' ? '#00bba7' : '#ffffff', 
-                  fontWeight: currentPage === 'services' ? 700 : 500,
+                  color: currentPage === 'services' ? '#00bba7' : '#0f172a', 
+                  fontWeight: 600,
                   fontSize: '0.95rem', 
                   cursor: 'pointer',
                   padding: '0.5rem 0.25rem',
                   transition: 'color 0.2s'
                 }}
               >
-                What We Do <ChevronDown size={14} />
+                What We Do <ChevronDown size={14} color="#64748b" />
               </button>
 
               {activeMega === 'services' && (
-                <div className="mega-menu" style={{ opacity: 1, visibility: 'visible', pointerEvents: 'auto', background: '#0a1428', border: '1px solid rgba(0,187,167,0.25)', width: '640px' }}>
-                  <div style={{ marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#00bba7', fontWeight: 700 }}>
+                <div 
+                  className="mega-menu" 
+                  style={{ 
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    opacity: 1, 
+                    visibility: 'visible', 
+                    pointerEvents: 'auto', 
+                    background: '#ffffff', 
+                    border: '1px solid #e2e8f0', 
+                    borderRadius: '16px',
+                    boxShadow: '0 20px 45px rgba(0, 0, 0, 0.08)',
+                    width: '640px',
+                    padding: '1.5rem',
+                    zIndex: 100
+                  }}
+                >
+                  <div style={{ marginBottom: '1rem', borderBottom: '1px solid #f1f5f9', paddingBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700 }}>
                       MaxR Core Capabilities
                     </span>
                     <button 
                       onClick={() => handleNavClick('services')} 
-                      style={{ fontSize: '0.78rem', color: '#2dd4bf', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+                      style={{ fontSize: '0.8rem', color: '#00bba7', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
                     >
                       View All Services <ArrowRight size={13} />
                     </button>
                   </div>
-                  <div className="mega-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
+                  <div className="mega-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
                     {servicesMega.map((item, idx) => (
                       <div 
                         key={idx} 
-                        className="mega-item"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '12px',
+                          padding: '0.85rem',
+                          borderRadius: '12px',
+                          background: '#f8fafc',
+                          border: '1px solid #f1f5f9',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#f1f5f9';
+                          e.currentTarget.style.borderColor = '#00bba7';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#f8fafc';
+                          e.currentTarget.style.borderColor = '#f1f5f9';
+                        }}
                         onClick={() => handleNavClick(item.page)}
                       >
-                        <div className="mega-item-icon" style={{ background: 'rgba(0,187,167,0.15)', color: '#00bba7' }}>
+                        <div style={{ padding: '8px', borderRadius: '10px', background: 'rgba(0,187,167,0.1)', color: '#00bba7', flexShrink: 0 }}>
                           {item.icon}
                         </div>
-                        <div className="mega-item-content">
-                          <h4>{item.title}</h4>
-                          <p>{item.desc}</p>
+                        <div>
+                          <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f172a', margin: '0 0 3px' }}>{item.title}</h4>
+                          <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>{item.desc}</p>
                         </div>
                       </div>
                     ))}
@@ -203,53 +239,88 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               className="nav-item-dropdown"
               onMouseEnter={() => setActiveMega('industries')}
               onMouseLeave={() => setActiveMega(null)}
+              style={{ position: 'relative' }}
             >
               <button 
-                onClick={() => handleNavClick('industries')}
-                className="dropdown-toggle" 
+                onClick={() => handleNavClick('industries')} 
                 style={{ 
                   display: 'inline-flex', 
                   alignItems: 'center', 
-                  gap: '4px',
+                  gap: '5px',
                   background: 'none', 
                   border: 'none', 
-                  color: currentPage === 'industries' ? '#00bba7' : '#ffffff', 
-                  fontWeight: currentPage === 'industries' ? 700 : 500,
+                  color: currentPage === 'industries' ? '#00bba7' : '#0f172a', 
+                  fontWeight: 600,
                   fontSize: '0.95rem', 
                   cursor: 'pointer',
                   padding: '0.5rem 0.25rem',
                   transition: 'color 0.2s'
                 }}
               >
-                Industries <ChevronDown size={14} />
+                Industries <ChevronDown size={14} color="#64748b" />
               </button>
 
               {activeMega === 'industries' && (
-                <div className="mega-menu" style={{ opacity: 1, visibility: 'visible', pointerEvents: 'auto', background: '#0a1428', border: '1px solid rgba(0,187,167,0.25)', width: '560px' }}>
-                  <div style={{ marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#00bba7', fontWeight: 700 }}>
+                <div 
+                  className="mega-menu" 
+                  style={{ 
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    opacity: 1, 
+                    visibility: 'visible', 
+                    pointerEvents: 'auto', 
+                    background: '#ffffff', 
+                    border: '1px solid #e2e8f0', 
+                    borderRadius: '16px',
+                    boxShadow: '0 20px 45px rgba(0, 0, 0, 0.08)',
+                    width: '640px',
+                    padding: '1.5rem',
+                    zIndex: 100
+                  }}
+                >
+                  <div style={{ marginBottom: '1rem', borderBottom: '1px solid #f1f5f9', paddingBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700 }}>
                       Industry Domains
                     </span>
                     <button 
                       onClick={() => handleNavClick('industries')} 
-                      style={{ fontSize: '0.78rem', color: '#2dd4bf', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+                      style={{ fontSize: '0.8rem', color: '#00bba7', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
                     >
                       View All Playbooks <ArrowRight size={13} />
                     </button>
                   </div>
-                  <div className="mega-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
+                  <div className="mega-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
                     {industriesMega.map((item, idx) => (
                       <div 
                         key={idx} 
-                        className="mega-item"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '12px',
+                          padding: '0.85rem',
+                          borderRadius: '12px',
+                          background: '#f8fafc',
+                          border: '1px solid #f1f5f9',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#f1f5f9';
+                          e.currentTarget.style.borderColor = '#00bba7';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#f8fafc';
+                          e.currentTarget.style.borderColor = '#f1f5f9';
+                        }}
                         onClick={() => handleNavClick(item.page)}
                       >
-                        <div className="mega-item-icon" style={{ background: 'rgba(0,187,167,0.15)', color: '#00bba7' }}>
+                        <div style={{ padding: '8px', borderRadius: '10px', background: 'rgba(0,187,167,0.1)', color: '#00bba7', flexShrink: 0 }}>
                           {item.icon}
                         </div>
-                        <div className="mega-item-content">
-                          <h4>{item.title}</h4>
-                          <p>{item.desc}</p>
+                        <div>
+                          <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f172a', margin: '0 0 3px' }}>{item.title}</h4>
+                          <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>{item.desc}</p>
                         </div>
                       </div>
                     ))}
@@ -264,8 +335,8 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               style={{ 
                 background: 'none', 
                 border: 'none', 
-                color: currentPage === 'about' ? '#00bba7' : '#ffffff', 
-                fontWeight: currentPage === 'about' ? 700 : 500, 
+                color: currentPage === 'about' ? '#00bba7' : '#0f172a', 
+                fontWeight: 600, 
                 fontSize: '0.95rem', 
                 cursor: 'pointer',
                 padding: '0.5rem 0.25rem',
@@ -281,8 +352,8 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               style={{ 
                 background: 'none', 
                 border: 'none', 
-                color: currentPage === 'contact' ? '#00bba7' : '#ffffff', 
-                fontWeight: currentPage === 'contact' ? 700 : 500, 
+                color: currentPage === 'contact' ? '#00bba7' : '#0f172a', 
+                fontWeight: 600, 
                 fontSize: '0.95rem', 
                 cursor: 'pointer',
                 padding: '0.5rem 0.25rem',
@@ -293,22 +364,58 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
             </button>
           </nav>
 
-          {/* Action Button */}
-          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          {/* Right Actions: Search + Book Consultation Pill */}
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <button 
+              onClick={onOpenContact}
+              title="Search"
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: '#475569', 
+                cursor: 'pointer', 
+                padding: '8px', 
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'color 0.2s'
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+
             <button 
               onClick={onOpenContact} 
               className="btn-primary"
-              style={{ background: '#00bba7', color: '#040811', fontWeight: 700, padding: '0.6rem 1.35rem', fontSize: '0.9rem' }}
+              style={{ 
+                background: '#00bba7', 
+                color: '#06121e', 
+                fontWeight: 700, 
+                padding: '0.65rem 1.45rem', 
+                fontSize: '0.9rem',
+                borderRadius: '999px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                boxShadow: '0 4px 14px rgba(0, 187, 167, 0.25)',
+                transition: 'all 0.2s'
+              }}
             >
               Book Consultation
+              <ArrowRight size={15} />
             </button>
 
             <button 
               className="mobile-toggle" 
               aria-label="Toggle menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              style={{ color: '#0f172a', display: 'none' }}
             >
-              {mobileMenuOpen ? <X size={24} color="#fff" /> : <Menu size={24} color="#fff" />}
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
