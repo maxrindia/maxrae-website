@@ -5,13 +5,16 @@ import {
   ChevronDown, 
   PhoneCall, 
   Zap, 
-  MessageSquare, 
+  Bot,
+  Smartphone,
+  Code2,
   TrendingUp, 
   Globe2, 
-  Building2, 
   Stethoscope, 
   ShoppingBag, 
   Briefcase, 
+  Truck,
+  CreditCard,
   ArrowRight 
 } from 'lucide-react';
 
@@ -30,20 +33,32 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
 
   const servicesMega = [
     {
-      title: "AI Automation",
-      desc: "Voice agents, chatbots, CRM integrations & automated workflows",
-      icon: <Zap size={18} color="#00bba7" />,
+      title: "AI Automation & Voice Agents",
+      desc: "Inbound voice receptionists, WhatsApp bots, and automated CRM workflows",
+      icon: <Bot size={18} color="#00bba7" />,
+      page: "services"
+    },
+    {
+      title: "Web & Mobile Applications",
+      desc: "Custom iOS/Android apps, high-converting web apps, React & full-stack",
+      icon: <Smartphone size={18} color="#00bba7" />,
+      page: "services"
+    },
+    {
+      title: "Software Development",
+      desc: "Enterprise custom software, SaaS systems, APIs & database architecture",
+      icon: <Code2 size={18} color="#00bba7" />,
       page: "services"
     },
     {
       title: "Business Consultation",
-      desc: "Strategy, growth roadmaps & operational optimization for 5X scale",
+      desc: "Operations audit, bottleneck removal & 2X-5X revenue growth roadmaps",
       icon: <TrendingUp size={18} color="#00bba7" />,
       page: "services"
     },
     {
-      title: "Digital Marketing",
-      desc: "High-converting websites, SEO, performance ads & branding",
+      title: "Digital Marketing & SEO",
+      desc: "Search engine optimization, paid ad campaigns & multi-channel brand growth",
       icon: <Globe2 size={18} color="#00bba7" />,
       page: "services"
     }
@@ -51,27 +66,33 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
 
   const industriesMega = [
     {
-      title: "Real Estate & Property",
-      desc: "Brokers & property agencies: Inbound voice agents & viewing scheduling",
-      icon: <Building2 size={18} color="#00bba7" />,
-      page: "industries"
-    },
-    {
       title: "Healthcare & Clinics",
-      desc: "24/7 patient booking, appointment reminders & FAQ deflection",
+      desc: "24/7 patient booking, appointment reminders & clinical inquiry deflection",
       icon: <Stethoscope size={18} color="#00bba7" />,
       page: "industries"
     },
     {
+      title: "E-Commerce & Retail",
+      desc: "WhatsApp order tracking, customer support automation & cart recovery",
+      icon: <ShoppingBag size={18} color="#00bba7" />,
+      page: "industries"
+    },
+    {
       title: "Legal & Professional Services",
-      desc: "Automated client intake, consultation booking & qualification",
+      desc: "Automated client intake, consultation booking & eligibility screening",
       icon: <Briefcase size={18} color="#00bba7" />,
       page: "industries"
     },
     {
-      title: "E-Commerce & Retail",
-      desc: "WhatsApp order tracking, support automation & cart recovery",
-      icon: <ShoppingBag size={18} color="#00bba7" />,
+      title: "Logistics & Supply Chain",
+      desc: "Automated shipment updates, vendor communication & driver dispatch",
+      icon: <Truck size={18} color="#00bba7" />,
+      page: "industries"
+    },
+    {
+      title: "FinTech & Financial Services",
+      desc: "Secure customer onboarding, transaction notifications & compliance intake",
+      icon: <CreditCard size={18} color="#00bba7" />,
       page: "industries"
     }
   ];
@@ -98,9 +119,9 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
           zIndex: 1000
         }}
       >
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '74px' }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px' }}>
           
-          {/* Official White Logo (Clicks to Home Page) */}
+          {/* Official White Logo (Enlarged and prominent) */}
           <div 
             onClick={() => handleNavClick('home')} 
             className="logo-container" 
@@ -110,7 +131,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
             <img 
               src="/assets/maxr-logo-white.png" 
               alt="MaxR" 
-              style={{ height: '36px', width: 'auto', display: 'block', objectFit: 'contain' }} 
+              style={{ height: '46px', width: 'auto', display: 'block', objectFit: 'contain' }} 
             />
           </div>
 
@@ -144,10 +165,10 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               </button>
 
               {activeMega === 'services' && (
-                <div className="mega-menu" style={{ opacity: 1, visibility: 'visible', pointerEvents: 'auto', background: '#0a1428', border: '1px solid rgba(0,187,167,0.25)', width: '560px' }}>
+                <div className="mega-menu" style={{ opacity: 1, visibility: 'visible', pointerEvents: 'auto', background: '#0a1428', border: '1px solid rgba(0,187,167,0.25)', width: '640px' }}>
                   <div style={{ marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: '#00bba7', fontWeight: 700 }}>
-                      MaxR Core Services
+                      MaxR Core Capabilities
                     </span>
                     <button 
                       onClick={() => handleNavClick('services')} 
@@ -156,7 +177,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                       View All Services <ArrowRight size={13} />
                     </button>
                   </div>
-                  <div className="mega-grid" style={{ gridTemplateColumns: '1fr', gap: '0.75rem' }}>
+                  <div className="mega-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
                     {servicesMega.map((item, idx) => (
                       <div 
                         key={idx} 
@@ -298,7 +319,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
         <div className="mobile-drawer" role="dialog" aria-modal="true" style={{ background: '#070d1a', borderLeft: '1px solid rgba(0,187,167,0.3)' }}>
           <div className="mobile-drawer-header">
             <div style={{ cursor: 'pointer' }} onClick={() => handleNavClick('home')}>
-              <img src="/assets/maxr-logo-white.png" alt="MaxR" style={{ height: '30px', width: 'auto' }} />
+              <img src="/assets/maxr-logo-white.png" alt="MaxR" style={{ height: '38px', width: 'auto' }} />
             </div>
             <button 
               onClick={() => setMobileMenuOpen(false)} 

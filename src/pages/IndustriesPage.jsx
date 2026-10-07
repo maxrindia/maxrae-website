@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { 
-  Building2, 
   Stethoscope, 
   Briefcase, 
   ShoppingBag, 
   Truck, 
+  CreditCard,
   CheckCircle2, 
   ArrowRight, 
   TrendingUp, 
@@ -14,20 +14,6 @@ import {
 
 export default function IndustriesPage({ onOpenContact }) {
   const industries = [
-    {
-      id: "real-estate",
-      title: "Real Estate & Property Agencies",
-      badge: "High Growth Sector",
-      icon: <Building2 size={32} color="#00bba7" />,
-      tagline: "Never lose a high-value property buyer to an unanswered call.",
-      challenge: "Real estate brokers receive inquiries daily from property portals, social ads, and international investors across timezones. When agents are on property viewings, inbound calls go to voicemail and leads quickly go cold.",
-      solution: "MaxR AI Voice Agents answer calls within 1 second, qualify buyer budget, verify timeline and financing, and immediately schedule VIP viewing slots onto the agent's calendar with instant WhatsApp confirmations.",
-      results: [
-        "100% inbound lead capture with 0 missed calls",
-        "+240% increase in qualified buyer viewings scheduled",
-        "Instant WhatsApp pin and brochure delivery to prospects"
-      ]
-    },
     {
       id: "healthcare",
       title: "Healthcare, Dental & Wellness Clinics",
@@ -82,6 +68,20 @@ export default function IndustriesPage({ onOpenContact }) {
         "40% reduction in failed delivery attempts",
         "Automated instant price estimations based on distance & weight",
         "Real-time dispatch synchronization into operations dashboards"
+      ]
+    },
+    {
+      id: "fintech",
+      title: "FinTech & Financial Services",
+      badge: "Compliance & Security",
+      icon: <CreditCard size={32} color="#00bba7" />,
+      tagline: "Secure client onboarding, automated verification, and proactive notifications.",
+      challenge: "Financial service firms struggle with cumbersome client KYC follow-ups, manual document collection, and high call volumes regarding transaction and account statuses.",
+      solution: "MaxR deploys encrypted AI voice and messaging assistants that guide clients through compliant verification steps, answer account inquiries, and deliver critical notifications.",
+      results: [
+        "65% faster client onboarding cycle",
+        "Bank-grade encrypted data handling and audit logging",
+        "24/7 automated support for routine account inquiries"
       ]
     }
   ];

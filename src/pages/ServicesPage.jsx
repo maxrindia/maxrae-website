@@ -1,6 +1,9 @@
 import React from 'react';
 import { 
   Zap, 
+  Bot,
+  Smartphone,
+  Code2,
   TrendingUp, 
   Globe2, 
   PhoneCall, 
@@ -10,50 +13,84 @@ import {
   Clock, 
   Layers, 
   MessageSquare, 
-  Users 
+  Workflow
 } from 'lucide-react';
 
 export default function ServicesPage({ onOpenContact }) {
   const services = [
     {
       id: "ai-automation",
-      title: "AI Automation",
+      title: "AI Automation & Voice Agents",
       subtitle: "Voice agents, chatbots, CRM & workflows",
-      badge: "Core Capability",
-      icon: <Zap size={32} color="#00bba7" />,
-      tagline: "Replace repetitive manual tasks with 24/7 intelligent automated systems.",
-      description: "We design, deploy, and maintain custom conversational AI voice bots and workflow automation pipelines. Never miss an inbound lead call, automate appointment scheduling, and synchronize customer interactions directly with your CRM (HubSpot, Salesforce, Zoho, etc.).",
+      badge: "Core Automation",
+      icon: <Bot size={32} color="#00bba7" />,
+      tagline: "Replace repetitive manual tasks with 24/7 intelligent automated voice & chat systems.",
+      description: "We engineer custom conversational AI voice bots and workflow automation pipelines. Never miss an inbound inquiry, automate appointment scheduling, and synchronize customer interactions directly with your CRM (HubSpot, Salesforce, Zoho).",
       capabilities: [
-        "AI Voice Agents for 24/7 inbound and outbound call handling",
+        "AI Voice Agents for 24/7 inbound and outbound call handling with < 1s latency",
         "Conversational AI Chatbots & Official WhatsApp Business API automations",
         "Two-way CRM integration (HubSpot, Salesforce, Zoho, Pipedrive)",
-        "End-to-end workflow automation (Zapier, Make, custom webhooks & APIs)",
-        "Automated calendar booking and appointment follow-up sequences"
+        "Automated calendar booking and appointment follow-up sequences",
+        "Custom natural language processing tuned for your brand tone"
       ],
       result: "Go live in under 7 days · Zero missed calls & leads"
     },
     {
+      id: "web-mobile-apps",
+      title: "Web & Mobile Applications",
+      subtitle: "iOS, Android, React, Next.js & Full-Stack Apps",
+      badge: "App Development",
+      icon: <Smartphone size={32} color="#00bba7" />,
+      tagline: "Engineered for lightning speed, intuitive UI/UX, and high conversion rates.",
+      description: "We build modern, responsive web applications and cross-platform iOS & Android mobile applications. Built with modern architectures like React, Next.js, Flutter, and Node.js to provide seamless user experiences that retain customers.",
+      capabilities: [
+        "Native and cross-platform mobile apps for iOS and Android",
+        "Custom web applications and responsive customer portals",
+        "Progressive Web Apps (PWAs) with offline capability",
+        "High-converting UX/UI wireframing and design systems",
+        "Secure RESTful API and GraphQL backend integrations"
+      ],
+      result: "High-performance apps · Engaging mobile & web experiences"
+    },
+    {
+      id: "software-development",
+      title: "Custom Software Development",
+      subtitle: "Enterprise systems, SaaS platforms & cloud architectures",
+      badge: "Engineering",
+      icon: <Code2 size={32} color="#00bba7" />,
+      tagline: "Tailor-made software solutions built to solve your unique operational bottlenecks.",
+      description: "From custom internal dashboards and SaaS products to cloud-native database architectures, we build secure, maintainable software engineered to scale with your organization as transaction volumes grow.",
+      capabilities: [
+        "End-to-end bespoke enterprise software development",
+        "Scalable SaaS MVP build & architecture design",
+        "Microservices, database optimization & cloud infrastructure (AWS/GCP)",
+        "Enterprise API development, webhooks & third-party connectors",
+        "Rigorous automated testing, security audits & continuous deployment"
+      ],
+      result: "Enterprise scalability · Zero vendor lock-in"
+    },
+    {
       id: "business-consultation",
-      title: "Business Consultation",
-      subtitle: "Strategy, growth & operational optimization",
+      title: "Business Consultation & Strategy",
+      subtitle: "Operations audit, bottleneck removal & 2X-5X growth roadmaps",
       badge: "Leadership Advisory",
       icon: <TrendingUp size={32} color="#00bba7" />,
       tagline: "Actionable strategic roadmaps that help businesses achieve measurable 5X growth.",
-      description: "Led by Founder & CEO Shagul Hamithu and CTO Gopi Duraisamy. We analyze your company's existing business operations, identify high-impact growth bottlenecks, and implement structured 3- to 6-month growth roadmaps to optimize revenue and scale operational efficiency.",
+      description: "Led by Founder & CEO Shagul Hamithu and CTO Gopi Duraisamy. We analyze your company's existing operations, diagnose revenue-draining friction points, and implement structured 3- to 6-month growth roadmaps to optimize revenue and scale operational efficiency.",
       capabilities: [
-        "In-depth operational audit and software stack rationalization",
+        "In-depth operational audit and technology stack rationalization",
         "Strategic growth roadmap and revenue bottleneck identification",
         "SOP streamlining and automated process mapping",
         "Performance benchmarks and quarterly milestone tracking",
         "Direct executive consulting with MaxR leadership"
       ],
-      result: "Proven 5X business growth within 6 months"
+      result: "Proven 2X–5X business growth within 3–6 months"
     },
     {
       id: "digital-marketing",
-      title: "Digital Marketing & Branding",
-      subtitle: "Websites, SEO, social media & paid ads",
-      badge: "Customer Acquisition",
+      title: "Digital Marketing & SEO",
+      subtitle: "Websites, technical SEO, performance ads & social media",
+      badge: "Growth Engine",
       icon: <Globe2 size={32} color="#00bba7" />,
       tagline: "Modern digital infrastructure designed to build authority and drive revenue.",
       description: "A comprehensive digital growth engine for your brand. We build modern, high-converting websites, execute technical search engine optimization (SEO), and manage targeted social media and paid advertising campaigns that generate qualified business opportunities.",
@@ -61,7 +98,7 @@ export default function ServicesPage({ onOpenContact }) {
         "High-performance website design and conversion rate optimization (CRO)",
         "Comprehensive SEO strategy for organic search visibility",
         "Social media strategy and brand identity design",
-        "Performance advertising and lead generation funnels",
+        "Performance advertising and lead generation funnels (Google & Meta Ads)",
         "Analytics, tracking, and customer journey attribution"
       ],
       result: "Higher search visibility · Predictable inbound lead flow"

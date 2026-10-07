@@ -67,11 +67,11 @@ export default function Footer({ onNavigate }) {
               style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '1.25rem', cursor: 'pointer' }}
               onClick={() => onNavigate('home')}
             >
-              <img src="/assets/maxr-logo-white.png" alt="MaxR" style={{ height: '34px', width: 'auto' }} />
+              <img src="/assets/maxr-logo-white.png" alt="MaxR" style={{ height: '44px', width: 'auto' }} />
             </div>
 
             <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.6 }}>
-              AI Automation That Builds. You Grow. Delivering rapid onboarding, bank-grade infrastructure, and enterprise scalability for businesses in Dubai (UAE) and worldwide.
+              AI Automation, Web & Mobile Applications, Software Development, and Strategic Business Consulting. Engineering sustainable digital growth for modern enterprises worldwide.
             </p>
 
             <div style={{ marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.825rem', color: '#cbd5e1' }}>
@@ -89,22 +89,22 @@ export default function Footer({ onNavigate }) {
           {/* Column: Services */}
           <div className="footer-col">
             <h4>What We Do</h4>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>AI Automation</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Voice Agents & Chatbots</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>CRM & Workflow Integration</a>
+            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>AI Automation & Voice Agents</a>
+            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Web & Mobile Applications</a>
+            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Custom Software Development</a>
+            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Workflow & CRM Automation</a>
             <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Business Consultation</a>
-            <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Growth & Operations Strategy</a>
             <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }}>Digital Marketing & SEO</a>
           </div>
 
           {/* Column: Industries */}
           <div className="footer-col">
             <h4>Industries</h4>
-            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Real Estate & Property</a>
             <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Healthcare & Clinics</a>
-            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Legal & Professional Advisory</a>
             <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>E-Commerce & Retail</a>
-            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Logistics & Operations</a>
+            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Legal & Professional Services</a>
+            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>Logistics & Supply Chain</a>
+            <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }}>FinTech & Financial Services</a>
           </div>
 
           {/* Column: Company & Navigation */}
