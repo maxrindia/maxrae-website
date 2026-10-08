@@ -3,28 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="MaxR Technologies — AI Automation That Builds. You Grow. Leading AI Automation, Business Consultation & Digital Transformation in Dubai (UAE)." />
-  <meta name="keywords" content="MaxR, MaxR Technologies, MaxR Dubai, AI Automation, Business Consultation, Digital Marketing, Shagul Hamithu, Gopi Duraisamy, maxr.io" />
+  
+  <!-- Immediate 301-equivalent client redirect for legacy hash URLs -->
+  <script>
+    (function() {
+      var h = window.location.hash.toLowerCase().replace(/^#\/?/, '').trim();
+      var routeMap = {
+        'services': '/services',
+        'what-we-do': '/services',
+        'about': '/about',
+        'who-we-are': '/about',
+        'contact': '/contact',
+        'blog': '/blog',
+        'insights': '/blog',
+        'industries': '/industries'
+      };
+      if (routeMap[h]) {
+        window.location.replace(routeMap[h]);
+      }
+    })();
+  </script>
+
+  <title>MaxR Technologies — AI Automation That Builds. You Grow. | Dubai</title>
+  <meta name="description" content="MaxR Technologies — Enterprise AI Automation, Web & Mobile Development, and Strategic Digital Growth in Dubai, UAE." />
+  <meta name="keywords" content="MaxR, MaxR Technologies, MaxR Dubai, AI Automation, Voice Agents, Web Applications, Software Development, Dubai Tech" />
+  <link rel="canonical" href="https://maxr.ae/" />
+
+  <!-- Open Graph / Social Sharing -->
   <meta property="og:title" content="MaxR Technologies — AI Automation That Builds. You Grow." />
-  <meta property="og:description" content="AI Automation That Builds. You Grow. AI Automation, Business Consultation & Digital Marketing." />
+  <meta property="og:description" content="AI Automation That Builds. You Grow. Enterprise AI Automation, Software Development & Digital Growth in Dubai, UAE." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://maxr.ae/" />
   <meta property="og:image" content="/assets/maxr-logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="MaxR Technologies — AI Automation That Builds. You Grow." />
-  <meta name="twitter:description" content="AI Automation That Builds. You Grow. AI Automation, Business Consultation & Digital Marketing." />
-  <title>MaxR Technologies — AI Automation That Builds. You Grow. | Dubai</title>
-  
+  <meta name="twitter:description" content="AI Automation That Builds. You Grow. Enterprise AI Automation, Software Development & Digital Growth in Dubai, UAE." />
+  <meta name="twitter:image" content="/assets/maxr-logo.png" />
+
   <!-- Official Favicons -->
   <link rel="icon" type="image/jpeg" href="/assets/maxr-favicon.jpg" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/assets/maxr-favicon.jpg" />
-  
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
+  <script type="module" src="/src/entries/home.jsx"></script>
 </body>
 </html>

@@ -189,8 +189,8 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                   <ArrowRight size={17} />
                 </button>
 
-                <button 
-                  onClick={() => onNavigate('services')} 
+                <a 
+                  href="/services" 
                   style={{ 
                     background: '#ffffff', 
                     color: '#0f172a', 
@@ -203,6 +203,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                     alignItems: 'center',
                     gap: '8px',
                     cursor: 'pointer',
+                    textDecoration: 'none',
                     transition: 'all 0.2s'
                   }}
                   onMouseEnter={(e) => {
@@ -216,7 +217,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 >
                   Explore Our Services
                   <ArrowRight size={17} />
-                </button>
+                </a>
               </div>
 
             </div>
@@ -480,8 +481,8 @@ export default function HomePage({ onNavigate, onOpenContact }) {
               <p style={{ fontSize: '0.95rem', color: '#64748b', lineHeight: 1.6, marginBottom: '0.75rem' }}>
                 We combine AI, automation, digital technology and strategic consulting to help businesses grow, operate efficiently and stay ahead in a fast-changing world.
               </p>
-              <button 
-                onClick={() => onNavigate('services')}
+              <a 
+                href="/services"
                 style={{ 
                   background: 'none', 
                   border: 'none', 
@@ -492,20 +493,21 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                   alignItems: 'center',
                   gap: '6px',
                   cursor: 'pointer',
+                  textDecoration: 'none',
                   padding: 0
                 }}
               >
                 View All Services <ArrowRight size={15} />
-              </button>
+              </a>
             </div>
           </div>
 
           {/* 3 Isometric Feature Cards */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
             {coreCapabilities.map((card, idx) => (
-              <div 
+              <a 
                 key={idx}
-                onClick={() => onNavigate(card.page)}
+                href={'/' + card.page}
                 style={{ 
                   background: '#ffffff', 
                   borderRadius: '22px', 
@@ -514,6 +516,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                   display: 'flex', 
                   flexDirection: 'column', 
                   cursor: 'pointer', 
+                  textDecoration: 'none', 
                   transition: 'all 0.28s ease',
                   boxShadow: '0 8px 30px rgba(0,0,0,0.03)'
                 }}
@@ -570,7 +573,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#00bba7', fontWeight: 700, fontSize: '0.9rem' }}>
                   Learn More <ArrowRight size={15} />
                 </div>
-              </div>
+              </a>
             ))}
           </div>
 
@@ -595,15 +598,16 @@ export default function HomePage({ onNavigate, onOpenContact }) {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
             {industries.map((ind, idx) => (
-              <div 
+              <a 
                 key={idx}
-                onClick={() => onNavigate('industries')}
+                href="/industries"
                 style={{
                   background: '#f8fafc',
                   borderRadius: '18px',
                   padding: '2rem 1.6rem',
                   border: '1px solid #e2e8f0',
                   cursor: 'pointer',
+                  textDecoration: 'none',
                   transition: 'all 0.25s ease'
                 }}
                 onMouseEnter={(e) => {
@@ -628,7 +632,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 <p style={{ fontSize: '0.86rem', color: '#64748b', lineHeight: 1.55, margin: 0 }}>
                   {ind.desc}
                 </p>
-              </div>
+              </a>
             ))}
           </div>
 
@@ -680,8 +684,8 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 Book Discovery Session
                 <ArrowRight size={17} />
               </button>
-              <button 
-                onClick={() => onNavigate('contact')} 
+              <a 
+                href="/contact" 
                 style={{ 
                   background: '#ffffff', 
                   color: '#0f172a', 
@@ -691,6 +695,9 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                   fontWeight: 700, 
                   borderRadius: '10px', 
                   cursor: 'pointer', 
+                  textDecoration: 'none', 
+                  display: 'inline-flex', 
+                  alignItems: 'center', 
                   transition: 'all 0.2s' 
                 }}
                 onMouseEnter={(e) => {
@@ -703,7 +710,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 }}
               >
                 Contact Us
-              </button>
+              </a>
             </div>
           </div>
         </div>

@@ -123,10 +123,10 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '78px' }}>
           
           {/* Official Dark Logo: maxr. (with Teal Dot) */}
-          <div 
-            onClick={() => handleNavClick('home')} 
+          <a 
+            href="/" 
             className="logo-container" 
-            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+            style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
             title="MaxR Home"
           >
             <img 
@@ -134,7 +134,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               alt="maxr." 
               style={{ height: '38px', width: 'auto', display: 'block' }} 
             />
-          </div>
+          </a>
 
           {/* Primary Navigation (Light Mode) */}
           <nav className="nav-primary" id="navbar-main" aria-label="Primary navigation" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
@@ -146,14 +146,15 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               onMouseLeave={() => setActiveMega(null)}
               style={{ position: 'relative' }}
             >
-              <button 
-                onClick={() => handleNavClick('services')} 
+              <a 
+                href="/services" 
                 style={{ 
                   display: 'inline-flex', 
                   alignItems: 'center', 
                   gap: '5px',
                   background: 'none', 
                   border: 'none', 
+                  textDecoration: 'none',
                   color: currentPage === 'services' ? '#00bba7' : '#0f172a', 
                   fontWeight: 600,
                   fontSize: '0.95rem', 
@@ -163,7 +164,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                 }}
               >
                 What We Do <ChevronDown size={14} color="#64748b" />
-              </button>
+              </a>
 
               {activeMega === 'services' && (
                 <div 
@@ -188,17 +189,18 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                     <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700 }}>
                       MaxR Core Capabilities
                     </span>
-                    <button 
-                      onClick={() => handleNavClick('services')} 
-                      style={{ fontSize: '0.8rem', color: '#00bba7', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+                    <a 
+                      href="/services" 
+                      style={{ fontSize: '0.8rem', color: '#00bba7', textDecoration: 'none', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
                     >
                       View All Services <ArrowRight size={13} />
-                    </button>
+                    </a>
                   </div>
                   <div className="mega-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
                     {servicesMega.map((item, idx) => (
-                      <div 
+                      <a 
                         key={idx} 
+                        href="/services"
                         style={{
                           display: 'flex',
                           alignItems: 'flex-start',
@@ -208,6 +210,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                           background: '#f8fafc',
                           border: '1px solid #f1f5f9',
                           cursor: 'pointer',
+                          textDecoration: 'none',
                           transition: 'all 0.2s'
                         }}
                         onMouseEnter={(e) => {
@@ -218,7 +221,6 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                           e.currentTarget.style.background = '#f8fafc';
                           e.currentTarget.style.borderColor = '#f1f5f9';
                         }}
-                        onClick={() => handleNavClick(item.page)}
                       >
                         <div style={{ padding: '8px', borderRadius: '10px', background: 'rgba(0,187,167,0.1)', color: '#00bba7', flexShrink: 0 }}>
                           {item.icon}
@@ -227,7 +229,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                           <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f172a', margin: '0 0 3px' }}>{item.title}</h4>
                           <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>{item.desc}</p>
                         </div>
-                      </div>
+                      </a>
                     ))}
                   </div>
                 </div>
@@ -241,14 +243,15 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               onMouseLeave={() => setActiveMega(null)}
               style={{ position: 'relative' }}
             >
-              <button 
-                onClick={() => handleNavClick('industries')} 
+              <a 
+                href="/industries" 
                 style={{ 
                   display: 'inline-flex', 
                   alignItems: 'center', 
                   gap: '5px',
                   background: 'none', 
                   border: 'none', 
+                  textDecoration: 'none',
                   color: currentPage === 'industries' ? '#00bba7' : '#0f172a', 
                   fontWeight: 600,
                   fontSize: '0.95rem', 
@@ -258,7 +261,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                 }}
               >
                 Industries <ChevronDown size={14} color="#64748b" />
-              </button>
+              </a>
 
               {activeMega === 'industries' && (
                 <div 
@@ -283,17 +286,18 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                     <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700 }}>
                       Industry Domains
                     </span>
-                    <button 
-                      onClick={() => handleNavClick('industries')} 
-                      style={{ fontSize: '0.8rem', color: '#00bba7', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+                    <a 
+                      href="/industries" 
+                      style={{ fontSize: '0.8rem', color: '#00bba7', textDecoration: 'none', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
                     >
                       View All Playbooks <ArrowRight size={13} />
-                    </button>
+                    </a>
                   </div>
                   <div className="mega-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
                     {industriesMega.map((item, idx) => (
-                      <div 
+                      <a 
                         key={idx} 
+                        href="/industries"
                         style={{
                           display: 'flex',
                           alignItems: 'flex-start',
@@ -303,6 +307,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                           background: '#f8fafc',
                           border: '1px solid #f1f5f9',
                           cursor: 'pointer',
+                          textDecoration: 'none',
                           transition: 'all 0.2s'
                         }}
                         onMouseEnter={(e) => {
@@ -313,7 +318,6 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                           e.currentTarget.style.background = '#f8fafc';
                           e.currentTarget.style.borderColor = '#f1f5f9';
                         }}
-                        onClick={() => handleNavClick(item.page)}
                       >
                         <div style={{ padding: '8px', borderRadius: '10px', background: 'rgba(0,187,167,0.1)', color: '#00bba7', flexShrink: 0 }}>
                           {item.icon}
@@ -322,7 +326,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                           <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f172a', margin: '0 0 3px' }}>{item.title}</h4>
                           <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>{item.desc}</p>
                         </div>
-                      </div>
+                      </a>
                     ))}
                   </div>
                 </div>
@@ -330,11 +334,12 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
             </div>
 
             {/* Who We Are */}
-            <button 
-              onClick={() => handleNavClick('about')} 
+            <a 
+              href="/about" 
               style={{ 
                 background: 'none', 
                 border: 'none', 
+                textDecoration: 'none',
                 color: currentPage === 'about' ? '#00bba7' : '#0f172a', 
                 fontWeight: 600, 
                 fontSize: '0.95rem', 
@@ -344,14 +349,33 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               }}
             >
               Who We Are
-            </button>
+            </a>
 
-            {/* Contact */}
-            <button 
-              onClick={() => handleNavClick('contact')} 
+            {/* Blog */}
+            <a 
+              href="/blog" 
               style={{ 
                 background: 'none', 
                 border: 'none', 
+                textDecoration: 'none',
+                color: currentPage === 'blog' ? '#00bba7' : '#0f172a', 
+                fontWeight: 600, 
+                fontSize: '0.95rem', 
+                cursor: 'pointer',
+                padding: '0.5rem 0.25rem',
+                transition: 'color 0.2s'
+              }}
+            >
+              Blog
+            </a>
+
+            {/* Contact */}
+            <a 
+              href="/contact" 
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                textDecoration: 'none',
                 color: currentPage === 'contact' ? '#00bba7' : '#0f172a', 
                 fontWeight: 600, 
                 fontSize: '0.95rem', 
@@ -361,7 +385,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               }}
             >
               Contact
-            </button>
+            </a>
           </nav>
 
           {/* Right Actions: Search + Book Consultation Pill */}
@@ -425,9 +449,9 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
       {mobileMenuOpen && (
         <div className="mobile-drawer" role="dialog" aria-modal="true" style={{ background: '#070d1a', borderLeft: '1px solid rgba(0,187,167,0.3)' }}>
           <div className="mobile-drawer-header">
-            <div style={{ cursor: 'pointer' }} onClick={() => handleNavClick('home')}>
+            <a href="/" style={{ textDecoration: 'none' }}>
               <img src="/assets/maxr-logo-white.png" alt="MaxR" style={{ height: '38px', width: 'auto' }} />
-            </div>
+            </a>
             <button 
               onClick={() => setMobileMenuOpen(false)} 
               style={{ color: '#fff', padding: '4px', background: 'none', border: 'none' }}
@@ -437,34 +461,48 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1, overflowY: 'auto' }}>
-            <button 
+            <a 
               className="mobile-nav-link" 
-              onClick={() => handleNavClick('services')}
-              style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', color: currentPage === 'services' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600 }}
+              href="/"
+              style={{ textDecoration: 'none', color: currentPage === 'home' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+            >
+              Home
+            </a>
+            <a 
+              className="mobile-nav-link" 
+              href="/services"
+              style={{ textDecoration: 'none', color: currentPage === 'services' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               What We Do
-            </button>
-            <button 
+            </a>
+            <a 
               className="mobile-nav-link" 
-              onClick={() => handleNavClick('industries')}
-              style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', color: currentPage === 'industries' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600 }}
+              href="/industries"
+              style={{ textDecoration: 'none', color: currentPage === 'industries' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               Industries
-            </button>
-            <button 
+            </a>
+            <a 
               className="mobile-nav-link" 
-              onClick={() => handleNavClick('about')}
-              style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', color: currentPage === 'about' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600 }}
+              href="/about"
+              style={{ textDecoration: 'none', color: currentPage === 'about' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               Who We Are
-            </button>
-            <button 
+            </a>
+            <a 
               className="mobile-nav-link" 
-              onClick={() => handleNavClick('contact')}
-              style={{ background: 'none', border: 'none', textAlign: 'left', cursor: 'pointer', color: currentPage === 'contact' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600 }}
+              href="/blog"
+              style={{ textDecoration: 'none', color: currentPage === 'blog' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+            >
+              Tech Insights & Blog
+            </a>
+            <a 
+              className="mobile-nav-link" 
+              href="/contact"
+              style={{ textDecoration: 'none', color: currentPage === 'contact' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               Contact
-            </button>
+            </a>
           </div>
 
           <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>

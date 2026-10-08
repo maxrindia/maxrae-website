@@ -86,12 +86,12 @@ export default function Footer({ onNavigate }) {
           
           {/* Brand Column */}
           <div style={{ maxWidth: '340px' }}>
-            <div 
-              style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '1.25rem', cursor: 'pointer' }}
-              onClick={() => onNavigate('home')}
+            <a 
+              href="/"
+              style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '1.25rem', textDecoration: 'none' }}
             >
               <img src="/assets/maxr-logo.png" alt="maxr." style={{ height: '38px', width: 'auto' }} />
-            </div>
+            </a>
 
             <p style={{ color: '#64748b', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
               AI Automation, Web & Mobile Applications, Software Development, and Strategic Business Consulting. Engineering sustainable digital growth for modern enterprises worldwide.
@@ -115,12 +115,12 @@ export default function Footer({ onNavigate }) {
               What We Do
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
-              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>AI Automation & Voice Agents</a>
-              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Web & Mobile Applications</a>
-              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Custom Software Development</a>
-              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Workflow & CRM Automation</a>
-              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Business Consultation</a>
-              <a href="#services" onClick={(e) => { e.preventDefault(); onNavigate('services'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Digital Marketing & SEO</a>
+              <a href="/services" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>AI Automation & Voice Agents</a>
+              <a href="/services" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Web & Mobile Applications</a>
+              <a href="/services" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Custom Software Development</a>
+              <a href="/services" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Workflow & CRM Automation</a>
+              <a href="/services" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Business Consultation</a>
+              <a href="/services" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Digital Marketing & SEO</a>
             </div>
           </div>
 
@@ -130,11 +130,11 @@ export default function Footer({ onNavigate }) {
               Industries
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
-              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Healthcare & Clinics</a>
-              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>E-Commerce & Retail</a>
-              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Legal & Professional Services</a>
-              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Logistics & Supply Chain</a>
-              <a href="#industries" onClick={(e) => { e.preventDefault(); onNavigate('industries'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>FinTech & Financial Services</a>
+              <a href="/industries" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Healthcare & Clinics</a>
+              <a href="/industries" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>E-Commerce & Retail</a>
+              <a href="/industries" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Legal & Professional Services</a>
+              <a href="/industries" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Logistics & Supply Chain</a>
+              <a href="/industries" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>FinTech & Financial Services</a>
             </div>
           </div>
 
@@ -144,9 +144,10 @@ export default function Footer({ onNavigate }) {
               Company
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
-              <a href="#about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Who We Are (Our Mission)</a>
-              <a href="#about" onClick={(e) => { e.preventDefault(); onNavigate('about'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Leadership: Shagul & Gopi</a>
-              <a href="#contact" onClick={(e) => { e.preventDefault(); onNavigate('contact'); }} style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Contact Us</a>
+              <a href="/about" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Who We Are (Our Mission)</a>
+              <a href="/about" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Leadership: Shagul & Gopi</a>
+              <a href="/blog" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Tech Insights & Blog</a>
+              <a href="/contact" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Contact Us</a>
             </div>
           </div>
 
