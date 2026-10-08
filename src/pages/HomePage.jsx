@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { 
   ArrowRight, 
   ArrowLeft,
+  Play,
   Heart,
   GraduationCap,
   Building2,
@@ -12,19 +13,25 @@ import {
   Users,
   TrendingUp,
   Rocket,
-  Clock
+  CheckCircle2
 } from 'lucide-react';
 
 export default function HomePage() {
   const heroRef = useRef(null);
+
+  // ── Services Carousel State (Infinite Looping / Circular Continuation) ──
   const [currentService, setCurrentService] = useState(0);
-  const [activeIndustry, setActiveIndustry] = useState(0);
-  const [currentStory, setCurrentStory] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
 
-  // ── 1. EXACT 10 SERVICES (Full-Bleed Photographic Cards with Dark Overlays) ──
+  // ── Industries Interactive Selection State ──
+  const [activeIndustry, setActiveIndustry] = useState(0);
+
+  // ── Client Stories Video Playback State ──
+  const [playingVideo, setPlayingVideo] = useState(null); // null | 'ardhra' | 'parvathi'
+
+  // ── 1. EXACT 10 SERVICES (Circular Array: 0 = Web Dev, 9 = Data & Business) ──
   const services = [
     {
       title: "Web Development",
@@ -98,7 +105,55 @@ export default function HomePage() {
     }
   ];
 
-  // ── 2. EXACT 8 INDUSTRIES (Pills Left + Integrated Preview Panel Right) ──
+  // Circular offset calculation: when currentService=0 (Web Dev), slide 9 (Data & BI) has offset = -1 (left side)
+  const getCardOffset = (idx) => {
+    let diff = (idx - currentService) % services.length;
+    if (diff > services.length / 2) diff -= services.length;
+    if (diff < -services.length / 2) diff += services.length;
+    return diff;
+  };
+
+  const nextService = useCallback(() => {
+    setCurrentService((prev) => (prev + 1) % services.length);
+  }, [services.length]);
+
+  const prevService = useCallback(() => {
+    setCurrentService((prev) => (prev - 1 + services.length) % services.length);
+  }, [services.length]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') nextService();
+      if (e.key === 'ArrowLeft') prevService();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [nextService, prevService]);
+
+  // Touch and drag handlers
+  const handlePointerDown = (e) => {
+    setIsDragging(true);
+    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX) ?? 0;
+    setDragStartX(clientX);
+    setDragOffset(0);
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging) return;
+    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX) ?? 0;
+    setDragOffset(clientX - dragStartX);
+  };
+
+  const handlePointerUp = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    if (dragOffset < -50) nextService();
+    else if (dragOffset > 50) prevService();
+    setDragOffset(0);
+  };
+
+  // ── 2. EXACT 8 INDUSTRIES ──
   const industries = [
     {
       name: "Healthcare",
@@ -166,42 +221,52 @@ export default function HomePage() {
     }
   ];
 
-  // ── 3. TRUSTED BY BUSINESSES (Exact Logos from Mockup) ──
-  const trustedLogos = [
-    { name: "EMAAR", style: { fontWeight: 900, letterSpacing: '0.18em', fontSize: '1.25rem' } },
-    { name: "TOYOTA", sub: "TOYOTA", isIconic: true },
-    { name: "Emirates", isSerif: true, style: { fontFamily: 'Georgia, serif', fontSize: '1.35rem', fontWeight: 700 } },
-    { name: "Jumeirah", isSerif: true, style: { fontFamily: 'Georgia, serif', fontSize: '1.4rem', fontWeight: 600 } },
-    { name: "etisalat", style: { fontWeight: 800, fontSize: '1.35rem', letterSpacing: '-0.02em', color: '#080607' } },
-    { name: "DHL", isBoldItalic: true, style: { fontWeight: 900, fontStyle: 'italic', fontSize: '1.5rem', letterSpacing: '0.05em' } },
-    { name: "LEXUS", isPill: true },
-    { name: "Emirates NBD", isCombined: true },
-    { name: "NISSAN", isCircle: true }
+  // ── 3. REAL CLIENT LOGOS FROM public/assets/clients ──
+  const clientLogos = [
+    { name: "ARDHRA", src: "/assets/clients/ardhra.png" },
+    { name: "Corrumatik", src: "/assets/clients/corrumatik.png" },
+    { name: "Glomi", src: "/assets/clients/glomi.png" },
+    { name: "Deeplance", src: "/assets/clients/deeplance.png" },
+    { name: "Le Spa", src: "/assets/clients/lespa.png" },
+    { name: "Parvathi Computers", src: "/assets/clients/parvathi.png" },
+    { name: "SCOINS", src: "/assets/clients/scoins.png" }
   ];
 
-  // ── 4. CLIENT STORIES (Matching Mockup Reference) ──
-  const clientStories = [
+  // ── 4. ONLY THE TWO CLIENT STORIES WITH REAL VIDEOS & DELIVERED SERVICES ──
+  const clientVideoStories = [
     {
-      quote: "MaxR helped us build a scalable digital platform that improved our customer experience and operational efficiency. Their team understood our requirements and delivered a solution that created real business value.",
-      client: "Real Estate Client",
-      industry: "Real Estate Industry",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80"
-    },
-    {
-      quote: "MAXR analyzed our business, identified growth opportunities, and created a strategic roadmap that helped us achieve 5X business growth within 6 months.",
-      client: "Parvathi Computers",
-      industry: "IT & Computer Services",
-      image: "/assets/clients/parvathi_thumb.jpg"
-    },
-    {
-      quote: "MAXR helped us strengthen our digital presence, streamline customer engagement, and automate inbound inquiries seamlessly.",
-      client: "ARDHRA",
+      id: "ardhra",
+      company: "ARDHRA",
       industry: "Natural Skincare & Wellness",
-      image: "/assets/clients/ardhra_thumb.jpg"
+      logo: "/assets/clients/ardhra.png",
+      videoSrc: "/assets/Client Video/ARDHRA-C-tNFB5X.mp4",
+      thumbnail: "/assets/clients/ardhra_thumb.jpg",
+      quote: "MAXR helped us strengthen our digital presence and streamline customer engagement.",
+      tags: ["AI Automation", "Lead Capture", "Customer Engagement"],
+      servicesRendered: [
+        "AI Automation & WhatsApp Lead Engine",
+        "24/7 Customer Support AI Bots",
+        "Digital Presence & Web Architecture"
+      ]
+    },
+    {
+      id: "parvathi",
+      company: "Parvathi Computers",
+      industry: "IT & Computer Services",
+      logo: "/assets/clients/parvathi.png",
+      videoSrc: "/assets/Client Video/parvathi-J3kE264L.mp4",
+      thumbnail: "/assets/clients/parvathi_thumb.jpg",
+      quote: "MAXR analyzed our business, identified growth opportunities, and created a strategic roadmap that helped us achieve 5X business growth within 6 months.",
+      tags: ["Business Strategy", "Growth Roadmap", "Market Expansion"],
+      servicesRendered: [
+        "Strategic Business Consulting",
+        "Commercial 5X Growth Roadmap Architecture",
+        "B2B Sales Pipeline & CRM Automation"
+      ]
     }
   ];
 
-  // ── 5. INSIGHTS (Exact 3 Cards from Mockup) ──
+  // ── 5. INSIGHTS (Exact 3 Cards) ──
   const insights = [
     {
       title: "How Automation Improves Business Efficiency",
@@ -223,133 +288,91 @@ export default function HomePage() {
     }
   ];
 
-  // Carousel Controls
-  const nextService = useCallback(() => {
-    setCurrentService((prev) => (prev + 1 < services.length ? prev + 1 : 0));
-  }, [services.length]);
-
-  const prevService = useCallback(() => {
-    setCurrentService((prev) => (prev - 1 >= 0 ? prev - 1 : services.length - 1));
-  }, [services.length]);
-
-  // Drag / Swipe Handlers
-  const handlePointerDown = (e) => {
-    setIsDragging(true);
-    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX) ?? 0;
-    setDragStartX(clientX);
-    setDragOffset(0);
-  };
-
-  const handlePointerMove = (e) => {
-    if (!isDragging) return;
-    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX) ?? 0;
-    setDragOffset(clientX - dragStartX);
-  };
-
-  const handlePointerUp = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    if (dragOffset < -50) nextService();
-    else if (dragOffset > 50) prevService();
-    setDragOffset(0);
-  };
-
-  // Keyboard Navigation
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight') nextService();
-      if (e.key === 'ArrowLeft') prevService();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextService, prevService]);
-
   return (
     <div style={{ background: '#FFFFFF', color: '#080607', overflowX: 'hidden' }}>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          HERO SECTION (Preserved White-First Enterprise Hero)
+          1. HERO SECTION (Mobile-to-Desktop Friendly Horizontal Skyline Visual)
           ═════════════════════════════════════════════════════════════════════ */}
       <section 
         ref={heroRef}
         style={{ 
           background: '#FFFFFF', 
           borderBottom: '1px solid #E1E8E5',
-          padding: 'clamp(3.5rem, 6vw, 5.5rem) 0 clamp(3rem, 5vw, 4.5rem)',
-          minHeight: 'clamp(620px, 72vh, 750px)',
-          display: 'flex',
-          alignItems: 'center'
+          padding: 'clamp(2rem, 4vw, 3.5rem) 0'
         }}
       >
-        <div className="container" style={{ width: '100%' }}>
+        <div className="container">
+          {/* Panoramic Responsive Banner Frame */}
           <div 
             style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-              gap: 'clamp(2.5rem, 5vw, 4.5rem)',
-              alignItems: 'center' 
+              position: 'relative', 
+              borderRadius: '16px', 
+              overflow: 'hidden', 
+              boxShadow: '0 16px 45px rgba(8, 6, 7, 0.08)',
+              border: '1px solid #E1E8E5',
+              background: '#080607'
             }}
           >
-            {/* Left Column: Typography */}
-            <div style={{ maxWidth: '580px' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
-                <span style={{ width: '14px', height: '2px', background: '#54CFB0' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#080607' }}>
-                  MAXR TECHNOLOGIES
-                </span>
-              </div>
+            {/* High-Resolution Panoramic Skyline Banner (Mobile to Desktop Fluid Scaling) */}
+            <img 
+              src="/assets/images/hero-banner.png" 
+              alt="MaxR Technologies — Intelligent Technology. Real Business Impact." 
+              style={{ 
+                width: '100%', 
+                height: 'auto', 
+                minHeight: '260px',
+                maxHeight: '620px',
+                objectFit: 'cover', 
+                display: 'block' 
+              }} 
+            />
 
-              <h1 
+            {/* Clickable Overlay Hotspots (Ensuring Both CTA Buttons Work Seamlessly) */}
+            <div 
+              style={{ 
+                position: 'absolute', 
+                inset: 0, 
+                display: 'flex', 
+                flexDirection: 'column', 
+                justifyContent: 'flex-end', 
+                padding: 'clamp(1rem, 3vw, 2.5rem)',
+                pointerEvents: 'none'
+              }}
+            >
+              <div 
                 style={{ 
-                  fontSize: 'clamp(2.5rem, 4.6vw, 3.85rem)', 
-                  fontWeight: 800, 
-                  lineHeight: 1.1, 
-                  letterSpacing: '-0.035em', 
-                  color: '#080607', 
-                  margin: '0 0 1.5rem 0' 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '12px', 
+                  flexWrap: 'wrap',
+                  pointerEvents: 'auto',
+                  marginBottom: 'clamp(0.5rem, 1.5vw, 1.25rem)'
                 }}
               >
-                Technology That Moves<br />
-                Businesses <span style={{ color: '#54CFB0' }}>Forward.</span>
-              </h1>
-
-              <p 
-                style={{ 
-                  fontSize: 'clamp(1.05rem, 1.35vw, 1.2rem)', 
-                  lineHeight: 1.6, 
-                  color: '#3F5565', 
-                  fontWeight: 400, 
-                  margin: '0 0 2.25rem 0',
-                  maxWidth: '520px'
-                }}
-              >
-                We help businesses grow, operate smarter and create better customer experiences through technology, digital solutions and automation.
-              </p>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                 <Link
                   to="/contact"
                   style={{
-                    background: '#54CFB0',
+                    background: '#00bba7',
                     color: '#080607',
-                    padding: '0.9rem 1.85rem',
-                    borderRadius: '6px',
+                    padding: 'clamp(0.65rem, 1.2vw, 0.95rem) clamp(1.2rem, 2vw, 1.85rem)',
+                    borderRadius: '8px',
                     fontWeight: 700,
-                    fontSize: '0.95rem',
+                    fontSize: 'clamp(0.825rem, 1.1vw, 0.95rem)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
                     textDecoration: 'none',
-                    transition: 'all 0.2s ease',
-                    boxShadow: '0 4px 14px rgba(84, 207, 176, 0.25)'
+                    boxShadow: '0 4px 14px rgba(0, 187, 167, 0.35)',
+                    transition: 'all 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = '0.9';
                     e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.opacity = '0.92';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = '1';
                     e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.opacity = '1';
                   }}
                 >
                   <span>Book a Consultation</span>
@@ -361,11 +384,11 @@ export default function HomePage() {
                   style={{
                     background: '#FFFFFF',
                     color: '#080607',
-                    border: '1px solid #E1E8E5',
-                    padding: '0.9rem 1.85rem',
-                    borderRadius: '6px',
-                    fontWeight: 600,
-                    fontSize: '0.95rem',
+                    border: '1.5px solid #080607',
+                    padding: 'clamp(0.65rem, 1.2vw, 0.95rem) clamp(1.2rem, 2vw, 1.85rem)',
+                    borderRadius: '8px',
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.825rem, 1.1vw, 0.95rem)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
@@ -373,11 +396,9 @@ export default function HomePage() {
                     transition: 'all 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#080607';
                     e.currentTarget.style.background = '#F5F8F7';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#E1E8E5';
                     e.currentTarget.style.background = '#FFFFFF';
                   }}
                 >
@@ -386,33 +407,12 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-
-            {/* Right Column: Architectural Photography */}
-            <div style={{ position: 'relative' }}>
-              <div 
-                style={{ 
-                  borderRadius: '10px', 
-                  overflow: 'hidden', 
-                  border: '1px solid #E1E8E5',
-                  boxShadow: '0 16px 40px rgba(8, 6, 7, 0.07)',
-                  background: '#F5F8F7',
-                  position: 'relative',
-                  maxHeight: '520px'
-                }}
-              >
-                <img 
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80" 
-                  alt="Modern enterprise architecture and corporate business headquarters" 
-                  style={{ width: '100%', height: 'clamp(360px, 45vw, 500px)', objectFit: 'cover', display: 'block' }} 
-                />
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          1. OUR SERVICES (Exact Layout Matching Mockup: Centered Full-Image Carousel)
+          2. OUR SERVICES (Infinite Loop: Data & BI joined to left of Web Dev, Centered Arrows Below)
           ═════════════════════════════════════════════ */}
       <section 
         id="services-carousel-section"
@@ -424,9 +424,9 @@ export default function HomePage() {
         }}
       >
         <div className="container">
-          {/* Header Strip with Eyebrow, Title, Subtitle, and Far Right Arrows */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '2.75rem' }}>
-            <div style={{ maxWidth: '620px' }}>
+          {/* Header Strip with Eyebrow, Title and Subtitle */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '3rem' }}>
+            <div style={{ maxWidth: '640px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
                 <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
                 <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
@@ -448,82 +448,21 @@ export default function HomePage() {
               </h2>
             </div>
 
-            {/* Subtitle & Circular Arrow Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexShrink: 0 }}>
-              <p style={{ fontSize: '0.95rem', color: '#3F5565', lineHeight: 1.5, margin: 0, maxWidth: '340px' }}>
-                From strategy and consulting to digital solutions and automation, we help businesses grow, operate efficiently and stay ahead.
-              </p>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <button
-                  onClick={prevService}
-                  aria-label="Previous Service"
-                  style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '50%',
-                    background: '#FFFFFF',
-                    border: '1.5px solid #080607',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    color: '#080607',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#54CFB0';
-                    e.currentTarget.style.color = '#54CFB0';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#080607';
-                    e.currentTarget.style.color = '#080607';
-                  }}
-                >
-                  <ArrowLeft size={16} />
-                </button>
-
-                <button
-                  onClick={nextService}
-                  aria-label="Next Service"
-                  style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '50%',
-                    background: '#080607',
-                    border: '1.5px solid #080607',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    color: '#FFFFFF',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#54CFB0';
-                    e.currentTarget.style.borderColor = '#54CFB0';
-                    e.currentTarget.style.color = '#080607';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#080607';
-                    e.currentTarget.style.borderColor = '#080607';
-                    e.currentTarget.style.color = '#FFFFFF';
-                  }}
-                >
-                  <ArrowRight size={16} />
-                </button>
-              </div>
-            </div>
+            <p style={{ fontSize: '0.95rem', color: '#3F5565', lineHeight: 1.5, margin: 0, maxWidth: '380px' }}>
+              From strategy and consulting to digital solutions and automation, we help businesses grow, operate efficiently and stay ahead.
+            </p>
           </div>
         </div>
 
-        {/* ── Centered Full-Image Carousel Track Matching Mockup ── */}
+        {/* ── Circular Continuous Looping Track (Left neighbor of Web Dev = Data & Business Intelligence) ── */}
         <div 
           style={{ 
             width: '100%', 
             overflow: 'hidden',
-            padding: '1rem 0 2rem',
-            cursor: isDragging ? 'grabbing' : 'grab'
+            padding: '1rem 0 1.5rem',
+            cursor: isDragging ? 'grabbing' : 'grab',
+            position: 'relative',
+            minHeight: 'clamp(420px, 48vh, 500px)'
           }}
           onMouseDown={handlePointerDown}
           onMouseMove={handlePointerMove}
@@ -534,16 +473,19 @@ export default function HomePage() {
         >
           <div 
             style={{ 
-              display: 'flex', 
+              position: 'relative', 
+              width: '100%', 
+              height: 'clamp(400px, 46vh, 480px)',
+              display: 'flex',
               alignItems: 'center',
-              gap: 'clamp(16px, 2.5vw, 30px)', 
-              transition: isDragging ? 'none' : 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)',
-              transform: `translateX(calc(50vw - (clamp(320px, 48vw, 680px) / 2) - (${currentService} * (clamp(320px, 48vw, 680px) + clamp(16px, 2.5vw, 30px))) + ${dragOffset}px))`,
-              userSelect: 'none'
+              justifyContent: 'center'
             }}
           >
             {services.map((item, idx) => {
-              const isActive = idx === currentService;
+              const offset = getCardOffset(idx);
+              const isActive = offset === 0;
+              const isVisible = Math.abs(offset) <= 1;
+
               return (
                 <div
                   key={item.title}
@@ -551,16 +493,18 @@ export default function HomePage() {
                     if (!isActive) setCurrentService(idx);
                   }}
                   style={{
-                    flex: '0 0 clamp(320px, 48vw, 680px)',
+                    position: 'absolute',
+                    width: 'clamp(320px, 48vw, 680px)',
                     height: 'clamp(380px, 44vh, 460px)',
                     borderRadius: '16px',
                     overflow: 'hidden',
-                    position: 'relative',
                     cursor: isActive ? 'default' : 'pointer',
-                    transform: isActive ? 'scale(1)' : 'scale(0.88)',
-                    opacity: isActive ? 1 : 0.65,
+                    transform: `translateX(calc(${offset} * (clamp(320px, 48vw, 680px) + clamp(16px, 2.5vw, 30px)) + ${dragOffset}px)) scale(${isActive ? 1 : 0.88})`,
+                    opacity: isActive ? 1 : (isVisible ? 0.65 : 0),
+                    zIndex: isActive ? 10 : (isVisible ? 5 : 0),
+                    pointerEvents: isVisible ? 'auto' : 'none',
                     boxShadow: isActive ? '0 20px 45px rgba(8, 6, 7, 0.18)' : '0 6px 18px rgba(8, 6, 7, 0.04)',
-                    transition: 'transform 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease'
+                    transition: isDragging ? 'none' : 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease, box-shadow 0.55s ease'
                   }}
                 >
                   {/* Full-Bleed Background Image */}
@@ -575,7 +519,7 @@ export default function HomePage() {
                     }} 
                   />
 
-                  {/* Dark Gradient Overlay for Maximum Text Legibility */}
+                  {/* Dark Gradient Overlay */}
                   <div 
                     style={{ 
                       position: 'absolute', 
@@ -597,7 +541,6 @@ export default function HomePage() {
                       justifyContent: 'flex-end'
                     }}
                   >
-                    {/* Eyebrow */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
                       <span style={{ width: '12px', height: '2px', background: '#54CFB0' }} />
                       <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
@@ -605,7 +548,6 @@ export default function HomePage() {
                       </span>
                     </div>
 
-                    {/* Headline */}
                     <h3 
                       style={{ 
                         fontSize: 'clamp(1.65rem, 2.5vw, 2.25rem)', 
@@ -619,7 +561,6 @@ export default function HomePage() {
                       {item.title}
                     </h3>
 
-                    {/* Description */}
                     <p 
                       style={{ 
                         fontSize: 'clamp(0.9rem, 1.05vw, 0.975rem)', 
@@ -632,7 +573,6 @@ export default function HomePage() {
                       {item.desc}
                     </p>
 
-                    {/* Circular Action Button */}
                     <Link
                       to={item.link}
                       style={{
@@ -648,12 +588,6 @@ export default function HomePage() {
                         textDecoration: 'none',
                         transition: 'transform 0.2s ease, background 0.2s ease'
                       }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.08)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'scale(1)';
-                      }}
                     >
                       <ArrowRight size={18} />
                     </Link>
@@ -663,10 +597,91 @@ export default function HomePage() {
             })}
           </div>
         </div>
+
+        {/* ── Below-Center Fixed Arrow Marks & Pill Indicators (Request 4) ── */}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', marginTop: '1.5rem' }}>
+          <button
+            onClick={prevService}
+            aria-label="Previous slide"
+            style={{
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              background: '#FFFFFF',
+              border: '1.5px solid #080607',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: '#080607',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(8, 6, 7, 0.06)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = '#54CFB0';
+              e.currentTarget.style.color = '#54CFB0';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = '#080607';
+              e.currentTarget.style.color = '#080607';
+            }}
+          >
+            <ArrowLeft size={18} />
+          </button>
+
+          {/* Centered slide indicator pills */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            {services.map((_, i) => (
+              <span
+                key={i}
+                onClick={() => setCurrentService(i)}
+                style={{
+                  width: i === currentService ? '24px' : '8px',
+                  height: '8px',
+                  borderRadius: '4px',
+                  background: i === currentService ? '#54CFB0' : '#E1E8E5',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={nextService}
+            aria-label="Next slide"
+            style={{
+              width: '44px',
+              height: '44px',
+              borderRadius: '50%',
+              background: '#080607',
+              border: '1.5px solid #080607',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: '#FFFFFF',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 4px 12px rgba(8, 6, 7, 0.15)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#54CFB0';
+              e.currentTarget.style.borderColor = '#54CFB0';
+              e.currentTarget.style.color = '#080607';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#080607';
+              e.currentTarget.style.borderColor = '#080607';
+              e.currentTarget.style.color = '#FFFFFF';
+            }}
+          >
+            <ArrowRight size={18} />
+          </button>
+        </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          2. INDUSTRIES (Exact Layout Matching Mockup: Side-by-Side Split Grid & Preview)
+          3. INDUSTRIES (Side-By-Side Split Grid & Live Preview Panel)
           ═════════════════════════════════════════════ */}
       <section 
         id="industries-section"
@@ -677,8 +692,6 @@ export default function HomePage() {
         }}
       >
         <div className="container">
-          
-          {/* Header Strip with Eyebrow, Title, and Subtitle on the Right */}
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '3rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
@@ -707,7 +720,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* ── Side-By-Side Split Layout (Left: 2×4 Pill Grid | Right: Rich Visual Panel) ── */}
+          {/* 2×4 Split Grid and Preview */}
           <div 
             style={{ 
               display: 'grid', 
@@ -716,7 +729,7 @@ export default function HomePage() {
               alignItems: 'stretch'
             }}
           >
-            {/* Left Column: 2 Columns × 4 Rows of Industry Buttons */}
+            {/* Left 8 Pills */}
             <div 
               style={{ 
                 display: 'grid', 
@@ -770,7 +783,7 @@ export default function HomePage() {
               })}
             </div>
 
-            {/* Right Column: Visual Preview Panel for Selected Industry */}
+            {/* Right Preview Panel */}
             <div 
               style={{ 
                 position: 'relative', 
@@ -784,7 +797,6 @@ export default function HomePage() {
                 boxShadow: '0 16px 40px rgba(8, 6, 7, 0.12)'
               }}
             >
-              {/* Dynamic Background Image */}
               <img 
                 src={industries[activeIndustry].image} 
                 alt={industries[activeIndustry].name} 
@@ -799,7 +811,6 @@ export default function HomePage() {
                 }} 
               />
 
-              {/* Dark Gradient Overlay */}
               <div 
                 style={{ 
                   position: 'absolute', 
@@ -809,7 +820,6 @@ export default function HomePage() {
                 }} 
               />
 
-              {/* Panel Content */}
               <div style={{ position: 'relative', zIndex: 2 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
                   <span style={{ width: '14px', height: '2px', background: '#54CFB0' }} />
@@ -843,7 +853,6 @@ export default function HomePage() {
                   {industries[activeIndustry].desc}
                 </p>
 
-                {/* Capability Tags Pills */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '1.75rem' }}>
                   {industries[activeIndustry].tags.map((tag, tIdx) => (
                     <span 
@@ -868,7 +877,6 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                {/* Explore CTA Button */}
                 <Link
                   to="/industries"
                   style={{
@@ -882,16 +890,8 @@ export default function HomePage() {
                     alignItems: 'center',
                     gap: '8px',
                     textDecoration: 'none',
-                    transition: 'all 0.2s ease',
-                    boxShadow: '0 4px 14px rgba(84, 207, 176, 0.3)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = '0.9';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = '1';
-                    e.currentTarget.style.transform = 'translateY(0)';
+                    boxShadow: '0 4px 14px rgba(84, 207, 176, 0.3)',
+                    transition: 'all 0.2s ease'
                   }}
                 >
                   <span>{industries[activeIndustry].ctaText}</span>
@@ -899,134 +899,87 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-
           </div>
-
         </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          3. TRUSTED BY BUSINESSES (Exact Logos & Arrows Matching Mockup)
+          4. TRUSTED BY BUSINESSES (Auto-Scrolling Marquee from public/assets/clients)
           ═════════════════════════════════════════════ */}
       <section 
         style={{ 
           background: '#FFFFFF', 
           borderBottom: '1px solid #E1E8E5',
-          padding: '3.5rem 0' 
+          padding: '3.75rem 0',
+          overflow: 'hidden'
         }}
       >
-        <div className="container">
-          {/* Header Strip with Eyebrow and Right Arrows */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#080607' }}>
-                TRUSTED BY BUSINESSES
-              </span>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <button
-                aria-label="Previous logos"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', padding: '4px' }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#080607'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}
-              >
-                <ArrowLeft size={16} />
-              </button>
-              <button
-                aria-label="Next logos"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', padding: '4px' }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#080607'}
-                onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}
-              >
-                <ArrowRight size={16} />
-              </button>
-            </div>
+        <div className="container" style={{ marginBottom: '2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#080607' }}>
+              TRUSTED BY BUSINESSES
+            </span>
           </div>
+        </div>
 
-          {/* Grayscale Enterprise Brand Logos Row */}
-          <div 
-            style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'space-between', 
-              gap: 'clamp(1.5rem, 3.5vw, 3rem)',
-              flexWrap: 'wrap',
-              opacity: 0.8
-            }}
-          >
-            {/* EMAAR */}
-            <span style={{ fontSize: '1.25rem', fontWeight: 900, letterSpacing: '0.18em', color: '#334155' }}>
-              EMAAR
-            </span>
-
-            {/* TOYOTA */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
-              <svg width="28" height="20" viewBox="0 0 40 28" fill="none">
-                <ellipse cx="20" cy="14" rx="19" ry="13" stroke="#334155" strokeWidth="2.5"/>
-                <ellipse cx="20" cy="14" rx="7" ry="13" stroke="#334155" strokeWidth="2.5"/>
-                <ellipse cx="20" cy="9" rx="14" ry="5" stroke="#334155" strokeWidth="2.5"/>
-              </svg>
-              <span style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.08em', color: '#334155' }}>TOYOTA</span>
-            </div>
-
-            {/* Emirates */}
-            <span style={{ fontFamily: 'Georgia, serif', fontSize: '1.35rem', fontWeight: 700, color: '#334155', letterSpacing: '-0.01em' }}>
-              Emirates
-            </span>
-
-            {/* Jumeirah */}
-            <span style={{ fontFamily: 'Georgia, serif', fontSize: '1.4rem', fontWeight: 600, color: '#334155' }}>
-              Jumeirah
-            </span>
-
-            {/* etisalat */}
-            <span style={{ fontSize: '1.35rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#334155' }}>
-              etisalat
-            </span>
-
-            {/* DHL */}
-            <span style={{ fontSize: '1.5rem', fontWeight: 900, fontStyle: 'italic', letterSpacing: '0.05em', color: '#334155' }}>
-              DHL
-            </span>
-
-            {/* LEXUS */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '22px', height: '22px', borderRadius: '50%', border: '2px solid #334155', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '0.8rem', fontWeight: 900, fontStyle: 'italic', color: '#334155' }}>L</span>
+        {/* Seamless Infinite Auto-Scrolling Marquee Track */}
+        <div 
+          style={{ 
+            width: '100%', 
+            overflow: 'hidden',
+            position: 'relative',
+            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+          }}
+        >
+          <div className="logo-marquee-track" style={{ gap: '4rem', padding: '0.5rem 0' }}>
+            {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, i) => (
+              <div 
+                key={`${client.name}-${i}`}
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  opacity: 0.85,
+                  transition: 'opacity 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.85'}
+              >
+                <img 
+                  src={client.src} 
+                  alt={client.name} 
+                  style={{ 
+                    height: 'clamp(36px, 4.5vw, 46px)', 
+                    width: 'auto', 
+                    maxWidth: '160px',
+                    objectFit: 'contain', 
+                    display: 'block',
+                    filter: 'grayscale(20%)'
+                  }} 
+                />
               </div>
-              <span style={{ fontSize: '0.95rem', fontWeight: 800, letterSpacing: '0.12em', color: '#334155' }}>LEXUS</span>
-            </div>
-
-            {/* Emirates NBD */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '14px', height: '20px', background: '#334155' }} />
-              <span style={{ fontSize: '0.95rem', fontWeight: 800, color: '#334155' }}>Emirates NBD</span>
-            </div>
-
-            {/* NISSAN */}
-            <div style={{ width: '38px', height: '38px', borderRadius: '50%', border: '2px solid #334155', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-              <span style={{ fontSize: '0.55rem', fontWeight: 900, letterSpacing: '0.04em', color: '#334155' }}>NISSAN</span>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          4. CLIENT STORIES (Exact Layout Matching Mockup Reference)
+          5. CLIENT STORIES (Only the 2 Real Videos + Exact Services Rendered)
           ═════════════════════════════════════════════ */}
       <section 
         style={{ 
-          background: '#FFFFFF', 
+          background: '#F5F8F7', 
           borderBottom: '1px solid #E1E8E5',
           padding: 'clamp(4.5rem, 6.5vw, 6rem) 0' 
         }}
       >
         <div className="container">
           
-          {/* Header Strip with Eyebrow, Title, and Right 'View All Stories →' */}
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
+          {/* Header Strip */}
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '3rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
                 <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
@@ -1066,133 +1019,219 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Client Story Card Matching Mockup */}
+          {/* 2-Card Video Grid (Exact layout from user uploaded image) */}
           <div 
             style={{ 
-              background: '#FFFFFF', 
-              border: '1px solid #E1E8E5', 
-              borderRadius: '12px', 
-              padding: 'clamp(1.5rem, 3vw, 2.5rem)',
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 'clamp(1.5rem, 3vw, 3rem)',
-              alignItems: 'center',
-              boxShadow: '0 4px 16px rgba(8, 6, 7, 0.03)'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+              gap: '2rem' 
             }}
           >
-            {/* Left: Thumbnail Image */}
-            <div 
-              style={{ 
-                height: 'clamp(200px, 26vw, 260px)', 
-                borderRadius: '8px', 
-                overflow: 'hidden', 
-                background: '#F5F8F7' 
-              }}
-            >
-              <img 
-                src={clientStories[currentStory].image} 
-                alt={clientStories[currentStory].client} 
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
-              />
-            </div>
-
-            {/* Right: Quote, Client Info, and Navigation Arrows */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
-              <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
-                {/* Big Mint Quotation Mark */}
-                <span 
+            {clientVideoStories.map((story) => (
+              <div 
+                key={story.id}
+                style={{ 
+                  background: '#FFFFFF', 
+                  border: '1px solid #E1E8E5', 
+                  borderRadius: '16px', 
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  boxShadow: '0 8px 24px rgba(8, 6, 7, 0.04)'
+                }}
+              >
+                {/* Video Container / Thumbnail with Play Button */}
+                <div 
                   style={{ 
-                    fontSize: '3.5rem', 
-                    fontWeight: 900, 
-                    color: '#54CFB0', 
-                    lineHeight: 0.8,
-                    fontFamily: 'Georgia, serif',
-                    userSelect: 'none'
+                    position: 'relative', 
+                    height: '270px', 
+                    background: '#080607',
+                    overflow: 'hidden' 
                   }}
                 >
-                  “
-                </span>
+                  {playingVideo === story.id ? (
+                    <video 
+                      src={story.videoSrc} 
+                      controls 
+                      autoPlay 
+                      playsInline 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                    />
+                  ) : (
+                    <div 
+                      onClick={() => setPlayingVideo(story.id)}
+                      style={{ 
+                        position: 'relative', 
+                        width: '100%', 
+                        height: '100%', 
+                        cursor: 'pointer' 
+                      }}
+                    >
+                      <img 
+                        src={story.thumbnail} 
+                        alt={story.company} 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
+                      />
 
-                {/* Quote Text */}
-                <p 
-                  style={{ 
-                    fontSize: 'clamp(1rem, 1.25vw, 1.125rem)', 
-                    color: '#3F5565', 
-                    lineHeight: 1.6, 
-                    margin: 0, 
-                    fontWeight: 500 
-                  }}
-                >
-                  {clientStories[currentStory].quote}
-                </p>
-              </div>
+                      {/* Brand Logo in Top-Left Corner */}
+                      <div 
+                        style={{ 
+                          position: 'absolute', 
+                          top: '1rem', 
+                          left: '1rem', 
+                          background: 'rgba(8, 6, 7, 0.75)', 
+                          backdropFilter: 'blur(8px)',
+                          padding: '6px 12px', 
+                          borderRadius: '8px',
+                          border: '1px solid rgba(255, 255, 255, 0.2)' 
+                        }}
+                      >
+                        <img 
+                          src={story.logo} 
+                          alt={story.company} 
+                          style={{ height: '22px', width: 'auto', display: 'block' }} 
+                        />
+                      </div>
 
-              {/* Bottom Author Row with Arrows Far Right */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F5F8F7', paddingTop: '1.25rem' }}>
-                <div>
-                  <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#080607', margin: '0 0 2px 0' }}>
-                    {clientStories[currentStory].client}
-                  </h4>
-                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0 }}>
-                    {clientStories[currentStory].industry}
-                  </p>
+                      {/* Glass Play Button in Bottom-Right */}
+                      <div 
+                        style={{ 
+                          position: 'absolute', 
+                          bottom: '1rem', 
+                          right: '1rem', 
+                          width: '46px', 
+                          height: '46px', 
+                          borderRadius: '50%', 
+                          background: 'rgba(8, 6, 7, 0.75)', 
+                          backdropFilter: 'blur(8px)',
+                          border: '1px solid rgba(255, 255, 255, 0.25)',
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center',
+                          color: '#FFFFFF',
+                          boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
+                          transition: 'transform 0.2s ease, background 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.1)';
+                          e.currentTarget.style.background = '#54CFB0';
+                          e.currentTarget.style.color = '#080607';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.background = 'rgba(8, 6, 7, 0.75)';
+                          e.currentTarget.style.color = '#FFFFFF';
+                        }}
+                      >
+                        <Play size={18} fill="currentColor" style={{ marginLeft: '2px' }} />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* Arrow Controls */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <button
-                    onClick={() => setCurrentStory(prev => (prev - 1 >= 0 ? prev - 1 : clientStories.length - 1))}
-                    aria-label="Previous story"
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                      borderRadius: '50%',
-                      background: '#FFFFFF',
-                      border: '1px solid #E1E8E5',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                      color: '#080607',
-                      transition: 'border-color 0.2s ease'
+                {/* Card Body */}
+                <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  {/* Quote */}
+                  <blockquote 
+                    style={{ 
+                      fontSize: '1.075rem', 
+                      fontWeight: 700, 
+                      color: '#080607', 
+                      lineHeight: 1.55, 
+                      letterSpacing: '-0.015em', 
+                      margin: '0 0 1.25rem 0' 
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#54CFB0'}
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E1E8E5'}
                   >
-                    <ArrowLeft size={15} />
-                  </button>
+                    "{story.quote}"
+                  </blockquote>
 
-                  <button
-                    onClick={() => setCurrentStory(prev => (prev + 1 < clientStories.length ? prev + 1 : 0))}
-                    aria-label="Next story"
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                      borderRadius: '50%',
-                      background: '#FFFFFF',
-                      border: '1px solid #E1E8E5',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                      color: '#080607',
-                      transition: 'border-color 0.2s ease'
+                  {/* Core tags */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '1.5rem' }}>
+                    {story.tags.map((tag, tIdx) => (
+                      <span 
+                        key={tIdx}
+                        style={{ 
+                          fontSize: '0.775rem', 
+                          fontWeight: 700, 
+                          color: '#0f766e', 
+                          background: '#e6f9f4', 
+                          border: '1px solid rgba(84, 207, 176, 0.4)', 
+                          padding: '4px 10px', 
+                          borderRadius: '6px' 
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Client Info */}
+                  <div style={{ marginBottom: '1.25rem' }}>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#080607', margin: '0 0 2px 0' }}>
+                      {story.company}
+                    </h4>
+                    <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0 }}>
+                      {story.industry}
+                    </p>
+                  </div>
+
+                  {/* Services Delivered by MaxR (Request 5) */}
+                  <div 
+                    style={{ 
+                      background: '#F5F8F7', 
+                      border: '1px solid #E1E8E5', 
+                      borderRadius: '8px', 
+                      padding: '0.9rem 1rem', 
+                      marginBottom: '1.5rem' 
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#54CFB0'}
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#E1E8E5'}
                   >
-                    <ArrowRight size={15} />
-                  </button>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#080607', display: 'block', marginBottom: '6px' }}>
+                      Services Delivered by MaxR:
+                    </span>
+                    <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      {story.servicesRendered.map((sItem, sIdx) => (
+                        <li key={sIdx} style={{ fontSize: '0.825rem', color: '#3F5565', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <CheckCircle2 size={13} color="#00bba7" />
+                          <span>{sItem}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Watch Success Story CTA Button */}
+                  <div style={{ marginTop: 'auto', borderTop: '1px solid #F5F8F7', paddingTop: '1rem' }}>
+                    <button
+                      onClick={() => setPlayingVideo(story.id)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#0f766e',
+                        fontWeight: 700,
+                        fontSize: '0.9rem',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: 0
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = '#0f766e'}
+                    >
+                      <span>Watch Success Story</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
+
                 </div>
               </div>
-            </div>
+            ))}
           </div>
 
         </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          5. INSIGHTS (Exact 3 Cards from Mockup Reference)
+          6. INSIGHTS (Exact 3 Cards)
           ═════════════════════════════════════════════ */}
       <section 
         style={{ 
@@ -1202,7 +1241,6 @@ export default function HomePage() {
         }}
       >
         <div className="container">
-          {/* Header Strip with Eyebrow, Title, and Right 'View All Insights →' */}
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
@@ -1244,7 +1282,6 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* 3 Editorial Cards Grid Matching Mockup */}
           <div 
             style={{ 
               display: 'grid', 
@@ -1270,18 +1307,13 @@ export default function HomePage() {
                   e.currentTarget.style.borderColor = '#54CFB0';
                   e.currentTarget.style.boxShadow = '0 12px 28px rgba(8, 6, 7, 0.06)';
                   e.currentTarget.style.transform = 'translateY(-3px)';
-                  const arrow = e.currentTarget.querySelector('.card-arrow');
-                  if (arrow) arrow.style.color = '#54CFB0';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = '#E1E8E5';
                   e.currentTarget.style.boxShadow = 'none';
                   e.currentTarget.style.transform = 'translateY(0)';
-                  const arrow = e.currentTarget.querySelector('.card-arrow');
-                  if (arrow) arrow.style.color = '#080607';
                 }}
               >
-                {/* Image */}
                 <div style={{ height: '180px', overflow: 'hidden', background: '#F5F8F7' }}>
                   <img 
                     src={item.image} 
@@ -1290,7 +1322,6 @@ export default function HomePage() {
                   />
                 </div>
 
-                {/* Details */}
                 <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <h3 
                     style={{ 
@@ -1305,16 +1336,12 @@ export default function HomePage() {
                     {item.title}
                   </h3>
 
-                  {/* Bottom: Read Time (left) and Arrow (right) */}
                   <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F5F8F7', paddingTop: '1rem' }}>
                     <span style={{ fontSize: '0.825rem', color: '#64748b' }}>
                       {item.readTime}
                     </span>
 
-                    <span 
-                      className="card-arrow"
-                      style={{ color: '#080607', display: 'inline-flex', alignItems: 'center', transition: 'color 0.2s ease' }}
-                    >
+                    <span style={{ color: '#080607', display: 'inline-flex', alignItems: 'center' }}>
                       <ArrowRight size={15} />
                     </span>
                   </div>
@@ -1327,7 +1354,7 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          6. FINAL CTA (Minimalist Executive Black Background, Mint Accent)
+          7. FINAL CTA (Minimalist Executive Black Background, Mint Accent)
           ═════════════════════════════════════════════ */}
       <section 
         style={{ 

@@ -98,6 +98,28 @@ ul, ol {
   padding-inline: 1.25rem;
 }
 
+/* ── Seamless Auto-Scrolling Logo Marquee ── */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marqueeScroll 22s linear infinite;
+  will-change: transform;
+}
+
+.logo-marquee-track:hover {
+  animation-play-state: paused;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
