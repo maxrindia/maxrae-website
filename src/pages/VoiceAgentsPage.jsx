@@ -54,7 +54,7 @@ export default function VoiceAgentsPage({ onOpenContact }) {
   const estimatedSavingsUSD = Math.round(hoursSpentMonthly * 25 * 0.8); // 80% automated, $25/hr loaded agent cost
 
   return (
-    <div className="voice-agents-page" style={{ padding: '4rem 0 6rem', background: '#070d1a', color: '#ffffff' }}>
+    <div className="voice-agents-page" style={{ padding: '2rem 0 5rem', background: '#070d1a', color: '#ffffff' }}>
       <div className="container">
         
         {/* Header */}

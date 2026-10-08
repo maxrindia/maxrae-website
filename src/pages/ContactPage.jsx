@@ -28,7 +28,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="contact-page" style={{ padding: '4rem 0 6rem', background: '#f8fafc' }}>
+    <div className="contact-page" style={{ padding: '2rem 0 5rem', background: '#f8fafc' }}>
       <div className="container">
         
         {/* Header */}

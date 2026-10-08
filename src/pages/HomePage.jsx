@@ -114,7 +114,7 @@ export default function HomePage({ onOpenContact }) {
         style={{ 
           position: 'relative', 
           overflow: 'hidden', 
-          padding: 'clamp(3.5rem, 6vh, 5.5rem) 0 clamp(3rem, 5vh, 4.5rem)',
+          padding: '1.25rem 0 clamp(2.5rem, 4vh, 4rem)',
           background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)'
         }}
       >

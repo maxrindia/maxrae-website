@@ -28,32 +28,36 @@ export default function Header({ onOpenContact }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMega, setActiveMega] = useState(null);
-
   const [isVisible, setIsVisible] = useState(true);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
+    let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+      if (maxScroll > 0 && currentScrollY > maxScroll) return;
 
+      // When near top (<= 40px), always stay visible
       if (currentScrollY <= 40) {
         setIsVisible(true);
         setIsScrolled(false);
       } else {
         setIsScrolled(true);
-        // Scrolling DOWN -> Hide floating menu bar
-        if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 6) {
+        // Scrolling DOWN -> Slide UP off screen to hide
+        if (currentScrollY > lastScrollY && currentScrollY > 70) {
           setIsVisible(false);
           setActiveMega(null);
+          setLangDropdownOpen(false);
         }
-        // Scrolling UP -> Reveal floating menu bar
-        else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 6) {
+        // Scrolling UP -> Slide back down into view
+        else if (currentScrollY < lastScrollY) {
           setIsVisible(true);
         }
       }
 
-      lastScrollY = currentScrollY;
+      lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -142,7 +146,8 @@ export default function Header({ onOpenContact }) {
           position: 'sticky',
           top: 0,
           zIndex: 1000,
-          transition: 'all 0.25s ease'
+          transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease'
         }}
       >
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '78px' }}>
@@ -417,89 +422,134 @@ export default function Header({ onOpenContact }) {
             </Link>
           </nav>
 
-          {/* Right Actions matching reference floating bar */}
+          {/* Right Actions: Language Preference + Direct Message Link to /contact */}
           <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            {/* Search */}
-            <button 
-              onClick={onOpenContact}
-              title="Search Services & Solutions"
-              style={{ 
-                background: 'none', 
-                border: 'none', 
-                color: '#475569', 
-                cursor: 'pointer', 
-                padding: '8px', 
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'color 0.2s'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-              onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+            
+            {/* Language Preference Dropdown (Default English, expandable for additional languages) */}
+            <div 
+              style={{ position: 'relative' }}
+              onMouseEnter={() => setLangDropdownOpen(true)}
+              onMouseLeave={() => setLangDropdownOpen(false)}
             >
-              <Search size={18} />
-            </button>
+              <button 
+                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                title="Language Preference: English (EN)"
+                style={{ 
+                  background: 'none', 
+                  border: '1px solid transparent', 
+                  color: '#334155', 
+                  cursor: 'pointer', 
+                  padding: '6px 10px', 
+                  borderRadius: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '0.825rem',
+                  fontWeight: 700,
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = '#00bba7';
+                  e.currentTarget.style.background = '#f8fafc';
+                  e.currentTarget.style.borderColor = '#e2e8f0';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = '#334155';
+                  e.currentTarget.style.background = 'none';
+                  e.currentTarget.style.borderColor = 'transparent';
+                }}
+              >
+                <Globe size={16} color="#00bba7" />
+                <span>EN</span>
+                <ChevronDown size={12} color="#94a3b8" />
+              </button>
 
-            {/* Region / Globe Selector */}
-            <button 
-              onClick={onOpenContact}
-              title="Dubai, UAE / Global"
-              style={{ 
-                background: 'none', 
-                border: 'none', 
-                color: '#475569', 
-                cursor: 'pointer', 
-                padding: '6px 8px', 
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                transition: 'color 0.2s'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-              onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
-            >
-              <Globe size={17} />
-              <ChevronDown size={12} color="#94a3b8" />
-            </button>
+              {langDropdownOpen && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: '100%',
+                    right: 0,
+                    marginTop: '6px',
+                    background: '#ffffff',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '12px',
+                    boxShadow: '0 12px 30px rgba(0,0,0,0.08)',
+                    padding: '6px',
+                    minWidth: '155px',
+                    zIndex: 110
+                  }}
+                >
+                  <div 
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'space-between', 
+                      padding: '7px 10px', 
+                      borderRadius: '8px', 
+                      background: 'rgba(0,187,167,0.08)', 
+                      color: '#0a1428', 
+                      fontSize: '0.825rem', 
+                      fontWeight: 700 
+                    }}
+                  >
+                    <span>English (EN)</span>
+                    <span style={{ color: '#00bba7', fontSize: '0.78rem' }}>✓</span>
+                  </div>
+                  <div 
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'space-between', 
+                      padding: '7px 10px', 
+                      borderRadius: '8px', 
+                      color: '#94a3b8', 
+                      fontSize: '0.825rem', 
+                      fontWeight: 500,
+                      marginTop: '3px'
+                    }}
+                    title="Arabic language support in development"
+                  >
+                    <span>العربية (AR)</span>
+                    <span style={{ fontSize: '0.7rem', background: '#f1f5f9', padding: '2px 5px', borderRadius: '4px', color: '#64748b' }}>Soon</span>
+                  </div>
+                </div>
+              )}
+            </div>
 
-            {/* Consultation Chat Pill Button (Matching Reference) */}
-            <button 
-              onClick={onOpenContact} 
-              className="btn-primary"
+            {/* Message Logo Button -> Redirects to /contact without consultancy word */}
+            <Link 
+              to="/contact" 
+              title="Contact MaxR"
               style={{ 
                 background: '#ffffff', 
                 color: '#0f172a', 
                 border: '1.5px solid #e2e8f0',
-                fontWeight: 700, 
-                padding: '0.55rem 1.15rem', 
-                fontSize: '0.875rem',
-                borderRadius: '12px',
+                width: '40px',
+                height: '40px',
+                borderRadius: '11px',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '8px',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                justifyContent: 'center',
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
                 cursor: 'pointer',
-                transition: 'all 0.2s'
+                textDecoration: 'none',
+                transition: 'all 0.2s',
+                flexShrink: 0
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = '#00bba7';
+                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 187, 167, 0.2)';
                 e.currentTarget.style.color = '#00bba7';
-                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 187, 167, 0.15)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = '#e2e8f0';
+                e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.04)';
                 e.currentTarget.style.color = '#0f172a';
-                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
               }}
-              title="Connect with MaxR Technologists"
             >
-              <MessageSquare size={16} color="#00bba7" />
-              <span className="consult-btn-text">Consultation</span>
-            </button>
+              <MessageSquare size={18} color="#00bba7" />
+            </Link>
 
             {/* Mobile Menu Hamburger */}
             <button 
@@ -562,14 +612,28 @@ export default function Header({ onOpenContact }) {
             </Link>
           </div>
 
-          <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-            <button 
-              onClick={() => { setMobileMenuOpen(false); onOpenContact(); }}
+          <div style={{ marginTop: 'auto', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {/* Language Selector in Mobile */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94a3b8', fontSize: '0.85rem' }}>
+                <Globe size={16} color="#00bba7" />
+                <span>Language:</span>
+              </div>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <span style={{ fontSize: '0.78rem', background: '#00bba7', color: '#040811', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>EN</span>
+                <span style={{ fontSize: '0.78rem', background: 'rgba(255,255,255,0.1)', color: '#64748b', padding: '2px 8px', borderRadius: '4px' }}>AR (Soon)</span>
+              </div>
+            </div>
+
+            <Link 
+              to="/contact"
+              onClick={() => setMobileMenuOpen(false)}
               className="btn-primary"
-              style={{ width: '100%', justifyContent: 'center', background: '#00bba7', color: '#040811', fontWeight: 700 }}
+              style={{ width: '100%', justifyContent: 'center', background: '#00bba7', color: '#040811', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', padding: '0.75rem', borderRadius: '10px', textDecoration: 'none' }}
             >
-              Book Consultation
-            </button>
+              <MessageSquare size={18} />
+              <span>Contact Us</span>
+            </Link>
           </div>
         </div>
       )}

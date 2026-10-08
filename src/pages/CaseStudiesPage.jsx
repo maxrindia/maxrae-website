@@ -63,7 +63,7 @@ export default function CaseStudiesPage({ onOpenContact }) {
   ];
 
   return (
-    <div className="case-studies-page" style={{ padding: '4rem 0 6rem', background: '#f8fafc' }}>
+    <div className="case-studies-page" style={{ padding: '2rem 0 5rem', background: '#f8fafc' }}>
       <div className="container">
         
         {/* Header */}

@@ -101,7 +101,7 @@ export default function BlogPage({ onOpenContact }) {
     : articles.filter(a => a.category === activeCategory);
 
   return (
-    <div className="blog-page" style={{ padding: '4rem 0 6rem', background: '#f8fafc' }}>
+    <div className="blog-page" style={{ padding: '2rem 0 5rem', background: '#f8fafc' }}>
       <div className="container">
 
         {/* ── Header ── */}
