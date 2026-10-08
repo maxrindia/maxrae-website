@@ -1,613 +1,386 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import { 
   ArrowRight, 
-  Bot, 
-  Code2, 
+  Target, 
+  Zap, 
   TrendingUp, 
-  PhoneCall, 
-  Building2, 
-  ShoppingBag, 
-  Truck, 
-  Landmark, 
-  Hotel, 
-  HeartPulse,
-  CheckCircle2, 
-  Calendar,
-  Globe2,
-  Smartphone,
-  Cpu,
-  Share2,
-  Target,
-  Palette,
-  Cloud,
-  BarChart3,
+  Users, 
+  ShieldCheck, 
+  Layers, 
+  Handshake, 
+  Clock, 
   ChevronRight,
-  Sparkles
+  Briefcase,
+  Code2,
+  Workflow
 } from 'lucide-react';
 
-// Official WhatsApp Vector Icon
-const WhatsAppIcon = ({ size = 18, color = "#ffffff" }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill={color} style={{ flexShrink: 0 }}>
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-  </svg>
-);
+export default function HomePage() {
+  const heroRef = useRef(null);
+  const [activeIndustry, setActiveIndustry] = useState(0);
 
-// Scroll-revealed Box Container Component
-function ScrollBox({ children, style = {}, className = "" }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const boxRef = useRef(null);
-
+  // ── GSAP Smooth Enterprise Animation Reveals ──
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.08 }
-    );
+    const ctx = gsap.context(() => {
+      // Hero elements reveal
+      gsap.from('.gsap-hero-eyebrow', {
+        opacity: 0,
+        y: 16,
+        duration: 0.6,
+        ease: 'power2.out'
+      });
+      gsap.from('.gsap-hero-headline', {
+        opacity: 0,
+        y: 28,
+        duration: 0.8,
+        delay: 0.1,
+        ease: 'power2.out'
+      });
+      gsap.from('.gsap-hero-subtext', {
+        opacity: 0,
+        y: 20,
+        duration: 0.75,
+        delay: 0.22,
+        ease: 'power2.out'
+      });
+      gsap.from('.gsap-hero-ctas', {
+        opacity: 0,
+        y: 16,
+        duration: 0.6,
+        delay: 0.35,
+        ease: 'power2.out'
+      });
+      gsap.from('.gsap-hero-image-wrap', {
+        opacity: 0,
+        scale: 0.98,
+        duration: 0.9,
+        delay: 0.18,
+        ease: 'power2.out'
+      });
+    }, heroRef);
 
-    if (boxRef.current) {
-      observer.observe(boxRef.current);
-    }
-
-    return () => observer.disconnect();
+    return () => ctx.revert();
   }, []);
 
-  return (
-    <div
-      ref={boxRef}
-      className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(32px)',
-        transition: 'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)',
-        ...style
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-// Logo-Style Brand Emblem Component (Replaces generic plain line icons)
-function LogoMark({ gradient, icon: IconComponent, size = 48 }) {
-  return (
-    <div 
-      style={{
-        width: size,
-        height: size,
-        borderRadius: '13px',
-        background: gradient,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#ffffff',
-        boxShadow: '0 6px 18px rgba(0, 0, 0, 0.14)',
-        flexShrink: 0
-      }}
-    >
-      <IconComponent size={Math.round(size * 0.48)} strokeWidth={2.2} />
-    </div>
-  );
-}
-
-export default function HomePage({ onOpenContact }) {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [activeSector, setActiveSector] = useState('realestate');
-
-  const whatsappUrl = "https://wa.me/971501234567?text=Hello%20MaxR%20Technology%2C%20I%20would%20like%20to%20learn%20more%20about%20your%20services";
-
-  // 1. All 10 Capabilities & their exact working items with tailored Logo Emblems
-  const capabilities = [
+  // ── 1. Services Data (Exact 4 Enterprise Domains) ──
+  const services = [
     {
       num: "01",
-      id: "web-dev",
-      category: "development",
-      title: "Web Development",
-      gradient: "linear-gradient(135deg, #0ea5e9 0%, #00bba7 100%)",
-      icon: Globe2,
-      items: [
-        "Business Websites",
-        "Corporate Websites",
-        "E-commerce Websites",
-        "Landing Pages",
-        "Custom Web Applications",
-        "Website Maintenance"
-      ]
+      title: "Business Consulting",
+      desc: "Strategic consulting to identify opportunities, solve business challenges and create growth roadmaps.",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+      link: "/services"
     },
     {
       num: "02",
-      id: "app-dev",
-      category: "development",
-      title: "App Development",
-      gradient: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
-      icon: Smartphone,
-      items: [
-        "Android Apps",
-        "iOS Apps",
-        "Cross-Platform Apps",
-        "Custom Mobile Applications",
-        "App UI/UX Design",
-        "App Maintenance"
-      ]
+      title: "Digital Solutions",
+      desc: "Custom web, mobile applications and enterprise platforms designed to scale operations and delight users.",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      link: "/services"
     },
     {
       num: "03",
-      id: "software-product",
-      category: "development",
-      title: "Software & Product Development",
-      gradient: "linear-gradient(135deg, #0f766e 0%, #06b6d4 100%)",
-      icon: Cpu,
-      items: [
-        "Custom Software",
-        "SaaS Development",
-        "Business Applications",
-        "CRM Development",
-        "ERP Solutions",
-        "API Development & Integration"
-      ]
+      title: "Automation & Integrations",
+      desc: "Workflow automation, AI agents and system integrations that eliminate manual friction.",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      link: "/services"
     },
     {
       num: "04",
-      id: "digital-marketing",
-      category: "marketing",
-      title: "Digital Marketing",
-      gradient: "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
-      icon: TrendingUp,
-      items: [
-        "Search Engine Optimization (SEO)",
-        "Search Engine Marketing (SEM)",
-        "Google Ads",
-        "Social Media Advertising",
-        "Content Marketing",
-        "Performance Marketing"
-      ]
-    },
-    {
-      num: "05",
-      id: "social-media",
-      category: "marketing",
-      title: "Social Media Management",
-      gradient: "linear-gradient(135deg, #ec4899 0%, #d946ef 100%)",
-      icon: Share2,
-      items: [
-        "Instagram Management",
-        "Facebook Management",
-        "LinkedIn Management",
-        "Content Creation",
-        "Social Media Posting",
-        "Community Management"
-      ]
-    },
-    {
-      num: "06",
-      id: "ai-automation",
-      category: "ai",
-      title: "AI & Automation",
-      gradient: "linear-gradient(135deg, #10b981 0%, #00bba7 100%)",
-      icon: Bot,
-      items: [
-        "Business Process Automation",
-        "AI Chatbots",
-        "AI Agents",
-        "Lead Automation",
-        "Customer Support Automation",
-        "Workflow Automation"
-      ]
-    },
-    {
-      num: "07",
-      id: "crm-leads",
-      category: "ai",
-      title: "CRM & Lead Solutions",
-      gradient: "linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)",
-      icon: Target,
-      items: [
-        "CRM Setup",
-        "Lead Generation",
-        "Lead Management",
-        "Lead Qualification",
-        "Sales Pipeline Automation",
-        "Customer Follow-up"
-      ]
-    },
-    {
-      num: "08",
-      id: "ui-ux-branding",
-      category: "design",
-      title: "UI/UX & Branding",
-      gradient: "linear-gradient(135deg, #f43f5e 0%, #fb923c 100%)",
-      icon: Palette,
-      items: [
-        "UI/UX Design",
-        "Website Design",
-        "App Design",
-        "Brand Identity",
-        "Logo Design",
-        "Creative Design"
-      ]
-    },
-    {
-      num: "09",
-      id: "cloud-tech",
-      category: "cloud",
-      title: "Cloud & Technology",
-      gradient: "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
-      icon: Cloud,
-      items: [
-        "Cloud Solutions",
-        "API Integration",
-        "Third-Party Integrations",
-        "Database Solutions",
-        "Hosting & Deployment",
-        "Technical Support"
-      ]
-    },
-    {
-      num: "10",
-      id: "data-bi",
-      category: "cloud",
-      title: "Data & Business Intelligence",
-      gradient: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)",
-      icon: BarChart3,
-      items: [
-        "Data Analytics",
-        "Business Dashboards",
-        "Sales Analytics",
-        "Marketing Analytics",
-        "Reporting",
-        "Business Insights"
-      ]
+      title: "Digital Growth",
+      desc: "Performance marketing, search visibility and digital strategy to accelerate commercial reach.",
+      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
+      link: "/services"
     }
   ];
 
-  const categoryFilters = [
-    { id: 'all', label: 'All 10 Capabilities' },
-    { id: 'development', label: 'Development & Apps' },
-    { id: 'marketing', label: 'Marketing & Social' },
-    { id: 'ai', label: 'AI, Automation & CRM' },
-    { id: 'design', label: 'UI/UX & Branding' },
-    { id: 'cloud', label: 'Cloud & Data BI' }
-  ];
-
-  const filteredCapabilities = selectedCategory === 'all' 
-    ? capabilities 
-    : capabilities.filter(c => c.category === selectedCategory);
-
-  // 2. Sectors with Light Frosted Theme, Animated Circular Nodes, and Right Products
-  const sectors = [
+  // ── 2. Industries Data (Verified MaxR Sectors, Large Photography Tiles) ──
+  const industries = [
     {
-      id: "realestate",
-      name: "Real Estate & Property",
-      icon: Building2,
-      gradient: "linear-gradient(135deg, #0284c7 0%, #00bba7 100%)",
-      bgImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=80",
-      tagline: "High-Value Property Inbound & Broker Automation",
-      products: [
-        {
-          title: "AI Voice Broker & Viewing Booking Bot",
-          desc: "24/7 autonomous voice receptionist pre-qualifying buyer budgets and scheduling VIP property viewings directly on broker calendars."
-        },
-        {
-          title: "Interactive 3D Luxury Property Web Portal",
-          desc: "Ultra-fast headless real estate platform featuring virtual floorplan walkthroughs, dynamic MLS synchronization, and mortgage calculators."
-        },
-        {
-          title: "Automated WhatsApp Lead Qualification Engine",
-          desc: "Instant lead ingestion from property portals, automated bilingual brochure distribution, and two-way CRM status synchronization."
-        }
-      ]
+      title: "Healthcare",
+      desc: "Zero-hold patient scheduling, automated clinical triage, and HIPAA-ready digital care portals.",
+      image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&q=80",
+      tag: "Clinical Systems"
     },
     {
-      id: "retail",
-      name: "Retail & E-Commerce",
-      icon: ShoppingBag,
-      gradient: "linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)",
-      bgImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
-      tagline: "Autonomous Support Deflection & Conversion Acceleration",
-      products: [
-        {
-          title: "Autonomous WhatsApp Order & Return AI",
-          desc: "Resolves 'Where is my order?' inquiries in seconds, automates instant exchange approvals, and syncs order status with ERP systems."
-        },
-        {
-          title: "Headless E-Commerce Storefront (React/Next.js)",
-          desc: "Sub-second page speeds, seamless multi-currency checkout, and integrated cart recovery triggers that boost store conversions."
-        },
-        {
-          title: "Dynamic Customer Retargeting & Loyalty Engine",
-          desc: "Automated personalized discount triggers based on purchase history and browse intent, synchronized across SMS and WhatsApp."
-        }
-      ]
+      title: "Real Estate",
+      desc: "High-value property discovery engines, broker automation bots, and interactive virtual walkthroughs.",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80",
+      tag: "Property Platforms"
     },
     {
-      id: "logistics",
-      name: "Logistics & Supply Chain",
-      icon: Truck,
-      gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
-      bgImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=80",
-      tagline: "Autonomous Consignment Tracking & Fleet Orchestration",
-      products: [
-        {
-          title: "Real-Time Consignment & Fleet Tracking Platform",
-          desc: "Unified customer tracking portal with live milestone telemetry, ETA forecasting, and automated consignee delivery confirmation."
-        },
-        {
-          title: "Autonomous Dispatch Voice Assistant",
-          desc: "Hands-free voice agent alerting drivers of load reassignments, handling delay exceptions, and reducing manual dispatcher calls by 70%."
-        },
-        {
-          title: "Warehouse & TMS Cloud Integration API",
-          desc: "Automated bi-directional data pipelines connecting warehouse scanning, 3PL inventory counts, and enterprise freight manifests."
-        }
-      ]
+      title: "E-Commerce",
+      desc: "Sub-second headless storefronts, autonomous WhatsApp order resolution, and cart recovery workflows.",
+      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80",
+      tag: "Omnichannel Commerce"
     },
     {
-      id: "finance",
-      name: "Finance & Banking",
-      icon: Landmark,
-      gradient: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
-      bgImage: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1800&q=80",
-      tagline: "Bank-Grade Onboarding & Intelligent Client Portals",
-      products: [
-        {
-          title: "Encrypted Digital Onboarding & KYC Portal",
-          desc: "Automated document collection, identity verification workflows, and secure client screening with bank-grade 256-bit encryption."
-        },
-        {
-          title: "Wealth Management & Investor Dashboard",
-          desc: "Custom client web & mobile applications displaying real-time portfolio performance, automated statements, and secure advisor chat."
-        },
-        {
-          title: "Algorithmic Alert & Notification Engine",
-          desc: "Autonomous transaction anomaly detection, compliance audit logging, and proactive push notifications for financial events."
-        }
-      ]
-    },
-    {
-      id: "hospitality",
-      name: "Hospitality & Travel",
-      icon: Hotel,
-      gradient: "linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)",
-      bgImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
-      tagline: "24/7 Guest Concierge & Zero-Hold Reservation Desks",
-      products: [
-        {
-          title: "24/7 Multilingual Reservation Voice Agent",
-          desc: "Handles surges in table and suite bookings without busy signals, confirms guest dietary requests, and sends WhatsApp confirmation cards."
-        },
-        {
-          title: "Guest Digital Concierge Web & Mobile App",
-          desc: "Contactless digital room key, in-stay amenity ordering, customized itinerary generation, and automated checkout billing."
-        },
-        {
-          title: "VIP Loyalty & Event Capacity Manager",
-          desc: "Dynamic table seating algorithms, private party booking pipelines, and automated high-roller tier reward management."
-        }
-      ]
-    },
-    {
-      id: "healthcare",
-      name: "Healthcare & Clinics",
-      icon: HeartPulse,
-      gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-      bgImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
-      tagline: "Zero-Hold Patient Scheduling & Clinical Triage",
-      products: [
-        {
-          title: "Zero-Hold Patient Appointment Voice Bot",
-          desc: "Answers routine clinic inquiries 24/7, checks practitioner availability, and books calendar appointments with zero telephone hold time."
-        },
-        {
-          title: "Automated Two-Way WhatsApp Reminder Engine",
-          desc: "Dispatches pre-visit preparation instructions and automated confirmation pings that reduce costly clinic no-show rates by 68%."
-        },
-        {
-          title: "Practice Management & Tele-Consult Portal",
-          desc: "HIPAA-compliant web portal for clinical records, automated prescription refill requests, and secure video doctor consultations."
-        }
-      ]
+      title: "Finance",
+      desc: "Encrypted investor portals, bank-grade digital KYC onboarding, and compliance audit tracking.",
+      image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=900&q=80",
+      tag: "Financial Technologies"
     }
   ];
 
-  const currentSectorData = sectors.find(s => s.id === activeSector) || sectors[0];
+  // ── 3. Why MaxR Points (4 Clear Principles) ──
+  const whyPoints = [
+    {
+      title: "Practical, outcome-driven solutions",
+      desc: "We focus on measurable business value, operational efficiency, and tangible ROI rather than technology for its own sake.",
+      icon: Target
+    },
+    {
+      title: "Flexible and scalable approach",
+      desc: "Architectures and delivery frameworks that adapt seamlessly to your changing volume, team size, and commercial goals.",
+      icon: Layers
+    },
+    {
+      title: "Technology with human support",
+      desc: "Dedicated senior architects, responsive support, and clear communication at every phase of your transformation.",
+      icon: Users
+    },
+    {
+      title: "Long-term partnership",
+      desc: "We build enduring relationships, serving as a trusted technical advisor as your company scales across markets.",
+      icon: Handshake
+    }
+  ];
 
-  // 3. How It Works (3 Steps)
-  const steps = [
+  // ── 4. Insights Data (Editorial Articles) ──
+  const insights = [
     {
-      num: "01",
-      title: "Understand",
-      desc: "We audit your existing operational workflows to identify high-impact automation levers."
+      category: "ENTERPRISE AUTOMATION",
+      title: "How Intelligent Workflows Are Reshaping Operations in 2025",
+      readTime: "5 min read",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      link: "/blog"
     },
     {
-      num: "02",
-      title: "Build",
-      desc: "Our engineering squad develops, tests, and integrates custom AI models and cloud systems."
+      category: "DIGITAL ARCHITECTURE",
+      title: "Building High-Performance Digital Platforms for Enterprise Scale",
+      readTime: "4 min read",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+      link: "/blog"
     },
     {
-      num: "03",
-      title: "Grow",
-      desc: "We deploy with continuous SLA monitoring to scale output while lowering operational overhead."
+      category: "STRATEGY & GROWTH",
+      title: "Bridging the Gap Between Business Strategy and Modern Technology",
+      readTime: "6 min read",
+      image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+      link: "/blog"
     }
   ];
 
   return (
-    <div className="home-page" style={{ minHeight: '100%', background: '#ffffff', color: '#0a1428' }}>
+    <div style={{ background: '#FFFFFF', color: '#080607', overflowX: 'hidden' }}>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          1. HERO SECTION (Unsplash Tech-Abstract BG + High-Contrast Dark Overlay)
+          1. HERO SECTION (White-First Editorial Enterprise Hero, 650–750px)
           ═════════════════════════════════════════════════════════════════════ */}
       <section 
-        className="hero-section"
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          minHeight: '82vh',
+        ref={heroRef}
+        style={{ 
+          background: '#FFFFFF', 
+          borderBottom: '1px solid #E5EAE8',
+          padding: 'clamp(3.5rem, 6vw, 5.5rem) 0 clamp(3rem, 5vw, 4.5rem)',
+          minHeight: 'clamp(620px, 72vh, 750px)',
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundImage: "url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80')",
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          padding: '5.5rem 0'
+          alignItems: 'center'
         }}
       >
-        {/* Dark semi-transparent layer overlay on top of image */}
-        <div 
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(180deg, rgba(5, 12, 26, 0.90) 0%, rgba(10, 20, 40, 0.96) 100%)',
-            zIndex: 1
-          }}
-        />
+        <div className="container" style={{ width: '100%' }}>
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+              gap: 'clamp(2.5rem, 5vw, 4.5rem)',
+              alignItems: 'center' 
+            }}
+          >
+            {/* Left Column (~48% Desktop): Large Editorial Typography */}
+            <div style={{ maxWidth: '580px' }}>
+              
+              {/* Eyebrow */}
+              <div 
+                className="gsap-hero-eyebrow"
+                style={{ 
+                  display: 'inline-flex', 
+                  alignItems: 'center', 
+                  gap: '8px', 
+                  marginBottom: '1.25rem' 
+                }}
+              >
+                <span 
+                  style={{ 
+                    width: '6px', 
+                    height: '6px', 
+                    borderRadius: '50%', 
+                    background: '#54CFB0' 
+                  }} 
+                />
+                <span 
+                  style={{ 
+                    fontSize: '0.8rem', 
+                    fontWeight: 700, 
+                    letterSpacing: '0.12em', 
+                    textTransform: 'uppercase', 
+                    color: '#080607' 
+                  }}
+                >
+                  MAXR TECHNOLOGIES
+                </span>
+              </div>
 
-        <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
-          <div style={{ maxWidth: '840px', margin: '0 auto' }}>
-            
-            {/* Minimal High-Contrast Eyebrow Tag */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '999px', background: 'rgba(0, 187, 167, 0.15)', border: '1.5px solid rgba(0, 187, 167, 0.4)', marginBottom: '1.75rem' }}>
-              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#00bba7', boxShadow: '0 0 10px #00bba7' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#2dd4bf', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Enterprise AI & Software Engineering
-              </span>
+              {/* Large Headline */}
+              <h1 
+                className="gsap-hero-headline"
+                style={{ 
+                  fontSize: 'clamp(2.5rem, 4.6vw, 3.85rem)', 
+                  fontWeight: 800, 
+                  lineHeight: 1.1, 
+                  letterSpacing: '-0.035em', 
+                  color: '#080607', 
+                  margin: '0 0 1.5rem 0' 
+                }}
+              >
+                Technology That Moves<br />
+                Businesses <span style={{ color: '#54CFB0' }}>Forward.</span>
+              </h1>
+
+              {/* Supporting Copy */}
+              <p 
+                className="gsap-hero-subtext"
+                style={{ 
+                  fontSize: 'clamp(1.05rem, 1.35vw, 1.2rem)', 
+                  lineHeight: 1.6, 
+                  color: '#4a5568', 
+                  fontWeight: 400, 
+                  margin: '0 0 2.25rem 0',
+                  maxWidth: '520px'
+                }}
+              >
+                We help businesses grow, operate smarter and create better customer experiences through technology, digital solutions and automation.
+              </p>
+
+              {/* CTA Buttons */}
+              <div 
+                className="gsap-hero-ctas"
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '1rem', 
+                  flexWrap: 'wrap' 
+                }}
+              >
+                <Link
+                  to="/contact"
+                  style={{
+                    background: '#080607',
+                    color: '#FFFFFF',
+                    padding: '0.9rem 1.85rem',
+                    borderRadius: '6px',
+                    fontWeight: 600,
+                    fontSize: '0.95rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s ease',
+                    boxShadow: '0 2px 6px rgba(8,6,7,0.1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#54CFB0';
+                    e.currentTarget.style.color = '#080607';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#080607';
+                    e.currentTarget.style.color = '#FFFFFF';
+                  }}
+                >
+                  <span>Book a Consultation</span>
+                  <ArrowRight size={16} />
+                </Link>
+
+                <Link
+                  to="/services"
+                  style={{
+                    background: '#FFFFFF',
+                    color: '#080607',
+                    border: '1px solid #E5EAE8',
+                    padding: '0.9rem 1.85rem',
+                    borderRadius: '6px',
+                    fontWeight: 600,
+                    fontSize: '0.95rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#080607';
+                    e.currentTarget.style.background = '#F5F8F7';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#E5EAE8';
+                    e.currentTarget.style.background = '#FFFFFF';
+                  }}
+                >
+                  <span>Explore Our Services</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+
             </div>
 
-            {/* Bold, Confident, Minimal 2-3 Word Headline */}
-            <h1 
-              style={{
-                fontSize: 'clamp(2.85rem, 6.5vw, 4.85rem)',
-                fontWeight: 900,
-                letterSpacing: '-0.04em',
-                lineHeight: 1.08,
-                color: '#ffffff',
-                marginBottom: '1.35rem',
-                textShadow: '0 4px 20px rgba(0,0,0,0.5)'
-              }}
-            >
-              Build. Automate. <span style={{ color: '#00bba7' }}>Scale.</span>
-            </h1>
-
-            {/* High-Contrast Subtext */}
-            <p 
-              style={{
-                fontSize: 'clamp(1.1rem, 2vw, 1.25rem)',
-                color: '#f1f5f9',
-                lineHeight: 1.6,
-                maxWidth: '640px',
-                margin: '0 auto 2.5rem',
-                fontWeight: 400
-              }}
-            >
-              Autonomous AI systems, full-stack software, and automated workflows engineered for high-performance enterprises.
-            </p>
-
-            {/* High-Contrast CTA Buttons */}
-            <div 
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '1rem',
-                flexWrap: 'wrap'
-              }}
-            >
-              <Link
-                to="/services"
-                className="btn-primary"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: '#00bba7',
-                  color: '#020617',
-                  fontWeight: 800,
-                  fontSize: '0.975rem',
-                  padding: '0.85rem 1.95rem',
-                  borderRadius: '10px',
-                  textDecoration: 'none',
-                  boxShadow: '0 6px 20px rgba(0, 187, 167, 0.4)',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#0d9488';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#00bba7';
-                  e.currentTarget.style.transform = 'translateY(0)';
+            {/* Right Column (~52% Desktop): Premium International Corporate Architecture */}
+            <div className="gsap-hero-image-wrap" style={{ position: 'relative' }}>
+              <div 
+                style={{ 
+                  borderRadius: '10px', 
+                  overflow: 'hidden', 
+                  border: '1px solid #E5EAE8',
+                  boxShadow: '0 16px 40px rgba(8, 6, 7, 0.07)',
+                  background: '#F5F8F7',
+                  position: 'relative',
+                  maxHeight: '520px'
                 }}
               >
-                <span>Explore Services</span>
-                <ArrowRight size={17} />
-              </Link>
-
-              {/* WhatsApp Button (High-Contrast Green) */}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Chat with MaxR on WhatsApp"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  background: '#25D366',
-                  color: '#ffffff',
-                  fontWeight: 800,
-                  fontSize: '0.975rem',
-                  padding: '0.85rem 1.95rem',
-                  borderRadius: '10px',
-                  textDecoration: 'none',
-                  boxShadow: '0 6px 20px rgba(37, 211, 102, 0.4)',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#1ebd59';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#25D366';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <WhatsAppIcon size={19} color="#ffffff" />
-                <span>Chat on WhatsApp</span>
-              </a>
-
-              {/* Book a Call Option */}
-              <button
-                onClick={onOpenContact}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'rgba(255, 255, 255, 0.12)',
-                  color: '#ffffff',
-                  border: '1.5px solid rgba(255, 255, 255, 0.35)',
-                  fontWeight: 700,
-                  fontSize: '0.975rem',
-                  padding: '0.85rem 1.75rem',
-                  borderRadius: '10px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#00bba7';
-                  e.currentTarget.style.background = 'rgba(0, 187, 167, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-                }}
-              >
-                <Calendar size={17} />
-                <span>Book a Call</span>
-              </button>
+                <img 
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80" 
+                  alt="Modern enterprise architecture and corporate business headquarters" 
+                  style={{ 
+                    width: '100%', 
+                    height: 'clamp(360px, 45vw, 500px)', 
+                    objectFit: 'cover', 
+                    display: 'block' 
+                  }} 
+                />
+                {/* Subtle Corporate Watermark Badge */}
+                <div 
+                  style={{
+                    position: 'absolute',
+                    bottom: '1.25rem',
+                    left: '1.25rem',
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    backdropFilter: 'blur(8px)',
+                    border: '1px solid #E5EAE8',
+                    borderRadius: '6px',
+                    padding: '0.6rem 1rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 4px 12px rgba(8,6,7,0.06)'
+                  }}
+                >
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#54CFB0' }} />
+                  <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#080607' }}>
+                    Enterprise Engineering & Strategic Solutions
+                  </span>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -615,680 +388,735 @@ export default function HomePage({ onOpenContact }) {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          2. CAPABILITIES SECTION (Logo-Style Badges, High Contrast, 10 Domains with Working Items)
+          2. CAPABILITY STRIP (Horizontal 4-Column Clean Strip with Thin Dividers)
           ═════════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: '4.5rem 0 3.5rem' }}>
+      <section 
+        style={{ 
+          background: '#FFFFFF', 
+          borderBottom: '1px solid #E5EAE8',
+          padding: '2.25rem 0' 
+        }}
+      >
         <div className="container">
-          <ScrollBox
-            style={{
-              background: '#ffffff',
-              border: '1.5px solid #cbd5e1',
-              borderRadius: '24px',
-              padding: 'clamp(2rem, 4vw, 3.5rem)',
-              boxShadow: '0 12px 35px rgba(0, 0, 0, 0.05)'
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', 
+              gap: '2rem' 
             }}
           >
-            {/* Section Header */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '0.825rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 800 }}>
-                  Comprehensive Capabilities
-                </span>
-                <span style={{ background: '#0a1428', color: '#ffffff', fontSize: '0.75rem', fontWeight: 800, padding: '3px 10px', borderRadius: '6px' }}>
-                  10 Engineering Domains
-                </span>
+            {/* Item 1 */}
+            <div 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '1rem',
+                borderRight: '1px solid #E5EAE8',
+                paddingRight: '1.5rem'
+              }}
+            >
+              <div 
+                style={{ 
+                  color: '#080607', 
+                  flexShrink: 0,
+                  marginTop: '2px'
+                }}
+              >
+                <Target size={20} strokeWidth={2} color="#080607" />
               </div>
-              <h2 style={{ fontSize: 'clamp(2.1rem, 3.5vw, 2.85rem)', fontWeight: 900, letterSpacing: '-0.03em', color: '#0a1428', margin: 0 }}>
-                Engineered for Modern Enterprise Scale
-              </h2>
-              <p style={{ fontSize: '1.05rem', color: '#334155', lineHeight: 1.6, margin: 0, maxWidth: '720px', fontWeight: 500 }}>
-                Explore our full spectrum of web, mobile, custom software, digital marketing, AI automation, and cloud intelligence disciplines.
-              </p>
+              <div>
+                <h4 style={{ fontSize: '0.825rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#080607', margin: '0 0 0.25rem 0' }}>
+                  BUSINESS-FOCUSED
+                </h4>
+                <p style={{ fontSize: '0.875rem', color: '#4a5568', margin: 0, lineHeight: 1.45 }}>
+                  Solutions built around real outcomes
+                </p>
+              </div>
             </div>
 
-            {/* Interactive Category Filter Pills */}
+            {/* Item 2 */}
             <div 
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.65rem',
-                flexWrap: 'wrap',
-                marginBottom: '2.5rem',
-                borderBottom: '1.5px solid #e2e8f0',
-                paddingBottom: '1.25rem'
+              style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '1rem',
+                borderRight: '1px solid #E5EAE8',
+                paddingRight: '1.5rem'
               }}
             >
-              {categoryFilters.map((cat) => {
-                const isActive = selectedCategory === cat.id;
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedCategory(cat.id)}
-                    style={{
-                      background: isActive ? '#0a1428' : '#ffffff',
-                      color: isActive ? '#ffffff' : '#1e293b',
-                      border: isActive ? '1.5px solid #0a1428' : '1.5px solid #cbd5e1',
-                      padding: '0.55rem 1.15rem',
-                      borderRadius: '8px',
-                      fontSize: '0.875rem',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                      boxShadow: isActive ? '0 4px 12px rgba(10,20,40,0.15)' : 'none'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.borderColor = '#00bba7';
-                        e.currentTarget.style.color = '#00bba7';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.borderColor = '#cbd5e1';
-                        e.currentTarget.style.color = '#1e293b';
-                      }
-                    }}
-                  >
-                    {cat.label}
-                  </button>
-                );
-              })}
+              <div 
+                style={{ 
+                  color: '#080607', 
+                  flexShrink: 0,
+                  marginTop: '2px'
+                }}
+              >
+                <Zap size={20} strokeWidth={2} color="#080607" />
+              </div>
+              <div>
+                <h4 style={{ fontSize: '0.825rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#080607', margin: '0 0 0.25rem 0' }}>
+                  AUTOMATION-DRIVEN
+                </h4>
+                <p style={{ fontSize: '0.875rem', color: '#4a5568', margin: 0, lineHeight: 1.45 }}>
+                  Reduce manual work and improve efficiency
+                </p>
+              </div>
             </div>
 
-            {/* 10 Capabilities Grid with Logo Marks & High Contrast */}
+            {/* Item 3 */}
             <div 
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '1.65rem'
+              style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '1rem',
+                borderRight: '1px solid #E5EAE8',
+                paddingRight: '1.5rem'
               }}
             >
-              {filteredCapabilities.map((cap) => (
-                <div
-                  key={cap.id}
-                  style={{
-                    background: '#ffffff',
-                    border: '1.5px solid #e2e8f0',
-                    borderRadius: '18px',
-                    padding: '2rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    position: 'relative',
-                    transition: 'all 0.25s ease',
-                    boxShadow: '0 4px 14px rgba(0,0,0,0.03)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#00bba7';
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 16px 36px rgba(0, 187, 167, 0.15)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#e2e8f0';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.03)';
-                  }}
-                >
-                  {/* Top Bar: Logo Mark + Domain Number */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                    <LogoMark gradient={cap.gradient} icon={cap.icon} size={48} />
-                    <span 
-                      style={{
-                        fontSize: '0.9rem',
-                        fontWeight: 900,
-                        color: '#64748b',
-                        fontFamily: 'monospace'
-                      }}
-                    >
-                      {cap.num}
-                    </span>
-                  </div>
-
-                  {/* Capability Title (High Contrast Black) */}
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0a1428', marginBottom: '1.25rem' }}>
-                    {cap.title}
-                  </h3>
-
-                  {/* Sub-Services Working Items Tags (High Contrast Chips) */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px', marginBottom: '1.75rem', flex: 1 }}>
-                    {cap.items.map((subItem, sIdx) => (
-                      <span
-                        key={sIdx}
-                        style={{
-                          fontSize: '0.8rem',
-                          fontWeight: 700,
-                          color: '#0f172a',
-                          background: '#f8fafc',
-                          border: '1px solid #cbd5e1',
-                          padding: '5px 11px',
-                          borderRadius: '6px',
-                          transition: 'all 0.15s ease',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = '#00bba7';
-                          e.currentTarget.style.color = '#00bba7';
-                          e.currentTarget.style.background = 'rgba(0, 187, 167, 0.08)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = '#cbd5e1';
-                          e.currentTarget.style.color = '#0f172a';
-                          e.currentTarget.style.background = '#f8fafc';
-                        }}
-                      >
-                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#00bba7' }} />
-                        <span>{subItem}</span>
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Direct Link */}
-                  <div style={{ borderTop: '1.5px solid #f1f5f9', paddingTop: '1.15rem', marginTop: 'auto' }}>
-                    <Link
-                      to="/services"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        color: '#00bba7',
-                        fontWeight: 800,
-                        fontSize: '0.9rem',
-                        textDecoration: 'none'
-                      }}
-                    >
-                      <span>Explore {cap.title}</span>
-                      <ArrowRight size={15} />
-                    </Link>
-                  </div>
-                </div>
-              ))}
+              <div 
+                style={{ 
+                  color: '#080607', 
+                  flexShrink: 0,
+                  marginTop: '2px'
+                }}
+              >
+                <Layers size={20} strokeWidth={2} color="#080607" />
+              </div>
+              <div>
+                <h4 style={{ fontSize: '0.825rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#080607', margin: '0 0 0.25rem 0' }}>
+                  SCALABLE SOLUTIONS
+                </h4>
+                <p style={{ fontSize: '0.875rem', color: '#4a5568', margin: 0, lineHeight: 1.45 }}>
+                  Built for growing businesses
+                </p>
+              </div>
             </div>
-          </ScrollBox>
+
+            {/* Item 4 */}
+            <div 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'flex-start', 
+                gap: '1rem'
+              }}
+            >
+              <div 
+                style={{ 
+                  color: '#080607', 
+                  flexShrink: 0,
+                  marginTop: '2px'
+                }}
+              >
+                <Users size={20} strokeWidth={2} color="#080607" />
+              </div>
+              <div>
+                <h4 style={{ fontSize: '0.825rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#080607', margin: '0 0 0.25rem 0' }}>
+                  PEOPLE-FIRST
+                </h4>
+                <p style={{ fontSize: '0.875rem', color: '#4a5568', margin: 0, lineHeight: 1.45 }}>
+                  Technology with human support
+                </p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          3. HOW IT WORKS (Horizontal 3-Step Flow)
+          3. SERVICES SECTION (Editorial Cards, White-First, Minimal Shadows)
           ═════════════════════════════════════════════ */}
-      <section style={{ padding: '2rem 0 3.5rem' }}>
+      <section 
+        style={{ 
+          background: '#F5F8F7', 
+          borderBottom: '1px solid #E5EAE8',
+          padding: 'clamp(4.5rem, 7vw, 6rem) 0' 
+        }}
+      >
         <div className="container">
-          <ScrollBox
-            style={{
-              background: '#f8fafc',
-              border: '1.5px solid #cbd5e1',
-              borderRadius: '24px',
-              padding: 'clamp(2rem, 4vw, 3.5rem)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.03)'
+          
+          {/* Section Header */}
+          <div style={{ maxWidth: '680px', marginBottom: '3.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#54CFB0' }} />
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
+                OUR SERVICES
+              </span>
+            </div>
+            
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
+                fontWeight: 800, 
+                letterSpacing: '-0.03em', 
+                lineHeight: 1.15, 
+                color: '#080607',
+                margin: '0 0 1rem 0'
+              }}
+            >
+              End-to-End Technology<br />
+              for Modern Businesses.
+            </h2>
+
+            <p style={{ fontSize: '1.05rem', color: '#4a5568', lineHeight: 1.6, margin: 0 }}>
+              From strategy and consulting to digital solutions and automation, we help businesses grow, operate efficiently and stay ahead.
+            </p>
+          </div>
+
+          {/* 4 Large Editorial Cards */}
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', 
+              gap: '1.75rem' 
             }}
           >
-            <div style={{ textAlign: 'center', maxWidth: '620px', margin: '0 auto 4rem' }}>
-              <span style={{ fontSize: '0.825rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 800 }}>
-                Process
-              </span>
-              <h2 style={{ fontSize: 'clamp(2.1rem, 3.5vw, 2.85rem)', fontWeight: 900, letterSpacing: '-0.03em', color: '#0a1428', marginTop: '0.4rem' }}>
-                How It Works
-              </h2>
-            </div>
-
-            {/* Horizontal Layout with Continuous Connecting Line */}
-            <div style={{ position: 'relative', maxWidth: '1000px', margin: '0 auto' }}>
+            {services.map((svc) => (
               <div 
-                aria-hidden="true"
-                style={{
-                  position: 'absolute',
-                  top: '25px',
-                  left: '12%',
-                  right: '12%',
-                  height: '2px',
-                  background: '#cbd5e1',
-                  zIndex: 0
+                key={svc.num}
+                style={{ 
+                  background: '#FFFFFF', 
+                  border: '1px solid #E5EAE8', 
+                  borderRadius: '8px', 
+                  padding: '1.75rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: 'all 0.25s ease',
+                  position: 'relative'
                 }}
-              />
-
-              <div 
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                  gap: '2.5rem',
-                  position: 'relative',
-                  zIndex: 1
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#54CFB0';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(8, 6, 7, 0.06)';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1.04)';
+                  const arrow = e.currentTarget.querySelector('.service-arrow');
+                  if (arrow) arrow.style.color = '#54CFB0';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#E5EAE8';
+                  e.currentTarget.style.boxShadow = 'none';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1)';
+                  const arrow = e.currentTarget.querySelector('.service-arrow');
+                  if (arrow) arrow.style.color = '#080607';
                 }}
               >
-                {steps.map((st, idx) => (
-                  <div 
-                    key={idx} 
+                {/* Number */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                  <span style={{ fontSize: '1rem', fontWeight: 800, color: '#080607', fontFamily: 'monospace' }}>
+                    {svc.num}
+                  </span>
+                  <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#54CFB0' }} />
+                </div>
+
+                {/* Card Editorial Image */}
+                <div 
+                  style={{ 
+                    borderRadius: '6px', 
+                    overflow: 'hidden', 
+                    height: '170px', 
+                    marginBottom: '1.5rem',
+                    background: '#F5F8F7'
+                  }}
+                >
+                  <img 
+                    src={svc.image} 
+                    alt={svc.title} 
                     style={{ 
-                      textAlign: 'center', 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      alignItems: 'center' 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover', 
+                      display: 'block',
+                      transition: 'transform 0.4s ease'
+                    }} 
+                  />
+                </div>
+
+                {/* Title */}
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#080607', margin: '0 0 0.75rem 0', letterSpacing: '-0.02em' }}>
+                  {svc.title}
+                </h3>
+
+                {/* Description */}
+                <p style={{ fontSize: '0.9rem', color: '#4a5568', lineHeight: 1.6, margin: '0 0 1.5rem 0', flex: 1 }}>
+                  {svc.desc}
+                </p>
+
+                {/* Explore Link with Transition */}
+                <div style={{ borderTop: '1px solid #E5EAE8', paddingTop: '1.15rem', marginTop: 'auto' }}>
+                  <Link 
+                    to={svc.link}
+                    className="service-arrow"
+                    style={{ 
+                      display: 'inline-flex', 
+                      alignItems: 'center', 
+                      gap: '6px', 
+                      fontWeight: 600, 
+                      fontSize: '0.875rem', 
+                      color: '#080607',
+                      textDecoration: 'none',
+                      transition: 'color 0.2s ease'
                     }}
                   >
-                    {/* Step Number Styled as an Outlined Circle */}
+                    <span>Explore</span>
+                    <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════════════════════
+          4. INDUSTRIES SECTION (Large Visual Tiles, Enterprise Photography)
+          ═════════════════════════════════════════════════════════════════════ */}
+      <section 
+        style={{ 
+          background: '#FFFFFF', 
+          borderBottom: '1px solid #E5EAE8',
+          padding: 'clamp(4.5rem, 7vw, 6rem) 0' 
+        }}
+      >
+        <div className="container">
+          
+          {/* Section Header */}
+          <div style={{ maxWidth: '680px', marginBottom: '3.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#54CFB0' }} />
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
+                INDUSTRIES
+              </span>
+            </div>
+            
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
+                fontWeight: 800, 
+                letterSpacing: '-0.03em', 
+                lineHeight: 1.15, 
+                color: '#080607',
+                margin: '0 0 1rem 0'
+              }}
+            >
+              Technology<br />
+              for Every Industry.
+            </h2>
+
+            <p style={{ fontSize: '1.05rem', color: '#4a5568', lineHeight: 1.6, margin: 0 }}>
+              We build solutions around the unique challenges and opportunities of modern businesses.
+            </p>
+          </div>
+
+          {/* 4 Large Visual Photography Tiles in a Row */}
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
+              gap: '1.5rem' 
+            }}
+          >
+            {industries.map((ind, idx) => (
+              <Link
+                key={ind.title}
+                to="/industries"
+                style={{ 
+                  position: 'relative', 
+                  borderRadius: '8px', 
+                  overflow: 'hidden', 
+                  height: '380px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  padding: '1.75rem',
+                  textDecoration: 'none',
+                  border: '1px solid #E5EAE8',
+                  boxShadow: '0 4px 16px rgba(8, 6, 7, 0.04)',
+                  transition: 'transform 0.25s ease, box-shadow 0.25s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = '0 12px 28px rgba(8, 6, 7, 0.08)';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(8, 6, 7, 0.04)';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1)';
+                }}
+              >
+                {/* Background Image with Clean Corporate Grade Gradient Overlay */}
+                <img 
+                  src={ind.image} 
+                  alt={ind.title} 
+                  style={{ 
+                    position: 'absolute', 
+                    inset: 0, 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    zIndex: 0,
+                    transition: 'transform 0.5s ease'
+                  }} 
+                />
+                
+                {/* Contrast Gradient for Legibility */}
+                <div 
+                  style={{ 
+                    position: 'absolute', 
+                    inset: 0, 
+                    background: 'linear-gradient(180deg, rgba(8,6,7,0.05) 0%, rgba(8,6,7,0.4) 40%, rgba(8,6,7,0.92) 100%)',
+                    zIndex: 1 
+                  }} 
+                />
+
+                {/* Content Overlay */}
+                <div style={{ position: 'relative', zIndex: 2 }}>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)', padding: '3px 8px', borderRadius: '4px', marginBottom: '0.65rem' }}>
+                    <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#54CFB0' }} />
+                    <span style={{ fontSize: '0.725rem', fontWeight: 600, color: '#FFFFFF', letterSpacing: '0.04em' }}>
+                      {ind.tag}
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#FFFFFF', margin: '0 0 0.5rem 0', letterSpacing: '-0.02em' }}>
+                    {ind.title}
+                  </h3>
+
+                  <p style={{ fontSize: '0.85rem', color: '#e2e8f0', lineHeight: 1.5, margin: '0 0 1rem 0' }}>
+                    {ind.desc}
+                  </p>
+
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#54CFB0', fontSize: '0.825rem', fontWeight: 600 }}>
+                    <span>Learn more</span>
+                    <ArrowRight size={13} />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════════════════════
+          5. WHY MAXR SECTION (Split Layout: Image Left, Clean Points Right)
+          ═════════════════════════════════════════════════════════════════════ */}
+      <section 
+        style={{ 
+          background: '#F5F8F7', 
+          borderBottom: '1px solid #E5EAE8',
+          padding: 'clamp(4.5rem, 7vw, 6rem) 0' 
+        }}
+      >
+        <div className="container">
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+              gap: 'clamp(3rem, 6vw, 5rem)',
+              alignItems: 'center' 
+            }}
+          >
+            {/* Left: Premium Enterprise Office / Workspace Photography */}
+            <div>
+              <div 
+                style={{ 
+                  borderRadius: '10px', 
+                  overflow: 'hidden', 
+                  border: '1px solid #E5EAE8',
+                  boxShadow: '0 16px 36px rgba(8, 6, 7, 0.05)',
+                  background: '#FFFFFF'
+                }}
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" 
+                  alt="MaxR enterprise collaboration and corporate team advisory workspace" 
+                  style={{ 
+                    width: '100%', 
+                    height: 'clamp(340px, 42vw, 480px)', 
+                    objectFit: 'cover', 
+                    display: 'block' 
+                  }} 
+                />
+              </div>
+            </div>
+
+            {/* Right: Editorial Information & 4 Principles */}
+            <div style={{ maxWidth: '580px' }}>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+                <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#54CFB0' }} />
+                <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
+                  WHY BUSINESSES CHOOSE MAXR
+                </span>
+              </div>
+
+              <h2 
+                style={{ 
+                  fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
+                  fontWeight: 800, 
+                  letterSpacing: '-0.03em', 
+                  lineHeight: 1.15, 
+                  color: '#080607',
+                  margin: '0 0 1.25rem 0'
+                }}
+              >
+                A Partner for<br />
+                What's Next.
+              </h2>
+
+              <p style={{ fontSize: '1.05rem', color: '#4a5568', lineHeight: 1.6, margin: '0 0 2.25rem 0' }}>
+                We combine strategy, technology and automation to help businesses grow, operate efficiently and stay competitive.
+              </p>
+
+              {/* 4 Simple Points with Clean Minimalist Line Icons */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                {whyPoints.map((pt) => (
+                  <div key={pt.title} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
                     <div 
-                      style={{
-                        width: '52px',
-                        height: '52px',
-                        borderRadius: '50%',
-                        border: '2.5px solid #00bba7',
-                        background: '#ffffff',
-                        color: '#00bba7',
-                        fontWeight: 900,
-                        fontSize: '1rem',
+                      style={{ 
+                        width: '36px', 
+                        height: '36px', 
+                        borderRadius: '6px', 
+                        background: '#FFFFFF', 
+                        border: '1px solid #E5EAE8',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        marginBottom: '1.25rem',
-                        boxShadow: '0 6px 16px rgba(0, 187, 167, 0.2)'
+                        flexShrink: 0,
+                        marginTop: '2px'
                       }}
                     >
-                      {st.num}
+                      <pt.icon size={18} strokeWidth={2} color="#080607" />
                     </div>
-
-                    {/* Short Title (High Contrast) */}
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0a1428', marginBottom: '0.65rem' }}>
-                      {st.title}
-                    </h3>
-
-                    {/* 1 Sentence Description */}
-                    <p style={{ fontSize: '0.95rem', color: '#334155', lineHeight: 1.6, maxWidth: '280px', margin: 0, fontWeight: 500 }}>
-                      {st.desc}
-                    </p>
+                    <div>
+                      <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#080607', margin: '0 0 0.25rem 0' }}>
+                        {pt.title}
+                      </h3>
+                      <p style={{ fontSize: '0.875rem', color: '#4a5568', margin: 0, lineHeight: 1.55 }}>
+                        {pt.desc}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
+
             </div>
-          </ScrollBox>
+
+          </div>
         </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          4. SECTORS SECTION (User Requirement: Light & Transparent Theme, Left Circular Animated Nodes, Right Products Panel)
-          ═════════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: '2rem 0 3.5rem' }}>
+          6. INSIGHTS SECTION (Editorial Perspectives, 3 Article Cards)
+          ═════════════════════════════════════════════ */}
+      <section 
+        style={{ 
+          background: '#FFFFFF', 
+          borderBottom: '1px solid #E5EAE8',
+          padding: 'clamp(4.5rem, 7vw, 6rem) 0' 
+        }}
+      >
         <div className="container">
-          <ScrollBox
-            style={{
-              position: 'relative',
-              borderRadius: '26px',
-              overflow: 'hidden',
-              boxShadow: '0 16px 45px rgba(0, 0, 0, 0.08)',
-              minHeight: '640px',
-              border: '1.5px solid #cbd5e1'
-            }}
-          >
-            {/* Dynamic Whole Section Background Real Image */}
-            <div 
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                backgroundImage: `url(${currentSectorData.bgImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                transition: 'background-image 0.5s ease-in-out',
-                zIndex: 0
-              }}
-            />
-
-            {/* LIGHT WITH TRANSPARENCY Frosted Glass Overlay (NOT dark!) */}
-            <div 
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 250, 252, 0.88) 45%, rgba(241, 245, 249, 0.82) 100%)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                zIndex: 1
-              }}
-            />
-
-            {/* Split Content: Left Side Circular Selector Nodes | Right Side Products We Build */}
-            <div 
-              style={{
-                position: 'relative',
-                zIndex: 2,
-                padding: 'clamp(2.5rem, 5vw, 4rem)',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '3rem',
-                alignItems: 'center'
+          
+          {/* Section Header */}
+          <div style={{ maxWidth: '680px', marginBottom: '3.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#54CFB0' }} />
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
+                INSIGHTS
+              </span>
+            </div>
+            
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
+                fontWeight: 800, 
+                letterSpacing: '-0.03em', 
+                lineHeight: 1.15, 
+                color: '#080607',
+                margin: '0 0 1rem 0'
               }}
             >
-              {/* Left Side: Circular Animated Sector Nodes */}
-              <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '999px', background: 'rgba(0, 187, 167, 0.12)', border: '1.5px solid rgba(0, 187, 167, 0.35)', marginBottom: '1.25rem' }}>
-                  <Sparkles size={15} color="#00bba7" />
-                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0f766e', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                    Sector Specializations
-                  </span>
-                </div>
+              Perspectives on<br />
+              Technology and Growth.
+            </h2>
+          </div>
 
-                <h2 style={{ fontSize: 'clamp(2.1rem, 3.5vw, 2.85rem)', fontWeight: 900, color: '#0a1428', letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '1rem' }}>
-                  Tailored For Industry Leaders
-                </h2>
-
-                <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6, marginBottom: '2.25rem', fontWeight: 500 }}>
-                  Click a circular sector node below to switch the environment and explore the exact software, voice bots, and automation systems we build for that domain.
-                </p>
-
-                {/* Animated Circular Sector Nodes List */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {sectors.map((sec) => {
-                    const isActive = sec.id === activeSector;
-                    return (
-                      <button
-                        key={sec.id}
-                        onClick={() => setActiveSector(sec.id)}
-                        style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          padding: '0.75rem 1rem 0.75rem 0.75rem',
-                          borderRadius: '16px',
-                          cursor: 'pointer',
-                          transition: 'all 0.25s ease',
-                          textAlign: 'left',
-                          background: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.65)',
-                          border: isActive ? '2px solid #00bba7' : '1.5px solid #cbd5e1',
-                          boxShadow: isActive ? '0 8px 24px rgba(0, 187, 167, 0.2)' : '0 2px 6px rgba(0,0,0,0.02)'
-                        }}
-                        onMouseEnter={(e) => {
-                          if (!isActive) {
-                            e.currentTarget.style.borderColor = '#00bba7';
-                            e.currentTarget.style.background = '#ffffff';
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (!isActive) {
-                            e.currentTarget.style.borderColor = '#cbd5e1';
-                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.65)';
-                          }
-                        }}
-                      >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                          {/* Circle Logo Node with Pulse Glow Animation */}
-                          <div 
-                            style={{
-                              width: '46px',
-                              height: '46px',
-                              borderRadius: '50%',
-                              background: sec.gradient,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              color: '#ffffff',
-                              boxShadow: isActive 
-                                ? '0 0 0 4px rgba(0, 187, 167, 0.25), 0 6px 16px rgba(0, 0, 0, 0.2)' 
-                                : '0 4px 10px rgba(0,0,0,0.1)',
-                              transform: isActive ? 'scale(1.06)' : 'scale(1)',
-                              transition: 'all 0.25s ease',
-                              flexShrink: 0
-                            }}
-                          >
-                            <sec.icon size={22} strokeWidth={2.2} />
-                          </div>
-
-                          {/* Sector Name (High Contrast) */}
-                          <span style={{ fontSize: '1rem', fontWeight: isActive ? 800 : 700, color: isActive ? '#00bba7' : '#0a1428' }}>
-                            {sec.name}
-                          </span>
-                        </div>
-
-                        <ChevronRight size={18} color={isActive ? '#00bba7' : '#94a3b8'} />
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Right Side: What Products We Build for Selected Sector (Frosted Glass Panel) */}
-              <div 
-                style={{
-                  background: 'rgba(255, 255, 255, 0.96)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '2px solid #00bba7',
-                  borderRadius: '22px',
-                  padding: 'clamp(2rem, 3.5vw, 2.75rem)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.08)',
+          {/* 3 Editorial Cards Grid */}
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+              gap: '2rem' 
+            }}
+          >
+            {insights.map((item) => (
+              <Link
+                key={item.title}
+                to={item.link}
+                style={{ 
+                  background: '#FFFFFF', 
+                  border: '1px solid #E5EAE8', 
+                  borderRadius: '8px', 
+                  overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '1.5rem'
+                  textDecoration: 'none',
+                  transition: 'all 0.25s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#54CFB0';
+                  e.currentTarget.style.boxShadow = '0 10px 28px rgba(8, 6, 7, 0.06)';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1.04)';
+                  const arrow = e.currentTarget.querySelector('.insight-arrow');
+                  if (arrow) arrow.style.color = '#54CFB0';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#E5EAE8';
+                  e.currentTarget.style.boxShadow = 'none';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1)';
+                  const arrow = e.currentTarget.querySelector('.insight-arrow');
+                  if (arrow) arrow.style.color = '#080607';
                 }}
               >
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.4rem' }}>
-                    <div 
-                      style={{ 
-                        width: 28, 
-                        height: 28, 
-                        borderRadius: '50%', 
-                        background: currentSectorData.gradient, 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center', 
-                        color: '#fff' 
-                      }}
-                    >
-                      <currentSectorData.icon size={15} />
-                    </div>
-                    <span style={{ fontSize: '0.825rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#0f766e', fontWeight: 800 }}>
-                      Products We Build for {currentSectorData.name}
+                {/* Image */}
+                <div style={{ height: '200px', overflow: 'hidden', background: '#F5F8F7' }}>
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover', 
+                      display: 'block',
+                      transition: 'transform 0.4s ease'
+                    }} 
+                  />
+                </div>
+
+                {/* Article Info */}
+                <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#54CFB0' }}>
+                      {item.category}
+                    </span>
+                    <span style={{ fontSize: '0.75rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <Clock size={12} /> {item.readTime}
                     </span>
                   </div>
-                  <h3 style={{ fontSize: '1.55rem', fontWeight: 900, color: '#0a1428', margin: 0 }}>
-                    {currentSectorData.tagline}
-                  </h3>
-                </div>
 
-                {/* Product Offerings List for this Sector (High Contrast Cards) */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {currentSectorData.products.map((prod, pIdx) => (
-                    <div 
-                      key={pIdx}
-                      style={{
-                        background: '#f8fafc',
-                        border: '1.5px solid #e2e8f0',
-                        borderRadius: '14px',
-                        padding: '1.25rem',
-                        transition: 'all 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = '#00bba7';
-                        e.currentTarget.style.background = '#ffffff';
-                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 187, 167, 0.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = '#e2e8f0';
-                        e.currentTarget.style.background = '#f8fafc';
-                        e.currentTarget.style.boxShadow = 'none';
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#080607', margin: '0 0 1.25rem 0', lineHeight: 1.4, letterSpacing: '-0.015em' }}>
+                    {item.title}
+                  </h3>
+
+                  <div style={{ marginTop: 'auto', borderTop: '1px solid #E5EAE8', paddingTop: '1rem' }}>
+                    <span 
+                      className="insight-arrow"
+                      style={{ 
+                        display: 'inline-flex', 
+                        alignItems: 'center', 
+                        gap: '6px', 
+                        fontSize: '0.875rem', 
+                        fontWeight: 600, 
+                        color: '#080607',
+                        transition: 'color 0.2s ease'
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '5px' }}>
-                        <CheckCircle2 size={18} color="#00bba7" flexShrink={0} />
-                        <h4 style={{ fontSize: '1.025rem', fontWeight: 800, color: '#0a1428', margin: 0 }}>
-                          {prod.title}
-                        </h4>
-                      </div>
-                      <p style={{ fontSize: '0.875rem', color: '#334155', lineHeight: 1.55, margin: 0, paddingLeft: '26px', fontWeight: 500 }}>
-                        {prod.desc}
-                      </p>
-                    </div>
-                  ))}
+                      <span>Read Article</span>
+                      <ArrowRight size={14} />
+                    </span>
+                  </div>
                 </div>
+              </Link>
+            ))}
+          </div>
 
-                {/* Bottom Action */}
-                <div style={{ paddingTop: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-                  <Link
-                    to="/industries"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      color: '#00bba7',
-                      fontWeight: 800,
-                      fontSize: '0.925rem',
-                      textDecoration: 'none'
-                    }}
-                  >
-                    <span>View all sector case studies</span>
-                    <ArrowRight size={16} />
-                  </Link>
-
-                  <button
-                    onClick={onOpenContact}
-                    style={{
-                      background: '#0a1428',
-                      color: '#ffffff',
-                      border: 'none',
-                      fontWeight: 800,
-                      padding: '0.75rem 1.45rem',
-                      borderRadius: '10px',
-                      fontSize: '0.9rem',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                      boxShadow: '0 4px 12px rgba(10,20,40,0.2)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#00bba7';
-                      e.currentTarget.style.color = '#020617';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#0a1428';
-                      e.currentTarget.style.color = '#ffffff';
-                    }}
-                  >
-                    Build for {currentSectorData.name}
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </ScrollBox>
         </div>
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          5. CTA STRIP (Box Framed High-Contrast Dark Section)
-          ═════════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: '2rem 0 5rem' }}>
+          7. FINAL CTA (Minimalist Executive Black Background, Mint Accent)
+          ═════════════════════════════════════════════ */}
+      <section 
+        style={{ 
+          background: '#080607', 
+          color: '#FFFFFF', 
+          padding: 'clamp(5rem, 8vw, 7rem) 0' 
+        }}
+      >
         <div className="container">
-          <ScrollBox
-            style={{
-              background: 'linear-gradient(135deg, #050c1a 0%, #0a1428 100%)',
-              border: '1.5px solid rgba(255, 255, 255, 0.15)',
-              borderRadius: '26px',
-              padding: 'clamp(3rem, 5vw, 4.5rem) 2rem',
-              color: '#ffffff',
-              textAlign: 'center',
-              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)'
-            }}
-          >
-            <div style={{ maxWidth: '680px', margin: '0 auto' }}>
-              <h2 
-                style={{
-                  fontSize: 'clamp(2.2rem, 4vw, 3.25rem)',
-                  fontWeight: 900,
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.15,
-                  color: '#ffffff',
-                  marginBottom: '1rem'
-                }}
-              >
-                Ready to Accelerate Your Operations?
-              </h2>
-
-              <p 
-                style={{
-                  fontSize: '1.15rem',
-                  color: '#f1f5f9',
-                  lineHeight: 1.6,
-                  maxWidth: '560px',
-                  margin: '0 auto 2.5rem',
-                  fontWeight: 400
-                }}
-              >
-                Deploy production-grade AI agents and custom software systems in days.
-              </p>
-
-              <div 
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  flexWrap: 'wrap'
-                }}
-              >
-                {/* WhatsApp Button (High Contrast Green) */}
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Instant WhatsApp Consultation"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                    background: '#25D366',
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: '0.975rem',
-                    padding: '0.85rem 1.95rem',
-                    borderRadius: '10px',
-                    textDecoration: 'none',
-                    boxShadow: '0 6px 20px rgba(37, 211, 102, 0.45)',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#1ebd59';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#25D366';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <WhatsAppIcon size={19} color="#ffffff" />
-                  <span>Chat on WhatsApp</span>
-                </a>
-
-                {/* Book a Call Button (Vivid Electric Teal) */}
-                <button
-                  onClick={onOpenContact}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    background: '#00bba7',
-                    color: '#020617',
-                    fontWeight: 800,
-                    fontSize: '0.975rem',
-                    padding: '0.85rem 1.95rem',
-                    borderRadius: '10px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    boxShadow: '0 6px 20px rgba(0, 187, 167, 0.35)',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#0d9488';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#00bba7';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
-                >
-                  <Calendar size={17} />
-                  <span>Book a Call</span>
-                </button>
-              </div>
+          <div style={{ maxWidth: '780px', margin: '0 auto', textAlign: 'center' }}>
+            
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#54CFB0' }} />
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
+                LET'S BUILD TOGETHER
+              </span>
             </div>
-          </ScrollBox>
+
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2.4rem, 4.4vw, 3.6rem)', 
+                fontWeight: 800, 
+                letterSpacing: '-0.03em', 
+                lineHeight: 1.15, 
+                color: '#FFFFFF',
+                margin: '0 0 1.25rem 0'
+              }}
+            >
+              Turn Your Ideas Into<br />
+              Real Business Impact.
+            </h2>
+
+            <p 
+              style={{ 
+                fontSize: 'clamp(1.05rem, 1.3vw, 1.2rem)', 
+                color: '#94a3b8', 
+                lineHeight: 1.6, 
+                maxWidth: '620px', 
+                margin: '0 auto 2.5rem' 
+              }}
+            >
+              Tell us what you're building and let's explore how technology and automation can help you achieve it.
+            </p>
+
+            <Link
+              to="/contact"
+              style={{
+                background: '#54CFB0',
+                color: '#080607',
+                padding: '1rem 2.25rem',
+                borderRadius: '6px',
+                fontWeight: 700,
+                fontSize: '0.975rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                textDecoration: 'none',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 16px rgba(84, 207, 176, 0.25)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = '0.92';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = '1';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <span>Book a Consultation</span>
+              <ArrowRight size={16} />
+            </Link>
+
+          </div>
         </div>
       </section>
 

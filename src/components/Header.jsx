@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 
 export default function Header() {
   const location = useLocation();
@@ -17,13 +17,13 @@ export default function Header() {
       const maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
       if (maxScroll > 0 && currentScrollY > maxScroll) return;
 
-      // When near top (<= 40px), always stay visible
-      if (currentScrollY <= 40) {
+      // When near top (<= 30px), header stays normal
+      if (currentScrollY <= 30) {
         setIsVisible(true);
         setIsScrolled(false);
       } else {
         setIsScrolled(true);
-        // Scrolling DOWN -> Slide UP off screen to hide
+        // Scrolling DOWN -> Slide UP off screen
         if (currentScrollY > lastScrollY && currentScrollY > 70) {
           setIsVisible(false);
         }
@@ -44,48 +44,64 @@ export default function Header() {
     { label: "What We Do", path: "/services" },
     { label: "Industries", path: "/industries" },
     { label: "Who We Are", path: "/about" },
-    { label: "Blog", path: "/blog" },
+    { label: "Blog / Insights", path: "/blog" },
     { label: "Contact", path: "/contact" }
   ];
 
   return (
     <>
-      {/* ── Main Sticky Header (White with Transparency & Smooth Scroll Hide) ── */}
+      {/* ── Enterprise White Header (MNC Style, Centered Nav, Smooth Scroll Response) ── */}
       <header 
         className={`header ${isScrolled ? 'scrolled' : ''}`} 
         id="site-header" 
         role="banner" 
         style={{ 
-          background: isScrolled ? 'rgba(255, 255, 255, 0.94)' : 'rgba(255, 255, 255, 0.85)', 
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderBottom: '1px solid rgba(226, 232, 240, 0.8)',
-          boxShadow: isScrolled ? '0 4px 20px rgba(0, 0, 0, 0.04)' : 'none',
+          background: '#ffffff', 
+          borderBottom: '1px solid #E5EAE8',
+          boxShadow: isScrolled ? '0 2px 14px rgba(8, 6, 7, 0.06)' : 'none',
           position: 'sticky',
           top: 0,
           zIndex: 1000,
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
-          transition: 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, box-shadow 0.25s ease'
+          transition: 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s ease, box-shadow 0.25s ease'
         }}
       >
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
-          
-          {/* Logo (Official maxr. with Teal Dot) */}
+        <div 
+          className="container" 
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            height: isScrolled ? '64px' : '74px',
+            transition: 'height 0.25s ease'
+          }}
+        >
+          {/* Left: MaxR Logo */}
           <Link 
             to="/" 
             className="logo-container" 
-            style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
-            title="MaxR Home"
+            style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}
+            title="MaxR Technologies"
           >
             <img 
               src="/assets/maxr-logo.png" 
               alt="maxr." 
-              style={{ height: '36px', width: 'auto', display: 'block' }} 
+              style={{ height: '34px', width: 'auto', display: 'block' }} 
             />
           </Link>
 
-          {/* Primary Navigation: Clean text only, no icons or clunky popups */}
-          <nav className="nav-primary" id="navbar-main" aria-label="Primary navigation" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+          {/* Center: Navigation Links (MNC Centered Layout) */}
+          <nav 
+            className="nav-primary" 
+            id="navbar-main" 
+            aria-label="Primary navigation" 
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '2.25rem',
+              margin: '0 auto'
+            }}
+          >
             {navLinks.map((item) => {
               const isActive = currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path));
               return (
@@ -94,38 +110,51 @@ export default function Header() {
                   to={item.path}
                   style={{
                     textDecoration: 'none',
-                    color: isActive ? '#00bba7' : '#0f172a',
-                    fontWeight: 600,
-                    fontSize: '0.95rem',
-                    padding: '0.4rem 0.2rem',
+                    color: isActive ? '#080607' : '#2b3442',
+                    fontWeight: isActive ? 600 : 500,
+                    fontSize: '0.925rem',
+                    letterSpacing: '-0.01em',
+                    padding: '0.5rem 0.2rem',
                     transition: 'color 0.2s ease',
                     position: 'relative'
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.color = '#00bba7';
+                    e.currentTarget.style.color = '#54CFB0';
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.color = '#0f172a';
+                    e.currentTarget.style.color = isActive ? '#080607' : '#2b3442';
                   }}
                 >
                   {item.label}
+                  {isActive && (
+                    <span 
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: '2px',
+                        background: '#54CFB0'
+                      }}
+                    />
+                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Right Actions: Clean letter text only (EN) + CTA button */}
-          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            
-            {/* Language Text Indicator (Letter only, clean) */}
+          {/* Right: Language Indicator + Primary CTA */}
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexShrink: 0 }}>
+            {/* Language Pill */}
             <span 
               style={{ 
-                fontSize: '0.85rem', 
+                fontSize: '0.8rem', 
                 fontWeight: 700, 
-                color: '#475569', 
+                color: '#4a5568', 
                 padding: '4px 8px',
-                borderRadius: '6px',
-                background: 'rgba(0, 0, 0, 0.04)',
+                borderRadius: '4px',
+                background: '#F5F8F7',
+                border: '1px solid #E5EAE8',
                 letterSpacing: '0.04em'
               }}
               title="Language: English"
@@ -133,42 +162,50 @@ export default function Header() {
               EN
             </span>
 
-            {/* CTA Button Far Right */}
+            {/* Primary CTA (MNC Enterprise Styling) */}
             <Link 
               to="/contact" 
               className="btn-primary"
               style={{ 
-                background: '#00bba7', 
-                color: '#040811', 
-                fontWeight: 700, 
-                padding: '0.55rem 1.25rem', 
+                background: '#080607', 
+                color: '#ffffff', 
+                fontWeight: 600, 
+                padding: '0.65rem 1.35rem', 
                 fontSize: '0.875rem',
-                borderRadius: '10px',
+                borderRadius: '6px',
                 display: 'inline-flex',
                 alignItems: 'center',
+                gap: '6px',
                 textDecoration: 'none',
-                boxShadow: '0 2px 10px rgba(0, 187, 167, 0.25)',
                 transition: 'all 0.2s ease',
                 flexShrink: 0
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#0d9488';
-                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.background = '#54CFB0';
+                e.currentTarget.style.color = '#080607';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#00bba7';
-                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.background = '#080607';
+                e.currentTarget.style.color = '#ffffff';
               }}
             >
-              <span>Book a Call</span>
+              <span>Book a Consultation</span>
+              <ArrowRight size={14} />
             </Link>
 
-            {/* Mobile Menu Hamburger */}
+            {/* Mobile Hamburger Toggle */}
             <button 
               className="mobile-toggle" 
               aria-label="Toggle menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ color: '#0f172a', display: 'none', background: 'none', border: 'none', padding: '6px', cursor: 'pointer' }}
+              style={{ 
+                color: '#080607', 
+                display: 'none', 
+                background: 'none', 
+                border: 'none', 
+                padding: '6px', 
+                cursor: 'pointer' 
+              }}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -177,24 +214,43 @@ export default function Header() {
         </div>
       </header>
 
-      {/* ── Mobile Drawer ── */}
+      {/* ── Mobile Navigation Drawer (Clean White MNC Style) ── */}
       {mobileMenuOpen && (
-        <div className="mobile-drawer" role="dialog" aria-modal="true" style={{ background: '#070d1a', borderLeft: '1px solid rgba(0,187,167,0.3)' }}>
-          <div className="mobile-drawer-header">
+        <div 
+          className="mobile-drawer" 
+          role="dialog" 
+          aria-modal="true" 
+          style={{ 
+            background: '#ffffff', 
+            borderLeft: '1px solid #E5EAE8',
+            boxShadow: '-8px 0 30px rgba(0,0,0,0.1)'
+          }}
+        >
+          <div className="mobile-drawer-header" style={{ borderBottom: '1px solid #E5EAE8', padding: '1.25rem' }}>
             <Link to="/" onClick={() => setMobileMenuOpen(false)} style={{ textDecoration: 'none' }}>
-              <img src="/assets/maxr-logo-white.png" alt="MaxR" style={{ height: '36px', width: 'auto' }} />
+              <img src="/assets/maxr-logo.png" alt="MaxR" style={{ height: '32px', width: 'auto' }} />
             </Link>
             <button 
               onClick={() => setMobileMenuOpen(false)} 
-              style={{ color: '#fff', padding: '4px', background: 'none', border: 'none', cursor: 'pointer' }}
+              style={{ color: '#080607', padding: '4px', background: 'none', border: 'none', cursor: 'pointer' }}
             >
               <X size={24} />
             </button>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', flex: 1, overflowY: 'auto' }}>
-            <Link className="mobile-nav-link" to="/" onClick={() => setMobileMenuOpen(false)}
-              style={{ textDecoration: 'none', color: currentPath === '/' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '1.5rem', flex: 1, overflowY: 'auto' }}>
+            <Link 
+              className="mobile-nav-link" 
+              to="/" 
+              onClick={() => setMobileMenuOpen(false)}
+              style={{ 
+                textDecoration: 'none', 
+                color: currentPath === '/' ? '#54CFB0' : '#080607', 
+                fontSize: '1.05rem', 
+                fontWeight: 600, 
+                padding: '10px 0',
+                borderBottom: '1px solid #F5F8F7'
+              }}
             >
               Home
             </Link>
@@ -204,21 +260,40 @@ export default function Header() {
                 className="mobile-nav-link" 
                 to={item.path} 
                 onClick={() => setMobileMenuOpen(false)}
-                style={{ textDecoration: 'none', color: currentPath.startsWith(item.path) ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+                style={{ 
+                  textDecoration: 'none', 
+                  color: currentPath.startsWith(item.path) ? '#54CFB0' : '#080607', 
+                  fontSize: '1.05rem', 
+                  fontWeight: 600, 
+                  padding: '10px 0',
+                  borderBottom: '1px solid #F5F8F7'
+                }}
               >
                 {item.label}
               </Link>
             ))}
           </div>
 
-          <div style={{ marginTop: 'auto', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <div style={{ padding: '1.5rem', borderTop: '1px solid #E5EAE8' }}>
             <Link 
               to="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="btn-primary"
-              style={{ width: '100%', justifyContent: 'center', background: '#00bba7', color: '#040811', fontWeight: 700, display: 'flex', alignItems: 'center', padding: '0.75rem', borderRadius: '10px', textDecoration: 'none' }}
+              style={{ 
+                width: '100%', 
+                justifyContent: 'center', 
+                background: '#080607', 
+                color: '#ffffff', 
+                fontWeight: 600, 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '8px',
+                padding: '0.85rem', 
+                borderRadius: '6px', 
+                textDecoration: 'none' 
+              }}
             >
-              <span>Book a Call</span>
+              <span>Book a Consultation</span>
+              <ArrowRight size={15} />
             </Link>
           </div>
         </div>
