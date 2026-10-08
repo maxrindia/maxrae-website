@@ -4,7 +4,7 @@ import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import ContactModal from './components/ContactModal.jsx';
 
-// Dedicated Pages matching maxr.io & enterprise requirements
+// Dedicated Pages matching enterprise requirements
 import HomePage from './pages/HomePage.jsx';
 import ServicesPage from './pages/ServicesPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
@@ -44,6 +44,7 @@ function MainLayout() {
           <Route path="/services" element={<ServicesPage onOpenContact={() => setContactModalOpen(true)} />} />
           <Route path="/about" element={<AboutPage onOpenContact={() => setContactModalOpen(true)} />} />
           <Route path="/blog" element={<BlogPage onOpenContact={() => setContactModalOpen(true)} />} />
+          <Route path="/blog/:slug" element={<BlogPage onOpenContact={() => setContactModalOpen(true)} />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/industries" element={<IndustriesPage onOpenContact={() => setContactModalOpen(true)} />} />
           <Route path="/case-studies" element={<CaseStudiesPage onOpenContact={() => setContactModalOpen(true)} />} />

@@ -15,16 +15,14 @@ import {
 export default function AboutPage({ onOpenContact }) {
   const leadership = [
     {
-      name: "Shagul Hamithu",
-      role: "Founder & CEO",
-      bio: "Visionary in AI transformation, business growth, and digital infrastructure. Shagul focuses on modernizing business operations to make intelligent technology practical, scalable, and immediately accessible for growing companies.",
+      title: "Founder & CEO",
+      bio: "Visionary in AI transformation, business growth, and digital infrastructure. Focuses on modernizing business operations to make intelligent technology practical, scalable, and immediately accessible for growing companies.",
       focus: "AI Transformation & Business Growth Strategy",
       entity: "MaxR Technologies"
     },
     {
-      name: "Gopi Duraisamy",
-      role: "Co-Founder & CTO",
-      bio: "Leads MaxR's technology strategy, product development, and the engineering of scalable automation systems. Gopi specializes in conversational voice pipelines, automated workflow engines, and bank-grade infrastructure.",
+      title: "Co-Founder & CTO",
+      bio: "Leads MaxR's technology strategy, product development, and the engineering of scalable automation systems. Specializes in conversational voice pipelines, automated workflow engines, and bank-grade infrastructure.",
       focus: "Product Development & Scalable Automation Engineering",
       entity: "MaxR Technologies"
     }
@@ -193,10 +191,10 @@ export default function AboutPage({ onOpenContact }) {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexWrap: 'wrap', gap: '8px' }}>
                   <div>
                     <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#080607', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
-                      {leader.name}
+                      {leader.title}
                     </h3>
                     <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#0f766e' }}>
-                      {leader.role}
+                      Executive Leadership
                     </span>
                   </div>
                   <span style={{ background: '#F5F8F7', color: '#080607', border: '1px solid #E1E8E5', fontSize: '0.75rem', padding: '4px 10px', borderRadius: '6px', fontWeight: 700 }}>

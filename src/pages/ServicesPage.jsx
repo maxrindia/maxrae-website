@@ -3,8 +3,7 @@ import {
   Zap, 
   Bot,
   Smartphone,
-  Code2,
-  TrendingUp, 
+  Code2, 
   Globe2, 
   PhoneCall, 
   ShieldCheck, 
@@ -68,23 +67,6 @@ export default function ServicesPage({ onOpenContact }) {
         "Rigorous automated testing, security audits & continuous deployment"
       ],
       result: "Enterprise scalability · Zero vendor lock-in"
-    },
-    {
-      id: "business-consultation",
-      title: "Business Consultation & Strategy",
-      subtitle: "Operations audit, bottleneck removal & 2X-5X growth roadmaps",
-      badge: "Leadership Advisory",
-      icon: <TrendingUp size={32} color="#00bba7" />,
-      tagline: "Actionable strategic roadmaps that help businesses achieve measurable 5X growth.",
-      description: "Led by Founder & CEO Shagul Hamithu and CTO Gopi Duraisamy. We analyze your company's existing operations, diagnose revenue-draining friction points, and implement structured 3- to 6-month growth roadmaps to optimize revenue and scale operational efficiency.",
-      capabilities: [
-        "In-depth operational audit and technology stack rationalization",
-        "Strategic growth roadmap and revenue bottleneck identification",
-        "SOP streamlining and automated process mapping",
-        "Performance benchmarks and quarterly milestone tracking",
-        "Direct executive consulting with MaxR leadership"
-      ],
-      result: "Proven 2X–5X business growth within 3–6 months"
     },
     {
       id: "digital-marketing",

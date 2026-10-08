@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   BookOpen, 
   Clock, 
@@ -24,12 +25,12 @@ export default function BlogPage({ onOpenContact }) {
     {
       id: 'enterprise-ai-2026',
       title: 'The 2026 Enterprise AI Blueprint: Moving Beyond LLM Wrappers to Autonomous Systems',
-      slug: 'enterprise-ai-blueprint',
+      slug: '2026-enterprise-ai-blueprint',
       category: 'AI Automation',
       readTime: '6 min read',
       date: 'October 2026',
-      author: 'Shagul Hamithu',
-      authorRole: 'Founder & CEO',
+      author: 'MaxR Editorial Team',
+      authorRole: 'Strategic Insights',
       excerpt: 'Why superficial chatbot wrappers fail in real operations, and how multi-agent architectures and deterministic workflow pipelines unlock actual enterprise ROI.',
       tags: ['Autonomous Agents', 'Enterprise Architecture', 'AI Strategy'],
       featured: true
@@ -41,8 +42,8 @@ export default function BlogPage({ onOpenContact }) {
       category: 'Voice Systems',
       readTime: '5 min read',
       date: 'September 2026',
-      author: 'Gopi Duraisamy',
-      authorRole: 'Co-Founder & CTO',
+      author: 'MaxR Editorial Team',
+      authorRole: 'Technology & Systems',
       excerpt: 'Achieving sub-second response latency in multilingual voice pipelines. Best practices for telephony integration, CRM sync, and fallback human handoff.',
       tags: ['Voice AI', 'Telephony', 'Latency Optimization']
     },
@@ -65,8 +66,8 @@ export default function BlogPage({ onOpenContact }) {
       category: 'Enterprise Architecture',
       readTime: '7 min read',
       date: 'August 2026',
-      author: 'Gopi Duraisamy',
-      authorRole: 'Co-Founder & CTO',
+      author: 'MaxR Editorial Team',
+      authorRole: 'Technology & Systems',
       excerpt: 'How growing companies can transition from fragile legacy databases to decoupled event architectures without interrupting daily revenue operations.',
       tags: ['Cloud Systems', 'Microservices', 'Engineering']
     },
@@ -77,8 +78,8 @@ export default function BlogPage({ onOpenContact }) {
       category: 'AI Automation',
       readTime: '5 min read',
       date: 'August 2026',
-      author: 'Shagul Hamithu',
-      authorRole: 'Founder & CEO',
+      author: 'MaxR Editorial Team',
+      authorRole: 'Strategic Insights',
       excerpt: 'Case metrics, audit frameworks, and financial models for calculating the payback period of automated customer onboarding and lead qualification.',
       tags: ['ROI', 'Process Audit', 'Operations']
     },
@@ -184,7 +185,7 @@ export default function BlogPage({ onOpenContact }) {
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.75rem' }}>
                     <div style={{ width: 42, height: 42, borderRadius: '50%', background: 'rgba(0,187,167,0.1)', color: '#00bba7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', border: '1px solid rgba(0,187,167,0.2)' }}>
-                      SH
+                      MR
                     </div>
                     <div>
                       <div style={{ fontWeight: 800, color: '#080607', fontSize: '0.9rem' }}>{articles[0].author}</div>
@@ -192,8 +193,8 @@ export default function BlogPage({ onOpenContact }) {
                     </div>
                   </div>
 
-                  <button 
-                    onClick={onOpenContact}
+                  <Link 
+                    to={`/blog/${articles[0].slug}`}
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
@@ -206,12 +207,13 @@ export default function BlogPage({ onOpenContact }) {
                       fontWeight: 700,
                       fontSize: '0.9rem',
                       cursor: 'pointer',
+                      textDecoration: 'none',
                       boxShadow: '0 4px 14px rgba(0,187,167,0.25)'
                     }}
                   >
                     <span>Read Article & Architecture Notes</span>
                     <ArrowRight size={16} />
-                  </button>
+                  </Link>
                 </div>
               </div>
 
@@ -298,8 +300,8 @@ export default function BlogPage({ onOpenContact }) {
                     <div style={{ fontSize: '0.75rem', color: '#556575' }}>{article.date}</div>
                   </div>
                   
-                  <button
-                    onClick={onOpenContact}
+                  <Link
+                    to={`/blog/${article.slug}`}
                     style={{
                       background: 'none',
                       border: 'none',
@@ -310,12 +312,13 @@ export default function BlogPage({ onOpenContact }) {
                       alignItems: 'center',
                       gap: '4px',
                       cursor: 'pointer',
-                      padding: 0
+                      padding: 0,
+                      textDecoration: 'none'
                     }}
                   >
                     <span>Read More</span>
                     <ChevronRight size={16} />
-                  </button>
+                  </Link>
                 </div>
               </div>
 
