@@ -1356,78 +1356,134 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          7. FINAL CTA (Minimalist Executive Black Background, Mint Accent)
+          7. FINAL CTA (Cohesive Light Enterprise Design with Compact Spacing)
           ═════════════════════════════════════════════ */}
       <section 
         style={{ 
-          background: '#080607', 
-          color: '#FFFFFF', 
-          padding: 'clamp(5rem, 8vw, 7rem) 0' 
+          background: '#F5F8F7', 
+          borderBottom: '1px solid #E1E8E5',
+          padding: 'clamp(3rem, 5vw, 4.25rem) 0',
+          position: 'relative'
         }}
       >
         <div className="container">
-          <div style={{ maxWidth: '780px', margin: '0 auto', textAlign: 'center' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
-              <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
+          <div 
+            style={{ 
+              maxWidth: '820px', 
+              margin: '0 auto', 
+              textAlign: 'center',
+              background: '#FFFFFF',
+              border: '1px solid #E1E8E5',
+              borderRadius: '16px',
+              padding: 'clamp(2.25rem, 4.5vw, 3.25rem) clamp(1.25rem, 3.5vw, 2.75rem)',
+              boxShadow: '0 8px 30px rgba(8, 6, 7, 0.04)'
+            }}
+          >
+            {/* Eyebrow */}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+              <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7' }}>
                 LET'S BUILD TOGETHER
               </span>
             </div>
 
+            {/* Headline */}
             <h2 
               style={{ 
-                fontSize: 'clamp(2.4rem, 4.4vw, 3.6rem)', 
-                fontWeight: 800, 
-                letterSpacing: '-0.03em', 
+                fontSize: 'clamp(1.9rem, 3.5vw, 2.75rem)', 
+                fontWeight: 900, 
+                letterSpacing: '-0.035em', 
                 lineHeight: 1.15, 
-                color: '#FFFFFF',
-                margin: '0 0 1.25rem 0' 
+                color: '#080607',
+                margin: '0 0 0.85rem 0',
+                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
               }}
             >
               Turn Your Ideas Into<br />
-              Real Business Impact.
+              <span style={{ 
+                background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                display: 'inline-block'
+              }}>
+                Real Business Impact.
+              </span>
             </h2>
 
+            {/* Subtitle */}
             <p 
               style={{ 
-                fontSize: 'clamp(1.05rem, 1.3vw, 1.2rem)', 
-                color: '#94a3b8', 
-                lineHeight: 1.6, 
-                maxWidth: '620px', 
-                margin: '0 auto 2.5rem' 
+                fontSize: 'clamp(0.925rem, 1.15vw, 1.05rem)', 
+                color: '#3F5565', 
+                lineHeight: 1.55, 
+                maxWidth: '560px', 
+                margin: '0 auto 1.75rem auto' 
               }}
             >
               Tell us what you're building and let's explore how technology and automation can help you achieve it.
             </p>
 
-            <Link
-              to="/contact"
-              style={{
-                background: '#54CFB0',
-                color: '#080607',
-                padding: '1rem 2.25rem',
-                borderRadius: '6px',
-                fontWeight: 700,
-                fontSize: '0.975rem',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                textDecoration: 'none',
-                transition: 'all 0.2s ease',
-                boxShadow: '0 4px 16px rgba(84, 207, 176, 0.25)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = '0.92';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = '1';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              <span>Book a Consultation</span>
-              <ArrowRight size={16} />
-            </Link>
+            {/* CTA Buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              <Link
+                to="/contact"
+                style={{
+                  background: '#00bba7',
+                  color: '#080607',
+                  padding: '0.85rem 1.85rem',
+                  borderRadius: '8px',
+                  fontWeight: 800,
+                  fontSize: '0.95rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 16px rgba(0, 187, 167, 0.35)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 187, 167, 0.45)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 187, 167, 0.35)';
+                }}
+              >
+                <span>Book a Consultation</span>
+                <ArrowRight size={16} />
+              </Link>
+
+              <Link
+                to="/services"
+                style={{
+                  background: '#FFFFFF',
+                  color: '#080607',
+                  border: '1.5px solid #080607',
+                  padding: '0.85rem 1.75rem',
+                  borderRadius: '8px',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#F5F8F7';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#FFFFFF';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <span>Explore Services</span>
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+
           </div>
         </div>
       </section>

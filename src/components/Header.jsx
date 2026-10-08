@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Globe, MessageSquare } from 'lucide-react';
 
 export default function Header() {
   const location = useLocation();
@@ -143,54 +143,69 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Right: Language Indicator + Primary CTA */}
-          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexShrink: 0 }}>
-            {/* Language Pill */}
-            <span 
+          {/* Right: World Logo + Message Logo */}
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
+            {/* World Logo (Global Indicator) */}
+            <div 
               style={{ 
-                fontSize: '0.8rem', 
-                fontWeight: 700, 
-                color: '#4a5568', 
-                padding: '4px 8px',
-                borderRadius: '4px',
+                width: '38px',
+                height: '38px',
+                borderRadius: '8px',
                 background: '#F5F8F7',
                 border: '1px solid #E5EAE8',
-                letterSpacing: '0.04em'
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#3F5565',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
               }}
-              title="Language: English"
+              title="Global / English"
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#00bba7';
+                e.currentTarget.style.color = '#00bba7';
+                e.currentTarget.style.background = '#FFFFFF';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '#E5EAE8';
+                e.currentTarget.style.color = '#3F5565';
+                e.currentTarget.style.background = '#F5F8F7';
+              }}
             >
-              EN
-            </span>
+              <Globe size={18} strokeWidth={2} />
+            </div>
 
-            {/* Primary CTA (MNC Enterprise Styling) */}
+            {/* Message Logo (Contact & Consultation) */}
             <Link 
               to="/contact" 
-              className="btn-primary"
+              title="Contact / Book a Consultation"
+              aria-label="Contact MaxR"
               style={{ 
+                width: '38px',
+                height: '38px',
+                borderRadius: '8px',
                 background: '#080607', 
                 color: '#ffffff', 
-                fontWeight: 600, 
-                padding: '0.65rem 1.35rem', 
-                fontSize: '0.875rem',
-                borderRadius: '6px',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
+                justifyContent: 'center',
                 textDecoration: 'none',
                 transition: 'all 0.2s ease',
-                flexShrink: 0
+                flexShrink: 0,
+                boxShadow: '0 2px 8px rgba(8, 6, 7, 0.12)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#54CFB0';
+                e.currentTarget.style.background = '#00bba7';
                 e.currentTarget.style.color = '#080607';
+                e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = '#080607';
                 e.currentTarget.style.color = '#ffffff';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              <span>Book a Consultation</span>
-              <ArrowRight size={14} />
+              <MessageSquare size={18} strokeWidth={2.2} />
             </Link>
 
             {/* Mobile Hamburger Toggle */}
@@ -274,26 +289,45 @@ export default function Header() {
             ))}
           </div>
 
-          <div style={{ padding: '1.5rem', borderTop: '1px solid #E5EAE8' }}>
+          <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid #E5EAE8', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div 
+              style={{
+                width: '42px',
+                height: '42px',
+                borderRadius: '8px',
+                background: '#F5F8F7',
+                border: '1px solid #E5EAE8',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#3F5565',
+                flexShrink: 0
+              }}
+              title="Global / English"
+            >
+              <Globe size={18} strokeWidth={2} />
+            </div>
+
             <Link 
               to="/contact"
               onClick={() => setMobileMenuOpen(false)}
               style={{ 
-                width: '100%', 
+                flex: 1, 
                 justifyContent: 'center', 
                 background: '#080607', 
                 color: '#ffffff', 
-                fontWeight: 600, 
+                fontWeight: 700, 
                 display: 'flex', 
                 alignItems: 'center', 
                 gap: '8px',
-                padding: '0.85rem', 
-                borderRadius: '6px', 
-                textDecoration: 'none' 
+                height: '42px', 
+                borderRadius: '8px', 
+                textDecoration: 'none',
+                fontSize: '0.9rem' 
               }}
             >
-              <span>Book a Consultation</span>
-              <ArrowRight size={15} />
+              <MessageSquare size={17} strokeWidth={2.2} />
+              <span>Contact Us</span>
             </Link>
           </div>
         </div>
