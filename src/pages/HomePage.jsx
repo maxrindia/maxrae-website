@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { 
   ArrowRight, 
@@ -20,7 +21,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 
-export default function HomePage({ onNavigate, onOpenContact }) {
+export default function HomePage({ onOpenContact }) {
   const valueProps = [
     {
       icon: <Zap size={22} color="#00bba7" />,
@@ -189,8 +190,8 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                   <ArrowRight size={17} />
                 </button>
 
-                <a 
-                  href="/services" 
+                <Link 
+                  to="/services" 
                   style={{ 
                     background: '#ffffff', 
                     color: '#0f172a', 
@@ -217,7 +218,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 >
                   Explore Our Services
                   <ArrowRight size={17} />
-                </a>
+                </Link>
               </div>
 
             </div>
@@ -481,8 +482,8 @@ export default function HomePage({ onNavigate, onOpenContact }) {
               <p style={{ fontSize: '0.95rem', color: '#64748b', lineHeight: 1.6, marginBottom: '0.75rem' }}>
                 We combine AI, automation, digital technology and strategic consulting to help businesses grow, operate efficiently and stay ahead in a fast-changing world.
               </p>
-              <a 
-                href="/services"
+              <Link 
+                to="/services"
                 style={{ 
                   background: 'none', 
                   border: 'none', 
@@ -498,16 +499,16 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 }}
               >
                 View All Services <ArrowRight size={15} />
-              </a>
+              </Link>
             </div>
           </div>
 
           {/* 3 Isometric Feature Cards */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
             {coreCapabilities.map((card, idx) => (
-              <a 
+              <Link 
                 key={idx}
-                href={'/' + card.page}
+                to={'/' + card.page}
                 style={{ 
                   background: '#ffffff', 
                   borderRadius: '22px', 
@@ -573,7 +574,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#00bba7', fontWeight: 700, fontSize: '0.9rem' }}>
                   Learn More <ArrowRight size={15} />
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -598,9 +599,9 @@ export default function HomePage({ onNavigate, onOpenContact }) {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
             {industries.map((ind, idx) => (
-              <a 
+              <Link 
                 key={idx}
-                href="/industries"
+                to="/industries"
                 style={{
                   background: '#f8fafc',
                   borderRadius: '18px',
@@ -632,7 +633,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 <p style={{ fontSize: '0.86rem', color: '#64748b', lineHeight: 1.55, margin: 0 }}>
                   {ind.desc}
                 </p>
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -684,8 +685,8 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 Book Discovery Session
                 <ArrowRight size={17} />
               </button>
-              <a 
-                href="/contact" 
+              <Link 
+                to="/contact" 
                 style={{ 
                   background: '#ffffff', 
                   color: '#0f172a', 
@@ -710,7 +711,7 @@ export default function HomePage({ onNavigate, onOpenContact }) {
                 }}
               >
                 Contact Us
-              </a>
+              </Link>
             </div>
           </div>
         </div>

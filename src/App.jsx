@@ -1,94 +1,60 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import ContactModal from './components/ContactModal.jsx';
 
-// Dedicated Pages matching maxr.io
+// Dedicated Pages matching maxr.io & enterprise requirements
 import HomePage from './pages/HomePage.jsx';
 import ServicesPage from './pages/ServicesPage.jsx';
-import IndustriesPage from './pages/IndustriesPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import BlogPage from './pages/BlogPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
+import IndustriesPage from './pages/IndustriesPage.jsx';
+import CaseStudiesPage from './pages/CaseStudiesPage.jsx';
+import VoiceAgentsPage from './pages/VoiceAgentsPage.jsx';
 
 import { MessageSquare } from 'lucide-react';
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [contactModalOpen, setContactModalOpen] = useState(false);
+// Scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-  // Sync with URL Hash on load and change
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '').trim().toLowerCase();
-      if (['home', 'services', 'industries', 'about', 'contact'].includes(hash)) {
-        setCurrentPage(hash);
-      }
-    };
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+  return null;
+}
 
-  const navigateTo = (page) => {
-    setCurrentPage(page);
-    window.location.hash = page;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const renderCurrentPage = () => {
-    switch (currentPage) {
-      case 'services':
-        return (
-          <ServicesPage 
-            onOpenContact={() => setContactModalOpen(true)} 
-            onNavigate={navigateTo} 
-          />
-        );
-      case 'industries':
-        return (
-          <IndustriesPage 
-            onOpenContact={() => setContactModalOpen(true)} 
-          />
-        );
-      case 'about':
-        return (
-          <AboutPage 
-            onOpenContact={() => setContactModalOpen(true)} 
-          />
-        );
-      case 'contact':
-        return (
-          <ContactPage />
-        );
-      case 'home':
-      default:
-        return (
-          <HomePage 
-            onNavigate={navigateTo} 
-            onOpenContact={() => setContactModalOpen(true)} 
-          />
-        );
-    }
-  };
+function MainLayout() {
+  const [contactModalOpen, setContactModalOpen] = useState(false);
 
   return (
     <div className="app-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <ScrollToTop />
       
-      {/* ── Main Sticky Header with Official Logo & Nav ── */}
-      <Header 
-        currentPage={currentPage}
-        onNavigate={navigateTo}
-        onOpenContact={() => setContactModalOpen(true)}
-      />
+      {/* ── Main Sticky Header with React Router Navigation ── */}
+      <Header onOpenContact={() => setContactModalOpen(true)} />
 
-      {/* ── Main Page Content ── */}
+      {/* ── Main Routed Page Content ── */}
       <main id="main" style={{ flex: 1 }}>
-        {renderCurrentPage()}
+        <Routes>
+          <Route path="/" element={<HomePage onOpenContact={() => setContactModalOpen(true)} />} />
+          <Route path="/services" element={<ServicesPage onOpenContact={() => setContactModalOpen(true)} />} />
+          <Route path="/about" element={<AboutPage onOpenContact={() => setContactModalOpen(true)} />} />
+          <Route path="/blog" element={<BlogPage onOpenContact={() => setContactModalOpen(true)} />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/industries" element={<IndustriesPage onOpenContact={() => setContactModalOpen(true)} />} />
+          <Route path="/case-studies" element={<CaseStudiesPage onOpenContact={() => setContactModalOpen(true)} />} />
+          <Route path="/voice-agents" element={<VoiceAgentsPage onOpenContact={() => setContactModalOpen(true)} />} />
+          {/* Fallback to Home */}
+          <Route path="*" element={<HomePage onOpenContact={() => setContactModalOpen(true)} />} />
+        </Routes>
       </main>
 
       {/* ── Global Footer ── */}
-      <Footer onNavigate={navigateTo} />
+      <Footer />
 
       {/* ── Consultation Modal ── */}
       <ContactModal 
@@ -135,5 +101,13 @@ export default function App() {
       </div>
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <MainLayout />
+    </BrowserRouter>
   );
 }

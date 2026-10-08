@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Menu, 
   X, 
@@ -18,7 +19,9 @@ import {
   ArrowRight 
 } from 'lucide-react';
 
-export default function Header({ currentPage, onNavigate, onOpenContact }) {
+export default function Header({ onOpenContact }) {
+  const location = useLocation();
+  const currentPath = location.pathname;
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMega, setActiveMega] = useState(null);
@@ -97,11 +100,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
     }
   ];
 
-  const handleNavClick = (page) => {
-    onNavigate(page);
-    setActiveMega(null);
-    setMobileMenuOpen(false);
-  };
+  
 
   return (
     <>
@@ -123,8 +122,8 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '78px' }}>
           
           {/* Official Dark Logo: maxr. (with Teal Dot) */}
-          <a 
-            href="/" 
+          <Link 
+            to="/" 
             className="logo-container" 
             style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
             title="MaxR Home"
@@ -134,7 +133,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               alt="maxr." 
               style={{ height: '38px', width: 'auto', display: 'block' }} 
             />
-          </a>
+          </Link>
 
           {/* Primary Navigation (Light Mode) */}
           <nav className="nav-primary" id="navbar-main" aria-label="Primary navigation" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
@@ -146,8 +145,8 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               onMouseLeave={() => setActiveMega(null)}
               style={{ position: 'relative' }}
             >
-              <a 
-                href="/services" 
+              <Link 
+                to="/services" 
                 style={{ 
                   display: 'inline-flex', 
                   alignItems: 'center', 
@@ -155,7 +154,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                   background: 'none', 
                   border: 'none', 
                   textDecoration: 'none',
-                  color: currentPage === 'services' ? '#00bba7' : '#0f172a', 
+                  color: currentPath.startsWith('/services') ? '#00bba7' : '#0f172a', 
                   fontWeight: 600,
                   fontSize: '0.95rem', 
                   cursor: 'pointer',
@@ -164,7 +163,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                 }}
               >
                 What We Do <ChevronDown size={14} color="#64748b" />
-              </a>
+              </Link>
 
               {activeMega === 'services' && (
                 <div 
@@ -189,18 +188,20 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                     <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700 }}>
                       MaxR Core Capabilities
                     </span>
-                    <a 
-                      href="/services" 
+                    <Link 
+                      to="/services" 
+                      onClick={() => setActiveMega(null)}
                       style={{ fontSize: '0.8rem', color: '#00bba7', textDecoration: 'none', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
                     >
                       View All Services <ArrowRight size={13} />
-                    </a>
+                    </Link>
                   </div>
                   <div className="mega-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
                     {servicesMega.map((item, idx) => (
-                      <a 
+                      <Link 
                         key={idx} 
-                        href="/services"
+                        to="/services"
+                        onClick={() => setActiveMega(null)}
                         style={{
                           display: 'flex',
                           alignItems: 'flex-start',
@@ -229,7 +230,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                           <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f172a', margin: '0 0 3px' }}>{item.title}</h4>
                           <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>{item.desc}</p>
                         </div>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -243,8 +244,8 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               onMouseLeave={() => setActiveMega(null)}
               style={{ position: 'relative' }}
             >
-              <a 
-                href="/industries" 
+              <Link 
+                to="/industries" 
                 style={{ 
                   display: 'inline-flex', 
                   alignItems: 'center', 
@@ -252,7 +253,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                   background: 'none', 
                   border: 'none', 
                   textDecoration: 'none',
-                  color: currentPage === 'industries' ? '#00bba7' : '#0f172a', 
+                  color: currentPath.startsWith('/industries') ? '#00bba7' : '#0f172a', 
                   fontWeight: 600,
                   fontSize: '0.95rem', 
                   cursor: 'pointer',
@@ -261,7 +262,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                 }}
               >
                 Industries <ChevronDown size={14} color="#64748b" />
-              </a>
+              </Link>
 
               {activeMega === 'industries' && (
                 <div 
@@ -286,18 +287,20 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                     <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700 }}>
                       Industry Domains
                     </span>
-                    <a 
-                      href="/industries" 
+                    <Link 
+                      to="/industries" 
+                      onClick={() => setActiveMega(null)}
                       style={{ fontSize: '0.8rem', color: '#00bba7', textDecoration: 'none', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
                     >
                       View All Playbooks <ArrowRight size={13} />
-                    </a>
+                    </Link>
                   </div>
                   <div className="mega-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem' }}>
                     {industriesMega.map((item, idx) => (
-                      <a 
+                      <Link 
                         key={idx} 
-                        href="/industries"
+                        to="/industries"
+                        onClick={() => setActiveMega(null)}
                         style={{
                           display: 'flex',
                           alignItems: 'flex-start',
@@ -326,7 +329,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
                           <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f172a', margin: '0 0 3px' }}>{item.title}</h4>
                           <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0, lineHeight: 1.4 }}>{item.desc}</p>
                         </div>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -334,13 +337,13 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
             </div>
 
             {/* Who We Are */}
-            <a 
-              href="/about" 
+            <Link 
+              to="/about" 
               style={{ 
                 background: 'none', 
                 border: 'none', 
                 textDecoration: 'none',
-                color: currentPage === 'about' ? '#00bba7' : '#0f172a', 
+                color: currentPath.startsWith('/about') ? '#00bba7' : '#0f172a', 
                 fontWeight: 600, 
                 fontSize: '0.95rem', 
                 cursor: 'pointer',
@@ -349,16 +352,16 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               }}
             >
               Who We Are
-            </a>
+            </Link>
 
             {/* Blog */}
-            <a 
-              href="/blog" 
+            <Link 
+              to="/blog" 
               style={{ 
                 background: 'none', 
                 border: 'none', 
                 textDecoration: 'none',
-                color: currentPage === 'blog' ? '#00bba7' : '#0f172a', 
+                color: currentPath.startsWith('/blog') ? '#00bba7' : '#0f172a', 
                 fontWeight: 600, 
                 fontSize: '0.95rem', 
                 cursor: 'pointer',
@@ -367,16 +370,16 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               }}
             >
               Blog
-            </a>
+            </Link>
 
             {/* Contact */}
-            <a 
-              href="/contact" 
+            <Link 
+              to="/contact" 
               style={{ 
                 background: 'none', 
                 border: 'none', 
                 textDecoration: 'none',
-                color: currentPage === 'contact' ? '#00bba7' : '#0f172a', 
+                color: currentPath.startsWith('/contact') ? '#00bba7' : '#0f172a', 
                 fontWeight: 600, 
                 fontSize: '0.95rem', 
                 cursor: 'pointer',
@@ -385,7 +388,7 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
               }}
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* Right Actions: Search + Book Consultation Pill */}
@@ -449,9 +452,9 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
       {mobileMenuOpen && (
         <div className="mobile-drawer" role="dialog" aria-modal="true" style={{ background: '#070d1a', borderLeft: '1px solid rgba(0,187,167,0.3)' }}>
           <div className="mobile-drawer-header">
-            <a href="/" style={{ textDecoration: 'none' }}>
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} style={{ textDecoration: 'none' }}>
               <img src="/assets/maxr-logo-white.png" alt="MaxR" style={{ height: '38px', width: 'auto' }} />
-            </a>
+            </Link>
             <button 
               onClick={() => setMobileMenuOpen(false)} 
               style={{ color: '#fff', padding: '4px', background: 'none', border: 'none' }}
@@ -461,48 +464,36 @@ export default function Header({ currentPage, onNavigate, onOpenContact }) {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1, overflowY: 'auto' }}>
-            <a 
-              className="mobile-nav-link" 
-              href="/"
-              style={{ textDecoration: 'none', color: currentPage === 'home' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+            <Link className="mobile-nav-link" to="/" onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: 'none', color: currentPath === '/' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               Home
-            </a>
-            <a 
-              className="mobile-nav-link" 
-              href="/services"
-              style={{ textDecoration: 'none', color: currentPage === 'services' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+            </Link>
+            <Link className="mobile-nav-link" to="/services" onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: 'none', color: currentPath.startsWith('/services') ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               What We Do
-            </a>
-            <a 
-              className="mobile-nav-link" 
-              href="/industries"
-              style={{ textDecoration: 'none', color: currentPage === 'industries' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+            </Link>
+            <Link className="mobile-nav-link" to="/industries" onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: 'none', color: currentPath.startsWith('/industries') ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               Industries
-            </a>
-            <a 
-              className="mobile-nav-link" 
-              href="/about"
-              style={{ textDecoration: 'none', color: currentPage === 'about' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+            </Link>
+            <Link className="mobile-nav-link" to="/about" onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: 'none', color: currentPath.startsWith('/about') ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               Who We Are
-            </a>
-            <a 
-              className="mobile-nav-link" 
-              href="/blog"
-              style={{ textDecoration: 'none', color: currentPage === 'blog' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+            </Link>
+            <Link className="mobile-nav-link" to="/blog" onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: 'none', color: currentPath.startsWith('/blog') ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               Tech Insights & Blog
-            </a>
-            <a 
-              className="mobile-nav-link" 
-              href="/contact"
-              style={{ textDecoration: 'none', color: currentPage === 'contact' ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
+            </Link>
+            <Link className="mobile-nav-link" to="/contact" onClick={() => setMobileMenuOpen(false)}
+              style={{ textDecoration: 'none', color: currentPath.startsWith('/contact') ? '#00bba7' : '#fff', fontSize: '1.05rem', fontWeight: 600, padding: '8px 0' }}
             >
               Contact
-            </a>
+            </Link>
           </div>
 
           <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
