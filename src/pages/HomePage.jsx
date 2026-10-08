@@ -13,7 +13,15 @@ import {
   Users,
   TrendingUp,
   Rocket,
-  CheckCircle2
+  CheckCircle2,
+  Bot,
+  Cpu,
+  Layers,
+  MessageSquare,
+  Sparkles,
+  BarChart3,
+  Radio,
+  Check
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -292,62 +300,71 @@ export default function HomePage() {
     <div style={{ background: '#FFFFFF', color: '#080607', overflowX: 'hidden' }}>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          1. HERO SECTION (Mobile-to-Desktop Friendly Horizontal Skyline Visual)
-          ═════════════════════════════════════════════════════════════════════ */}
+          1. HERO SECTION (Dynamic Mobile-to-Desktop Responsive Skyline Experience)
+          ═════════════════════════════════════════════ */}
       <section 
         ref={heroRef}
-        style={{ 
-          background: '#FFFFFF', 
-          borderBottom: '1px solid #E1E8E5',
-          padding: 'clamp(2rem, 4vw, 3.5rem) 0'
-        }}
+        className="hero-enterprise-section"
       >
-        <div className="container">
-          {/* Panoramic Responsive Banner Frame */}
-          <div 
-            style={{ 
-              position: 'relative', 
-              borderRadius: '16px', 
-              overflow: 'hidden', 
-              boxShadow: '0 16px 45px rgba(8, 6, 7, 0.08)',
-              border: '1px solid #E1E8E5',
-              background: '#080607'
-            }}
-          >
-            {/* High-Resolution Panoramic Skyline Banner (Mobile to Desktop Fluid Scaling) */}
-            <img 
-              src="/assets/images/hero-banner.png" 
-              alt="MaxR Technologies — Intelligent Technology. Real Business Impact." 
-              style={{ 
-                width: '100%', 
-                height: 'auto', 
-                minHeight: '260px',
-                maxHeight: '620px',
-                objectFit: 'cover', 
-                display: 'block' 
-              }} 
-            />
+        <div className="hero-enterprise-overlay" />
 
-            {/* Clickable Overlay Hotspots (Ensuring Both CTA Buttons Work Seamlessly) */}
-            <div 
-              style={{ 
-                position: 'absolute', 
-                inset: 0, 
-                display: 'flex', 
-                flexDirection: 'column', 
-                justifyContent: 'flex-end', 
-                padding: 'clamp(1rem, 3vw, 2.5rem)',
-                pointerEvents: 'none'
-              }}
-            >
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <div className="hero-enterprise-grid">
+            
+            {/* Left Column: Brand Editorial & Core Actions */}
+            <div>
+              {/* Eyebrow Pill */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
+                <span style={{ width: '20px', height: '2px', background: '#00bba7' }} />
+                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#00bba7' }}>
+                  MAXR TECHNOLOGIES
+                </span>
+              </div>
+
+              {/* Main Headline */}
+              <h1 
+                style={{ 
+                  fontSize: 'clamp(2.3rem, 4.4vw, 4.1rem)', 
+                  fontWeight: 900, 
+                  lineHeight: 1.08, 
+                  letterSpacing: '-0.04em', 
+                  color: '#080607', 
+                  margin: '0 0 1.25rem 0',
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                }}
+              >
+                Intelligent Technology.<br />
+                <span style={{ 
+                  background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  display: 'inline-block'
+                }}>
+                  Real Business Impact.
+                </span>
+              </h1>
+
+              {/* Subtitle */}
+              <p 
+                style={{ 
+                  fontSize: 'clamp(0.975rem, 1.2vw, 1.15rem)', 
+                  lineHeight: 1.6, 
+                  color: '#3F5565', 
+                  maxWidth: '520px', 
+                  margin: '0 0 2.25rem 0' 
+                }}
+              >
+                AI, automation and digital solutions that help businesses operate smarter, engage customers better and scale with confidence.
+              </p>
+
+              {/* CTA Buttons */}
               <div 
                 style={{ 
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: '12px', 
-                  flexWrap: 'wrap',
-                  pointerEvents: 'auto',
-                  marginBottom: 'clamp(0.5rem, 1.5vw, 1.25rem)'
+                  flexWrap: 'wrap', 
+                  marginBottom: '2.5rem' 
                 }}
               >
                 <Link
@@ -355,24 +372,24 @@ export default function HomePage() {
                   style={{
                     background: '#00bba7',
                     color: '#080607',
-                    padding: 'clamp(0.65rem, 1.2vw, 0.95rem) clamp(1.2rem, 2vw, 1.85rem)',
+                    padding: 'clamp(0.75rem, 1.2vw, 0.95rem) clamp(1.4rem, 2vw, 2rem)',
                     borderRadius: '8px',
-                    fontWeight: 700,
-                    fontSize: 'clamp(0.825rem, 1.1vw, 0.95rem)',
+                    fontWeight: 800,
+                    fontSize: 'clamp(0.85rem, 1vw, 0.95rem)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
                     textDecoration: 'none',
-                    boxShadow: '0 4px 14px rgba(0, 187, 167, 0.35)',
-                    transition: 'all 0.2s ease'
+                    boxShadow: '0 6px 20px rgba(0, 187, 167, 0.35)',
+                    transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                    e.currentTarget.style.opacity = '0.92';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 10px 26px rgba(0, 187, 167, 0.45)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.opacity = '1';
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 187, 167, 0.35)';
                   }}
                 >
                   <span>Book a Consultation</span>
@@ -385,28 +402,240 @@ export default function HomePage() {
                     background: '#FFFFFF',
                     color: '#080607',
                     border: '1.5px solid #080607',
-                    padding: 'clamp(0.65rem, 1.2vw, 0.95rem) clamp(1.2rem, 2vw, 1.85rem)',
+                    padding: 'clamp(0.75rem, 1.2vw, 0.95rem) clamp(1.3rem, 2vw, 1.85rem)',
                     borderRadius: '8px',
                     fontWeight: 700,
-                    fontSize: 'clamp(0.825rem, 1.1vw, 0.95rem)',
+                    fontSize: 'clamp(0.85rem, 1vw, 0.95rem)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '8px',
                     textDecoration: 'none',
-                    transition: 'all 0.2s ease'
+                    transition: 'all 0.25s ease'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = '#F5F8F7';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.background = '#FFFFFF';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   <span>Explore Our Services</span>
                   <ArrowRight size={16} />
                 </Link>
               </div>
+
+              {/* Social Proof Avatars */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex' }}>
+                  {[
+                    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80',
+                    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80',
+                    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80',
+                    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&h=100&q=80'
+                  ].map((avatarUrl, aIdx) => (
+                    <img 
+                      key={aIdx} 
+                      src={avatarUrl} 
+                      alt="Verified client" 
+                      style={{ 
+                        width: '32px', 
+                        height: '32px', 
+                        borderRadius: '50%', 
+                        border: '2px solid #FFFFFF', 
+                        marginLeft: aIdx === 0 ? 0 : '-10px',
+                        objectFit: 'cover',
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
+                      }} 
+                    />
+                  ))}
+                </div>
+                <p style={{ margin: 0, fontSize: '0.825rem', color: '#64748b', fontWeight: 500, lineHeight: 1.4 }}>
+                  Trusted by growing businesses across the UAE and global markets.
+                </p>
+              </div>
             </div>
+
+            {/* Right Column: Interactive Tech Ecosystem Graphic Matching User Reference */}
+            <div style={{ position: 'relative', width: '100%', minHeight: '380px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div 
+                className="hero-ecosystem-container"
+              >
+                {/* SVG Connecting Neon Circuit Curves */}
+                <svg 
+                  viewBox="0 0 520 380" 
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}
+                >
+                  <defs>
+                    <linearGradient id="mintCircuit" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#00bba7" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#54CFB0" stopOpacity="0.4" />
+                    </linearGradient>
+                  </defs>
+                  {/* Curve from Top Card to Hub */}
+                  <path d="M 180 80 C 210 110, 220 150, 230 180" stroke="url(#mintCircuit)" strokeWidth="2" fill="none" strokeDasharray="5 3" />
+                  {/* Curve from Bottom Card to Hub */}
+                  <path d="M 170 300 C 200 270, 215 220, 230 200" stroke="url(#mintCircuit)" strokeWidth="2" fill="none" strokeDasharray="5 3" />
+                  
+                  {/* Radiating branches from Hub to Right 5 Pills */}
+                  <path d="M 270 170 C 310 140, 330 65, 360 65" stroke="url(#mintCircuit)" strokeWidth="2" fill="none" />
+                  <path d="M 275 180 C 315 160, 335 125, 360 125" stroke="url(#mintCircuit)" strokeWidth="2" fill="none" />
+                  <path d="M 280 190 C 320 190, 335 185, 360 185" stroke="url(#mintCircuit)" strokeWidth="2" fill="none" />
+                  <path d="M 275 200 C 315 220, 335 245, 360 245" stroke="url(#mintCircuit)" strokeWidth="2" fill="none" />
+                  <path d="M 270 210 C 310 240, 330 305, 360 305" stroke="url(#mintCircuit)" strokeWidth="2" fill="none" />
+                </svg>
+
+                {/* Central MaxR Glowing Hub */}
+                <div 
+                  style={{ 
+                    position: 'absolute', 
+                    left: '48%', 
+                    top: '50%', 
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 4,
+                    width: '68px',
+                    height: '68px',
+                    borderRadius: '50%',
+                    background: '#080607',
+                    border: '2px solid #00bba7',
+                    boxShadow: '0 0 24px rgba(0, 187, 167, 0.45)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    animation: 'radarPulse 3s infinite ease-in-out'
+                  }}
+                >
+                  <span style={{ color: '#00bba7', fontSize: '1.4rem', fontWeight: 900, fontFamily: "'Space Grotesk', sans-serif" }}>
+                    X
+                  </span>
+                </div>
+
+                {/* Top-Left Floating Card: From Ideas to Intelligent Systems */}
+                <div 
+                  style={{ 
+                    position: 'absolute', 
+                    left: '2%', 
+                    top: '8%', 
+                    zIndex: 3,
+                    background: 'rgba(255, 255, 255, 0.94)',
+                    backdropFilter: 'blur(12px)',
+                    border: '1px solid #E1E8E5',
+                    borderRadius: '12px',
+                    padding: '8px 14px',
+                    boxShadow: '0 8px 24px rgba(8, 6, 7, 0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px'
+                  }}
+                >
+                  <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'rgba(0, 187, 167, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Radio size={15} color="#00bba7" />
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#080607', display: 'block' }}>
+                      From Ideas to Intelligent Systems
+                    </span>
+                  </div>
+                </div>
+
+                {/* Bottom-Left Floating Card: Smarter Operations Higher Growth */}
+                <div 
+                  style={{ 
+                    position: 'absolute', 
+                    left: '2%', 
+                    bottom: '8%', 
+                    zIndex: 3,
+                    background: 'rgba(255, 255, 255, 0.94)',
+                    backdropFilter: 'blur(12px)',
+                    border: '1px solid #E1E8E5',
+                    borderRadius: '12px',
+                    padding: '10px 14px',
+                    boxShadow: '0 8px 24px rgba(8, 6, 7, 0.08)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px'
+                  }}
+                >
+                  <div style={{ width: '28px', height: '28px', borderRadius: '7px', background: 'rgba(0, 187, 167, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <BarChart3 size={15} color="#00bba7" />
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#080607', display: 'block', lineHeight: 1.2 }}>
+                      Smarter Operations
+                    </span>
+                    <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 600 }}>
+                      Higher Growth
+                    </span>
+                  </div>
+                  {/* Rising mini bar graph */}
+                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', height: '18px', marginLeft: '6px' }}>
+                    <span style={{ width: '4px', height: '8px', background: '#54CFB0', borderRadius: '1px' }} />
+                    <span style={{ width: '4px', height: '12px', background: '#00bba7', borderRadius: '1px' }} />
+                    <span style={{ width: '4px', height: '18px', background: '#00bba7', borderRadius: '1px' }} />
+                  </div>
+                </div>
+
+                {/* Right Stack of 5 Feature Pills */}
+                <div 
+                  style={{ 
+                    position: 'absolute', 
+                    right: '0%', 
+                    top: '50%', 
+                    transform: 'translateY(-50%)',
+                    zIndex: 3,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px'
+                  }}
+                >
+                  {[
+                    { label: "AI Agents", icon: Sparkles },
+                    { label: "Automation", icon: Cpu },
+                    { label: "CRM & Integrations", icon: Layers },
+                    { label: "Customer Engagement", icon: Users },
+                    { label: "Business Growth", icon: TrendingUp }
+                  ].map((node, nIdx) => {
+                    const NodeIcon = node.icon;
+                    return (
+                      <div 
+                        key={nIdx}
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          backdropFilter: 'blur(10px)',
+                          border: '1px solid #E1E8E5',
+                          borderRadius: '8px',
+                          padding: '6px 14px',
+                          boxShadow: '0 4px 12px rgba(8, 6, 7, 0.05)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          minWidth: '175px',
+                          transition: 'transform 0.2s ease, border-color 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'translateX(4px)';
+                          e.currentTarget.style.borderColor = '#00bba7';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'translateX(0)';
+                          e.currentTarget.style.borderColor = '#E1E8E5';
+                        }}
+                      >
+                        <div style={{ width: '22px', height: '22px', borderRadius: '5px', background: 'rgba(0, 187, 167, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <NodeIcon size={12} color="#00bba7" />
+                        </div>
+                        <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#080607' }}>
+                          {node.label}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -904,61 +1133,55 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          4. TRUSTED BY BUSINESSES (Auto-Scrolling Marquee from public/assets/clients)
+          4. TRUSTED BY BUSINESSES (Auto-Scrolling Marquee with Framed Band)
           ═════════════════════════════════════════════ */}
       <section 
         style={{ 
           background: '#FFFFFF', 
           borderBottom: '1px solid #E1E8E5',
-          padding: '3.75rem 0',
+          padding: 'clamp(2.75rem, 4.5vw, 4rem) 0 3.5rem 0',
           overflow: 'hidden'
         }}
       >
-        <div className="container" style={{ marginBottom: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#080607' }}>
-              TRUSTED BY BUSINESSES
-            </span>
-          </div>
+        <div className="container" style={{ textAlign: 'center', marginBottom: '2.25rem' }}>
+          {/* Centered Supporting Paragraph from User's Reference */}
+          <p 
+            style={{ 
+              fontSize: 'clamp(0.875rem, 1.1vw, 1rem)', 
+              color: '#64748b', 
+              maxWidth: '680px', 
+              margin: '0 auto', 
+              lineHeight: 1.6,
+              fontWeight: 500
+            }}
+          >
+            From startups to established enterprises, businesses rely on MaxR to automate operations, engage customers, and accelerate growth.
+          </p>
         </div>
 
-        {/* Seamless Infinite Auto-Scrolling Marquee Track */}
+        {/* Framed Horizontal Strip with Top & Bottom Borders (Normalized Uniform Logo Boxes) */}
         <div 
           style={{ 
             width: '100%', 
+            borderTop: '1px solid #E1E8E5',
+            borderBottom: '1px solid #E1E8E5',
+            background: '#FAFBFB',
+            padding: '1.25rem 0',
             overflow: 'hidden',
             position: 'relative',
-            maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+            maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+            WebkitMaskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)'
           }}
         >
-          <div className="logo-marquee-track" style={{ gap: '4rem', padding: '0.5rem 0' }}>
+          <div className="logo-marquee-track" style={{ gap: '2rem' }}>
             {[...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos].map((client, i) => (
               <div 
                 key={`${client.name}-${i}`}
-                style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  opacity: 0.85,
-                  transition: 'opacity 0.2s ease'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '0.85'}
+                className="client-logo-box"
               >
                 <img 
                   src={client.src} 
                   alt={client.name} 
-                  style={{ 
-                    height: 'clamp(36px, 4.5vw, 46px)', 
-                    width: 'auto', 
-                    maxWidth: '160px',
-                    objectFit: 'contain', 
-                    display: 'block',
-                    filter: 'grayscale(20%)'
-                  }} 
                 />
               </div>
             ))}
