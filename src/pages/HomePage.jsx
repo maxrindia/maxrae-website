@@ -22,9 +22,8 @@ import {
   Palette,
   Cloud,
   BarChart3,
-  Sparkles,
-  Zap,
-  ChevronRight
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 
 // Official WhatsApp Vector Icon
@@ -72,20 +71,43 @@ function ScrollBox({ children, style = {}, className = "" }) {
   );
 }
 
+// Logo-Style Brand Emblem Component (Replaces generic plain line icons)
+function LogoMark({ gradient, icon: IconComponent, size = 48 }) {
+  return (
+    <div 
+      style={{
+        width: size,
+        height: size,
+        borderRadius: '13px',
+        background: gradient,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#ffffff',
+        boxShadow: '0 6px 18px rgba(0, 0, 0, 0.14)',
+        flexShrink: 0
+      }}
+    >
+      <IconComponent size={Math.round(size * 0.48)} strokeWidth={2.2} />
+    </div>
+  );
+}
+
 export default function HomePage({ onOpenContact }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [activeSector, setActiveSector] = useState('realestate');
 
   const whatsappUrl = "https://wa.me/971501234567?text=Hello%20MaxR%20Technology%2C%20I%20would%20like%20to%20learn%20more%20about%20your%20services";
 
-  // 1. All 10 Capabilities & their exact working items
+  // 1. All 10 Capabilities & their exact working items with tailored Logo Emblems
   const capabilities = [
     {
       num: "01",
       id: "web-dev",
       category: "development",
       title: "Web Development",
-      icon: <Globe2 size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #0ea5e9 0%, #00bba7 100%)",
+      icon: Globe2,
       items: [
         "Business Websites",
         "Corporate Websites",
@@ -100,7 +122,8 @@ export default function HomePage({ onOpenContact }) {
       id: "app-dev",
       category: "development",
       title: "App Development",
-      icon: <Smartphone size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+      icon: Smartphone,
       items: [
         "Android Apps",
         "iOS Apps",
@@ -115,7 +138,8 @@ export default function HomePage({ onOpenContact }) {
       id: "software-product",
       category: "development",
       title: "Software & Product Development",
-      icon: <Cpu size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #0f766e 0%, #06b6d4 100%)",
+      icon: Cpu,
       items: [
         "Custom Software",
         "SaaS Development",
@@ -130,7 +154,8 @@ export default function HomePage({ onOpenContact }) {
       id: "digital-marketing",
       category: "marketing",
       title: "Digital Marketing",
-      icon: <TrendingUp size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
+      icon: TrendingUp,
       items: [
         "Search Engine Optimization (SEO)",
         "Search Engine Marketing (SEM)",
@@ -145,7 +170,8 @@ export default function HomePage({ onOpenContact }) {
       id: "social-media",
       category: "marketing",
       title: "Social Media Management",
-      icon: <Share2 size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #ec4899 0%, #d946ef 100%)",
+      icon: Share2,
       items: [
         "Instagram Management",
         "Facebook Management",
@@ -160,7 +186,8 @@ export default function HomePage({ onOpenContact }) {
       id: "ai-automation",
       category: "ai",
       title: "AI & Automation",
-      icon: <Bot size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #10b981 0%, #00bba7 100%)",
+      icon: Bot,
       items: [
         "Business Process Automation",
         "AI Chatbots",
@@ -175,7 +202,8 @@ export default function HomePage({ onOpenContact }) {
       id: "crm-leads",
       category: "ai",
       title: "CRM & Lead Solutions",
-      icon: <Target size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)",
+      icon: Target,
       items: [
         "CRM Setup",
         "Lead Generation",
@@ -190,7 +218,8 @@ export default function HomePage({ onOpenContact }) {
       id: "ui-ux-branding",
       category: "design",
       title: "UI/UX & Branding",
-      icon: <Palette size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #f43f5e 0%, #fb923c 100%)",
+      icon: Palette,
       items: [
         "UI/UX Design",
         "Website Design",
@@ -205,7 +234,8 @@ export default function HomePage({ onOpenContact }) {
       id: "cloud-tech",
       category: "cloud",
       title: "Cloud & Technology",
-      icon: <Cloud size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
+      icon: Cloud,
       items: [
         "Cloud Solutions",
         "API Integration",
@@ -220,7 +250,8 @@ export default function HomePage({ onOpenContact }) {
       id: "data-bi",
       category: "cloud",
       title: "Data & Business Intelligence",
-      icon: <BarChart3 size={24} color="#00bba7" />,
+      gradient: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)",
+      icon: BarChart3,
       items: [
         "Data Analytics",
         "Business Dashboards",
@@ -233,7 +264,7 @@ export default function HomePage({ onOpenContact }) {
   ];
 
   const categoryFilters = [
-    { id: 'all', label: 'All Capabilities' },
+    { id: 'all', label: 'All 10 Capabilities' },
     { id: 'development', label: 'Development & Apps' },
     { id: 'marketing', label: 'Marketing & Social' },
     { id: 'ai', label: 'AI, Automation & CRM' },
@@ -245,12 +276,13 @@ export default function HomePage({ onOpenContact }) {
     ? capabilities 
     : capabilities.filter(c => c.category === selectedCategory);
 
-  // 2. Sectors with Full Background Image & Right-side Products/Solutions We Build
+  // 2. Sectors with Light Frosted Theme, Animated Circular Nodes, and Right Products
   const sectors = [
     {
       id: "realestate",
       name: "Real Estate & Property",
-      icon: <Building2 size={20} />,
+      icon: Building2,
+      gradient: "linear-gradient(135deg, #0284c7 0%, #00bba7 100%)",
       bgImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=80",
       tagline: "High-Value Property Inbound & Broker Automation",
       products: [
@@ -271,7 +303,8 @@ export default function HomePage({ onOpenContact }) {
     {
       id: "retail",
       name: "Retail & E-Commerce",
-      icon: <ShoppingBag size={20} />,
+      icon: ShoppingBag,
+      gradient: "linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)",
       bgImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
       tagline: "Autonomous Support Deflection & Conversion Acceleration",
       products: [
@@ -292,7 +325,8 @@ export default function HomePage({ onOpenContact }) {
     {
       id: "logistics",
       name: "Logistics & Supply Chain",
-      icon: <Truck size={20} />,
+      icon: Truck,
+      gradient: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
       bgImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=80",
       tagline: "Autonomous Consignment Tracking & Fleet Orchestration",
       products: [
@@ -313,7 +347,8 @@ export default function HomePage({ onOpenContact }) {
     {
       id: "finance",
       name: "Finance & Banking",
-      icon: <Landmark size={20} />,
+      icon: Landmark,
+      gradient: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
       bgImage: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1800&q=80",
       tagline: "Bank-Grade Onboarding & Intelligent Client Portals",
       products: [
@@ -334,7 +369,8 @@ export default function HomePage({ onOpenContact }) {
     {
       id: "hospitality",
       name: "Hospitality & Travel",
-      icon: <Hotel size={20} />,
+      icon: Hotel,
+      gradient: "linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)",
       bgImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
       tagline: "24/7 Guest Concierge & Zero-Hold Reservation Desks",
       products: [
@@ -355,7 +391,8 @@ export default function HomePage({ onOpenContact }) {
     {
       id: "healthcare",
       name: "Healthcare & Clinics",
-      icon: <HeartPulse size={20} />,
+      icon: HeartPulse,
+      gradient: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
       bgImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
       tagline: "Zero-Hold Patient Scheduling & Clinical Triage",
       products: [
@@ -397,10 +434,10 @@ export default function HomePage({ onOpenContact }) {
   ];
 
   return (
-    <div className="home-page" style={{ minHeight: '100%', background: '#ffffff', color: '#0f172a' }}>
+    <div className="home-page" style={{ minHeight: '100%', background: '#ffffff', color: '#0a1428' }}>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          1. HERO SECTION (Unsplash Tech-Abstract BG + Dark Semi-Transparent Overlay)
+          1. HERO SECTION (Unsplash Tech-Abstract BG + High-Contrast Dark Overlay)
           ═════════════════════════════════════════════════════════════════════ */}
       <section 
         className="hero-section"
@@ -424,50 +461,52 @@ export default function HomePage({ onOpenContact }) {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(180deg, rgba(7, 13, 26, 0.88) 0%, rgba(10, 20, 40, 0.94) 100%)',
+            background: 'linear-gradient(180deg, rgba(5, 12, 26, 0.90) 0%, rgba(10, 20, 40, 0.96) 100%)',
             zIndex: 1
           }}
         />
 
         <div className="container" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
-          <div style={{ maxWidth: '820px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '840px', margin: '0 auto' }}>
             
-            {/* Minimal Eyebrow Tag */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 14px', borderRadius: '999px', background: 'rgba(0, 187, 167, 0.1)', border: '1px solid rgba(0, 187, 167, 0.25)', marginBottom: '1.75rem' }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00bba7' }} />
-              <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#2dd4bf', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            {/* Minimal High-Contrast Eyebrow Tag */}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 16px', borderRadius: '999px', background: 'rgba(0, 187, 167, 0.15)', border: '1.5px solid rgba(0, 187, 167, 0.4)', marginBottom: '1.75rem' }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#00bba7', boxShadow: '0 0 10px #00bba7' }} />
+              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#2dd4bf', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 Enterprise AI & Software Engineering
               </span>
             </div>
 
-            {/* Bold, Confident, Minimal 2-3 Word Headline (Linear/Vercel style) */}
+            {/* Bold, Confident, Minimal 2-3 Word Headline */}
             <h1 
               style={{
-                fontSize: 'clamp(2.75rem, 6.5vw, 4.75rem)',
-                fontWeight: 800,
+                fontSize: 'clamp(2.85rem, 6.5vw, 4.85rem)',
+                fontWeight: 900,
                 letterSpacing: '-0.04em',
                 lineHeight: 1.08,
                 color: '#ffffff',
-                marginBottom: '1.25rem'
+                marginBottom: '1.35rem',
+                textShadow: '0 4px 20px rgba(0,0,0,0.5)'
               }}
             >
               Build. Automate. <span style={{ color: '#00bba7' }}>Scale.</span>
             </h1>
 
-            {/* Short Subtext (1-2 sentences) */}
+            {/* High-Contrast Subtext */}
             <p 
               style={{
-                fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
-                color: 'rgba(255, 255, 255, 0.75)',
+                fontSize: 'clamp(1.1rem, 2vw, 1.25rem)',
+                color: '#f1f5f9',
                 lineHeight: 1.6,
-                maxWidth: '620px',
-                margin: '0 auto 2.5rem'
+                maxWidth: '640px',
+                margin: '0 auto 2.5rem',
+                fontWeight: 400
               }}
             >
               Autonomous AI systems, full-stack software, and automated workflows engineered for high-performance enterprises.
             </p>
 
-            {/* CTA Buttons */}
+            {/* High-Contrast CTA Buttons */}
             <div 
               style={{
                 display: 'flex',
@@ -485,13 +524,13 @@ export default function HomePage({ onOpenContact }) {
                   alignItems: 'center',
                   gap: '8px',
                   background: '#00bba7',
-                  color: '#040811',
-                  fontWeight: 700,
-                  fontSize: '0.95rem',
-                  padding: '0.85rem 1.85rem',
+                  color: '#020617',
+                  fontWeight: 800,
+                  fontSize: '0.975rem',
+                  padding: '0.85rem 1.95rem',
                   borderRadius: '10px',
                   textDecoration: 'none',
-                  boxShadow: '0 4px 14px rgba(0, 187, 167, 0.3)',
+                  boxShadow: '0 6px 20px rgba(0, 187, 167, 0.4)',
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
@@ -504,10 +543,10 @@ export default function HomePage({ onOpenContact }) {
                 }}
               >
                 <span>Explore Services</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={17} />
               </Link>
 
-              {/* WhatsApp Button (Prominent Green) */}
+              {/* WhatsApp Button (High-Contrast Green) */}
               <a
                 href={whatsappUrl}
                 target="_blank"
@@ -519,12 +558,12 @@ export default function HomePage({ onOpenContact }) {
                   gap: '10px',
                   background: '#25D366',
                   color: '#ffffff',
-                  fontWeight: 700,
-                  fontSize: '0.95rem',
-                  padding: '0.85rem 1.85rem',
+                  fontWeight: 800,
+                  fontSize: '0.975rem',
+                  padding: '0.85rem 1.95rem',
                   borderRadius: '10px',
                   textDecoration: 'none',
-                  boxShadow: '0 4px 14px rgba(37, 211, 102, 0.3)',
+                  boxShadow: '0 6px 20px rgba(37, 211, 102, 0.4)',
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
@@ -536,7 +575,7 @@ export default function HomePage({ onOpenContact }) {
                   e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
-                <WhatsAppIcon size={18} color="#ffffff" />
+                <WhatsAppIcon size={19} color="#ffffff" />
                 <span>Chat on WhatsApp</span>
               </a>
 
@@ -547,26 +586,26 @@ export default function HomePage({ onOpenContact }) {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  background: 'rgba(255, 255, 255, 0.08)',
+                  background: 'rgba(255, 255, 255, 0.12)',
                   color: '#ffffff',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  fontWeight: 600,
-                  fontSize: '0.95rem',
-                  padding: '0.85rem 1.65rem',
+                  border: '1.5px solid rgba(255, 255, 255, 0.35)',
+                  fontWeight: 700,
+                  fontSize: '0.975rem',
+                  padding: '0.85rem 1.75rem',
                   borderRadius: '10px',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = '#00bba7';
-                  e.currentTarget.style.background = 'rgba(0, 187, 167, 0.12)';
+                  e.currentTarget.style.background = 'rgba(0, 187, 167, 0.2)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
                 }}
               >
-                <Calendar size={16} />
+                <Calendar size={17} />
                 <span>Book a Call</span>
               </button>
             </div>
@@ -576,33 +615,33 @@ export default function HomePage({ onOpenContact }) {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          2. CAPABILITIES SECTION (Exact 10 Capabilities & Sub-Services with Animations)
+          2. CAPABILITIES SECTION (Logo-Style Badges, High Contrast, 10 Domains with Working Items)
           ═════════════════════════════════════════════════════════════════════ */}
       <section style={{ padding: '4.5rem 0 3.5rem' }}>
         <div className="container">
           <ScrollBox
             style={{
               background: '#ffffff',
-              border: '1px solid #e2e8f0',
+              border: '1.5px solid #cbd5e1',
               borderRadius: '24px',
               padding: 'clamp(2rem, 4vw, 3.5rem)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.03)'
+              boxShadow: '0 12px 35px rgba(0, 0, 0, 0.05)'
             }}
           >
             {/* Section Header */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '0.825rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 800 }}>
                   Comprehensive Capabilities
                 </span>
-                <span style={{ background: 'rgba(0, 187, 167, 0.1)', color: '#00bba7', fontSize: '0.75rem', fontWeight: 800, padding: '2px 8px', borderRadius: '4px' }}>
-                  10 Domains
+                <span style={{ background: '#0a1428', color: '#ffffff', fontSize: '0.75rem', fontWeight: 800, padding: '3px 10px', borderRadius: '6px' }}>
+                  10 Engineering Domains
                 </span>
               </div>
-              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#0a1428', margin: 0 }}>
+              <h2 style={{ fontSize: 'clamp(2.1rem, 3.5vw, 2.85rem)', fontWeight: 900, letterSpacing: '-0.03em', color: '#0a1428', margin: 0 }}>
                 Engineered for Modern Enterprise Scale
               </h2>
-              <p style={{ fontSize: '1rem', color: '#64748b', lineHeight: 1.6, margin: 0, maxWidth: '720px' }}>
+              <p style={{ fontSize: '1.05rem', color: '#334155', lineHeight: 1.6, margin: 0, maxWidth: '720px', fontWeight: 500 }}>
                 Explore our full spectrum of web, mobile, custom software, digital marketing, AI automation, and cloud intelligence disciplines.
               </p>
             </div>
@@ -612,10 +651,10 @@ export default function HomePage({ onOpenContact }) {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.6rem',
+                gap: '0.65rem',
                 flexWrap: 'wrap',
                 marginBottom: '2.5rem',
-                borderBottom: '1px solid #f1f5f9',
+                borderBottom: '1.5px solid #e2e8f0',
                 paddingBottom: '1.25rem'
               }}
             >
@@ -626,15 +665,16 @@ export default function HomePage({ onOpenContact }) {
                     key={cat.id}
                     onClick={() => setSelectedCategory(cat.id)}
                     style={{
-                      background: isActive ? '#0a1428' : '#f8fafc',
-                      color: isActive ? '#ffffff' : '#475569',
-                      border: isActive ? '1px solid #0a1428' : '1px solid #e2e8f0',
-                      padding: '0.5rem 1rem',
+                      background: isActive ? '#0a1428' : '#ffffff',
+                      color: isActive ? '#ffffff' : '#1e293b',
+                      border: isActive ? '1.5px solid #0a1428' : '1.5px solid #cbd5e1',
+                      padding: '0.55rem 1.15rem',
                       borderRadius: '8px',
-                      fontSize: '0.85rem',
+                      fontSize: '0.875rem',
                       fontWeight: 700,
                       cursor: 'pointer',
-                      transition: 'all 0.2s ease'
+                      transition: 'all 0.2s ease',
+                      boxShadow: isActive ? '0 4px 12px rgba(10,20,40,0.15)' : 'none'
                     }}
                     onMouseEnter={(e) => {
                       if (!isActive) {
@@ -644,8 +684,8 @@ export default function HomePage({ onOpenContact }) {
                     }}
                     onMouseLeave={(e) => {
                       if (!isActive) {
-                        e.currentTarget.style.borderColor = '#e2e8f0';
-                        e.currentTarget.style.color = '#475569';
+                        e.currentTarget.style.borderColor = '#cbd5e1';
+                        e.currentTarget.style.color = '#1e293b';
                       }
                     }}
                   >
@@ -655,61 +695,47 @@ export default function HomePage({ onOpenContact }) {
               })}
             </div>
 
-            {/* 10 Capabilities Grid with Animated Working Items */}
+            {/* 10 Capabilities Grid with Logo Marks & High Contrast */}
             <div 
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '1.5rem'
+                gap: '1.65rem'
               }}
             >
               {filteredCapabilities.map((cap) => (
                 <div
                   key={cap.id}
                   style={{
-                    background: '#f8fafc',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '16px',
-                    padding: '1.75rem',
+                    background: '#ffffff',
+                    border: '1.5px solid #e2e8f0',
+                    borderRadius: '18px',
+                    padding: '2rem',
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
                     transition: 'all 0.25s ease',
-                    boxShadow: '0 2px 6px rgba(0,0,0,0.02)'
+                    boxShadow: '0 4px 14px rgba(0,0,0,0.03)'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = '#00bba7';
-                    e.currentTarget.style.background = '#ffffff';
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 187, 167, 0.1)';
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 16px 36px rgba(0, 187, 167, 0.15)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = '#e2e8f0';
-                    e.currentTarget.style.background = '#f8fafc';
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 6px rgba(0,0,0,0.02)';
+                    e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.03)';
                   }}
                 >
-                  {/* Top Bar: Icon + Number */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                    <div 
-                      style={{
-                        width: 46,
-                        height: 46,
-                        borderRadius: '12px',
-                        background: 'rgba(0, 187, 167, 0.1)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      {cap.icon}
-                    </div>
+                  {/* Top Bar: Logo Mark + Domain Number */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                    <LogoMark gradient={cap.gradient} icon={cap.icon} size={48} />
                     <span 
                       style={{
-                        fontSize: '0.85rem',
+                        fontSize: '0.9rem',
                         fontWeight: 900,
-                        color: '#94a3b8',
+                        color: '#64748b',
                         fontFamily: 'monospace'
                       }}
                     >
@@ -717,48 +743,48 @@ export default function HomePage({ onOpenContact }) {
                     </span>
                   </div>
 
-                  {/* Capability Title */}
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0a1428', marginBottom: '1.15rem' }}>
+                  {/* Capability Title (High Contrast Black) */}
+                  <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0a1428', marginBottom: '1.25rem' }}>
                     {cap.title}
                   </h3>
 
-                  {/* Sub-Services Working Items Tags (Interactive chips) */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '1.5rem', flex: 1 }}>
+                  {/* Sub-Services Working Items Tags (High Contrast Chips) */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px', marginBottom: '1.75rem', flex: 1 }}>
                     {cap.items.map((subItem, sIdx) => (
                       <span
                         key={sIdx}
                         style={{
-                          fontSize: '0.78rem',
-                          fontWeight: 600,
-                          color: '#334155',
-                          background: '#ffffff',
-                          border: '1px solid #e2e8f0',
-                          padding: '4px 10px',
+                          fontSize: '0.8rem',
+                          fontWeight: 700,
+                          color: '#0f172a',
+                          background: '#f8fafc',
+                          border: '1px solid #cbd5e1',
+                          padding: '5px 11px',
                           borderRadius: '6px',
                           transition: 'all 0.15s ease',
                           display: 'inline-flex',
                           alignItems: 'center',
-                          gap: '5px'
+                          gap: '6px'
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.borderColor = '#00bba7';
                           e.currentTarget.style.color = '#00bba7';
-                          e.currentTarget.style.background = 'rgba(0, 187, 167, 0.05)';
+                          e.currentTarget.style.background = 'rgba(0, 187, 167, 0.08)';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = '#e2e8f0';
-                          e.currentTarget.style.color = '#334155';
-                          e.currentTarget.style.background = '#ffffff';
+                          e.currentTarget.style.borderColor = '#cbd5e1';
+                          e.currentTarget.style.color = '#0f172a';
+                          e.currentTarget.style.background = '#f8fafc';
                         }}
                       >
-                        <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#00bba7' }} />
+                        <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#00bba7' }} />
                         <span>{subItem}</span>
                       </span>
                     ))}
                   </div>
 
                   {/* Direct Link */}
-                  <div style={{ borderTop: '1px solid #eef2f6', paddingTop: '1rem', marginTop: 'auto' }}>
+                  <div style={{ borderTop: '1.5px solid #f1f5f9', paddingTop: '1.15rem', marginTop: 'auto' }}>
                     <Link
                       to="/services"
                       style={{
@@ -766,13 +792,13 @@ export default function HomePage({ onOpenContact }) {
                         alignItems: 'center',
                         gap: '6px',
                         color: '#00bba7',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
+                        fontWeight: 800,
+                        fontSize: '0.9rem',
                         textDecoration: 'none'
                       }}
                     >
                       <span>Explore {cap.title}</span>
-                      <ArrowRight size={14} />
+                      <ArrowRight size={15} />
                     </Link>
                   </div>
                 </div>
@@ -784,23 +810,23 @@ export default function HomePage({ onOpenContact }) {
 
       {/* ═════════════════════════════════════════════════════════════════════
           3. HOW IT WORKS (Horizontal 3-Step Flow)
-          ═════════════════════════════════════════════════════════════════════ */}
+          ═════════════════════════════════════════════ */}
       <section style={{ padding: '2rem 0 3.5rem' }}>
         <div className="container">
           <ScrollBox
             style={{
               background: '#f8fafc',
-              border: '1px solid #e2e8f0',
+              border: '1.5px solid #cbd5e1',
               borderRadius: '24px',
               padding: 'clamp(2rem, 4vw, 3.5rem)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.02)'
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.03)'
             }}
           >
             <div style={{ textAlign: 'center', maxWidth: '620px', margin: '0 auto 4rem' }}>
-              <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
+              <span style={{ fontSize: '0.825rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 800 }}>
                 Process
               </span>
-              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#0a1428', marginTop: '0.4rem' }}>
+              <h2 style={{ fontSize: 'clamp(2.1rem, 3.5vw, 2.85rem)', fontWeight: 900, letterSpacing: '-0.03em', color: '#0a1428', marginTop: '0.4rem' }}>
                 How It Works
               </h2>
             </div>
@@ -811,11 +837,11 @@ export default function HomePage({ onOpenContact }) {
                 aria-hidden="true"
                 style={{
                   position: 'absolute',
-                  top: '24px',
+                  top: '25px',
                   left: '12%',
                   right: '12%',
                   height: '2px',
-                  background: '#e2e8f0',
+                  background: '#cbd5e1',
                   zIndex: 0
                 }}
               />
@@ -842,31 +868,31 @@ export default function HomePage({ onOpenContact }) {
                     {/* Step Number Styled as an Outlined Circle */}
                     <div 
                       style={{
-                        width: '48px',
-                        height: '48px',
+                        width: '52px',
+                        height: '52px',
                         borderRadius: '50%',
-                        border: '2px solid #00bba7',
+                        border: '2.5px solid #00bba7',
                         background: '#ffffff',
                         color: '#00bba7',
-                        fontWeight: 800,
-                        fontSize: '0.95rem',
+                        fontWeight: 900,
+                        fontSize: '1rem',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         marginBottom: '1.25rem',
-                        boxShadow: '0 4px 12px rgba(0, 187, 167, 0.15)'
+                        boxShadow: '0 6px 16px rgba(0, 187, 167, 0.2)'
                       }}
                     >
                       {st.num}
                     </div>
 
-                    {/* Short Title */}
-                    <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0a1428', marginBottom: '0.65rem' }}>
+                    {/* Short Title (High Contrast) */}
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0a1428', marginBottom: '0.65rem' }}>
                       {st.title}
                     </h3>
 
                     {/* 1 Sentence Description */}
-                    <p style={{ fontSize: '0.925rem', color: '#64748b', lineHeight: 1.6, maxWidth: '280px', margin: 0 }}>
+                    <p style={{ fontSize: '0.95rem', color: '#334155', lineHeight: 1.6, maxWidth: '280px', margin: 0, fontWeight: 500 }}>
                       {st.desc}
                     </p>
                   </div>
@@ -878,20 +904,21 @@ export default function HomePage({ onOpenContact }) {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          4. SECTORS SECTION (User Requirement 2: Left Side Sectors, Whole Section BG = Real Sector Image, Right Side = What Products We Build)
+          4. SECTORS SECTION (User Requirement: Light & Transparent Theme, Left Circular Animated Nodes, Right Products Panel)
           ═════════════════════════════════════════════════════════════════════ */}
       <section style={{ padding: '2rem 0 3.5rem' }}>
         <div className="container">
           <ScrollBox
             style={{
               position: 'relative',
-              borderRadius: '24px',
+              borderRadius: '26px',
               overflow: 'hidden',
-              boxShadow: '0 16px 45px rgba(0, 0, 0, 0.18)',
-              minHeight: '620px'
+              boxShadow: '0 16px 45px rgba(0, 0, 0, 0.08)',
+              minHeight: '640px',
+              border: '1.5px solid #cbd5e1'
             }}
           >
-            {/* Dynamic Whole Section Background Real Image with Crossfade */}
+            {/* Dynamic Whole Section Background Real Image */}
             <div 
               aria-hidden="true"
               style={{
@@ -905,18 +932,20 @@ export default function HomePage({ onOpenContact }) {
               }}
             />
 
-            {/* Dark Gradient Overlay for Maximum Readability */}
+            {/* LIGHT WITH TRANSPARENCY Frosted Glass Overlay (NOT dark!) */}
             <div 
               aria-hidden="true"
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(105deg, rgba(7, 13, 26, 0.95) 0%, rgba(7, 13, 26, 0.88) 45%, rgba(7, 13, 26, 0.78) 100%)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 250, 252, 0.88) 45%, rgba(241, 245, 249, 0.82) 100%)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
                 zIndex: 1
               }}
             />
 
-            {/* Split Content: Left Side Sector List | Right Side What Products We Build */}
+            {/* Split Content: Left Side Circular Selector Nodes | Right Side Products We Build */}
             <div 
               style={{
                 position: 'relative',
@@ -928,24 +957,25 @@ export default function HomePage({ onOpenContact }) {
                 alignItems: 'center'
               }}
             >
-              {/* Left Side: Sector Selector List */}
+              {/* Left Side: Circular Animated Sector Nodes */}
               <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(0,187,167,0.15)', border: '1px solid rgba(0,187,167,0.3)', marginBottom: '1rem' }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#2dd4bf', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '999px', background: 'rgba(0, 187, 167, 0.12)', border: '1.5px solid rgba(0, 187, 167, 0.35)', marginBottom: '1.25rem' }}>
+                  <Sparkles size={15} color="#00bba7" />
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0f766e', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     Sector Specializations
                   </span>
                 </div>
 
-                <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '1rem' }}>
+                <h2 style={{ fontSize: 'clamp(2.1rem, 3.5vw, 2.85rem)', fontWeight: 900, color: '#0a1428', letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '1rem' }}>
                   Tailored For Industry Leaders
                 </h2>
 
-                <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.75)', lineHeight: 1.6, marginBottom: '2rem' }}>
-                  Select an industry to explore the specific software, automation bots, and platforms we build for that domain.
+                <p style={{ fontSize: '1rem', color: '#334155', lineHeight: 1.6, marginBottom: '2.25rem', fontWeight: 500 }}>
+                  Click a circular sector node below to switch the environment and explore the exact software, voice bots, and automation systems we build for that domain.
                 </p>
 
-                {/* Vertical Sector Buttons List */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {/* Animated Circular Sector Nodes List */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   {sectors.map((sec) => {
                     const isActive = sec.id === activeSector;
                     return (
@@ -956,54 +986,74 @@ export default function HomePage({ onOpenContact }) {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'space-between',
-                          padding: '0.85rem 1.25rem',
-                          borderRadius: '12px',
+                          padding: '0.75rem 1rem 0.75rem 0.75rem',
+                          borderRadius: '16px',
                           cursor: 'pointer',
                           transition: 'all 0.25s ease',
                           textAlign: 'left',
-                          background: isActive ? 'rgba(0, 187, 167, 0.18)' : 'rgba(255, 255, 255, 0.05)',
-                          border: isActive ? '1.5px solid #00bba7' : '1px solid rgba(255, 255, 255, 0.1)',
-                          backdropFilter: 'blur(8px)',
-                          color: '#ffffff'
+                          background: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.65)',
+                          border: isActive ? '2px solid #00bba7' : '1.5px solid #cbd5e1',
+                          boxShadow: isActive ? '0 8px 24px rgba(0, 187, 167, 0.2)' : '0 2px 6px rgba(0,0,0,0.02)'
                         }}
                         onMouseEnter={(e) => {
                           if (!isActive) {
-                            e.currentTarget.style.borderColor = 'rgba(0, 187, 167, 0.6)';
-                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                            e.currentTarget.style.borderColor = '#00bba7';
+                            e.currentTarget.style.background = '#ffffff';
                           }
                         }}
                         onMouseLeave={(e) => {
                           if (!isActive) {
-                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                            e.currentTarget.style.borderColor = '#cbd5e1';
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.65)';
                           }
                         }}
                       >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                          <span style={{ color: isActive ? '#00bba7' : '#94a3b8' }}>
-                            {sec.icon}
-                          </span>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 700, color: isActive ? '#ffffff' : 'rgba(255,255,255,0.85)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                          {/* Circle Logo Node with Pulse Glow Animation */}
+                          <div 
+                            style={{
+                              width: '46px',
+                              height: '46px',
+                              borderRadius: '50%',
+                              background: sec.gradient,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              color: '#ffffff',
+                              boxShadow: isActive 
+                                ? '0 0 0 4px rgba(0, 187, 167, 0.25), 0 6px 16px rgba(0, 0, 0, 0.2)' 
+                                : '0 4px 10px rgba(0,0,0,0.1)',
+                              transform: isActive ? 'scale(1.06)' : 'scale(1)',
+                              transition: 'all 0.25s ease',
+                              flexShrink: 0
+                            }}
+                          >
+                            <sec.icon size={22} strokeWidth={2.2} />
+                          </div>
+
+                          {/* Sector Name (High Contrast) */}
+                          <span style={{ fontSize: '1rem', fontWeight: isActive ? 800 : 700, color: isActive ? '#00bba7' : '#0a1428' }}>
                             {sec.name}
                           </span>
                         </div>
-                        <ChevronRight size={16} color={isActive ? '#00bba7' : '#64748b'} />
+
+                        <ChevronRight size={18} color={isActive ? '#00bba7' : '#94a3b8'} />
                       </button>
                     );
                   })}
                 </div>
               </div>
 
-              {/* Right Side: What Kind of Products We Build for Selected Sector */}
+              {/* Right Side: What Products We Build for Selected Sector (Frosted Glass Panel) */}
               <div 
                 style={{
-                  background: 'rgba(10, 20, 40, 0.78)',
+                  background: 'rgba(255, 255, 255, 0.96)',
                   backdropFilter: 'blur(20px)',
                   WebkitBackdropFilter: 'blur(20px)',
-                  border: '1.5px solid rgba(0, 187, 167, 0.3)',
-                  borderRadius: '20px',
+                  border: '2px solid #00bba7',
+                  borderRadius: '22px',
                   padding: 'clamp(2rem, 3.5vw, 2.75rem)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
+                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.08)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1.5rem'
@@ -1011,44 +1061,59 @@ export default function HomePage({ onOpenContact }) {
               >
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.4rem' }}>
-                    <span style={{ color: '#00bba7' }}>{currentSectorData.icon}</span>
-                    <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700 }}>
+                    <div 
+                      style={{ 
+                        width: 28, 
+                        height: 28, 
+                        borderRadius: '50%', 
+                        background: currentSectorData.gradient, 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        color: '#fff' 
+                      }}
+                    >
+                      <currentSectorData.icon size={15} />
+                    </div>
+                    <span style={{ fontSize: '0.825rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#0f766e', fontWeight: 800 }}>
                       Products We Build for {currentSectorData.name}
                     </span>
                   </div>
-                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                  <h3 style={{ fontSize: '1.55rem', fontWeight: 900, color: '#0a1428', margin: 0 }}>
                     {currentSectorData.tagline}
                   </h3>
                 </div>
 
-                {/* Product Offerings List for this Sector */}
+                {/* Product Offerings List for this Sector (High Contrast Cards) */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {currentSectorData.products.map((prod, pIdx) => (
                     <div 
                       key={pIdx}
                       style={{
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        border: '1px solid rgba(255, 255, 255, 0.08)',
-                        borderRadius: '12px',
-                        padding: '1.15rem',
+                        background: '#f8fafc',
+                        border: '1.5px solid #e2e8f0',
+                        borderRadius: '14px',
+                        padding: '1.25rem',
                         transition: 'all 0.2s ease'
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.borderColor = '#00bba7';
-                        e.currentTarget.style.background = 'rgba(0, 187, 167, 0.08)';
+                        e.currentTarget.style.background = '#ffffff';
+                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 187, 167, 0.1)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+                        e.currentTarget.style.borderColor = '#e2e8f0';
+                        e.currentTarget.style.background = '#f8fafc';
+                        e.currentTarget.style.boxShadow = 'none';
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                        <CheckCircle2 size={16} color="#00bba7" flexShrink={0} />
-                        <h4 style={{ fontSize: '0.975rem', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '5px' }}>
+                        <CheckCircle2 size={18} color="#00bba7" flexShrink={0} />
+                        <h4 style={{ fontSize: '1.025rem', fontWeight: 800, color: '#0a1428', margin: 0 }}>
                           {prod.title}
                         </h4>
                       </div>
-                      <p style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1.5, margin: 0, paddingLeft: '24px' }}>
+                      <p style={{ fontSize: '0.875rem', color: '#334155', lineHeight: 1.55, margin: 0, paddingLeft: '26px', fontWeight: 500 }}>
                         {prod.desc}
                       </p>
                     </div>
@@ -1064,30 +1129,37 @@ export default function HomePage({ onOpenContact }) {
                       alignItems: 'center',
                       gap: '6px',
                       color: '#00bba7',
-                      fontWeight: 700,
-                      fontSize: '0.9rem',
+                      fontWeight: 800,
+                      fontSize: '0.925rem',
                       textDecoration: 'none'
                     }}
                   >
                     <span>View all sector case studies</span>
-                    <ArrowRight size={15} />
+                    <ArrowRight size={16} />
                   </Link>
 
                   <button
                     onClick={onOpenContact}
                     style={{
-                      background: '#00bba7',
-                      color: '#040811',
+                      background: '#0a1428',
+                      color: '#ffffff',
                       border: 'none',
-                      fontWeight: 700,
-                      padding: '0.65rem 1.35rem',
-                      borderRadius: '8px',
-                      fontSize: '0.875rem',
+                      fontWeight: 800,
+                      padding: '0.75rem 1.45rem',
+                      borderRadius: '10px',
+                      fontSize: '0.9rem',
                       cursor: 'pointer',
-                      transition: 'all 0.2s'
+                      transition: 'all 0.2s ease',
+                      boxShadow: '0 4px 12px rgba(10,20,40,0.2)'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#0d9488'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = '#00bba7'}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#00bba7';
+                      e.currentTarget.style.color = '#020617';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#0a1428';
+                      e.currentTarget.style.color = '#ffffff';
+                    }}
                   >
                     Build for {currentSectorData.name}
                   </button>
@@ -1100,26 +1172,26 @@ export default function HomePage({ onOpenContact }) {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          5. CTA STRIP (Box Framed Dark Section with WhatsApp & Call CTAs)
+          5. CTA STRIP (Box Framed High-Contrast Dark Section)
           ═════════════════════════════════════════════════════════════════════ */}
       <section style={{ padding: '2rem 0 5rem' }}>
         <div className="container">
           <ScrollBox
             style={{
-              background: 'linear-gradient(135deg, #070d1a 0%, #0a1428 100%)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '24px',
+              background: 'linear-gradient(135deg, #050c1a 0%, #0a1428 100%)',
+              border: '1.5px solid rgba(255, 255, 255, 0.15)',
+              borderRadius: '26px',
               padding: 'clamp(3rem, 5vw, 4.5rem) 2rem',
               color: '#ffffff',
               textAlign: 'center',
-              boxShadow: '0 16px 45px rgba(0, 0, 0, 0.25)'
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)'
             }}
           >
             <div style={{ maxWidth: '680px', margin: '0 auto' }}>
               <h2 
                 style={{
                   fontSize: 'clamp(2.2rem, 4vw, 3.25rem)',
-                  fontWeight: 800,
+                  fontWeight: 900,
                   letterSpacing: '-0.03em',
                   lineHeight: 1.15,
                   color: '#ffffff',
@@ -1131,11 +1203,12 @@ export default function HomePage({ onOpenContact }) {
 
               <p 
                 style={{
-                  fontSize: '1.1rem',
-                  color: 'rgba(255, 255, 255, 0.75)',
+                  fontSize: '1.15rem',
+                  color: '#f1f5f9',
                   lineHeight: 1.6,
                   maxWidth: '560px',
-                  margin: '0 auto 2.5rem'
+                  margin: '0 auto 2.5rem',
+                  fontWeight: 400
                 }}
               >
                 Deploy production-grade AI agents and custom software systems in days.
@@ -1150,7 +1223,7 @@ export default function HomePage({ onOpenContact }) {
                   flexWrap: 'wrap'
                 }}
               >
-                {/* WhatsApp Button (Green) */}
+                {/* WhatsApp Button (High Contrast Green) */}
                 <a
                   href={whatsappUrl}
                   target="_blank"
@@ -1162,12 +1235,12 @@ export default function HomePage({ onOpenContact }) {
                     gap: '10px',
                     background: '#25D366',
                     color: '#ffffff',
-                    fontWeight: 700,
-                    fontSize: '0.95rem',
-                    padding: '0.85rem 1.85rem',
+                    fontWeight: 800,
+                    fontSize: '0.975rem',
+                    padding: '0.85rem 1.95rem',
                     borderRadius: '10px',
                     textDecoration: 'none',
-                    boxShadow: '0 4px 14px rgba(37, 211, 102, 0.35)',
+                    boxShadow: '0 6px 20px rgba(37, 211, 102, 0.45)',
                     transition: 'all 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
@@ -1179,11 +1252,11 @@ export default function HomePage({ onOpenContact }) {
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  <WhatsAppIcon size={18} color="#ffffff" />
+                  <WhatsAppIcon size={19} color="#ffffff" />
                   <span>Chat on WhatsApp</span>
                 </a>
 
-                {/* Book a Call Button */}
+                {/* Book a Call Button (Vivid Electric Teal) */}
                 <button
                   onClick={onOpenContact}
                   style={{
@@ -1191,14 +1264,14 @@ export default function HomePage({ onOpenContact }) {
                     alignItems: 'center',
                     gap: '8px',
                     background: '#00bba7',
-                    color: '#040811',
-                    fontWeight: 700,
-                    fontSize: '0.95rem',
-                    padding: '0.85rem 1.85rem',
+                    color: '#020617',
+                    fontWeight: 800,
+                    fontSize: '0.975rem',
+                    padding: '0.85rem 1.95rem',
                     borderRadius: '10px',
                     border: 'none',
                     cursor: 'pointer',
-                    boxShadow: '0 4px 14px rgba(0, 187, 167, 0.3)',
+                    boxShadow: '0 6px 20px rgba(0, 187, 167, 0.35)',
                     transition: 'all 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
@@ -1210,7 +1283,7 @@ export default function HomePage({ onOpenContact }) {
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  <Calendar size={16} />
+                  <Calendar size={17} />
                   <span>Book a Call</span>
                 </button>
               </div>
