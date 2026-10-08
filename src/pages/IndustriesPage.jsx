@@ -87,18 +87,21 @@ export default function IndustriesPage({ onOpenContact }) {
   ];
 
   return (
-    <div className="industries-page" style={{ padding: '2rem 0 5rem', background: '#f8fafc' }}>
+    <div className="industries-page" style={{ padding: '2rem 0 5rem', background: '#F5F8F7' }}>
       <div className="container">
         
         {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 4rem' }}>
-          <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-            Industry Playbooks
-          </span>
-          <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 800, color: '#0a1428', marginTop: '0.5rem', marginBottom: '1rem' }}>
-            Tailored AI for Your Specific Market
+        <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 4rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
+              Industry Playbooks
+            </span>
+          </div>
+          <h1 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)', fontWeight: 900, color: '#080607', letterSpacing: '-0.035em', lineHeight: 1.1, marginBottom: '1rem' }}>
+            Tailored AI & Engineering for Your Specific Market
           </h1>
-          <p style={{ fontSize: '1.1rem', color: '#64748b', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.1rem', color: '#556575', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
             Every industry has unique bottlenecks. Discover how MaxR Technologies builds custom automation architectures engineered for your specific business model.
           </p>
         </div>
@@ -109,23 +112,23 @@ export default function IndustriesPage({ onOpenContact }) {
             <div 
               key={item.id}
               style={{
-                background: '#ffffff',
-                borderRadius: '20px',
-                border: '1px solid #e2e8f0',
-                padding: 'clamp(2rem, 4vw, 3.5rem)',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.04)'
+                background: '#FFFFFF',
+                borderRadius: '16px',
+                border: '1px solid #E1E8E5',
+                padding: 'clamp(2rem, 4vw, 3.25rem)',
+                boxShadow: '0 8px 30px rgba(8,6,7,0.03)'
               }}
             >
-              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '1.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div style={{ width: 56, height: 56, borderRadius: '14px', background: 'rgba(0,187,167,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ width: 56, height: 56, borderRadius: '12px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(0,187,167,0.2)' }}>
                     {item.icon}
                   </div>
                   <div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: '#00bba7' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#00bba7' }}>
                       {item.badge}
                     </span>
-                    <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0a1428', margin: 0 }}>
+                    <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: '1.55rem', fontWeight: 800, color: '#080607', margin: 0, letterSpacing: '-0.02em' }}>
                       {item.title}
                     </h2>
                   </div>
@@ -134,47 +137,60 @@ export default function IndustriesPage({ onOpenContact }) {
                 <button 
                   onClick={onOpenContact} 
                   className="btn-primary"
-                  style={{ background: '#00bba7', color: '#040811', fontWeight: 700, padding: '0.65rem 1.25rem', fontSize: '0.85rem' }}
+                  style={{ 
+                    background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)', 
+                    color: '#ffffff', 
+                    fontWeight: 700, 
+                    padding: '0.7rem 1.4rem', 
+                    fontSize: '0.85rem',
+                    borderRadius: '8px',
+                    border: 'none',
+                    boxShadow: '0 4px 16px rgba(0,187,167,0.2)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    cursor: 'pointer'
+                  }}
                 >
                   Request Industry Demo
                   <ArrowRight size={14} />
                 </button>
               </div>
 
-              <p style={{ fontSize: '1.05rem', fontWeight: 600, color: '#0f766e', marginBottom: '1.5rem' }}>
+              <p style={{ fontSize: '1.05rem', fontWeight: 600, color: '#0d9488', marginBottom: '1.75rem' }}>
                 {item.tagline}
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
-                <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '12px', padding: '1.5rem' }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: '#b91c1c' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+                <div style={{ background: '#FFF8F8', border: '1px solid #FEE2E2', borderRadius: '12px', padding: '1.5rem' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#DC2626' }}>
                     The Bottleneck
                   </span>
-                  <p style={{ color: '#7f1d1d', fontSize: '0.9rem', lineHeight: 1.6, marginTop: '6px' }}>
+                  <p style={{ color: '#991B1B', fontSize: '0.9rem', lineHeight: 1.6, marginTop: '8px', margin: '8px 0 0' }}>
                     {item.challenge}
                   </p>
                 </div>
 
-                <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '12px', padding: '1.5rem' }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: '#15803d' }}>
+                <div style={{ background: '#F0FDF4', border: '1px solid #DCFCE7', borderRadius: '12px', padding: '1.5rem' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#16A34A' }}>
                     The MaxR AI Solution
                   </span>
-                  <p style={{ color: '#14532d', fontSize: '0.9rem', lineHeight: 1.6, marginTop: '6px' }}>
+                  <p style={{ color: '#166534', fontSize: '0.9rem', lineHeight: 1.6, marginTop: '8px', margin: '8px 0 0' }}>
                     {item.solution}
                   </p>
                 </div>
               </div>
 
               {/* Quantified Results */}
-              <div style={{ background: '#f8fafc', borderRadius: '12px', padding: '1.5rem', border: '1px solid #e2e8f0' }}>
-                <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0a1428', marginBottom: '0.75rem' }}>
+              <div style={{ background: '#F5F8F7', borderRadius: '12px', padding: '1.5rem', border: '1px solid #E1E8E5' }}>
+                <h4 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: '0.9rem', fontWeight: 800, color: '#080607', marginBottom: '0.75rem', letterSpacing: '-0.01em' }}>
                   Proven Benchmarks Achieved:
                 </h4>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
                   {item.results.map((res, ridx) => (
                     <div key={ridx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
                       <CheckCircle2 size={16} color="#00bba7" style={{ flexShrink: 0, marginTop: '2px' }} />
-                      <span style={{ fontSize: '0.875rem', color: '#334155', fontWeight: 500 }}>
+                      <span style={{ fontSize: '0.875rem', color: '#334155', fontWeight: 500, lineHeight: 1.5 }}>
                         {res}
                       </span>
                     </div>
@@ -186,20 +202,48 @@ export default function IndustriesPage({ onOpenContact }) {
           ))}
         </div>
 
-        {/* Enterprise Callout */}
-        <div style={{ marginTop: '5rem', background: '#0a1428', borderRadius: '24px', padding: '3rem 2rem', color: '#fff', textAlign: 'center', border: '1px solid rgba(0,187,167,0.3)' }}>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: 800, marginBottom: '0.75rem' }}>
+        {/* Enterprise Executive Callout */}
+        <div style={{ 
+          marginTop: '5rem', 
+          background: '#FFFFFF', 
+          borderRadius: '16px', 
+          padding: 'clamp(2.5rem, 5vw, 4rem) 2rem', 
+          textAlign: 'center', 
+          border: '1px solid #E1E8E5', 
+          boxShadow: '0 8px 30px rgba(8,6,7,0.04)' 
+        }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
+              Next Step
+            </span>
+          </div>
+          <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#080607', letterSpacing: '-0.03em', marginBottom: '0.75rem' }}>
             Ready to Modernize Your Industry Operations?
           </h2>
-          <p style={{ color: '#cbd5e1', maxWidth: '650px', margin: '0 auto 1.5rem', fontSize: '0.95rem' }}>
-            We provide custom voice agents, automated CRM pipelines, and multi-channel intake tuned specifically for your industry's workflows.
+          <p style={{ color: '#556575', maxWidth: '650px', margin: '0 auto 2rem', fontSize: '1rem', lineHeight: 1.6 }}>
+            We engineer custom voice agents, automated CRM pipelines, and enterprise systems tuned specifically to your industry workflows.
           </p>
           <button 
             onClick={onOpenContact} 
             className="btn-primary" 
-            style={{ background: '#00bba7', color: '#040811', fontWeight: 700 }}
+            style={{ 
+              background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)', 
+              color: '#ffffff', 
+              fontWeight: 700, 
+              padding: '0.9rem 2.2rem',
+              borderRadius: '8px',
+              border: 'none',
+              boxShadow: '0 4px 16px rgba(0,187,167,0.25)',
+              cursor: 'pointer',
+              fontSize: '0.95rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
           >
             Schedule Consultation
+            <ArrowRight size={16} />
           </button>
         </div>
 

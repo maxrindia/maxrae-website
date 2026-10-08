@@ -46,51 +46,95 @@ export default function AboutPage({ onOpenContact }) {
   ];
 
   return (
-    <div className="about-page" style={{ padding: '2rem 0 5rem', background: '#f8fafc' }}>
+    <div className="about-page" style={{ padding: 'clamp(3rem, 5vw, 4.5rem) 0 5rem', background: '#F5F8F7' }}>
       <div className="container">
         
         {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 4rem' }}>
-          <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-            WHO WE ARE
-          </span>
-          <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 800, color: '#0a1428', marginTop: '0.5rem', marginBottom: '1rem' }}>
-            Transforming Operations Through Intelligent Technology
+        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto clamp(3rem, 5vw, 4.5rem)' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7' }}>
+              WHO WE ARE
+            </span>
+          </div>
+          <h1 
+            style={{ 
+              fontSize: 'clamp(2.3rem, 4.2vw, 3.4rem)', 
+              fontWeight: 900, 
+              color: '#080607', 
+              letterSpacing: '-0.035em',
+              lineHeight: 1.15,
+              marginTop: 0, 
+              marginBottom: '1rem',
+              fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+            }}
+          >
+            Transforming Operations Through<br />
+            <span style={{ 
+              background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'inline-block'
+            }}>
+              Intelligent Technology.
+            </span>
           </h1>
-          <p style={{ fontSize: '1.1rem', color: '#64748b', lineHeight: 1.6 }}>
-            MaxR Technologies is an AI transformation and business growth company helping enterprises automate operations and scale with confidence.
+          <p style={{ fontSize: 'clamp(1rem, 1.25vw, 1.15rem)', color: '#3F5565', lineHeight: 1.6, margin: 0 }}>
+            MaxR Technologies is an enterprise digital transformation partner helping businesses automate operations and scale with confidence.
           </p>
         </div>
 
         {/* Story Section */}
-        <div style={{ background: '#ffffff', borderRadius: '20px', border: '1px solid #e2e8f0', padding: 'clamp(2rem, 4vw, 3.5rem)', boxShadow: '0 8px 30px rgba(0,0,0,0.04)', marginBottom: '4rem' }}>
+        <div 
+          style={{ 
+            background: '#FFFFFF', 
+            borderRadius: '16px', 
+            border: '1px solid #E1E8E5', 
+            padding: 'clamp(2rem, 4vw, 3.5rem)', 
+            boxShadow: '0 8px 30px rgba(8, 6, 7, 0.04)', 
+            marginBottom: '3.5rem' 
+          }}
+        >
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'center' }}>
             <div>
-              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#00bba7', textTransform: 'uppercase' }}>
-                Our Mission & Vision
-              </span>
-              <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0a1428', marginTop: '0.25rem', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
+                <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#00bba7', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  Our Mission & Vision
+                </span>
+              </div>
+              <h2 
+                style={{ 
+                  fontSize: 'clamp(1.75rem, 2.5vw, 2.2rem)', 
+                  fontWeight: 900, 
+                  color: '#080607', 
+                  marginTop: '0.25rem', 
+                  marginBottom: '1.25rem',
+                  letterSpacing: '-0.03em',
+                  fontFamily: "'Space Grotesk', sans-serif"
+                }}
+              >
                 The MaxR Advantage
               </h2>
-              <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '1rem' }}>
+              <p style={{ color: '#3F5565', fontSize: '0.975rem', lineHeight: 1.7, marginBottom: '1rem' }}>
                 MaxR specializes in helping businesses automate operations, modernize digital infrastructure, and scale growth through intelligent technology.
               </p>
-              <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-                Whether it's replacing manual busywork with 24/7 AI voice agents or providing strategic business consultation to unlock 5X growth within 6 months, we bring rapid onboarding, bank-grade infrastructure, and enterprise scalability.
+              <p style={{ color: '#3F5565', fontSize: '0.975rem', lineHeight: 1.7, marginBottom: '1.75rem' }}>
+                Whether it's replacing manual workflows with 24/7 intelligent systems or providing strategic business consultation to unlock 5X growth within 6 months, we bring rapid onboarding, bank-grade infrastructure, and enterprise scalability.
               </p>
 
-              <div style={{ display: 'flex', gap: '2rem', borderTop: '1px solid #e2e8f0', paddingTop: '1.25rem' }}>
+              <div style={{ display: 'flex', gap: '2rem', borderTop: '1px solid #E1E8E5', paddingTop: '1.5rem', flexWrap: 'wrap' }}>
                 <div>
-                  <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#00bba7' }}>&lt; 7 Days</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Rapid Onboarding</div>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>&lt; 7 Days</div>
+                  <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }}>Rapid Onboarding</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#00bba7' }}>99.9%</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Availability SLA</div>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>99.9%</div>
+                  <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }}>Availability SLA</div>
                 </div>
                 <div>
-                  <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#00bba7' }}>145%</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Client Growth</div>
+                  <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>5X</div>
+                  <div style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600 }}>Target Client Growth</div>
                 </div>
               </div>
             </div>
@@ -98,11 +142,11 @@ export default function AboutPage({ onOpenContact }) {
             {/* Core Pillars */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               {pillars.map((p, idx) => (
-                <div key={idx} style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0a1428', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div key={idx} style={{ background: '#FAFBFB', padding: '1.5rem', borderRadius: '12px', border: '1px solid #E1E8E5' }}>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#080607', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <CheckCircle2 size={18} color="#00bba7" /> {p.title}
                   </h3>
-                  <p style={{ color: '#64748b', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ color: '#3F5565', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
                     {p.desc}
                   </p>
                 </div>
@@ -112,12 +156,24 @@ export default function AboutPage({ onOpenContact }) {
         </div>
 
         {/* Leadership Team */}
-        <div style={{ marginBottom: '4rem' }}>
+        <div style={{ marginBottom: '3.5rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-              EXECUTIVE LEADERSHIP
-            </span>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#0a1428', marginTop: '0.25rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
+              <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+              <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#00bba7', fontWeight: 800 }}>
+                EXECUTIVE LEADERSHIP
+              </span>
+            </div>
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2rem, 3.2vw, 2.6rem)', 
+                fontWeight: 900, 
+                color: '#080607', 
+                margin: 0,
+                letterSpacing: '-0.03em',
+                fontFamily: "'Space Grotesk', sans-serif"
+              }}
+            >
               Meet the Leadership Team
             </h2>
           </div>
@@ -127,76 +183,114 @@ export default function AboutPage({ onOpenContact }) {
               <div 
                 key={idx}
                 style={{
-                  background: '#ffffff',
+                  background: '#FFFFFF',
                   borderRadius: '16px',
-                  border: '1px solid #e2e8f0',
+                  border: '1px solid #E1E8E5',
                   padding: '2.5rem',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.03)'
+                  boxShadow: '0 8px 24px rgba(8, 6, 7, 0.03)'
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexWrap: 'wrap', gap: '8px' }}>
                   <div>
-                    <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0a1428', margin: 0 }}>
+                    <h3 style={{ fontSize: '1.4rem', fontWeight: 900, color: '#080607', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
                       {leader.name}
                     </h3>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#00bba7' }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#0f766e' }}>
                       {leader.role}
                     </span>
                   </div>
-                  <span style={{ background: '#ecfdf5', color: '#065f46', fontSize: '0.75rem', padding: '3px 8px', borderRadius: '4px', fontWeight: 600 }}>
+                  <span style={{ background: '#F5F8F7', color: '#080607', border: '1px solid #E1E8E5', fontSize: '0.75rem', padding: '4px 10px', borderRadius: '6px', fontWeight: 700 }}>
                     {leader.entity}
                   </span>
                 </div>
 
-                <p style={{ color: '#475569', fontSize: '0.9rem', lineHeight: 1.65, marginBottom: '1.25rem' }}>
+                <p style={{ color: '#3F5565', fontSize: '0.925rem', lineHeight: 1.65, marginBottom: '1.5rem' }}>
                   {leader.bio}
                 </p>
 
-                <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '1rem', fontSize: '0.8rem', color: '#64748b' }}>
-                  <strong>Key Focus:</strong> {leader.focus}
+                <div style={{ borderTop: '1px solid #E1E8E5', paddingTop: '1rem', fontSize: '0.825rem', color: '#64748b' }}>
+                  <strong style={{ color: '#080607' }}>Key Focus:</strong> {leader.focus}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Headquarters & Presence */}
-        <div style={{ background: '#0a1428', borderRadius: '20px', padding: '3.5rem 2.5rem', color: '#ffffff' }}>
-          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-              LOCATIONS
+        {/* Headquarters & Presence (Clean Light MNC Card) */}
+        <div 
+          style={{ 
+            background: '#FFFFFF', 
+            borderRadius: '16px', 
+            padding: 'clamp(2.5rem, 5vw, 3.5rem) 2rem', 
+            border: '1px solid #E1E8E5',
+            boxShadow: '0 8px 30px rgba(8, 6, 7, 0.04)',
+            textAlign: 'center'
+          }}
+        >
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+            <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#00bba7', fontWeight: 800 }}>
+              GLOBAL HEADQUARTERS
             </span>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, marginTop: '0.25rem' }}>
-              MaxR Technologies
-            </h2>
           </div>
 
-          <div style={{ maxWidth: '640px', margin: '0 auto', background: '#0f1d38', borderRadius: '16px', padding: '2.5rem', border: '1px solid rgba(0,187,167,0.3)', textAlign: 'center' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 50, height: 50, borderRadius: '12px', background: 'rgba(0,187,167,0.15)', marginBottom: '1rem' }}>
-              <MapPin size={26} color="#00bba7" />
+          <h2 
+            style={{ 
+              fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', 
+              fontWeight: 900, 
+              color: '#080607',
+              margin: '0 0 1.5rem 0',
+              letterSpacing: '-0.035em',
+              fontFamily: "'Space Grotesk', sans-serif"
+            }}
+          >
+            Dubai, United Arab Emirates
+          </h2>
+
+          <div style={{ maxWidth: '640px', margin: '0 auto', background: '#F5F8F7', borderRadius: '12px', padding: '2rem', border: '1px solid #E1E8E5' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 48, height: 48, borderRadius: '12px', background: 'rgba(0, 187, 167, 0.12)', marginBottom: '1rem' }}>
+              <MapPin size={24} color="#00bba7" />
             </div>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.5rem' }}>
-              Dubai, United Arab Emirates
-            </h3>
-            <p style={{ color: '#2dd4bf', fontSize: '0.9rem', fontWeight: 600, marginBottom: '1rem' }}>
-              MaxR Technologies FZ · Middle East & GCC Operations
+            <p style={{ color: '#0f766e', fontSize: '0.95rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+              MaxR Technologies FZ · Middle East & Global Operations
             </p>
-            <p style={{ color: '#cbd5e1', fontSize: '0.925rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-              Serving businesses across Dubai, the UAE, and global markets with tailored AI automation, conversational voice bots, and business growth consultation.
+            <p style={{ color: '#3F5565', fontSize: '0.925rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+              Serving enterprises across Dubai, the UAE, and international markets with scalable AI engineering and operational growth advisory.
             </p>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: '#94a3b8' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.875rem', color: '#080607', fontWeight: 600 }}>
               <Mail size={15} color="#00bba7" />
               <span>Contact: <strong>contact@maxr.ae</strong></span>
             </div>
           </div>
 
-          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          <div style={{ marginTop: '2.5rem' }}>
             <button 
               onClick={onOpenContact} 
-              className="btn-primary" 
-              style={{ background: '#00bba7', color: '#040811', fontWeight: 700 }}
+              style={{ 
+                background: '#00bba7', 
+                color: '#080607', 
+                fontWeight: 800, 
+                padding: '0.85rem 2rem', 
+                fontSize: '0.95rem',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 14px rgba(0, 187, 167, 0.35)',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 187, 167, 0.45)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 187, 167, 0.35)';
+              }}
             >
-              Contact Our Team
+              <span>Contact Our Team</span>
               <ArrowRight size={16} />
             </button>
           </div>

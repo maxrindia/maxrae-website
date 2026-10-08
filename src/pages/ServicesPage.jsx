@@ -106,33 +106,55 @@ export default function ServicesPage({ onOpenContact }) {
   ];
 
   return (
-    <div className="services-page" style={{ padding: '2rem 0 5rem', background: '#f8fafc' }}>
+    <div className="services-page" style={{ padding: 'clamp(3rem, 5vw, 4.5rem) 0 5rem', background: '#F5F8F7' }}>
       <div className="container">
         
         {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 4rem' }}>
-          <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-            WHAT WE DO
-          </span>
-          <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 800, color: '#0a1428', marginTop: '0.5rem', marginBottom: '1rem' }}>
-            Our Consulting & Automation Services
+        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto clamp(3rem, 5vw, 4.5rem)' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7' }}>
+              WHAT WE DO
+            </span>
+          </div>
+          <h1 
+            style={{ 
+              fontSize: 'clamp(2.3rem, 4.2vw, 3.4rem)', 
+              fontWeight: 900, 
+              color: '#080607', 
+              letterSpacing: '-0.035em',
+              lineHeight: 1.15,
+              marginTop: 0, 
+              marginBottom: '1rem',
+              fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+            }}
+          >
+            End-to-End Technology for<br />
+            <span style={{ 
+              background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'inline-block'
+            }}>
+              Modern Businesses.
+            </span>
           </h1>
-          <p style={{ fontSize: '1.1rem', color: '#64748b', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'clamp(1rem, 1.25vw, 1.15rem)', color: '#3F5565', lineHeight: 1.6, margin: 0 }}>
             Everything you need to modernize operations, automate routine processes, and scale your business with confidence.
           </p>
         </div>
 
         {/* Detailed Services Stack */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
           {services.map((item) => (
             <div 
               key={item.id}
               style={{
-                background: '#ffffff',
-                borderRadius: '20px',
-                border: '1px solid #e2e8f0',
-                padding: 'clamp(2rem, 4vw, 3.5rem)',
-                boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
+                background: '#FFFFFF',
+                borderRadius: '16px',
+                border: '1px solid #E1E8E5',
+                padding: 'clamp(2rem, 4vw, 3rem)',
+                boxShadow: '0 8px 30px rgba(8, 6, 7, 0.04)',
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                 gap: '2.5rem',
@@ -142,62 +164,114 @@ export default function ServicesPage({ onOpenContact }) {
               {/* Left Column */}
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1rem' }}>
-                  <div style={{ width: 56, height: 56, borderRadius: '14px', background: 'rgba(0,187,167,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: 52, height: 52, borderRadius: '12px', background: 'rgba(0, 187, 167, 0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {item.icon}
                   </div>
                   <div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: '#00bba7' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: '#00bba7', letterSpacing: '0.06em' }}>
                       {item.badge}
                     </span>
-                    <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0a1428', margin: 0 }}>
+                    <h2 
+                      style={{ 
+                        fontSize: '1.65rem', 
+                        fontWeight: 800, 
+                        color: '#080607', 
+                        margin: 0,
+                        letterSpacing: '-0.02em',
+                        fontFamily: "'Space Grotesk', sans-serif"
+                      }}
+                    >
                       {item.title}
                     </h2>
                   </div>
                 </div>
 
-                <p style={{ fontSize: '1rem', fontWeight: 600, color: '#00bba7', marginBottom: '0.75rem' }}>
+                <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f766e', marginBottom: '0.75rem' }}>
                   {item.subtitle}
                 </p>
 
-                <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.65, marginBottom: '1.5rem' }}>
+                <p style={{ color: '#3F5565', fontSize: '0.95rem', lineHeight: 1.65, marginBottom: '1.5rem' }}>
                   {item.description}
                 </p>
 
-                <div style={{ padding: '0.85rem 1.25rem', background: '#ecfdf5', border: '1px solid #a7f3d0', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.75rem' }}>
-                  <CheckCircle2 size={18} color="#059669" />
-                  <span style={{ fontSize: '0.9rem', color: '#065f46', fontWeight: 700 }}>
+                <div 
+                  style={{ 
+                    padding: '0.85rem 1.25rem', 
+                    background: '#F5F8F7', 
+                    border: '1px solid #E1E8E5', 
+                    borderRadius: '8px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '10px', 
+                    marginBottom: '1.75rem' 
+                  }}
+                >
+                  <CheckCircle2 size={17} color="#00bba7" />
+                  <span style={{ fontSize: '0.875rem', color: '#080607', fontWeight: 700 }}>
                     {item.result}
                   </span>
                 </div>
 
                 <button 
                   onClick={onOpenContact} 
-                  className="btn-primary"
-                  style={{ background: '#00bba7', color: '#040811', fontWeight: 700 }}
+                  style={{ 
+                    background: '#00bba7', 
+                    color: '#080607', 
+                    fontWeight: 800,
+                    fontSize: '0.925rem',
+                    padding: '0.8rem 1.65rem',
+                    borderRadius: '8px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 4px 14px rgba(0, 187, 167, 0.3)',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 187, 167, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 187, 167, 0.3)';
+                  }}
                 >
-                  Consult on {item.title}
+                  <span>Consult on {item.title}</span>
                   <ArrowRight size={16} />
                 </button>
               </div>
 
               {/* Right Column */}
-              <div style={{ background: '#f8fafc', borderRadius: '16px', padding: '2rem', border: '1px solid #e2e8f0' }}>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0a1428', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Layers size={18} color="#00bba7" /> Key Features & Capabilities:
+              <div style={{ background: '#FAFBFB', borderRadius: '14px', padding: '2rem', border: '1px solid #E1E8E5' }}>
+                <h3 
+                  style={{ 
+                    fontSize: '1rem', 
+                    fontWeight: 800, 
+                    color: '#080607', 
+                    marginBottom: '1.25rem', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '8px',
+                    letterSpacing: '-0.01em'
+                  }}
+                >
+                  <Layers size={17} color="#00bba7" /> Key Features & Capabilities:
                 </h3>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {item.capabilities.map((cap, cidx) => (
                     <div key={cidx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                      <CheckCircle2 size={18} color="#00bba7" style={{ flexShrink: 0, marginTop: '2px' }} />
-                      <span style={{ fontSize: '0.925rem', color: '#334155', lineHeight: 1.5 }}>
+                      <CheckCircle2 size={16} color="#00bba7" style={{ flexShrink: 0, marginTop: '3px' }} />
+                      <span style={{ fontSize: '0.9rem', color: '#3F5565', lineHeight: 1.55 }}>
                         {cap}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                <div style={{ marginTop: '1.75rem', paddingTop: '1.25rem', borderTop: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: '#64748b' }}>
+                <div style={{ marginTop: '1.75rem', paddingTop: '1.25rem', borderTop: '1px solid #E1E8E5', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: '#64748b' }}>
                   <Clock size={14} color="#00bba7" />
                   <span>Deployment: Rapid onboarding designed to go live in under 7 days.</span>
                 </div>
@@ -207,22 +281,80 @@ export default function ServicesPage({ onOpenContact }) {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div style={{ marginTop: '5rem', background: '#0a1428', borderRadius: '24px', padding: '3.5rem 2rem', textAlign: 'center', border: '1px solid rgba(0,187,167,0.3)', color: '#ffffff' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.75rem' }}>
-            Ready to Accelerate Your Business Operations?
+        {/* Bottom Executive CTA Card */}
+        <div 
+          style={{ 
+            marginTop: '4.5rem', 
+            background: '#FFFFFF', 
+            borderRadius: '16px', 
+            padding: 'clamp(2.5rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 3rem)', 
+            textAlign: 'center', 
+            border: '1px solid #E1E8E5', 
+            boxShadow: '0 8px 30px rgba(8, 6, 7, 0.04)' 
+          }}
+        >
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7' }}>
+              LET'S BUILD TOGETHER
+            </span>
+          </div>
+
+          <h2 
+            style={{ 
+              fontSize: 'clamp(2rem, 3.6vw, 2.85rem)', 
+              fontWeight: 900, 
+              marginBottom: '0.85rem',
+              color: '#080607',
+              letterSpacing: '-0.035em',
+              fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+            }}
+          >
+            Ready to Accelerate Your <br />
+            <span style={{ 
+              background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'inline-block'
+            }}>
+              Business Operations?
+            </span>
           </h2>
-          <p style={{ color: '#cbd5e1', maxWidth: '600px', margin: '0 auto 1.75rem', fontSize: '1rem' }}>
+          <p style={{ color: '#3F5565', maxWidth: '620px', margin: '0 auto 2rem', fontSize: '1.05rem', lineHeight: 1.6 }}>
             Book a discovery session with MaxR Technologies. We'll map your current processes and demonstrate how our automation and growth frameworks create immediate value.
           </p>
-          <button 
-            onClick={onOpenContact} 
-            className="btn-primary" 
-            style={{ background: '#00bba7', color: '#040811', fontWeight: 700, padding: '0.9rem 2rem', fontSize: '1rem' }}
-          >
-            Schedule a Consultation
-            <ArrowRight size={16} />
-          </button>
+
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <button 
+              onClick={onOpenContact} 
+              style={{ 
+                background: '#00bba7', 
+                color: '#080607', 
+                fontWeight: 800, 
+                padding: '0.85rem 2rem', 
+                fontSize: '0.95rem',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 14px rgba(0, 187, 167, 0.35)',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 187, 167, 0.45)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 187, 167, 0.35)';
+              }}
+            >
+              <span>Schedule a Consultation</span>
+              <ArrowRight size={16} />
+            </button>
+          </div>
         </div>
 
       </div>

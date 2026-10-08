@@ -63,59 +63,62 @@ export default function CaseStudiesPage({ onOpenContact }) {
   ];
 
   return (
-    <div className="case-studies-page" style={{ padding: '2rem 0 5rem', background: '#f8fafc' }}>
+    <div className="case-studies-page" style={{ padding: '2rem 0 5rem', background: '#F5F8F7' }}>
       <div className="container">
         
         {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 4rem' }}>
-          <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-            Proven Track Record
-          </span>
-          <h1 style={{ fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 800, color: '#0a1428', marginTop: '0.5rem', marginBottom: '1rem' }}>
+        <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 4rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
+              Proven Track Record
+            </span>
+          </div>
+          <h1 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)', fontWeight: 900, color: '#080607', letterSpacing: '-0.035em', lineHeight: 1.1, marginBottom: '1rem' }}>
             Real Measurable ROI for Real Businesses
           </h1>
-          <p style={{ fontSize: '1.1rem', color: '#64748b', lineHeight: 1.6 }}>
-            Explore how MaxR's voice agents and workflow automations eliminate operational friction and scale revenue across Dubai and India.
+          <p style={{ fontSize: '1.1rem', color: '#556575', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
+            Explore how MaxR's voice agents, modern engineering, and workflow automations eliminate operational friction and scale revenue across Dubai and India.
           </p>
         </div>
 
         {/* Case Cards */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
           {cases.map((c) => (
             <div 
               key={c.id}
               style={{
-                background: '#ffffff',
-                borderRadius: '24px',
-                border: '1px solid #e2e8f0',
-                padding: 'clamp(2rem, 4vw, 3.5rem)',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.04)'
+                background: '#FFFFFF',
+                borderRadius: '16px',
+                border: '1px solid #E1E8E5',
+                padding: 'clamp(2rem, 4vw, 3.25rem)',
+                boxShadow: '0 8px 30px rgba(8,6,7,0.03)'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '8px' }}>
-                <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#00bba7', textTransform: 'uppercase' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '8px' }}>
+                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.08em', color: '#00bba7', textTransform: 'uppercase' }}>
                   {c.category} · {c.client}
                 </span>
-                <span style={{ background: '#ecfdf5', color: '#065f46', fontSize: '0.78rem', fontWeight: 700, padding: '4px 12px', borderRadius: '999px', border: '1px solid #a7f3d0' }}>
+                <span style={{ background: '#ECFDF5', color: '#047857', fontSize: '0.78rem', fontWeight: 700, padding: '4px 12px', borderRadius: '999px', border: '1px solid #A7F3D0' }}>
                   {c.badge}
                 </span>
               </div>
 
-              <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0a1428', lineHeight: 1.3, marginBottom: '2rem' }}>
+              <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.5rem, 2.8vw, 1.9rem)', fontWeight: 800, color: '#080607', lineHeight: 1.3, marginBottom: '2rem', letterSpacing: '-0.02em' }}>
                 {c.headline}
               </h2>
 
               {/* Metrics Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '2.5rem' }}>
                 {c.metrics.map((m, midx) => (
-                  <div key={midx} style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '14px', border: '1px solid #e2e8f0', textAlign: 'center' }}>
-                    <div style={{ fontSize: '2rem', fontWeight: 800, color: '#00bba7' }}>
+                  <div key={midx} style={{ background: '#F5F8F7', padding: '1.5rem', borderRadius: '12px', border: '1px solid #E1E8E5', textAlign: 'center' }}>
+                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '2.2rem', fontWeight: 900, color: '#00bba7', letterSpacing: '-0.03em' }}>
                       {m.value}
                     </div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0a1428', marginTop: '4px' }}>
+                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.9rem', fontWeight: 800, color: '#080607', marginTop: '4px' }}>
                       {m.label}
                     </div>
-                    <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.8rem', color: '#556575', marginTop: '2px' }}>
                       {m.sub}
                     </div>
                   </div>
@@ -123,32 +126,32 @@ export default function CaseStudiesPage({ onOpenContact }) {
               </div>
 
               {/* Challenge & Solution */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
-                <div>
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#dc2626', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+                <div style={{ background: '#FFF8F8', border: '1px solid #FEE2E2', borderRadius: '12px', padding: '1.5rem' }}>
+                  <h3 style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#DC2626', marginBottom: '0.5rem' }}>
                     The Problem
                   </h3>
-                  <p style={{ color: '#475569', fontSize: '0.925rem', lineHeight: 1.65 }}>
+                  <p style={{ color: '#991B1B', fontSize: '0.925rem', lineHeight: 1.65, margin: 0 }}>
                     {c.challenge}
                   </p>
                 </div>
 
-                <div>
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#059669', marginBottom: '0.5rem' }}>
+                <div style={{ background: '#F0FDF4', border: '1px solid #DCFCE7', borderRadius: '12px', padding: '1.5rem' }}>
+                  <h3 style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#16A34A', marginBottom: '0.5rem' }}>
                     The MaxR Automation
                   </h3>
-                  <p style={{ color: '#475569', fontSize: '0.925rem', lineHeight: 1.65 }}>
+                  <p style={{ color: '#166534', fontSize: '0.925rem', lineHeight: 1.65, margin: 0 }}>
                     {c.solution}
                   </p>
                 </div>
               </div>
 
               {/* Quote */}
-              <div style={{ background: '#0a1428', color: '#ffffff', borderRadius: '16px', padding: '1.75rem', marginTop: '1.5rem' }}>
-                <p style={{ fontStyle: 'italic', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '0.75rem', color: '#f1f5f9' }}>
+              <div style={{ background: '#F5F8F7', borderRadius: '12px', padding: '1.75rem', borderLeft: '4px solid #00bba7', border: '1px solid #E1E8E5', borderLeftWidth: '4px' }}>
+                <p style={{ fontStyle: 'italic', fontSize: '0.95rem', lineHeight: 1.65, marginBottom: '0.75rem', color: '#1E293B' }}>
                   {c.testimonial}
                 </p>
-                <span style={{ fontSize: '0.8rem', color: '#2dd4bf', fontWeight: 700 }}>
+                <span style={{ fontSize: '0.825rem', color: '#00bba7', fontWeight: 800 }}>
                   — {c.author}
                 </span>
               </div>
@@ -156,18 +159,45 @@ export default function CaseStudiesPage({ onOpenContact }) {
           ))}
         </div>
 
-        {/* CTA */}
-        <div style={{ marginTop: '5rem', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#0a1428', marginBottom: '0.75rem' }}>
+        {/* Executive Pre-Footer Callout */}
+        <div style={{ 
+          marginTop: '5rem', 
+          background: '#FFFFFF', 
+          borderRadius: '16px', 
+          padding: 'clamp(2.5rem, 5vw, 4rem) 2rem', 
+          textAlign: 'center', 
+          border: '1px solid #E1E8E5', 
+          boxShadow: '0 8px 30px rgba(8,6,7,0.04)' 
+        }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
+              Work With Us
+            </span>
+          </div>
+          <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#080607', letterSpacing: '-0.03em', marginBottom: '0.75rem' }}>
             Want Similar Results For Your Business?
           </h2>
-          <p style={{ color: '#64748b', maxWidth: '600px', margin: '0 auto 1.5rem' }}>
-            We'll analyze your current call volumes and workflow setup, and show you exactly where MaxR can save hours and increase conversions.
+          <p style={{ color: '#556575', maxWidth: '600px', margin: '0 auto 2rem', fontSize: '1rem', lineHeight: 1.6 }}>
+            We'll analyze your current operations, technical bottlenecks, and workflow setup, and show you exactly where MaxR can save hours and accelerate revenue.
           </p>
           <button 
             onClick={onOpenContact} 
             className="btn-primary" 
-            style={{ background: '#00bba7', color: '#040811', fontWeight: 700, padding: '0.9rem 2rem' }}
+            style={{ 
+              background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)', 
+              color: '#ffffff', 
+              fontWeight: 700, 
+              padding: '0.9rem 2.2rem',
+              borderRadius: '8px',
+              border: 'none',
+              boxShadow: '0 4px 16px rgba(0,187,167,0.25)',
+              cursor: 'pointer',
+              fontSize: '0.95rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}
           >
             Schedule Free Strategy Call
             <ArrowRight size={16} />
