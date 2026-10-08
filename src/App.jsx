@@ -38,7 +38,7 @@ function MainLayout() {
       <Header onOpenContact={() => setContactModalOpen(true)} />
 
       {/* ── Main Routed Page Content ── */}
-      <main id="main" style={{ flex: 1 }}>
+      <main id="main" style={{ flex: 1, paddingTop: '94px' }}>
         <Routes>
           <Route path="/" element={<HomePage onOpenContact={() => setContactModalOpen(true)} />} />
           <Route path="/services" element={<ServicesPage onOpenContact={() => setContactModalOpen(true)} />} />

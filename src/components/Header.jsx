@@ -16,7 +16,10 @@ import {
   Briefcase, 
   Truck,
   CreditCard,
-  ArrowRight 
+  ArrowRight,
+  Search,
+  Globe,
+  MessageSquare
 } from 'lucide-react';
 
 export default function Header({ onOpenContact }) {
@@ -26,10 +29,33 @@ export default function Header({ onOpenContact }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMega, setActiveMega] = useState(null);
 
+  const [isVisible, setIsVisible] = useState(true);
+
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 40) {
+        setIsVisible(true);
+        setIsScrolled(false);
+      } else {
+        setIsScrolled(true);
+        // Scrolling DOWN -> Hide floating menu bar
+        if (currentScrollY > lastScrollY && currentScrollY - lastScrollY > 6) {
+          setIsVisible(false);
+          setActiveMega(null);
+        }
+        // Scrolling UP -> Reveal floating menu bar
+        else if (currentScrollY < lastScrollY && lastScrollY - currentScrollY > 6) {
+          setIsVisible(true);
+        }
+      }
+
+      lastScrollY = currentScrollY;
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -391,11 +417,12 @@ export default function Header({ onOpenContact }) {
             </Link>
           </nav>
 
-          {/* Right Actions: Search + Book Consultation Pill */}
-          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          {/* Right Actions matching reference floating bar */}
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            {/* Search */}
             <button 
               onClick={onOpenContact}
-              title="Search"
+              title="Search Services & Solutions"
               style={{ 
                 background: 'none', 
                 border: 'none', 
@@ -408,39 +435,78 @@ export default function Header({ onOpenContact }) {
                 justifyContent: 'center',
                 transition: 'color 0.2s'
               }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
+              <Search size={18} />
             </button>
 
+            {/* Region / Globe Selector */}
+            <button 
+              onClick={onOpenContact}
+              title="Dubai, UAE / Global"
+              style={{ 
+                background: 'none', 
+                border: 'none', 
+                color: '#475569', 
+                cursor: 'pointer', 
+                padding: '6px 8px', 
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+            >
+              <Globe size={17} />
+              <ChevronDown size={12} color="#94a3b8" />
+            </button>
+
+            {/* Consultation Chat Pill Button (Matching Reference) */}
             <button 
               onClick={onOpenContact} 
               className="btn-primary"
               style={{ 
-                background: '#00bba7', 
-                color: '#06121e', 
+                background: '#ffffff', 
+                color: '#0f172a', 
+                border: '1.5px solid #e2e8f0',
                 fontWeight: 700, 
-                padding: '0.65rem 1.45rem', 
-                fontSize: '0.9rem',
-                borderRadius: '999px',
+                padding: '0.55rem 1.15rem', 
+                fontSize: '0.875rem',
+                borderRadius: '12px',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                boxShadow: '0 4px 14px rgba(0, 187, 167, 0.25)',
+                gap: '8px',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#00bba7';
+                e.currentTarget.style.color = '#00bba7';
+                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 187, 167, 0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '#e2e8f0';
+                e.currentTarget.style.color = '#0f172a';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
+              }}
+              title="Connect with MaxR Technologists"
             >
-              Book Consultation
-              <ArrowRight size={15} />
+              <MessageSquare size={16} color="#00bba7" />
+              <span className="consult-btn-text">Consultation</span>
             </button>
 
+            {/* Mobile Menu Hamburger */}
             <button 
               className="mobile-toggle" 
               aria-label="Toggle menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ color: '#0f172a', display: 'none' }}
+              style={{ color: '#0f172a', display: 'none', background: 'none', border: 'none', padding: '6px', cursor: 'pointer' }}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

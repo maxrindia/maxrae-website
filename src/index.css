@@ -1784,3 +1784,25 @@ ul, ol {
   from { transform: translateX(100%); }
   to { transform: translateX(0); }
 }
+
+/* ── Floating Header Pill & Responsiveness ── */
+@media (max-width: 1023px) {
+  .nav-primary {
+    display: none !important;
+  }
+  .mobile-toggle {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-pill {
+    height: 58px !important;
+    padding: 0 0.85rem !important;
+    border-radius: 12px !important;
+  }
+  .consult-btn-text {
+    display: none !important;
+  }
+}
+
