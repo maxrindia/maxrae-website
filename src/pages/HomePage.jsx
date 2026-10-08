@@ -12,8 +12,19 @@ import {
   Landmark, 
   Hotel, 
   HeartPulse,
-  CheckCircle2,
-  Calendar
+  CheckCircle2, 
+  Calendar,
+  Globe2,
+  Smartphone,
+  Cpu,
+  Share2,
+  Target,
+  Palette,
+  Cloud,
+  BarChart3,
+  Sparkles,
+  Zap,
+  ChevronRight
 } from 'lucide-react';
 
 // Official WhatsApp Vector Icon
@@ -35,7 +46,7 @@ function ScrollBox({ children, style = {}, className = "" }) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
 
     if (boxRef.current) {
@@ -51,7 +62,7 @@ function ScrollBox({ children, style = {}, className = "" }) {
       className={className}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(36px)',
+        transform: isVisible ? 'translateY(0)' : 'translateY(32px)',
         transition: 'opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)',
         ...style
       }}
@@ -62,127 +73,311 @@ function ScrollBox({ children, style = {}, className = "" }) {
 }
 
 export default function HomePage({ onOpenContact }) {
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [activeSector, setActiveSector] = useState('realestate');
 
   const whatsappUrl = "https://wa.me/971501234567?text=Hello%20MaxR%20Technology%2C%20I%20would%20like%20to%20learn%20more%20about%20your%20services";
 
-  // 1. Core Services (Data & Analytics removed as requested; 4 rich core pillars)
-  const services = [
+  // 1. All 10 Capabilities & their exact working items
+  const capabilities = [
     {
-      id: "ai-automation",
-      name: "AI Automation",
-      subtitle: "Workflow & CRM Intelligence",
-      desc: "Autonomous multi-step workflows and CRM integrations that eliminate repetitive manual drag.",
-      features: [
-        "Bi-directional sync with HubSpot, Salesforce & Zoho",
-        "Autonomous document parsing & intake routing",
-        "Zero-delay automated customer notification triggers"
-      ],
-      icon: <Bot size={24} color="#00bba7" />,
-      link: "/services"
+      num: "01",
+      id: "web-dev",
+      category: "development",
+      title: "Web Development",
+      icon: <Globe2 size={24} color="#00bba7" />,
+      items: [
+        "Business Websites",
+        "Corporate Websites",
+        "E-commerce Websites",
+        "Landing Pages",
+        "Custom Web Applications",
+        "Website Maintenance"
+      ]
     },
     {
-      id: "voice-ai-agents",
-      name: "Voice AI Agents",
-      subtitle: "Conversational Reception & Triage",
-      desc: "Sub-second conversational voice bots for 24/7 inbound reception, inquiry deflection, and qualification.",
-      features: [
-        "Natural conversational fluency with < 1s latency",
-        "Automated calendar booking & live call transfers",
-        "Complete call transcripts & CRM field mapping"
-      ],
-      icon: <PhoneCall size={24} color="#00bba7" />,
-      link: "/voice-agents"
+      num: "02",
+      id: "app-dev",
+      category: "development",
+      title: "App Development",
+      icon: <Smartphone size={24} color="#00bba7" />,
+      items: [
+        "Android Apps",
+        "iOS Apps",
+        "Cross-Platform Apps",
+        "Custom Mobile Applications",
+        "App UI/UX Design",
+        "App Maintenance"
+      ]
     },
     {
-      id: "web-app-dev",
-      name: "Web & App Development",
-      subtitle: "Cloud Platforms & Mobile Apps",
-      desc: "Fast, resilient web platforms and mobile applications built on modern cloud architecture.",
-      features: [
-        "Full-stack React & Next.js production platforms",
-        "Native & cross-platform iOS and Android mobile apps",
-        "High-performance APIs, database modeling & SaaS design"
-      ],
-      icon: <Code2 size={24} color="#00bba7" />,
-      link: "/services"
+      num: "03",
+      id: "software-product",
+      category: "development",
+      title: "Software & Product Development",
+      icon: <Cpu size={24} color="#00bba7" />,
+      items: [
+        "Custom Software",
+        "SaaS Development",
+        "Business Applications",
+        "CRM Development",
+        "ERP Solutions",
+        "API Development & Integration"
+      ]
     },
     {
+      num: "04",
       id: "digital-marketing",
-      name: "Digital Marketing",
-      subtitle: "Performance & Technical SEO",
-      desc: "Technical SEO, acquisition funnels, and data-backed digital performance campaigns.",
-      features: [
-        "Enterprise technical search engine optimization",
-        "High-converting landing funnels & CRO testing",
-        "Attribution tracking for commercial acquisition"
-      ],
+      category: "marketing",
+      title: "Digital Marketing",
       icon: <TrendingUp size={24} color="#00bba7" />,
-      link: "/services"
+      items: [
+        "Search Engine Optimization (SEO)",
+        "Search Engine Marketing (SEM)",
+        "Google Ads",
+        "Social Media Advertising",
+        "Content Marketing",
+        "Performance Marketing"
+      ]
+    },
+    {
+      num: "05",
+      id: "social-media",
+      category: "marketing",
+      title: "Social Media Management",
+      icon: <Share2 size={24} color="#00bba7" />,
+      items: [
+        "Instagram Management",
+        "Facebook Management",
+        "LinkedIn Management",
+        "Content Creation",
+        "Social Media Posting",
+        "Community Management"
+      ]
+    },
+    {
+      num: "06",
+      id: "ai-automation",
+      category: "ai",
+      title: "AI & Automation",
+      icon: <Bot size={24} color="#00bba7" />,
+      items: [
+        "Business Process Automation",
+        "AI Chatbots",
+        "AI Agents",
+        "Lead Automation",
+        "Customer Support Automation",
+        "Workflow Automation"
+      ]
+    },
+    {
+      num: "07",
+      id: "crm-leads",
+      category: "ai",
+      title: "CRM & Lead Solutions",
+      icon: <Target size={24} color="#00bba7" />,
+      items: [
+        "CRM Setup",
+        "Lead Generation",
+        "Lead Management",
+        "Lead Qualification",
+        "Sales Pipeline Automation",
+        "Customer Follow-up"
+      ]
+    },
+    {
+      num: "08",
+      id: "ui-ux-branding",
+      category: "design",
+      title: "UI/UX & Branding",
+      icon: <Palette size={24} color="#00bba7" />,
+      items: [
+        "UI/UX Design",
+        "Website Design",
+        "App Design",
+        "Brand Identity",
+        "Logo Design",
+        "Creative Design"
+      ]
+    },
+    {
+      num: "09",
+      id: "cloud-tech",
+      category: "cloud",
+      title: "Cloud & Technology",
+      icon: <Cloud size={24} color="#00bba7" />,
+      items: [
+        "Cloud Solutions",
+        "API Integration",
+        "Third-Party Integrations",
+        "Database Solutions",
+        "Hosting & Deployment",
+        "Technical Support"
+      ]
+    },
+    {
+      num: "10",
+      id: "data-bi",
+      category: "cloud",
+      title: "Data & Business Intelligence",
+      icon: <BarChart3 size={24} color="#00bba7" />,
+      items: [
+        "Data Analytics",
+        "Business Dashboards",
+        "Sales Analytics",
+        "Marketing Analytics",
+        "Reporting",
+        "Business Insights"
+      ]
     }
   ];
 
-  // 2. Sectors with Images and Minimal Details (User's Exact Vision)
-  const sectorData = [
+  const categoryFilters = [
+    { id: 'all', label: 'All Capabilities' },
+    { id: 'development', label: 'Development & Apps' },
+    { id: 'marketing', label: 'Marketing & Social' },
+    { id: 'ai', label: 'AI, Automation & CRM' },
+    { id: 'design', label: 'UI/UX & Branding' },
+    { id: 'cloud', label: 'Cloud & Data BI' }
+  ];
+
+  const filteredCapabilities = selectedCategory === 'all' 
+    ? capabilities 
+    : capabilities.filter(c => c.category === selectedCategory);
+
+  // 2. Sectors with Full Background Image & Right-side Products/Solutions We Build
+  const sectors = [
     {
       id: "realestate",
-      name: "Real Estate",
+      name: "Real Estate & Property",
       icon: <Building2 size={20} />,
-      headline: "24/7 Inbound Investor Qualification & Viewing Scheduling",
-      desc: "Handle off-hours property inquiries instantly, verify buyer budget criteria, and automatically schedule VIP viewing appointments directly into senior broker calendars.",
-      highlights: ["Zero missed high-intent investor calls", "Instant automated WhatsApp brochure delivery", "Bi-directional property CRM integration"],
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80"
+      bgImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=80",
+      tagline: "High-Value Property Inbound & Broker Automation",
+      products: [
+        {
+          title: "AI Voice Broker & Viewing Booking Bot",
+          desc: "24/7 autonomous voice receptionist pre-qualifying buyer budgets and scheduling VIP property viewings directly on broker calendars."
+        },
+        {
+          title: "Interactive 3D Luxury Property Web Portal",
+          desc: "Ultra-fast headless real estate platform featuring virtual floorplan walkthroughs, dynamic MLS synchronization, and mortgage calculators."
+        },
+        {
+          title: "Automated WhatsApp Lead Qualification Engine",
+          desc: "Instant lead ingestion from property portals, automated bilingual brochure distribution, and two-way CRM status synchronization."
+        }
+      ]
     },
     {
       id: "retail",
       name: "Retail & E-Commerce",
       icon: <ShoppingBag size={20} />,
-      headline: "Autonomous Support Resolution & Cart Recovery",
-      desc: "Connect autonomous assistants directly to store inventories and order APIs to deflect tracking questions, issue instant return labels, and recover abandoned checkouts.",
-      highlights: ["80%+ support inquiry deflection", "Real-time order tracking & status lookups", "Personalized checkout recovery triggers"],
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80"
+      bgImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=80",
+      tagline: "Autonomous Support Deflection & Conversion Acceleration",
+      products: [
+        {
+          title: "Autonomous WhatsApp Order & Return AI",
+          desc: "Resolves 'Where is my order?' inquiries in seconds, automates instant exchange approvals, and syncs order status with ERP systems."
+        },
+        {
+          title: "Headless E-Commerce Storefront (React/Next.js)",
+          desc: "Sub-second page speeds, seamless multi-currency checkout, and integrated cart recovery triggers that boost store conversions."
+        },
+        {
+          title: "Dynamic Customer Retargeting & Loyalty Engine",
+          desc: "Automated personalized discount triggers based on purchase history and browse intent, synchronized across SMS and WhatsApp."
+        }
+      ]
     },
     {
       id: "logistics",
-      name: "Logistics & Supply",
+      name: "Logistics & Supply Chain",
       icon: <Truck size={20} />,
-      headline: "Real-Time Consignment Updates & Driver Coordination",
-      desc: "Provide shippers and drivers with autonomous voice and SMS consignment updates. Eliminate telephone hold queues and sync delivery exceptions directly to your TMS.",
-      highlights: ["Real-time milestone dispatch tracking", "Automated consignee proof-of-delivery pings", "-70% manual dispatch call load"],
-      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80"
+      bgImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1800&q=80",
+      tagline: "Autonomous Consignment Tracking & Fleet Orchestration",
+      products: [
+        {
+          title: "Real-Time Consignment & Fleet Tracking Platform",
+          desc: "Unified customer tracking portal with live milestone telemetry, ETA forecasting, and automated consignee delivery confirmation."
+        },
+        {
+          title: "Autonomous Dispatch Voice Assistant",
+          desc: "Hands-free voice agent alerting drivers of load reassignments, handling delay exceptions, and reducing manual dispatcher calls by 70%."
+        },
+        {
+          title: "Warehouse & TMS Cloud Integration API",
+          desc: "Automated bi-directional data pipelines connecting warehouse scanning, 3PL inventory counts, and enterprise freight manifests."
+        }
+      ]
     },
     {
       id: "finance",
       name: "Finance & Banking",
       icon: <Landmark size={20} />,
-      headline: "Encrypted Client Intake & Preliminary Verification",
-      desc: "Accelerate preliminary onboarding, document collection, and appointment booking with wealth advisors while maintaining bank-grade security standards.",
-      highlights: ["Bank-grade 256-bit encryption protocols", "Streamlined client verification workflows", "3X faster client qualification cycle"],
-      image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80"
+      bgImage: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1800&q=80",
+      tagline: "Bank-Grade Onboarding & Intelligent Client Portals",
+      products: [
+        {
+          title: "Encrypted Digital Onboarding & KYC Portal",
+          desc: "Automated document collection, identity verification workflows, and secure client screening with bank-grade 256-bit encryption."
+        },
+        {
+          title: "Wealth Management & Investor Dashboard",
+          desc: "Custom client web & mobile applications displaying real-time portfolio performance, automated statements, and secure advisor chat."
+        },
+        {
+          title: "Algorithmic Alert & Notification Engine",
+          desc: "Autonomous transaction anomaly detection, compliance audit logging, and proactive push notifications for financial events."
+        }
+      ]
     },
     {
       id: "hospitality",
       name: "Hospitality & Travel",
       icon: <Hotel size={20} />,
-      headline: "24/7 Multilingual Reservation & Guest Concierge",
-      desc: "Eliminate busy signals during peak dining and hotel booking hours. Answer availability questions, confirm special dietary requests, and send instant booking confirmations.",
-      highlights: ["Zero busy signals during reservation surges", "Fluent multilingual conversational handling", "Instant confirmation messaging"],
-      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80"
+      bgImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=80",
+      tagline: "24/7 Guest Concierge & Zero-Hold Reservation Desks",
+      products: [
+        {
+          title: "24/7 Multilingual Reservation Voice Agent",
+          desc: "Handles surges in table and suite bookings without busy signals, confirms guest dietary requests, and sends WhatsApp confirmation cards."
+        },
+        {
+          title: "Guest Digital Concierge Web & Mobile App",
+          desc: "Contactless digital room key, in-stay amenity ordering, customized itinerary generation, and automated checkout billing."
+        },
+        {
+          title: "VIP Loyalty & Event Capacity Manager",
+          desc: "Dynamic table seating algorithms, private party booking pipelines, and automated high-roller tier reward management."
+        }
+      ]
     },
     {
       id: "healthcare",
       name: "Healthcare & Clinics",
       icon: <HeartPulse size={20} />,
-      headline: "Zero-Hold Patient Booking & Automated Reminders",
-      desc: "Automate patient bookings, doctor schedule checks, and two-way WhatsApp appointment reminders. Free clinical staff from telephone queues to focus on in-person patient care.",
-      highlights: ["-68% reduction in appointment no-shows", "24/7 zero-wait patient appointment booking", "Direct practice management sync"],
-      image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80"
+      bgImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80",
+      tagline: "Zero-Hold Patient Scheduling & Clinical Triage",
+      products: [
+        {
+          title: "Zero-Hold Patient Appointment Voice Bot",
+          desc: "Answers routine clinic inquiries 24/7, checks practitioner availability, and books calendar appointments with zero telephone hold time."
+        },
+        {
+          title: "Automated Two-Way WhatsApp Reminder Engine",
+          desc: "Dispatches pre-visit preparation instructions and automated confirmation pings that reduce costly clinic no-show rates by 68%."
+        },
+        {
+          title: "Practice Management & Tele-Consult Portal",
+          desc: "HIPAA-compliant web portal for clinical records, automated prescription refill requests, and secure video doctor consultations."
+        }
+      ]
     }
   ];
 
-  const currentSector = sectorData.find(s => s.id === activeSector) || sectorData[0];
+  const currentSectorData = sectors.find(s => s.id === activeSector) || sectors[0];
 
-  // 3. How It Works (3 Steps: Understand → Build → Grow)
+  // 3. How It Works (3 Steps)
   const steps = [
     {
       num: "01",
@@ -220,7 +415,7 @@ export default function HomePage({ onOpenContact }) {
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          padding: '5rem 0 6rem'
+          padding: '5.5rem 0'
         }}
       >
         {/* Dark semi-transparent layer overlay on top of image */}
@@ -381,10 +576,9 @@ export default function HomePage({ onOpenContact }) {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          2. SERVICES SECTION (Box Framed Container with Scroll Reveal Animation)
-             (Data & Analytics removed; 4 Core Pillars with Rich Main Content)
+          2. CAPABILITIES SECTION (Exact 10 Capabilities & Sub-Services with Animations)
           ═════════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: '4rem 0 3rem' }}>
+      <section style={{ padding: '4.5rem 0 3.5rem' }}>
         <div className="container">
           <ScrollBox
             style={{
@@ -395,60 +589,113 @@ export default function HomePage({ onOpenContact }) {
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.03)'
             }}
           >
-            <div style={{ maxWidth: '640px', marginBottom: '3rem' }}>
-              <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-                Capabilities
-              </span>
-              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#0a1428', marginTop: '0.4rem', marginBottom: '0.75rem' }}>
-                Engineered for Enterprise Impact
+            {/* Section Header */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '2.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
+                  Comprehensive Capabilities
+                </span>
+                <span style={{ background: 'rgba(0, 187, 167, 0.1)', color: '#00bba7', fontSize: '0.75rem', fontWeight: 800, padding: '2px 8px', borderRadius: '4px' }}>
+                  10 Domains
+                </span>
+              </div>
+              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#0a1428', margin: 0 }}>
+                Engineered for Modern Enterprise Scale
               </h2>
-              <p style={{ fontSize: '1rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
-                Specialized automation and digital development architectures designed to drive high-margin business performance.
+              <p style={{ fontSize: '1rem', color: '#64748b', lineHeight: 1.6, margin: 0, maxWidth: '720px' }}>
+                Explore our full spectrum of web, mobile, custom software, digital marketing, AI automation, and cloud intelligence disciplines.
               </p>
             </div>
 
-            {/* 4 Cards Grid with Distinctive Shape and Main Content */}
+            {/* Interactive Category Filter Pills */}
+            <div 
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                flexWrap: 'wrap',
+                marginBottom: '2.5rem',
+                borderBottom: '1px solid #f1f5f9',
+                paddingBottom: '1.25rem'
+              }}
+            >
+              {categoryFilters.map((cat) => {
+                const isActive = selectedCategory === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSelectedCategory(cat.id)}
+                    style={{
+                      background: isActive ? '#0a1428' : '#f8fafc',
+                      color: isActive ? '#ffffff' : '#475569',
+                      border: isActive ? '1px solid #0a1428' : '1px solid #e2e8f0',
+                      padding: '0.5rem 1rem',
+                      borderRadius: '8px',
+                      fontSize: '0.85rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.borderColor = '#00bba7';
+                        e.currentTarget.style.color = '#00bba7';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.borderColor = '#e2e8f0';
+                        e.currentTarget.style.color = '#475569';
+                      }
+                    }}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* 10 Capabilities Grid with Animated Working Items */}
             <div 
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '1.75rem'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '1.5rem'
               }}
             >
-              {services.map((svc) => (
+              {filteredCapabilities.map((cap) => (
                 <div
-                  key={svc.id}
+                  key={cap.id}
                   style={{
                     background: '#f8fafc',
                     border: '1px solid #e2e8f0',
-                    borderRadius: '18px',
-                    padding: '2.25rem 2rem',
+                    borderRadius: '16px',
+                    padding: '1.75rem',
                     display: 'flex',
                     flexDirection: 'column',
-                    transition: 'all 0.25s ease',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.02)',
                     position: 'relative',
-                    overflow: 'hidden'
+                    transition: 'all 0.25s ease',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.02)'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = '#00bba7';
                     e.currentTarget.style.background = '#ffffff';
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 16px 36px rgba(0, 187, 167, 0.12)';
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 187, 167, 0.1)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = '#e2e8f0';
                     e.currentTarget.style.background = '#f8fafc';
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.02)';
+                    e.currentTarget.style.boxShadow = '0 2px 6px rgba(0,0,0,0.02)';
                   }}
                 >
-                  {/* Top Bar: Icon + Subtitle */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+                  {/* Top Bar: Icon + Number */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
                     <div 
                       style={{
-                        width: 50,
-                        height: 50,
+                        width: 46,
+                        height: 46,
                         borderRadius: '12px',
                         background: 'rgba(0, 187, 167, 0.1)',
                         display: 'flex',
@@ -456,55 +703,78 @@ export default function HomePage({ onOpenContact }) {
                         justifyContent: 'center'
                       }}
                     >
-                      {svc.icon}
+                      {cap.icon}
                     </div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#00bba7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                      {svc.subtitle}
+                    <span 
+                      style={{
+                        fontSize: '0.85rem',
+                        fontWeight: 900,
+                        color: '#94a3b8',
+                        fontFamily: 'monospace'
+                      }}
+                    >
+                      {cap.num}
                     </span>
                   </div>
 
-                  {/* Service Name */}
-                  <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0a1428', marginBottom: '0.75rem' }}>
-                    {svc.name}
+                  {/* Capability Title */}
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0a1428', marginBottom: '1.15rem' }}>
+                    {cap.title}
                   </h3>
 
-                  {/* 1 Line Description */}
-                  <p style={{ fontSize: '0.925rem', color: '#475569', lineHeight: 1.55, margin: 0, marginBottom: '1.5rem' }}>
-                    {svc.desc}
-                  </p>
-
-                  {/* Main Content Highlights (Bullets) */}
-                  <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '1.25rem', marginBottom: '1.75rem', flex: 1 }}>
-                    <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: 0, margin: 0 }}>
-                      {svc.features.map((feat, fIdx) => (
-                        <li key={fIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.85rem', color: '#334155', lineHeight: 1.4 }}>
-                          <CheckCircle2 size={16} color="#00bba7" style={{ marginTop: '2px', flexShrink: 0 }} />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  {/* Sub-Services Working Items Tags (Interactive chips) */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '1.5rem', flex: 1 }}>
+                    {cap.items.map((subItem, sIdx) => (
+                      <span
+                        key={sIdx}
+                        style={{
+                          fontSize: '0.78rem',
+                          fontWeight: 600,
+                          color: '#334155',
+                          background: '#ffffff',
+                          border: '1px solid #e2e8f0',
+                          padding: '4px 10px',
+                          borderRadius: '6px',
+                          transition: 'all 0.15s ease',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '5px'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = '#00bba7';
+                          e.currentTarget.style.color = '#00bba7';
+                          e.currentTarget.style.background = 'rgba(0, 187, 167, 0.05)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = '#e2e8f0';
+                          e.currentTarget.style.color = '#334155';
+                          e.currentTarget.style.background = '#ffffff';
+                        }}
+                      >
+                        <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#00bba7' }} />
+                        <span>{subItem}</span>
+                      </span>
+                    ))}
                   </div>
 
-                  {/* Learn More Link (React Router) */}
-                  <Link
-                    to={svc.link}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      color: '#00bba7',
-                      fontWeight: 700,
-                      fontSize: '0.9rem',
-                      textDecoration: 'none',
-                      marginTop: 'auto',
-                      transition: 'gap 0.2s'
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.gap = '9px'}
-                    onMouseLeave={(e) => e.currentTarget.style.gap = '6px'}
-                  >
-                    <span>Learn more</span>
-                    <ArrowRight size={15} />
-                  </Link>
+                  {/* Direct Link */}
+                  <div style={{ borderTop: '1px solid #eef2f6', paddingTop: '1rem', marginTop: 'auto' }}>
+                    <Link
+                      to="/services"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        color: '#00bba7',
+                        fontWeight: 700,
+                        fontSize: '0.85rem',
+                        textDecoration: 'none'
+                      }}
+                    >
+                      <span>Explore {cap.title}</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>
@@ -513,9 +783,9 @@ export default function HomePage({ onOpenContact }) {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          3. HOW IT WORKS (Box Framed Container with Horizontal 3 Steps)
+          3. HOW IT WORKS (Horizontal 3-Step Flow)
           ═════════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: '2rem 0 3rem' }}>
+      <section style={{ padding: '2rem 0 3.5rem' }}>
         <div className="container">
           <ScrollBox
             style={{
@@ -608,189 +878,223 @@ export default function HomePage({ onOpenContact }) {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          4. INDUSTRIES WE SERVE (User's Vision: Card Selector + Dynamic Sector Card with Image & Minimal Details)
+          4. SECTORS SECTION (User Requirement 2: Left Side Sectors, Whole Section BG = Real Sector Image, Right Side = What Products We Build)
           ═════════════════════════════════════════════════════════════════════ */}
-      <section style={{ padding: '2rem 0 3rem' }}>
+      <section style={{ padding: '2rem 0 3.5rem' }}>
         <div className="container">
           <ScrollBox
             style={{
-              background: '#ffffff',
-              border: '1px solid #e2e8f0',
+              position: 'relative',
               borderRadius: '24px',
-              padding: 'clamp(2rem, 4vw, 3.5rem)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.03)'
+              overflow: 'hidden',
+              boxShadow: '0 16px 45px rgba(0, 0, 0, 0.18)',
+              minHeight: '620px'
             }}
           >
-            <div style={{ maxWidth: '640px', marginBottom: '2.5rem' }}>
-              <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-                Sectors
-              </span>
-              <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#0a1428', marginTop: '0.4rem', marginBottom: '0.75rem' }}>
-                Industries We Serve
-              </h2>
-              <p style={{ fontSize: '1rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
-                Select a sector below to view specialized automation and digital engineering capabilities.
-              </p>
-            </div>
-
-            {/* Horizontal Sector Selector Cards */}
+            {/* Dynamic Whole Section Background Real Image with Crossfade */}
             <div 
+              aria-hidden="true"
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-                gap: '0.85rem',
-                marginBottom: '2.5rem'
+                position: 'absolute',
+                inset: 0,
+                backgroundImage: `url(${currentSectorData.bgImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                transition: 'background-image 0.5s ease-in-out',
+                zIndex: 0
               }}
-            >
-              {sectorData.map((sec) => {
-                const isActive = sec.id === activeSector;
-                return (
-                  <button
-                    key={sec.id}
-                    onClick={() => setActiveSector(sec.id)}
-                    style={{
-                      background: isActive ? '#0a1428' : '#f8fafc',
-                      color: isActive ? '#ffffff' : '#334155',
-                      border: isActive ? '1.5px solid #0a1428' : '1.5px solid #e2e8f0',
-                      borderRadius: '12px',
-                      padding: '1rem 0.75rem',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      gap: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                      boxShadow: isActive ? '0 6px 18px rgba(10, 20, 40, 0.15)' : 'none'
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.borderColor = '#00bba7';
-                        e.currentTarget.style.background = '#ffffff';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) {
-                        e.currentTarget.style.borderColor = '#e2e8f0';
-                        e.currentTarget.style.background = '#f8fafc';
-                      }
-                    }}
-                  >
-                    <span style={{ color: isActive ? '#00bba7' : '#64748b' }}>
-                      {sec.icon}
-                    </span>
-                    <span style={{ fontSize: '0.875rem', fontWeight: 700 }}>
-                      {sec.name}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+            />
 
-            {/* Dynamic Sector Showcase Card: Image + Minimal Details */}
+            {/* Dark Gradient Overlay for Maximum Readability */}
+            <div 
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(105deg, rgba(7, 13, 26, 0.95) 0%, rgba(7, 13, 26, 0.88) 45%, rgba(7, 13, 26, 0.78) 100%)',
+                zIndex: 1
+              }}
+            />
+
+            {/* Split Content: Left Side Sector List | Right Side What Products We Build */}
             <div 
               style={{
-                background: '#f8fafc',
-                border: '1.5px solid #e2e8f0',
-                borderRadius: '20px',
-                overflow: 'hidden',
+                position: 'relative',
+                zIndex: 2,
+                padding: 'clamp(2.5rem, 5vw, 4rem)',
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                boxShadow: '0 12px 36px rgba(0, 0, 0, 0.04)',
-                minHeight: '380px'
+                gap: '3rem',
+                alignItems: 'center'
               }}
             >
-              {/* Sector Image with Subtle Contrast Gradient */}
-              <div style={{ position: 'relative', minHeight: '260px' }}>
-                <img 
-                  src={currentSector.image} 
-                  alt={currentSector.name}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    display: 'block'
-                  }}
-                />
-                <div 
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(180deg, rgba(10,20,40,0.1) 0%, rgba(10,20,40,0.5) 100%)'
-                  }}
-                />
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: '1.25rem',
-                    left: '1.25rem',
-                    background: 'rgba(10, 20, 40, 0.85)',
-                    backdropFilter: 'blur(8px)',
-                    color: '#ffffff',
-                    padding: '6px 14px',
-                    borderRadius: '999px',
-                    fontSize: '0.8rem',
-                    fontWeight: 700,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    border: '1px solid rgba(255,255,255,0.15)'
-                  }}
-                >
-                  <span style={{ color: '#00bba7' }}>{currentSector.icon}</span>
-                  <span>{currentSector.name}</span>
+              {/* Left Side: Sector Selector List */}
+              <div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 12px', borderRadius: '999px', background: 'rgba(0,187,167,0.15)', border: '1px solid rgba(0,187,167,0.3)', marginBottom: '1rem' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#2dd4bf', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    Sector Specializations
+                  </span>
+                </div>
+
+                <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '1rem' }}>
+                  Tailored For Industry Leaders
+                </h2>
+
+                <p style={{ fontSize: '0.95rem', color: 'rgba(255, 255, 255, 0.75)', lineHeight: 1.6, marginBottom: '2rem' }}>
+                  Select an industry to explore the specific software, automation bots, and platforms we build for that domain.
+                </p>
+
+                {/* Vertical Sector Buttons List */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {sectors.map((sec) => {
+                    const isActive = sec.id === activeSector;
+                    return (
+                      <button
+                        key={sec.id}
+                        onClick={() => setActiveSector(sec.id)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '0.85rem 1.25rem',
+                          borderRadius: '12px',
+                          cursor: 'pointer',
+                          transition: 'all 0.25s ease',
+                          textAlign: 'left',
+                          background: isActive ? 'rgba(0, 187, 167, 0.18)' : 'rgba(255, 255, 255, 0.05)',
+                          border: isActive ? '1.5px solid #00bba7' : '1px solid rgba(255, 255, 255, 0.1)',
+                          backdropFilter: 'blur(8px)',
+                          color: '#ffffff'
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isActive) {
+                            e.currentTarget.style.borderColor = 'rgba(0, 187, 167, 0.6)';
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isActive) {
+                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                          }
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <span style={{ color: isActive ? '#00bba7' : '#94a3b8' }}>
+                            {sec.icon}
+                          </span>
+                          <span style={{ fontSize: '0.95rem', fontWeight: 700, color: isActive ? '#ffffff' : 'rgba(255,255,255,0.85)' }}>
+                            {sec.name}
+                          </span>
+                        </div>
+                        <ChevronRight size={16} color={isActive ? '#00bba7' : '#64748b'} />
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Minimal Sector Details */}
+              {/* Right Side: What Kind of Products We Build for Selected Sector */}
               <div 
                 style={{
-                  padding: 'clamp(2rem, 3.5vw, 3rem)',
+                  background: 'rgba(10, 20, 40, 0.78)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1.5px solid rgba(0, 187, 167, 0.3)',
+                  borderRadius: '20px',
+                  padding: 'clamp(2rem, 3.5vw, 2.75rem)',
+                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'center',
-                  background: '#ffffff'
+                  gap: '1.5rem'
                 }}
               >
-                <span style={{ fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700, marginBottom: '0.5rem' }}>
-                  Domain Focus
-                </span>
-                <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#0a1428', lineHeight: 1.3, marginBottom: '1rem' }}>
-                  {currentSector.headline}
-                </h3>
-                <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                  {currentSector.desc}
-                </p>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.4rem' }}>
+                    <span style={{ color: '#00bba7' }}>{currentSectorData.icon}</span>
+                    <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00bba7', fontWeight: 700 }}>
+                      Products We Build for {currentSectorData.name}
+                    </span>
+                  </div>
+                  <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                    {currentSectorData.tagline}
+                  </h3>
+                </div>
 
-                {/* Minimal Highlights */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '2rem' }}>
-                  {currentSector.highlights.map((item, hIdx) => (
-                    <div key={hIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#1e293b', fontWeight: 600 }}>
-                      <CheckCircle2 size={16} color="#00bba7" flexShrink={0} />
-                      <span>{item}</span>
+                {/* Product Offerings List for this Sector */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {currentSectorData.products.map((prod, pIdx) => (
+                    <div 
+                      key={pIdx}
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.04)',
+                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                        borderRadius: '12px',
+                        padding: '1.15rem',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#00bba7';
+                        e.currentTarget.style.background = 'rgba(0, 187, 167, 0.08)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                        <CheckCircle2 size={16} color="#00bba7" flexShrink={0} />
+                        <h4 style={{ fontSize: '0.975rem', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                          {prod.title}
+                        </h4>
+                      </div>
+                      <p style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1.5, margin: 0, paddingLeft: '24px' }}>
+                        {prod.desc}
+                      </p>
                     </div>
                   ))}
                 </div>
 
-                {/* Action Link */}
-                <Link
-                  to="/industries"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    color: '#00bba7',
-                    fontWeight: 700,
-                    fontSize: '0.925rem',
-                    textDecoration: 'none'
-                  }}
-                >
-                  <span>Explore industry specifications</span>
-                  <ArrowRight size={15} />
-                </Link>
-              </div>
-            </div>
+                {/* Bottom Action */}
+                <div style={{ paddingTop: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+                  <Link
+                    to="/industries"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      color: '#00bba7',
+                      fontWeight: 700,
+                      fontSize: '0.9rem',
+                      textDecoration: 'none'
+                    }}
+                  >
+                    <span>View all sector case studies</span>
+                    <ArrowRight size={15} />
+                  </Link>
 
+                  <button
+                    onClick={onOpenContact}
+                    style={{
+                      background: '#00bba7',
+                      color: '#040811',
+                      border: 'none',
+                      fontWeight: 700,
+                      padding: '0.65rem 1.35rem',
+                      borderRadius: '8px',
+                      fontSize: '0.875rem',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#0d9488'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#00bba7'}
+                  >
+                    Build for {currentSectorData.name}
+                  </button>
+                </div>
+              </div>
+
+            </div>
           </ScrollBox>
         </div>
       </section>
