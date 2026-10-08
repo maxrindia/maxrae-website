@@ -157,15 +157,12 @@ export default function Footer() {
         {/* Bottom Legal bar */}
         <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '1.75rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', fontSize: '0.825rem', color: '#64748b' }}>
           <div>
-            <p>© 2026 MaxR Technologies. All rights reserved.</p>
-            <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '4px' }}>
-              UAE Trade License: CN-4829102 / Department of Economy and Tourism (DET), Dubai, UAE
-            </p>
+            <p>© 2025 MaxR Technology. All rights reserved.</p>
           </div>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <Link to="/contact" style={{ color: '#64748b', textDecoration: 'none' }}>Privacy Statement</Link>
             <Link to="/contact" style={{ color: '#64748b', textDecoration: 'none' }}>Terms of Service</Link>
-            <Link to="/contact" style={{ color: '#64748b', textDecoration: 'none' }}>Bank-Grade Security</Link>
+            <Link to="/contact" style={{ color: '#64748b', textDecoration: 'none' }}>Security</Link>
           </div>
         </div>
 

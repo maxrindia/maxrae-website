@@ -140,19 +140,21 @@ export default function Header({ onOpenContact }) {
         id="site-header" 
         role="banner" 
         style={{ 
-          background: '#ffffff', 
-          borderBottom: '1px solid #f1f5f9',
-          boxShadow: isScrolled ? '0 4px 20px rgba(0, 0, 0, 0.04)' : 'none',
+          background: isScrolled ? 'rgba(7, 12, 24, 0.88)' : 'rgba(10, 10, 20, 0.72)', 
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          boxShadow: isScrolled ? '0 8px 30px rgba(0, 0, 0, 0.4)' : 'none',
           position: 'sticky',
           top: 0,
           zIndex: 1000,
           transform: isVisible ? 'translateY(0)' : 'translateY(-100%)',
-          transition: 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease'
+          transition: 'transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease'
         }}
       >
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '78px' }}>
           
-          {/* Official Dark Logo: maxr. (with Teal Dot) */}
+          {/* Logo (White on Dark Glass) */}
           <Link 
             to="/" 
             className="logo-container" 
@@ -160,9 +162,9 @@ export default function Header({ onOpenContact }) {
             title="MaxR Home"
           >
             <img 
-              src="/assets/maxr-logo.png" 
+              src="/assets/maxr-logo-white.png" 
               alt="maxr." 
-              style={{ height: '38px', width: 'auto', display: 'block' }} 
+              style={{ height: '36px', width: 'auto', display: 'block' }} 
             />
           </Link>
 
@@ -373,8 +375,8 @@ export default function Header({ onOpenContact }) {
               style={{ 
                 background: 'none', 
                 border: 'none', 
-                textDecoration: 'none',
-                color: currentPath.startsWith('/about') ? '#00bba7' : '#0f172a', 
+                textDecoration: 'none', 
+                color: currentPath.startsWith('/about') ? '#00bba7' : '#e2e8f0', 
                 fontWeight: 600, 
                 fontSize: '0.95rem', 
                 cursor: 'pointer',
@@ -391,8 +393,8 @@ export default function Header({ onOpenContact }) {
               style={{ 
                 background: 'none', 
                 border: 'none', 
-                textDecoration: 'none',
-                color: currentPath.startsWith('/blog') ? '#00bba7' : '#0f172a', 
+                textDecoration: 'none', 
+                color: currentPath.startsWith('/blog') ? '#00bba7' : '#e2e8f0', 
                 fontWeight: 600, 
                 fontSize: '0.95rem', 
                 cursor: 'pointer',
@@ -409,8 +411,8 @@ export default function Header({ onOpenContact }) {
               style={{ 
                 background: 'none', 
                 border: 'none', 
-                textDecoration: 'none',
-                color: currentPath.startsWith('/contact') ? '#00bba7' : '#0f172a', 
+                textDecoration: 'none', 
+                color: currentPath.startsWith('/contact') ? '#00bba7' : '#e2e8f0', 
                 fontWeight: 600, 
                 fontSize: '0.95rem', 
                 cursor: 'pointer',
@@ -422,8 +424,8 @@ export default function Header({ onOpenContact }) {
             </Link>
           </nav>
 
-          {/* Right Actions: Language Preference + Direct Message Link to /contact */}
-          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          {/* Right Actions: Language Preference + CTA Button Far Right */}
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             
             {/* Language Preference Dropdown (Default English, expandable for additional languages) */}
             <div 
@@ -435,9 +437,9 @@ export default function Header({ onOpenContact }) {
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
                 title="Language Preference: English (EN)"
                 style={{ 
-                  background: 'none', 
-                  border: '1px solid transparent', 
-                  color: '#334155', 
+                  background: 'rgba(255, 255, 255, 0.06)', 
+                  border: '1px solid rgba(255, 255, 255, 0.1)', 
+                  color: '#e2e8f0', 
                   cursor: 'pointer', 
                   padding: '6px 10px', 
                   borderRadius: '10px',
@@ -450,16 +452,14 @@ export default function Header({ onOpenContact }) {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#00bba7';
-                  e.currentTarget.style.background = '#f8fafc';
-                  e.currentTarget.style.borderColor = '#e2e8f0';
+                  e.currentTarget.style.borderColor = '#00bba7';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = '#334155';
-                  e.currentTarget.style.background = 'none';
-                  e.currentTarget.style.borderColor = 'transparent';
+                  e.currentTarget.style.color = '#e2e8f0';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                 }}
               >
-                <Globe size={16} color="#00bba7" />
+                <Globe size={15} color="#00bba7" />
                 <span>EN</span>
                 <ChevronDown size={12} color="#94a3b8" />
               </button>
@@ -471,10 +471,10 @@ export default function Header({ onOpenContact }) {
                     top: '100%',
                     right: 0,
                     marginTop: '6px',
-                    background: '#ffffff',
-                    border: '1px solid #e2e8f0',
+                    background: '#0a1224',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
                     borderRadius: '12px',
-                    boxShadow: '0 12px 30px rgba(0,0,0,0.08)',
+                    boxShadow: '0 12px 30px rgba(0,0,0,0.5)',
                     padding: '6px',
                     minWidth: '155px',
                     zIndex: 110
@@ -487,8 +487,8 @@ export default function Header({ onOpenContact }) {
                       justifyContent: 'space-between', 
                       padding: '7px 10px', 
                       borderRadius: '8px', 
-                      background: 'rgba(0,187,167,0.08)', 
-                      color: '#0a1428', 
+                      background: 'rgba(0,187,167,0.15)', 
+                      color: '#ffffff', 
                       fontSize: '0.825rem', 
                       fontWeight: 700 
                     }}
@@ -511,44 +511,41 @@ export default function Header({ onOpenContact }) {
                     title="Arabic language support in development"
                   >
                     <span>العربية (AR)</span>
-                    <span style={{ fontSize: '0.7rem', background: '#f1f5f9', padding: '2px 5px', borderRadius: '4px', color: '#64748b' }}>Soon</span>
+                    <span style={{ fontSize: '0.7rem', background: 'rgba(255, 255, 255, 0.08)', padding: '2px 5px', borderRadius: '4px', color: '#64748b' }}>Soon</span>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Message Logo Button -> Redirects to /contact without consultancy word */}
+            {/* CTA Button Far Right */}
             <Link 
               to="/contact" 
-              title="Contact MaxR"
+              className="btn-primary"
               style={{ 
-                background: '#ffffff', 
-                color: '#0f172a', 
-                border: '1.5px solid #e2e8f0',
-                width: '40px',
-                height: '40px',
-                borderRadius: '11px',
+                background: '#00bba7', 
+                color: '#040811', 
+                fontWeight: 700, 
+                padding: '0.55rem 1.25rem', 
+                fontSize: '0.875rem',
+                borderRadius: '10px',
                 display: 'inline-flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
-                cursor: 'pointer',
+                gap: '6px',
                 textDecoration: 'none',
+                boxShadow: '0 2px 10px rgba(0, 187, 167, 0.25)',
                 transition: 'all 0.2s',
                 flexShrink: 0
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#00bba7';
-                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 187, 167, 0.2)';
-                e.currentTarget.style.color = '#00bba7';
+                e.currentTarget.style.background = '#0d9488';
+                e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#e2e8f0';
-                e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.04)';
-                e.currentTarget.style.color = '#0f172a';
+                e.currentTarget.style.background = '#00bba7';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              <MessageSquare size={18} color="#00bba7" />
+              <span>Book a Call</span>
             </Link>
 
             {/* Mobile Menu Hamburger */}
@@ -556,7 +553,7 @@ export default function Header({ onOpenContact }) {
               className="mobile-toggle" 
               aria-label="Toggle menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              style={{ color: '#0f172a', display: 'none', background: 'none', border: 'none', padding: '6px', cursor: 'pointer' }}
+              style={{ color: '#ffffff', display: 'none', background: 'none', border: 'none', padding: '6px', cursor: 'pointer' }}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
