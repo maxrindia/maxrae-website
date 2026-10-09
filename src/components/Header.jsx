@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowRight, Globe, MessageSquare } from 'lucide-react';
+import { Menu, X, ArrowRight, Globe, MessageSquare, ChevronDown, Sparkles } from 'lucide-react';
 
 export default function Header() {
   const location = useLocation();
@@ -8,6 +8,29 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [megamenuOpen, setMegamenuOpen] = useState(false);
+  const megamenuRef = useRef(null);
+
+  // Close megamenu on route change
+  useEffect(() => {
+    setMegamenuOpen(false);
+    setMobileMenuOpen(false);
+  }, [currentPath]);
+
+  // Click outside to close megamenu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (megamenuRef.current && !megamenuRef.current.contains(event.target)) {
+        setMegamenuOpen(false);
+      }
+    };
+    if (megamenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [megamenuOpen]);
 
   useEffect(() => {
     let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
@@ -17,18 +40,15 @@ export default function Header() {
       const maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
       if (maxScroll > 0 && currentScrollY > maxScroll) return;
 
-      // When near top (<= 30px), header stays normal
       if (currentScrollY <= 30) {
         setIsVisible(true);
         setIsScrolled(false);
       } else {
         setIsScrolled(true);
-        // Scrolling DOWN -> Slide UP off screen
         if (currentScrollY > lastScrollY && currentScrollY > 70) {
           setIsVisible(false);
-        }
-        // Scrolling UP -> Slide back down into view
-        else if (currentScrollY < lastScrollY) {
+          setMegamenuOpen(false);
+        } else if (currentScrollY < lastScrollY) {
           setIsVisible(true);
         }
       }
@@ -40,18 +60,26 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: "What We Do", path: "/services" },
+  // ── Nav Links Configuration (Request 7 & 8) ──
+  // Home only shows when NOT on the homepage!
+  const baseLinks = [
+    { label: "What We Do", path: "/services", hasMegamenu: true },
     { label: "Industries", path: "/industries" },
     { label: "Who We Are", path: "/about" },
+    { label: "Careers", path: "/careers" },
     { label: "Blog / Insights", path: "/blog" },
     { label: "Contact", path: "/contact" }
   ];
 
+  const navLinks = currentPath === '/' 
+    ? baseLinks 
+    : [{ label: "Home", path: "/" }, ...baseLinks];
+
   return (
     <>
-      {/* ── Enterprise White Header (MNC Style, Centered Nav, Smooth Scroll Response) ── */}
+      {/* ── Sticky Header with MNC Centered Nav & Interactive Megamenu (Request 7, 8, 9) ── */}
       <header 
+        ref={megamenuRef}
         className={`header ${isScrolled ? 'scrolled' : ''}`} 
         id="site-header" 
         role="banner" 
@@ -73,7 +101,8 @@ export default function Header() {
             alignItems: 'center', 
             justifyContent: 'space-between', 
             height: isScrolled ? '64px' : '74px',
-            transition: 'height 0.25s ease'
+            transition: 'height 0.25s ease',
+            position: 'relative'
           }}
         >
           {/* Left: MaxR Logo */}
@@ -90,7 +119,7 @@ export default function Header() {
             />
           </Link>
 
-          {/* Center: Navigation Links (MNC Centered Layout) */}
+          {/* Center: Navigation Links with Clickable Megamenu Trigger (Request 9) */}
           <nav 
             className="nav-primary" 
             id="navbar-main" 
@@ -98,12 +127,68 @@ export default function Header() {
             style={{ 
               display: 'flex', 
               alignItems: 'center', 
-              gap: '2.25rem',
+              gap: '2rem',
               margin: '0 auto'
             }}
           >
             {navLinks.map((item) => {
-              const isActive = currentPath === item.path || (item.path !== '/' && currentPath.startsWith(item.path));
+              const isActive = item.path === '/' 
+                ? currentPath === '/' 
+                : (currentPath === item.path || currentPath.startsWith(item.path));
+
+              if (item.hasMegamenu) {
+                return (
+                  <div key={item.path} style={{ position: 'relative' }}>
+                    <button
+                      type="button"
+                      onClick={() => setMegamenuOpen(!megamenuOpen)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        color: megamenuOpen || isActive ? '#080607' : '#2b3442',
+                        fontWeight: megamenuOpen || isActive ? 700 : 500,
+                        fontSize: '0.925rem',
+                        letterSpacing: '-0.01em',
+                        padding: '0.5rem 0.2rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        transition: 'color 0.2s ease',
+                        fontFamily: 'inherit'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#54CFB0';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = megamenuOpen || isActive ? '#080607' : '#2b3442';
+                      }}
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown 
+                        size={14} 
+                        style={{ 
+                          transform: megamenuOpen ? 'rotate(180deg)' : 'rotate(0deg)', 
+                          transition: 'transform 0.25s ease' 
+                        }} 
+                      />
+                    </button>
+                    {(isActive || megamenuOpen) && (
+                      <span 
+                        style={{
+                          position: 'absolute',
+                          bottom: '-12px',
+                          left: 0,
+                          right: 0,
+                          height: '2px',
+                          background: '#54CFB0'
+                        }}
+                      />
+                    )}
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={item.path}
@@ -130,7 +215,7 @@ export default function Header() {
                     <span 
                       style={{
                         position: 'absolute',
-                        bottom: 0,
+                        bottom: '-12px',
                         left: 0,
                         right: 0,
                         height: '2px',
@@ -160,10 +245,10 @@ export default function Header() {
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
-              title="Global / English"
+              title="Global Enterprise Solutions"
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#00bba7';
-                e.currentTarget.style.color = '#00bba7';
+                e.currentTarget.style.borderColor = '#54CFB0';
+                e.currentTarget.style.color = '#54CFB0';
                 e.currentTarget.style.background = '#FFFFFF';
               }}
               onMouseLeave={(e) => {
@@ -195,7 +280,7 @@ export default function Header() {
                 boxShadow: '0 2px 8px rgba(8, 6, 7, 0.12)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#00bba7';
+                e.currentTarget.style.background = '#54CFB0';
                 e.currentTarget.style.color = '#080607';
                 e.currentTarget.style.transform = 'translateY(-1px)';
               }}
@@ -227,6 +312,168 @@ export default function Header() {
           </div>
 
         </div>
+
+        {/* ── Megamenu Dropdown Panel (HCLTech MNC Reference Style - Request 9) ── */}
+        {megamenuOpen && (
+          <div 
+            style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              background: '#FFFFFF',
+              borderBottom: '1px solid #E1E8E5',
+              boxShadow: '0 16px 40px rgba(8, 6, 7, 0.12)',
+              padding: '2.5rem 0',
+              animation: 'slideDownNav 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+              zIndex: 999
+            }}
+          >
+            <div className="container" style={{ display: 'grid', gridTemplateColumns: '1.8fr 1fr', gap: '3.5rem', alignItems: 'stretch' }}>
+              
+              {/* Left: 3 Categorized Services Columns */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+                
+                {/* Column 1: AI & Intelligent Systems */}
+                <div>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0f766e', display: 'block', marginBottom: '1.25rem' }}>
+                    AI & Automation
+                  </span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+                    {[
+                      { title: "Voice & AI Agents", path: "/voice-agents" },
+                      { title: "Workflow Automation", path: "/services" },
+                      { title: "WhatsApp Lead Bots", path: "/services" },
+                      { title: "Data & BI Analytics", path: "/services" }
+                    ].map((item, idx) => (
+                      <Link 
+                        key={idx}
+                        to={item.path}
+                        onClick={() => setMegamenuOpen(false)}
+                        style={{ fontSize: '0.9rem', color: '#334155', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s ease' }}
+                        onMouseEnter={(e) => e.target.style.color = '#54CFB0'}
+                        onMouseLeave={(e) => e.target.style.color = '#334155'}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Column 2: Digital Engineering */}
+                <div>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#080607', display: 'block', marginBottom: '1.25rem' }}>
+                    Digital Engineering
+                  </span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+                    {[
+                      { title: "Web Development", path: "/services" },
+                      { title: "Mobile App Engineering", path: "/services" },
+                      { title: "SaaS Custom Architecture", path: "/services" },
+                      { title: "Cloud & DevOps Scaling", path: "/services" }
+                    ].map((item, idx) => (
+                      <Link 
+                        key={idx}
+                        to={item.path}
+                        onClick={() => setMegamenuOpen(false)}
+                        style={{ fontSize: '0.9rem', color: '#334155', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s ease' }}
+                        onMouseEnter={(e) => e.target.style.color = '#54CFB0'}
+                        onMouseLeave={(e) => e.target.style.color = '#334155'}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Column 3: Commercial & Transformation */}
+                <div>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#080607', display: 'block', marginBottom: '1.25rem' }}>
+                    Commercial Growth
+                  </span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
+                    {[
+                      { title: "CRM & Lead Solutions", path: "/services" },
+                      { title: "Digital Marketing & SEO", path: "/services" },
+                      { title: "Headless E-Commerce", path: "/services" },
+                      { title: "Digital Transformation", path: "/services" }
+                    ].map((item, idx) => (
+                      <Link 
+                        key={idx}
+                        to={item.path}
+                        onClick={() => setMegamenuOpen(false)}
+                        style={{ fontSize: '0.9rem', color: '#334155', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s ease' }}
+                        onMouseEnter={(e) => e.target.style.color = '#54CFB0'}
+                        onMouseLeave={(e) => e.target.style.color = '#334155'}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Right: Featured Spotlight Card (Matching HCLTech Reference Style) */}
+              <div 
+                style={{ 
+                  background: 'linear-gradient(135deg, #080607 0%, #172554 100%)',
+                  borderRadius: '12px',
+                  padding: '2rem',
+                  color: '#FFFFFF',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 8px 24px rgba(8, 6, 7, 0.15)',
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.12em', color: '#54CFB0', textTransform: 'uppercase', display: 'block', marginBottom: '0.5rem' }}>
+                    FEATURED SPOTLIGHT
+                  </span>
+                  <h4 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.25, margin: '0 0 0.65rem 0' }}>
+                    MaxR Engineering Platform
+                  </h4>
+                  <p style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.55, margin: 0 }}>
+                    Accelerating AI-led transformation, custom web architecture, and cloud workflows for fast-scaling enterprises.
+                  </p>
+                </div>
+
+                <div style={{ position: 'relative', zIndex: 1, marginTop: '1.5rem' }}>
+                  <Link
+                    to="/services"
+                    onClick={() => setMegamenuOpen(false)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: '#FFFFFF',
+                      color: '#080607',
+                      padding: '0.75rem 1.4rem',
+                      borderRadius: '6px',
+                      fontWeight: 700,
+                      fontSize: '0.875rem',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#54CFB0';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#FFFFFF';
+                    }}
+                  >
+                    <span>Explore Services</span>
+                    <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        )}
       </header>
 
       {/* ── Mobile Navigation Drawer (Clean White MNC Style) ── */}
@@ -254,22 +501,25 @@ export default function Header() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '1.5rem', flex: 1, overflowY: 'auto' }}>
-            <Link 
-              className="mobile-nav-link" 
-              to="/" 
-              onClick={() => setMobileMenuOpen(false)}
-              style={{ 
-                textDecoration: 'none', 
-                color: currentPath === '/' ? '#54CFB0' : '#080607', 
-                fontSize: '1.05rem', 
-                fontWeight: 600, 
-                padding: '10px 0',
-                borderBottom: '1px solid #F5F8F7'
-              }}
-            >
-              Home
-            </Link>
-            {navLinks.map((item) => (
+            {/* Show Home link on mobile ONLY if not on homepage */}
+            {currentPath !== '/' && (
+              <Link 
+                className="mobile-nav-link" 
+                to="/" 
+                onClick={() => setMobileMenuOpen(false)}
+                style={{ 
+                  textDecoration: 'none', 
+                  color: '#080607', 
+                  fontSize: '1.05rem', 
+                  fontWeight: 600, 
+                  padding: '10px 0',
+                  borderBottom: '1px solid #F5F8F7'
+                }}
+              >
+                Home
+              </Link>
+            )}
+            {baseLinks.map((item) => (
               <Link 
                 key={item.path}
                 className="mobile-nav-link" 
@@ -303,7 +553,7 @@ export default function Header() {
                 color: '#3F5565',
                 flexShrink: 0
               }}
-              title="Global / English"
+              title="Global Enterprise"
             >
               <Globe size={18} strokeWidth={2} />
             </div>

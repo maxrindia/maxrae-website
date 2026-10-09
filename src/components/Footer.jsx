@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  ArrowRight, 
   ArrowUp,
-  Check, 
-  Facebook, 
-  Twitter, 
-  Linkedin, 
-  Youtube, 
-  Instagram 
+  MapPin,
+  Phone,
+  Mail,
+  ExternalLink
 } from 'lucide-react';
 
 export default function Footer() {
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
   const [activeLocation, setActiveLocation] = useState('dubai');
 
   const locations = {
@@ -51,15 +46,75 @@ export default function Footer() {
     }
   };
 
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (newsletterEmail.trim()) {
-      setSubscribed(true);
-      setTimeout(() => {
-        setNewsletterEmail("");
-      }, 3500);
+  // ── Authentic Official Colorful Social Accounts (Request 3) ──
+  const socialChannels = [
+    {
+      name: "LinkedIn",
+      url: "https://www.linkedin.com/company/maxr-technology",
+      bg: "#0A66C2",
+      color: "#FFFFFF",
+      iconSvg: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+      )
+    },
+    {
+      name: "Instagram",
+      url: "https://www.instagram.com/maxr.ae",
+      bg: "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
+      color: "#FFFFFF",
+      iconSvg: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      )
+    },
+    {
+      name: "Facebook",
+      url: "https://www.facebook.com/maxr.ae",
+      bg: "#1877F2",
+      color: "#FFFFFF",
+      iconSvg: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.667 5H18V0h-3.808C10.597 0 9 1.583 9 4.615V8z"/>
+        </svg>
+      )
+    },
+    {
+      name: "WhatsApp",
+      url: "https://wa.me/97145648887",
+      bg: "#25D366",
+      color: "#FFFFFF",
+      iconSvg: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+      )
+    },
+    {
+      name: "YouTube",
+      url: "https://www.youtube.com/@maxr-technology",
+      bg: "#FF0000",
+      color: "#FFFFFF",
+      iconSvg: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      )
+    },
+    {
+      name: "X (Twitter)",
+      url: "https://x.com/maxr_ae",
+      bg: "#080607",
+      color: "#FFFFFF",
+      iconSvg: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      )
     }
-  };
+  ];
 
   return (
     <footer 
@@ -73,111 +128,11 @@ export default function Footer() {
       }}
     >
       <div className="container">
-        
-        {/* ── 1. EXECUTIVE BRIEFING (High-Contrast Premium Dark Section) ── */}
-        <div className="executive-briefing-card">
-          <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '2rem' }}>
-            <div style={{ maxWidth: '540px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.45rem' }}>
-                <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
-                  EXECUTIVE BRIEFING
-                </span>
-              </div>
-              <h3 style={{ color: '#FFFFFF', fontSize: 'clamp(1.35rem, 2.2vw, 1.75rem)', fontWeight: 800, margin: '0 0 0.5rem 0', letterSpacing: '-0.025em' }}>
-                Subscribe to MaxR Perspectives
-              </h3>
-              <p style={{ color: 'rgba(255, 255, 255, 0.78)', fontSize: '0.925rem', margin: 0, lineHeight: 1.55 }}>
-                Periodic analysis on enterprise technology, digital architecture, process automation, and business scalability.
-              </p>
-            </div>
 
-            <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '0.65rem', width: '100%', maxWidth: '440px' }}>
-              {subscribed ? (
-                <div 
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '0.5rem', 
-                    background: 'rgba(84, 207, 176, 0.15)', 
-                    border: '1px solid #54CFB0', 
-                    color: '#54CFB0', 
-                    padding: '0.85rem 1.25rem', 
-                    borderRadius: '8px', 
-                    fontSize: '0.875rem', 
-                    width: '100%', 
-                    fontWeight: 700 
-                  }}
-                >
-                  <Check size={18} color="#54CFB0" /> Subscribed to MaxR Perspectives
-                </div>
-              ) : (
-                <>
-                  <div style={{ position: 'relative', flex: 1 }}>
-                    <input
-                      type="email"
-                      required
-                      value={newsletterEmail}
-                      onChange={(e) => setNewsletterEmail(e.target.value)}
-                      placeholder="Enter corporate email..."
-                      style={{ 
-                        width: '100%', 
-                        padding: '0.85rem 1.15rem', 
-                        borderRadius: '8px', 
-                        background: 'rgba(255, 255, 255, 0.08)', 
-                        border: '1px solid rgba(255, 255, 255, 0.18)', 
-                        color: '#FFFFFF', 
-                        fontSize: '0.875rem',
-                        outline: 'none',
-                        transition: 'border-color 0.2s ease',
-                        backdropFilter: 'blur(8px)'
-                      }}
-                      onFocus={(e) => e.target.style.borderColor = '#54CFB0'}
-                      onBlur={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.18)'}
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    style={{ 
-                      background: '#54CFB0', 
-                      color: '#080607', 
-                      padding: '0.85rem 1.5rem', 
-                      borderRadius: '8px', 
-                      border: 'none', 
-                      fontWeight: 750, 
-                      fontSize: '0.875rem', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: '6px', 
-                      cursor: 'pointer', 
-                      whiteSpace: 'nowrap',
-                      transition: 'all 0.25s ease',
-                      boxShadow: '0 4px 14px rgba(84, 207, 176, 0.25)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = '#FFFFFF';
-                      e.currentTarget.style.color = '#080607';
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#54CFB0';
-                      e.currentTarget.style.color = '#080607';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                    }}
-                  >
-                    <span>Subscribe</span>
-                    <ArrowRight size={15} />
-                  </button>
-                </>
-              )}
-            </form>
-          </div>
-        </div>
-
-        {/* ── 2. EDITORIAL DIRECTORY (Locations + What We Do + Badges) ── */}
+        {/* ── EDITORIAL DIRECTORY (Locations + Real Colorful Social Accounts + Badges) ── */}
         <div className="footer-edirect-layout">
           
-          {/* Column 1: Brand Logo, Location Selector, Address & Socials */}
+          {/* Column 1: Brand Logo, Location Selector & Selected Office */}
           <div>
             <Link 
               to="/" 
@@ -192,7 +147,7 @@ export default function Footer() {
             </Link>
 
             {/* Location Switcher & Address */}
-            <div style={{ display: 'flex', gap: '2rem', marginBottom: '2rem', alignItems: 'flex-start' }}>
+            <div style={{ display: 'flex', gap: '2rem', marginBottom: '1.5rem', alignItems: 'flex-start' }}>
               {/* Location tabs with mint ring/dot indicator */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '110px' }}>
                 {Object.keys(locations).map((locKey) => {
@@ -239,51 +194,78 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-
-            {/* Social Icons row (Strictly NO customer reviews or Google reviews) */}
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="Facebook">
-                <Facebook size={16} />
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="Twitter">
-                <Twitter size={16} />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="LinkedIn">
-                <Linkedin size={16} />
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="YouTube">
-                <Youtube size={16} />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="Instagram">
-                <Instagram size={16} />
-              </a>
-            </div>
           </div>
 
-          {/* Column 2: What We Do (Editorial 2-Column Links) */}
+          {/* Column 2: Exact Official Real Colorful Social Media Accounts (Request 3) */}
           <div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#080607', letterSpacing: '-0.02em', marginBottom: '1.75rem' }}>
-              What We Do
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#080607', letterSpacing: '-0.02em', marginBottom: '1.5rem' }}>
+              Connect & Follow MaxR
             </h3>
-            
-            <div className="footer-whatwedo-grid">
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <Link to="/services" className="footer-whatwedo-link">WEBSITE DESIGN</Link>
-                <Link to="/services" className="footer-whatwedo-link">MOBILE APPS</Link>
-                <Link to="/services" className="footer-whatwedo-link">GRAPHIC DESIGN</Link>
-                <Link to="/services" className="footer-whatwedo-link">SOCIAL MEDIA</Link>
-                <Link to="/services" className="footer-whatwedo-link">SEO</Link>
-                <Link to="/services" className="footer-whatwedo-link">PPC</Link>
-              </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                <Link to="/services" className="footer-whatwedo-link">BRANDING</Link>
-                <Link to="/services" className="footer-whatwedo-link">E COMMERCE</Link>
-                <Link to="/services" className="footer-whatwedo-link">WEB APPLICATIONS</Link>
-                <Link to="/services" className="footer-whatwedo-link">AI & AUTOMATION</Link>
-                <Link to="/blog" className="footer-whatwedo-link">BLOG</Link>
-                <Link to="/contact" className="footer-whatwedo-link">CONTACT</Link>
-              </div>
+            {/* Social Grid with Official Authentic Colorful Cards */}
+            <div 
+              style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(2, 1fr)', 
+                gap: '12px' 
+              }}
+            >
+              {socialChannels.map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 14px',
+                    borderRadius: '10px',
+                    background: '#FFFFFF',
+                    border: '1px solid #E1E8E5',
+                    textDecoration: 'none',
+                    color: '#080607',
+                    boxShadow: '0 2px 8px rgba(8, 6, 7, 0.04)',
+                    transition: 'all 0.22s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.borderColor = '#54CFB0';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(8, 6, 7, 0.08)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.borderColor = '#E1E8E5';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(8, 6, 7, 0.04)';
+                  }}
+                >
+                  <div 
+                    style={{ 
+                      width: '36px', 
+                      height: '36px', 
+                      borderRadius: '8px', 
+                      background: item.bg, 
+                      color: item.color, 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      boxShadow: '0 2px 6px rgba(0,0,0,0.12)'
+                    }}
+                  >
+                    {item.iconSvg}
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 700, display: 'block', color: '#080607' }}>
+                      {item.name}
+                    </span>
+                    <span style={{ fontSize: '0.72rem', color: '#64748b' }}>
+                      Official Channel
+                    </span>
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
 
@@ -367,7 +349,7 @@ export default function Footer() {
 
         </div>
 
-        {/* ── 3. BOTTOM LEGAL BAR & SCROLL-TO-TOP ── */}
+        {/* ── BOTTOM LEGAL BAR & SCROLL-TO-TOP ── */}
         <div 
           style={{ 
             borderTop: '1px solid #E1E8E5', 
@@ -393,6 +375,8 @@ export default function Footer() {
             <Link to="/contact" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#54CFB0'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Cookies Policy</Link>
             <span style={{ color: '#cbd5e1' }}>|</span>
             <Link to="/contact" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#54CFB0'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Terms & Conditions</Link>
+            <span style={{ color: '#cbd5e1' }}>|</span>
+            <Link to="/careers" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#54CFB0'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Careers</Link>
             <span style={{ color: '#cbd5e1' }}>|</span>
             <Link to="/contact" style={{ color: '#64748b', textDecoration: 'none' }} onMouseEnter={(e) => e.target.style.color = '#54CFB0'} onMouseLeave={(e) => e.target.style.color = '#64748b'}>Sitemap</Link>
           </div>

@@ -13,6 +13,7 @@ import ContactPage from './pages/ContactPage.jsx';
 import IndustriesPage from './pages/IndustriesPage.jsx';
 import CaseStudiesPage from './pages/CaseStudiesPage.jsx';
 import VoiceAgentsPage from './pages/VoiceAgentsPage.jsx';
+import CareersPage from './pages/CareersPage.jsx';
 
 import { MessageSquare } from 'lucide-react';
 
@@ -49,6 +50,7 @@ function MainLayout() {
           <Route path="/industries" element={<IndustriesPage onOpenContact={() => setContactModalOpen(true)} />} />
           <Route path="/case-studies" element={<CaseStudiesPage onOpenContact={() => setContactModalOpen(true)} />} />
           <Route path="/voice-agents" element={<VoiceAgentsPage onOpenContact={() => setContactModalOpen(true)} />} />
+          <Route path="/careers" element={<CareersPage onOpenContact={() => setContactModalOpen(true)} />} />
           {/* Fallback to Home */}
           <Route path="*" element={<HomePage onOpenContact={() => setContactModalOpen(true)} />} />
         </Routes>

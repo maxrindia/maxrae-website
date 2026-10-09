@@ -5,6 +5,7 @@ import {
   ArrowRight, 
   ArrowLeft,
   ArrowUpRight,
+  ArrowDown,
   Play,
   Heart,
   GraduationCap,
@@ -20,11 +21,28 @@ import {
 export default function HomePage() {
   const heroRef = useRef(null);
 
+  // ── Hero Banner Dynamic Multi-Image Background State (Request 5) ──
+  const heroImages = [
+    "/assets/images/hero-bg-dubai.jpg",
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80"
+  ];
+  const [currentHeroBg, setCurrentHeroBg] = useState(0);
+
+  useEffect(() => {
+    const heroTimer = setInterval(() => {
+      setCurrentHeroBg((prev) => (prev + 1) % heroImages.length);
+    }, 5500);
+    return () => clearInterval(heroTimer);
+  }, [heroImages.length]);
+
   // ── Services Carousel State (Infinite Looping / Circular Continuation) ──
   const [currentService, setCurrentService] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
+  const [isServicesHovered, setIsServicesHovered] = useState(false);
 
   // ── Industries Interactive Selection & Preview State ──
   const [activeIndustry, setActiveIndustry] = useState(0);
@@ -155,6 +173,15 @@ export default function HomePage() {
     else if (dragOffset > 50) prevService();
     setDragOffset(0);
   };
+
+  // ── Services Carousel Slow Auto-Scroll Timer (Request 4) ──
+  useEffect(() => {
+    if (isServicesHovered || isDragging) return;
+    const servicesTimer = setInterval(() => {
+      nextService();
+    }, 4500);
+    return () => clearInterval(servicesTimer);
+  }, [isServicesHovered, isDragging, nextService]);
 
   // ── 2. EXACT 8 INDUSTRIES ──
   const industries = [
@@ -349,7 +376,28 @@ export default function HomePage() {
         ref={heroRef}
         className="hero-enterprise-section"
       >
-        <div className="hero-enterprise-overlay" />
+        {/* Dynamic Multi-Image Auto-Switching Background (Request 5) */}
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
+          {heroImages.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt="Hero background"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center right',
+                opacity: currentHeroBg === i ? 1 : 0,
+                transform: currentHeroBg === i ? 'scale(1)' : 'scale(1.05)',
+                transition: 'opacity 1.2s ease-in-out, transform 1.6s ease-out'
+              }}
+            />
+          ))}
+          <div className="hero-enterprise-overlay" />
+        </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           <div style={{ maxWidth: '780px', padding: 'clamp(4.5rem, 8vw, 7rem) 0' }}>
@@ -523,6 +571,8 @@ export default function HomePage() {
             position: 'relative',
             minHeight: 'clamp(420px, 48vh, 500px)'
           }}
+          onMouseEnter={() => setIsServicesHovered(true)}
+          onMouseLeave={() => setIsServicesHovered(false)}
           onMouseDown={handlePointerDown}
           onMouseMove={handlePointerMove}
           onMouseUp={handlePointerUp}
@@ -549,7 +599,7 @@ export default function HomePage() {
                 <div
                   key={item.title}
                   onClick={() => {
-                    if (!isActive) setCurrentService(idx);
+                    setCurrentService(idx);
                   }}
                   style={{
                     position: 'absolute',
@@ -587,6 +637,31 @@ export default function HomePage() {
                       zIndex: 1 
                     }} 
                   />
+
+                  {/* Active Card Pointer Arrow Indicator (Request 4) */}
+                  {isActive && (
+                    <div 
+                      style={{ 
+                        position: 'absolute', 
+                        top: '1.25rem', 
+                        right: '1.25rem', 
+                        background: '#54CFB0', 
+                        color: '#080607', 
+                        padding: '5px 12px', 
+                        borderRadius: '20px', 
+                        fontSize: '0.75rem', 
+                        fontWeight: 800, 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        gap: '5px',
+                        boxShadow: '0 4px 14px rgba(84, 207, 176, 0.4)',
+                        zIndex: 3
+                      }}
+                    >
+                      <span>Active</span>
+                      <ArrowDown size={13} strokeWidth={2.5} />
+                    </div>
+                  )}
 
                   {/* Content Overlay */}
                   <div 
@@ -632,23 +707,37 @@ export default function HomePage() {
                       {item.desc}
                     </p>
 
+                    {/* View More Action Button (Request 4) */}
                     <Link
                       to={item.link}
                       style={{
-                        width: '44px',
-                        height: '44px',
-                        borderRadius: '50%',
-                        background: isActive ? '#54CFB0' : 'rgba(255, 255, 255, 0.2)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '0.75rem 1.4rem',
+                        borderRadius: '8px',
+                        background: isActive ? '#54CFB0' : 'rgba(255, 255, 255, 0.22)',
+                        backdropFilter: 'blur(8px)',
                         border: isActive ? 'none' : '1px solid rgba(255, 255, 255, 0.4)',
                         color: isActive ? '#080607' : '#FFFFFF',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        fontWeight: 750,
+                        fontSize: '0.875rem',
                         textDecoration: 'none',
-                        transition: 'transform 0.2s ease, background 0.2s ease'
+                        transition: 'all 0.2s ease',
+                        width: 'fit-content',
+                        boxShadow: isActive ? '0 4px 14px rgba(84, 207, 176, 0.3)' : 'none'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#FFFFFF';
+                        e.currentTarget.style.color = '#080607';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = isActive ? '#54CFB0' : 'rgba(255, 255, 255, 0.22)';
+                        e.currentTarget.style.color = isActive ? '#080607' : '#FFFFFF';
                       }}
                     >
-                      <ArrowRight size={18} />
+                      <span>View More</span>
+                      <ArrowRight size={15} />
                     </Link>
                   </div>
                 </div>
@@ -657,45 +746,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* ── Below-Center Fixed Arrow Marks & Pill Indicators (Request 4) ── */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', marginTop: '1.5rem' }}>
-          <button
-            onClick={prevService}
-            aria-label="Previous slide"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              background: '#FFFFFF',
-              border: '1.5px solid #080607',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              color: '#080607',
-              transition: 'all 0.2s ease',
-              boxShadow: '0 2px 8px rgba(8, 6, 7, 0.06)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#54CFB0';
-              e.currentTarget.style.color = '#54CFB0';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#080607';
-              e.currentTarget.style.color = '#080607';
-            }}
-          >
-            <ArrowLeft size={18} />
-          </button>
-
-          {/* Centered slide indicator pills */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        {/* ── Centered Slide Indicator Pills (Bottom Arrows Removed per Request 4) ── */}
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {services.map((_, i) => (
               <span
                 key={i}
                 onClick={() => setCurrentService(i)}
                 style={{
-                  width: i === currentService ? '24px' : '8px',
+                  width: i === currentService ? '28px' : '8px',
                   height: '8px',
                   borderRadius: '4px',
                   background: i === currentService ? '#54CFB0' : '#E1E8E5',
@@ -705,37 +764,6 @@ export default function HomePage() {
               />
             ))}
           </div>
-
-          <button
-            onClick={nextService}
-            aria-label="Next slide"
-            style={{
-              width: '44px',
-              height: '44px',
-              borderRadius: '50%',
-              background: '#080607',
-              border: '1.5px solid #080607',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              color: '#FFFFFF',
-              transition: 'all 0.2s ease',
-              boxShadow: '0 4px 12px rgba(8, 6, 7, 0.15)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#54CFB0';
-              e.currentTarget.style.borderColor = '#54CFB0';
-              e.currentTarget.style.color = '#080607';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#080607';
-              e.currentTarget.style.borderColor = '#080607';
-              e.currentTarget.style.color = '#FFFFFF';
-            }}
-          >
-            <ArrowRight size={18} />
-          </button>
         </div>
       </section>
 
@@ -985,12 +1013,14 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* 2-Card Video Grid (Exact layout from user uploaded image) */}
+          {/* 2-Card Video Grid (Compact, Full-Frame Video Player) */}
           <div 
             style={{ 
+              maxWidth: '880px',
+              margin: '0 auto',
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-              gap: '2rem' 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+              gap: '1.75rem' 
             }}
           >
             {clientVideoStories.map((story) => (
@@ -1003,15 +1033,17 @@ export default function HomePage() {
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                  boxShadow: '0 8px 24px rgba(8, 6, 7, 0.04)'
+                  boxShadow: '0 8px 24px rgba(8, 6, 7, 0.05)',
+                  transition: 'transform 0.25s ease, box-shadow 0.25s ease'
                 }}
               >
-                {/* Video Container / Thumbnail with Play Button */}
+                {/* Video Container / Thumbnail with Play Button - 16:9 Full Frame */}
                 <div 
                   style={{ 
                     position: 'relative', 
-                    height: '270px', 
-                    background: '#080607',
+                    width: '100%',
+                    aspectRatio: '16 / 9', 
+                    background: '#000000',
                     overflow: 'hidden' 
                   }}
                 >
@@ -1021,7 +1053,7 @@ export default function HomePage() {
                       controls 
                       autoPlay 
                       playsInline 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                      style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000000' }} 
                     />
                   ) : (
                     <div 
@@ -1095,34 +1127,34 @@ export default function HomePage() {
                   )}
                 </div>
 
-                {/* Card Body */}
-                <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                {/* Card Body - Compact & Sleek */}
+                <div style={{ padding: '1.25rem 1.4rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   {/* Quote */}
                   <blockquote 
                     style={{ 
-                      fontSize: '1.075rem', 
+                      fontSize: '0.98rem', 
                       fontWeight: 700, 
                       color: '#080607', 
-                      lineHeight: 1.55, 
+                      lineHeight: 1.5, 
                       letterSpacing: '-0.015em', 
-                      margin: '0 0 1.25rem 0' 
+                      margin: '0 0 1rem 0' 
                     }}
                   >
                     "{story.quote}"
                   </blockquote>
 
                   {/* Core tags */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '1.5rem' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '1.1rem' }}>
                     {story.tags.map((tag, tIdx) => (
                       <span 
                         key={tIdx}
                         style={{ 
-                          fontSize: '0.775rem', 
+                          fontSize: '0.75rem', 
                           fontWeight: 700, 
                           color: '#0f766e', 
                           background: '#e6f9f4', 
                           border: '1px solid rgba(84, 207, 176, 0.4)', 
-                          padding: '4px 10px', 
+                          padding: '3px 8px', 
                           borderRadius: '6px' 
                         }}
                       >
@@ -1132,29 +1164,29 @@ export default function HomePage() {
                   </div>
 
                   {/* Client Info */}
-                  <div style={{ marginBottom: '1.25rem' }}>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#080607', margin: '0 0 2px 0' }}>
+                  <div style={{ marginBottom: '1rem' }}>
+                    <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#080607', margin: '0 0 2px 0' }}>
                       {story.company}
                     </h4>
-                    <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0 }}>
+                    <p style={{ fontSize: '0.825rem', color: '#64748b', margin: 0 }}>
                       {story.industry}
                     </p>
                   </div>
 
-                  {/* Services Delivered by MaxR (Request 5) */}
+                  {/* Services Delivered by MaxR */}
                   <div 
                     style={{ 
                       background: '#F5F8F7', 
                       border: '1px solid #E1E8E5', 
                       borderRadius: '8px', 
-                      padding: '0.9rem 1rem', 
-                      marginBottom: '1.5rem' 
+                      padding: '0.75rem 0.9rem', 
+                      marginBottom: '1.15rem' 
                     }}
                   >
-                    <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#080607', display: 'block', marginBottom: '6px' }}>
+                    <span style={{ fontSize: '0.725rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#080607', display: 'block', marginBottom: '5px' }}>
                       Services Delivered by MaxR:
                     </span>
-                    <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '3px' }}>
                       {story.servicesRendered.map((sItem, sIdx) => (
                         <li key={sIdx} style={{ fontSize: '0.825rem', color: '#3F5565', display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <CheckCircle2 size={13} color="#00bba7" />
