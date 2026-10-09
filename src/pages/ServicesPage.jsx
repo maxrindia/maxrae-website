@@ -1,110 +1,214 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Bot,
+  Globe2,
   Smartphone,
   Workflow,
+  Layers,
   Cpu,
+  Users,
   TrendingUp,
-  ShoppingCart,
+  BarChart3,
+  Zap,
   CheckCircle2, 
   ArrowRight
 } from 'lucide-react';
 
 export default function ServicesPage({ onOpenContact }) {
+  const [activeCategory, setActiveCategory] = useState('all');
+
   const services = [
     {
-      id: "ai-automation",
-      title: "AI Voice Agents & WhatsApp Automation",
-      subtitle: "24/7 Smart Call Handling & Messaging",
+      id: "voice-agents",
+      category: "ai",
+      title: "Voice & AI Agents",
+      subtitle: "24/7 Smart Phone Call Handling & Speech AI",
       icon: Bot,
       image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=80",
-      description: "Smart voice and chat assistants that answer customer calls 24/7, reply on WhatsApp instantly, and book appointments without human staff having to stay up all night.",
+      description: "Intelligent voice assistants that answer incoming customer calls, make automated outbound follow-ups, and book appointments with sub-450ms natural speech in Arabic and English.",
       highlights: [
-        "24/7 AI Phone Receptionist (answers calls in Arabic & English)",
-        "Automated WhatsApp chat support for instant customer queries",
-        "Automatic appointment booking with calendar reminders",
-        "Instant lead notification sent directly to your phone and CRM"
-      ]
+        "24/7 AI Phone Receptionist with human-like voice synthesis",
+        "Automated inbound call answering & appointment scheduling",
+        "Bilingual natural conversations in Arabic dialects & English",
+        "Direct connection to your local phone lines (+971 / +91) and CRM"
+      ],
+      link: "/voice-agents",
+      linkText: "Explore Voice Agents →"
     },
     {
-      id: "web-mobile-apps",
-      title: "Web & Mobile App Development",
-      subtitle: "Fast, Modern Websites & iOS/Android Apps",
-      icon: Smartphone,
-      image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80",
-      description: "Clean, high-performance business websites and mobile apps built to give your customers an effortless experience and turn visitors into paying clients.",
+      id: "web-development",
+      category: "engineering",
+      title: "Web Development",
+      subtitle: "High-Performance Websites & Web Applications",
+      icon: Globe2,
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+      description: "Modern, ultra-fast websites and web applications built to showcase your brand, rank at the top of Google Search, and convert visitors into paying clients.",
       highlights: [
-        "Custom business websites and web portals",
-        "iOS and Android mobile apps (Flutter & React Native)",
-        "Ultra-fast loading speed and 100% mobile responsive design",
-        "Easy admin dashboard to manage your content and users"
-      ]
+        "Custom business websites and responsive web portals",
+        "Fast loading speed with 99/100 Lighthouse performance",
+        "100% mobile-friendly across all phones, tablets, and desktops",
+        "Easy-to-use content management so you can update text easily"
+      ],
+      link: "/contact",
+      linkText: "Start Web Project →"
+    },
+    {
+      id: "mobile-app-engineering",
+      category: "engineering",
+      title: "Mobile App Engineering",
+      subtitle: "Native iOS & Android Mobile Applications",
+      icon: Smartphone,
+      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
+      description: "Custom mobile apps designed for 60 FPS native smoothness, high user engagement, and seamless payments across both Apple iOS and Android devices.",
+      highlights: [
+        "Cross-platform iOS and Android apps (Flutter & React Native)",
+        "Secure user logins, payment gateways, and push notifications",
+        "Offline caching for fast and reliable user experiences",
+        "Full App Store and Google Play publishing and ongoing support"
+      ],
+      link: "/contact",
+      linkText: "Build Mobile App →"
+    },
+    {
+      id: "workflow-automation",
+      category: "ai",
+      title: "Workflow Automation",
+      subtitle: "Automated WhatsApp Bots & Cross-App Integrations",
+      icon: Workflow,
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      description: "Connect your everyday business tools and eliminate repetitive manual copy-pasting, invoice generation, and customer message follow-ups.",
+      highlights: [
+        "Official Meta WhatsApp Business API automated messaging",
+        "Automated invoice generation and payment receipt dispatch",
+        "Sync data automatically between WhatsApp, Google Sheets & CRM",
+        "Self-healing workflow triggers using n8n and Make engines"
+      ],
+      link: "/contact",
+      linkText: "Automate Workflows →"
+    },
+    {
+      id: "saas-custom-architecture",
+      category: "engineering",
+      title: "SaaS Custom Architecture",
+      subtitle: "Custom Cloud Software & Multi-Tenant Platforms",
+      icon: Layers,
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      description: "Full-stack custom software engineered from scratch for startups and businesses needing specialized internal tools or subscription software products.",
+      highlights: [
+        "Custom client portals and multi-tenant SaaS architectures",
+        "Role-based access control (RBAC) and secure user accounts",
+        "Automated recurring subscription billing via Stripe and local gateways",
+        "Modular, clean codebases designed to scale without technical debt"
+      ],
+      link: "/contact",
+      linkText: "Architect SaaS Platform →"
+    },
+    {
+      id: "cloud-devops-scaling",
+      category: "cloud",
+      title: "Cloud & DevOps Scaling",
+      subtitle: "99.9% Uptime Cloud Servers & Database Hosting",
+      icon: Cpu,
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+      description: "High-availability cloud hosting, automated database backups, and 24/7 infrastructure monitoring to ensure your digital systems never go offline.",
+      highlights: [
+        "AWS, Azure, and Google Cloud scalable server infrastructure",
+        "Automated database backups and disaster recovery protection",
+        "Zero-downtime rolling code deployments and CI/CD pipelines",
+        "Bank-grade TLS 1.3 encryption and security hardening"
+      ],
+      link: "/contact",
+      linkText: "Scale Cloud Infrastructure →"
     },
     {
       id: "crm-lead-solutions",
-      title: "CRM & Lead Management Systems",
-      subtitle: "Instant Response & Sales Pipeline Tracking",
-      icon: Workflow,
+      category: "marketing",
+      title: "CRM & Lead Solutions",
+      subtitle: "Instant Under-60s Inbound Response & Sales Pipelines",
+      icon: Users,
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-      description: "Automated systems that capture leads from your ads and website, qualify their requirements, and notify your sales team in under 60 seconds so you never lose a customer.",
+      description: "Automated speed-to-lead systems that capture inquiries from web forms, WhatsApp, and paid ads, qualify requirements, and alert your sales team within 60 seconds.",
       highlights: [
-        "Instant automatic response (< 60 seconds) to new inquiries",
-        "Full setup and integration with HubSpot, Zoho, and Salesforce",
-        "Automatic lead distribution to the right salesperson",
-        "Automated follow-up messages on WhatsApp and Email"
-      ]
+        "Sub-60-second automated response to all new web & ad leads",
+        "Complete setup and custom pipelines in HubSpot, Zoho & Salesforce",
+        "Automatic lead assignment to the right sales representatives",
+        "Automated follow-up message sequences on WhatsApp and Email"
+      ],
+      link: "/contact",
+      linkText: "Setup Lead Engine →"
     },
     {
       id: "digital-marketing-seo",
-      title: "Digital Marketing & SEO Growth",
+      category: "marketing",
+      title: "Digital Marketing & SEO",
       subtitle: "Google Rankings & High-ROI Paid Ad Campaigns",
       icon: TrendingUp,
       image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=80",
-      description: "Targeted advertising campaigns and search engine optimization designed to rank your business on Google and bring consistent, qualified inquiries every month.",
+      description: "Targeted advertising campaigns and technical SEO designed to rank your business at the top of Google and bring consistent, qualified customer inquiries.",
       highlights: [
-        "Google Search and Performance Max ad campaigns",
-        "Targeted Instagram, Facebook, and LinkedIn advertising",
+        "Google Search, Display, and Performance Max ad management",
+        "Targeted Meta (Instagram & Facebook) and LinkedIn campaigns",
         "Local and regional SEO to rank your business on Google Search",
-        "High-converting landing pages built to maximize leads"
-      ]
+        "High-converting landing pages built specifically to generate leads"
+      ],
+      link: "/contact",
+      linkText: "Grow Inquiries →"
     },
     {
-      id: "cloud-saas-architecture",
-      title: "Custom Software & Cloud Systems",
-      subtitle: "Tailored Internal Tools & Reliable Cloud Hosting",
-      icon: Cpu,
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-      description: "Custom software tools and secure cloud hosting engineered specifically around how your company operates, eliminating repetitive paperwork and manual errors.",
+      id: "data-bi-analytics",
+      category: "cloud",
+      title: "Data & BI Analytics",
+      subtitle: "Real-Time Executive Dashboards & KPI Reporting",
+      icon: BarChart3,
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      description: "Turn messy spreadsheets and scattered business numbers into visual real-time executive dashboards so leadership can track revenue and operations clearly.",
       highlights: [
-        "Custom internal business software and team dashboards",
-        "Secure cloud hosting setup with 99.9% uptime reliability",
-        "Automated data backups and bank-grade data security",
-        "Connecting your existing software tools together seamlessly"
-      ]
+        "Custom executive dashboards tracking sales, revenue & conversion",
+        "Automated weekly and monthly report generation sent to your email",
+        "Centralized business metrics with zero manual spreadsheet work",
+        "Visual charts and KPI tracking for sales teams and directors"
+      ],
+      link: "/contact",
+      linkText: "Build Analytics Dashboard →"
     },
     {
-      id: "headless-ecommerce",
-      title: "E-Commerce & Online Stores",
-      subtitle: "Modern Shopify & Custom Online Storefronts",
-      icon: ShoppingCart,
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
-      description: "Fast, beautiful online storefronts that make it simple for your customers to browse products, checkout smoothly, and pay using local and international payment methods.",
+      id: "digital-transformation",
+      category: "engineering",
+      title: "Digital Transformation",
+      subtitle: "Modernizing Legacy Operations & Digital Workflows",
+      icon: Zap,
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+      description: "Replacing outdated manual paperwork, messy spreadsheets, and legacy tools with unified digital systems that cut operational overhead and speed up work.",
       highlights: [
-        "Modern Shopify and custom e-commerce web stores",
-        "GCC payment gateways (Apple Pay, Tabby, Tamara, Debit/Credit Card)",
-        "Automated WhatsApp order confirmation & shipment tracking",
-        "Real-time inventory synchronization with your store"
-      ]
+        "Full workflow audit and practical technology roadmap",
+        "Replacing manual paper forms with fast cloud-based digital intake",
+        "Team onboarding and practical hands-on software training",
+        "Measurable reduction in operational hours spent on manual tasks"
+      ],
+      link: "/contact",
+      linkText: "Start Digital Roadmap →"
     }
   ];
+
+  const categories = [
+    { key: 'all', label: 'All Services (10)' },
+    { key: 'ai', label: 'AI & Automation' },
+    { key: 'engineering', label: 'Web & Software Engineering' },
+    { key: 'marketing', label: 'Marketing & CRM' },
+    { key: 'cloud', label: 'Cloud & Data' }
+  ];
+
+  const filteredServices = activeCategory === 'all' 
+    ? services 
+    : services.filter(s => s.category === activeCategory);
 
   return (
     <div className="services-page" style={{ padding: 'clamp(2.5rem, 5vw, 4rem) 0 5.5rem', background: '#F5F8F7' }}>
       <div className="container">
         
         {/* ── HEADER ── */}
-        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto clamp(2.5rem, 5vw, 3.75rem)' }}>
+        <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto clamp(2.5rem, 5vw, 3.5rem)' }}>
           <h1 
             style={{ 
               fontFamily: "'Space Grotesk', -apple-system, sans-serif", 
@@ -125,7 +229,59 @@ export default function ServicesPage({ onOpenContact }) {
           </p>
         </div>
 
-        {/* ── CLEAN 6-SERVICE CARDS GRID ── */}
+        {/* ── CATEGORY FILTER TABS ── */}
+        <div 
+          style={{ 
+            display: 'flex', 
+            gap: '8px', 
+            overflowX: 'auto', 
+            paddingBottom: '0.75rem', 
+            marginBottom: '3rem',
+            scrollbarWidth: 'none',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
+          }}
+        >
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat.key;
+            return (
+              <button
+                key={cat.key}
+                type="button"
+                onClick={() => setActiveCategory(cat.key)}
+                style={{
+                  padding: '8px 18px',
+                  borderRadius: '999px',
+                  fontSize: '0.85rem',
+                  fontWeight: isActive ? 800 : 600,
+                  border: isActive ? '1.5px solid #00bba7' : '1px solid #E2E8F0',
+                  background: isActive ? '#080607' : '#FFFFFF',
+                  color: isActive ? '#54CFB0' : '#475569',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.2s ease',
+                  boxShadow: isActive ? '0 4px 14px rgba(0, 187, 167, 0.2)' : '0 1px 4px rgba(8,6,7,0.03)'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.borderColor = '#00bba7';
+                    e.currentTarget.style.color = '#008779';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.borderColor = '#E2E8F0';
+                    e.currentTarget.style.color = '#475569';
+                  }
+                }}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* ── 10 AUDIENCE-FRIENDLY SERVICE CARDS ── */}
         <div 
           style={{ 
             display: 'grid', 
@@ -134,11 +290,12 @@ export default function ServicesPage({ onOpenContact }) {
             marginBottom: '4rem'
           }}
         >
-          {services.map((item) => {
+          {filteredServices.map((item) => {
             const IconComponent = item.icon;
             return (
               <div 
                 key={item.id} 
+                id={item.id}
                 style={{ 
                   background: '#FFFFFF', 
                   borderRadius: '16px', 
@@ -169,7 +326,7 @@ export default function ServicesPage({ onOpenContact }) {
                   />
                   
                   {/* Subtle Dark Gradient Overlay */}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(8,6,7,0.1) 0%, rgba(8,6,7,0.7) 100%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(8,6,7,0.1) 0%, rgba(8,6,7,0.72) 100%)' }} />
 
                   {/* Icon & Subtitle on Image */}
                   <div style={{ position: 'absolute', bottom: '1rem', left: '1.25rem', right: '1.25rem', display: 'flex', alignItems: 'center', gap: '10px', zIndex: 2 }}>
@@ -204,7 +361,7 @@ export default function ServicesPage({ onOpenContact }) {
                       {item.description}
                     </p>
 
-                    {/* What We Do Bullets */}
+                    {/* What We Deliver Bullets */}
                     <div style={{ background: '#F8FAFC', borderRadius: '12px', padding: '1.15rem 1.25rem', border: '1px solid #E2E8F0', marginBottom: '1.5rem' }}>
                       <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#080607', display: 'block', marginBottom: '0.65rem' }}>
                         What We Deliver:
@@ -223,7 +380,7 @@ export default function ServicesPage({ onOpenContact }) {
                   {/* Action Buttons */}
                   <div style={{ display: 'flex', gap: '10px', alignItems: 'center', borderTop: '1px solid #E2E8F0', paddingTop: '1.25rem' }}>
                     <Link 
-                      to="/contact"
+                      to={item.link}
                       className="btn-primary"
                       style={{ 
                         background: '#080607', 
@@ -249,7 +406,7 @@ export default function ServicesPage({ onOpenContact }) {
                         e.currentTarget.style.color = '#FFFFFF';
                       }}
                     >
-                      <span>Talk to Us</span>
+                      <span>{item.linkText}</span>
                       <ArrowRight size={14} />
                     </Link>
 
