@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { 
   ArrowRight, 
   ArrowLeft,
+  ArrowUpRight,
   Play,
   Heart,
   GraduationCap,
@@ -25,8 +26,10 @@ export default function HomePage() {
   const [dragStartX, setDragStartX] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
 
-  // ── Industries Interactive Selection State ──
+  // ── Industries Interactive Selection & Preview State ──
   const [activeIndustry, setActiveIndustry] = useState(0);
+  const [hoveredIndustry, setHoveredIndustry] = useState(null);
+  const displayIndustry = hoveredIndustry !== null ? hoveredIndustry : activeIndustry;
 
   // ── Client Stories Video Playback State ──
   const [playingVideo, setPlayingVideo] = useState(null); // null | 'ardhra' | 'parvathi'
@@ -158,66 +161,114 @@ export default function HomePage() {
     {
       name: "Healthcare",
       icon: Heart,
-      desc: "Digital solutions that improve patient experiences, operational efficiency and connected care.",
-      image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1400&q=80",
-      tags: ["Web Development", "AI & Automation", "CRM & Lead Solutions", "Data & Business Intelligence", "Digital Marketing"],
-      ctaText: "Explore Healthcare Solutions"
-    },
-    {
-      name: "Education",
-      icon: GraduationCap,
-      desc: "Unified student management portals, automated admissions pipelines and interactive digital learning.",
-      image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=80",
-      tags: ["Custom Portals", "LMS Architecture", "Student Ingestion CRM", "Workflow Automation"],
-      ctaText: "Explore Education Solutions"
+      desc: "Digital solutions that improve patient experiences, clinical efficiency, and connected healthcare operations.",
+      image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "Web Development",
+        "AI & Automation",
+        "CRM & Lead Solutions",
+        "Data & Business Intelligence",
+        "Maintenance & Support"
+      ],
+      ctaText: "Explore Industry →"
     },
     {
       name: "Real Estate",
       icon: Building2,
-      desc: "High-value buyer pre-qualification, 24/7 viewing booking bots, and interactive 3D digital floorplans.",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=80",
-      tags: ["Property Portals", "WhatsApp Lead Bots", "Virtual Tours", "Broker Automation CRM"],
-      ctaText: "Explore Real Estate Solutions"
-    },
-    {
-      name: "Hospitality",
-      icon: Luggage,
-      desc: "Zero-wait multilingual voice reservation receptionists, contactless guest concierge and table bookings.",
-      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=80",
-      tags: ["Voice Concierge", "Guest Mobile Apps", "Table Booking Bots", "Loyalty Systems"],
-      ctaText: "Explore Hospitality Solutions"
+      desc: "Digital experiences and connected solutions for modern property businesses.",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "Web Development",
+        "CRM & Lead Solutions",
+        "Digital Marketing",
+        "AI & Automation",
+        "Data & Business Intelligence"
+      ],
+      ctaText: "Explore Industry →"
     },
     {
       name: "E-Commerce",
       icon: ShoppingCart,
-      desc: "Sub-second headless storefronts, autonomous WhatsApp order tracking, and cart recovery triggers.",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=80",
-      tags: ["Headless Storefronts", "Order Resolution AI", "Performance Ads", "CRM Automation"],
-      ctaText: "Explore E-Commerce Solutions"
-    },
-    {
-      name: "Professional Services",
-      icon: Users,
-      desc: "Practice management platforms, automated client onboarding and partner billing portals.",
-      image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=80",
-      tags: ["Client Intake Workflows", "Billing Portals", "Document Cloud", "Practice CRM"],
-      ctaText: "Explore Professional Services Solutions"
+      desc: "High-conversion digital storefronts, connected commerce platforms, and automated inventory workflows.",
+      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "E-Commerce Solutions",
+        "Web Development",
+        "Digital Marketing",
+        "AI & Automation",
+        "Cloud & DevOps"
+      ],
+      ctaText: "Explore Industry →"
     },
     {
       name: "Finance",
       icon: TrendingUp,
-      desc: "Encrypted investor portals, bank-grade digital KYC onboarding and automated regulatory audit pipelines.",
-      image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1400&q=80",
-      tags: ["Encrypted KYC Portals", "Investor Dashboards", "Compliance Automation", "API Security"],
-      ctaText: "Explore Finance Solutions"
+      desc: "Secure portals, compliance-ready digital workflows, and real-time business financial intelligence.",
+      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "Web Development",
+        "Data & Business Intelligence",
+        "AI & Automation",
+        "Cloud & DevOps",
+        "CRM & Lead Solutions"
+      ],
+      ctaText: "Explore Industry →"
+    },
+    {
+      name: "Education",
+      icon: GraduationCap,
+      desc: "Engaging digital learning platforms, institutional portals, and streamlined student admission systems.",
+      image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "Web Development",
+        "Mobile App Development",
+        "CRM & Lead Solutions",
+        "AI & Automation",
+        "Digital Marketing"
+      ],
+      ctaText: "Explore Industry →"
+    },
+    {
+      name: "Hospitality",
+      icon: Luggage,
+      desc: "Seamless reservation systems, personalized guest communication, and digital loyalty platforms.",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "Web Development",
+        "Mobile App Development",
+        "CRM & Lead Solutions",
+        "Digital Marketing",
+        "AI & Automation"
+      ],
+      ctaText: "Explore Industry →"
+    },
+    {
+      name: "Professional Services",
+      icon: Users,
+      desc: "Refined digital presence, automated client intake, and integrated practice management platforms.",
+      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "Web Development",
+        "CRM & Lead Solutions",
+        "Digital Transformation",
+        "Data & Business Intelligence",
+        "Digital Marketing"
+      ],
+      ctaText: "Explore Industry →"
     },
     {
       name: "Technology & Startups",
       icon: Rocket,
-      desc: "Rapid full-stack MVP prototyping, high-concurrency cloud scaling, and automated telemetry pipelines.",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80",
-      tags: ["Full-Stack Engineering", "Cloud DevOps", "SaaS Architecture", "Growth Engines"],
-      ctaText: "Explore Startup Solutions"
+      desc: "Rapid full-stack engineering, scalable cloud architectures, and intelligent digital automation.",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "Web Development",
+        "Mobile App Development",
+        "AI & Automation",
+        "Cloud & DevOps",
+        "Digital Transformation"
+      ],
+      ctaText: "Explore Industry →"
     }
   ];
 
@@ -689,33 +740,55 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          3. INDUSTRIES (Side-By-Side Split Grid & Live Preview Panel)
+          3. INDUSTRIES (Interactive Editorial Showcase)
           ═════════════════════════════════════════════ */}
       <section 
         id="industries-section"
-        style={{ 
-          background: '#FFFFFF', 
-          borderBottom: '1px solid #E1E8E5',
-          padding: 'clamp(4.5rem, 6.5vw, 6rem) 0'
-        }}
+        className="industries-editorial-section"
+        aria-label="Industries We Serve"
       >
-        <div className="container">
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '3rem' }}>
+        {/* Dynamic Full-Section Background Images with Smooth Crossfade & Scale */}
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
+          {industries.map((ind, idx) => {
+            const isVisible = displayIndustry === idx;
+            return (
+              <img
+                key={ind.name}
+                src={ind.image}
+                alt={ind.name}
+                className="industries-bg-layer"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'scale(1)' : 'scale(1.05)',
+                  visibility: isVisible ? 'visible' : 'hidden',
+                  transition: 'opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 850ms cubic-bezier(0.16, 1, 0.3, 1), visibility 600ms'
+                }}
+                loading={idx === 0 ? 'eager' : 'lazy'}
+              />
+            );
+          })}
+          {/* Subtle Dark Editorial Overlay */}
+          <div className="industries-overlay" />
+        </div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          {/* Section Heading */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '2rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-                <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
+                <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
+                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
                   INDUSTRIES
                 </span>
               </div>
               
               <h2 
                 style={{ 
-                  fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
+                  fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', 
                   fontWeight: 800, 
                   letterSpacing: '-0.03em', 
                   lineHeight: 1.15, 
-                  color: '#080607',
+                  color: '#FFFFFF',
                   margin: 0
                 }}
               >
@@ -723,189 +796,121 @@ export default function HomePage() {
               </h2>
             </div>
 
-            <p style={{ fontSize: '0.95rem', color: '#3F5565', lineHeight: 1.5, margin: 0, maxWidth: '420px' }}>
-              Every industry has different challenges. Our solutions adapt to the way your business works.
+            <p style={{ fontSize: '1rem', color: 'rgba(255, 255, 255, 0.75)', lineHeight: 1.6, margin: 0, maxWidth: '440px' }}>
+              Every industry has different challenges. MaxR brings together digital solutions, technology and automation to support different business needs.
             </p>
           </div>
 
-          {/* 2×4 Split Grid and Preview */}
-          <div 
-            style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-              gap: 'clamp(1.5rem, 3vw, 2.5rem)',
-              alignItems: 'stretch'
-            }}
-          >
-            {/* Left 8 Pills */}
+          {/* Interactive Editorial Showcase (Grid + In-Place Details) */}
+          <div className="industries-showcase-grid">
+            {/* Left: Clean Editorial Multi-Column Navigation */}
             <div 
-              style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(2, 1fr)', 
-                gap: '12px' 
-              }}
+              className="industries-nav-grid" 
+              role="tablist" 
+              aria-label="Industry Categories"
             >
               {industries.map((ind, idx) => {
                 const isSelected = activeIndustry === idx;
-                const IconComp = ind.icon;
+                const isCurrentDisplay = displayIndustry === idx;
+
                 return (
                   <button
                     key={ind.name}
-                    onClick={() => setActiveIndustry(idx)}
-                    style={{
-                      background: isSelected ? '#e6f9f4' : '#FFFFFF',
-                      border: isSelected ? '1.5px solid #54CFB0' : '1px solid #E1E8E5',
-                      borderRadius: '8px',
-                      padding: '1.15rem 1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      transition: 'all 0.2s ease',
-                      boxShadow: isSelected ? '0 4px 12px rgba(84, 207, 176, 0.15)' : 'none'
+                    role="tab"
+                    id={`industry-tab-${idx}`}
+                    aria-selected={isSelected}
+                    aria-controls="industry-details-panel"
+                    tabIndex={0}
+                    className={`industry-nav-item ${isCurrentDisplay ? 'is-active' : ''}`}
+                    onClick={() => {
+                      setActiveIndustry(idx);
+                      setHoveredIndustry(null);
                     }}
-                    onMouseEnter={(e) => {
-                      if (!isSelected) {
-                        e.currentTarget.style.borderColor = '#54CFB0';
-                        e.currentTarget.style.background = '#F5F8F7';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isSelected) {
-                        e.currentTarget.style.borderColor = '#E1E8E5';
-                        e.currentTarget.style.background = '#FFFFFF';
+                    onMouseEnter={() => setHoveredIndustry(idx)}
+                    onMouseLeave={() => setHoveredIndustry(null)}
+                    onFocus={() => setHoveredIndustry(idx)}
+                    onBlur={() => setHoveredIndustry(null)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setActiveIndustry(idx);
+                        setHoveredIndustry(null);
+                      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextIdx = (idx + 1) % industries.length;
+                        setActiveIndustry(nextIdx);
+                        setHoveredIndustry(null);
+                        const nextBtn = document.getElementById(`industry-tab-${nextIdx}`);
+                        if (nextBtn) nextBtn.focus();
+                      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevIdx = (idx - 1 + industries.length) % industries.length;
+                        setActiveIndustry(prevIdx);
+                        setHoveredIndustry(null);
+                        const prevBtn = document.getElementById(`industry-tab-${prevIdx}`);
+                        if (prevBtn) prevBtn.focus();
                       }
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <IconComp size={18} color={isSelected ? '#0f766e' : '#080607'} strokeWidth={2} />
-                      <span style={{ fontSize: '0.925rem', fontWeight: isSelected ? 800 : 700, color: '#080607' }}>
-                        {ind.name}
-                      </span>
-                    </div>
+                    <span className="industry-nav-title">
+                      {ind.name}
+                    </span>
 
-                    <ArrowRight size={14} color={isSelected ? '#0f766e' : '#94a3b8'} />
+                    <div className="industry-nav-meta">
+                      <span className="industry-nav-dot" />
+                      <ArrowUpRight className="industry-nav-arrow" size={16} />
+                    </div>
                   </button>
                 );
               })}
             </div>
 
-            {/* Right Preview Panel */}
+            {/* Right: Selected Industry In-Place Content Panel */}
             <div 
-              style={{ 
-                position: 'relative', 
-                borderRadius: '16px', 
-                overflow: 'hidden', 
-                minHeight: 'clamp(440px, 50vh, 520px)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-                padding: 'clamp(2rem, 3.5vw, 3rem)',
-                boxShadow: '0 16px 40px rgba(8, 6, 7, 0.12)'
-              }}
+              id="industry-details-panel" 
+              role="tabpanel"
+              aria-labelledby={`industry-tab-${activeIndustry}`}
+              className="industries-details-panel"
             >
-              <img 
-                src={industries[activeIndustry].image} 
-                alt={industries[activeIndustry].name} 
-                style={{ 
-                  position: 'absolute', 
-                  inset: 0, 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'cover', 
-                  zIndex: 0,
-                  transition: 'opacity 0.4s ease'
-                }} 
-              />
-
-              <div 
-                style={{ 
-                  position: 'absolute', 
-                  inset: 0, 
-                  background: 'linear-gradient(180deg, rgba(8,6,7,0.15) 0%, rgba(8,6,7,0.7) 40%, rgba(8,6,7,0.94) 100%)',
-                  zIndex: 1 
-                }} 
-              />
-
-              <div style={{ position: 'relative', zIndex: 2 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-                  <span style={{ width: '14px', height: '2px', background: '#54CFB0' }} />
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
-                    INDUSTRY
-                  </span>
+              <div key={displayIndustry} className="industries-details-content">
+                <div className="industry-detail-eyebrow">
+                  <span style={{ width: '12px', height: '2px', background: '#54CFB0' }} />
+                  <span>SECTOR 0{displayIndustry + 1}</span>
                 </div>
 
-                <h3 
-                  style={{ 
-                    fontSize: 'clamp(1.85rem, 2.6vw, 2.4rem)', 
-                    fontWeight: 800, 
-                    color: '#FFFFFF', 
-                    letterSpacing: '-0.025em', 
-                    lineHeight: 1.15,
-                    margin: '0 0 0.85rem 0' 
-                  }}
-                >
-                  {industries[activeIndustry].name}
+                <h3 className="industry-detail-title">
+                  {industries[displayIndustry].name.toUpperCase()}
                 </h3>
 
-                <p 
-                  style={{ 
-                    fontSize: '0.95rem', 
-                    color: 'rgba(255, 255, 255, 0.9)', 
-                    lineHeight: 1.55, 
-                    maxWidth: '540px',
-                    margin: '0 0 1.5rem 0' 
-                  }}
-                >
-                  {industries[activeIndustry].desc}
+                <p className="industry-detail-desc">
+                  {industries[displayIndustry].desc}
                 </p>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '1.75rem' }}>
-                  {industries[activeIndustry].tags.map((tag, tIdx) => (
-                    <span 
-                      key={tIdx}
-                      style={{ 
-                        fontSize: '0.8rem', 
-                        fontWeight: 600, 
-                        color: '#FFFFFF', 
-                        background: 'rgba(8, 6, 7, 0.65)', 
-                        backdropFilter: 'blur(8px)', 
-                        border: '1px solid rgba(255, 255, 255, 0.22)', 
-                        padding: '6px 12px', 
-                        borderRadius: '6px',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px'
-                      }}
-                    >
-                      <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#54CFB0' }} />
-                      {tag}
-                    </span>
-                  ))}
+                <div>
+                  <span className="industry-capabilities-label">Relevant capabilities:</span>
+                  <div className="industry-capabilities-tags">
+                    {industries[displayIndustry].capabilities.map((cap, cIdx) => (
+                      <span 
+                        key={cIdx} 
+                        className="industry-cap-tag"
+                        style={{ animationDelay: `${cIdx * 50}ms` }}
+                      >
+                        <span className="industry-cap-dot" />
+                        {cap}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-
-                <Link
-                  to="/industries"
-                  style={{
-                    background: '#54CFB0',
-                    color: '#080607',
-                    padding: '0.85rem 1.65rem',
-                    borderRadius: '8px',
-                    fontWeight: 700,
-                    fontSize: '0.925rem',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    textDecoration: 'none',
-                    boxShadow: '0 4px 14px rgba(84, 207, 176, 0.3)',
-                    transition: 'all 0.2s ease'
-                  }}
-                >
-                  <span>{industries[activeIndustry].ctaText}</span>
-                  <ArrowRight size={16} />
-                </Link>
               </div>
+
+              <Link
+                to="/industries"
+                className="industry-cta-btn"
+                aria-label={`Explore ${industries[displayIndustry].name} Industry solutions`}
+              >
+                <span>Explore Industry</span>
+                <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </div>
