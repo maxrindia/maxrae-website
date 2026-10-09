@@ -1212,31 +1212,6 @@ export default function HomePage() {
                       ))}
                     </ul>
                   </div>
-
-                  {/* Watch Success Story CTA Button */}
-                  <div style={{ marginTop: 'auto', borderTop: '1px solid #F5F8F7', paddingTop: '1rem' }}>
-                    <button
-                      onClick={() => setPlayingVideo(story.id)}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        color: '#0f766e',
-                        fontWeight: 700,
-                        fontSize: '0.9rem',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        padding: 0
-                      }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#0f766e'}
-                    >
-                      <span>Watch Success Story</span>
-                      <ArrowRight size={14} />
-                    </button>
-                  </div>
-
                 </div>
               </div>
             ))}

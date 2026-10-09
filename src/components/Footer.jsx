@@ -277,12 +277,12 @@ export default function Footer() {
               <span>Connect With MaxR</span>
             </h3>
 
-            {/* Social Logos Only (Exact Real Brand Colorful Icons) */}
+            {/* Social Logos in 2 Columns x 3 Rows */}
             <div 
               style={{ 
-                display: 'flex', 
-                flexWrap: 'wrap', 
-                gap: '12px',
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(2, 38px)', 
+                gap: '10px',
                 alignItems: 'center'
               }}
             >
@@ -295,26 +295,26 @@ export default function Footer() {
                   aria-label={item.name}
                   title={item.name}
                   style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '10px',
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '8px',
                     background: item.bg,
                     color: item.color,
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     textDecoration: 'none',
-                    boxShadow: '0 3px 10px rgba(0, 0, 0, 0.12)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.12)',
                     transition: 'all 0.22s ease',
                     flexShrink: 0
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-3px) scale(1.06)';
-                    e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.2)';
+                    e.currentTarget.style.transform = 'translateY(-2px) scale(1.06)';
+                    e.currentTarget.style.boxShadow = '0 5px 14px rgba(0, 0, 0, 0.2)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.12)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.12)';
                   }}
                 >
                   {item.iconSvg}
