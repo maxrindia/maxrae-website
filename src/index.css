@@ -2622,6 +2622,53 @@ ul, ol {
   box-shadow: 0 16px 36px rgba(8, 6, 7, 0.07);
 }
 
+/* ── Services Page Luxury Brand Styles & Animations ── */
+.service-card-premium {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1.5px solid #E2E8F0;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(8, 6, 7, 0.03);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card-premium:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 187, 167, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 187, 167, 0.12);
+}
+
+.service-card-premium:hover .service-img-zoom {
+  transform: scale(1.05);
+}
+
+.service-img-zoom {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-tech-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 6px;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+  font-size: 0.775rem;
+  font-weight: 650;
+  transition: all 0.2s ease;
+}
+
+.service-card-premium:hover .service-tech-chip {
+  background: rgba(0, 187, 167, 0.06);
+  border-color: rgba(0, 187, 167, 0.2);
+  color: #008779;
+}
+
+
 
 
 

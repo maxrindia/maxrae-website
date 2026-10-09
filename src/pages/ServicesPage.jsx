@@ -1,238 +1,164 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Zap, 
   Bot,
   Smartphone,
-  Code2, 
-  Globe2, 
-  PhoneCall, 
-  ShieldCheck, 
-  CheckCircle2, 
-  ArrowRight, 
-  Clock, 
-  Layers, 
-  MessageSquare, 
   Workflow,
   Cpu,
-  Database,
-  Activity,
-  Sparkles,
   TrendingUp,
   ShoppingCart,
-  Sliders,
-  Search,
+  CheckCircle2, 
+  ArrowRight, 
+  ShieldCheck, 
+  Zap,
+  Award,
+  Layers,
   Terminal,
-  Play,
-  Volume2,
-  RefreshCw,
-  Send,
-  User,
-  Check,
-  Server,
-  BarChart3,
-  Flame,
-  Award
+  ExternalLink,
+  PhoneCall,
+  Activity,
+  Database,
+  Globe2,
+  Clock,
+  Sparkles
 } from 'lucide-react';
 
 export default function ServicesPage({ onOpenContact }) {
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // ── 1. Voice Agent / Chat Simulator State ──
-  const [chatMessages, setChatMessages] = useState([
-    { sender: 'user', text: 'Hi, I need a luxury 3-bedroom villa in Palm Jumeirah with sea view.' },
-    { sender: 'ai', text: 'Hello! We have 2 exclusive penthouses in Palm Jumeirah available for viewing. Would you prefer tomorrow at 3:00 PM or 5:30 PM with our senior broker?', action: 'Synced to HubSpot CRM • Calendar Slot Verified' }
-  ]);
-  const [isAiTyping, setIsAiTyping] = useState(false);
-  const [voiceActive, setVoiceActive] = useState(false);
+  const stats = [
+    { value: "< 450ms", label: "AI Voice Latency", sub: "Ultra-fast bilingual speech pipeline", tag: "Real-Time" },
+    { value: "99.9%", label: "Uptime Availability", sub: "Bank-grade enterprise cloud SLA", tag: "Guaranteed" },
+    { value: "< 7 Days", label: "Sprint Deployment", sub: "From architecture to production release", tag: "Rapid Velocity" },
+    { value: "5× ROI", label: "Target Client Leverage", sub: "Deterministic operational ROI", tag: "Outcome First" }
+  ];
 
-  const simulateAiChat = (promptText, replyText, actionText) => {
-    setChatMessages((prev) => [...prev, { sender: 'user', text: promptText }]);
-    setIsAiTyping(true);
-    setVoiceActive(true);
-    setTimeout(() => {
-      setIsAiTyping(false);
-      setChatMessages((prev) => [
-        ...prev, 
-        { sender: 'ai', text: replyText, action: actionText }
-      ]);
-      setTimeout(() => setVoiceActive(false), 2000);
-    }, 900);
-  };
-
-  // ── 2. Device Viewport Switcher State ──
-  const [deviceMode, setDeviceMode] = useState('mobile'); // 'mobile' | 'web' | 'pwa'
-
-  // ── 3. CRM Lead Routing Pipeline Simulator State ──
-  const [pipelineStep, setPipelineStep] = useState(3);
-  const [isSimulatingLead, setIsSimulatingLead] = useState(false);
-
-  const runLeadSimulation = () => {
-    setIsSimulatingLead(true);
-    setPipelineStep(0);
-    setTimeout(() => setPipelineStep(1), 500);
-    setTimeout(() => setPipelineStep(2), 1100);
-    setTimeout(() => {
-      setPipelineStep(3);
-      setIsSimulatingLead(false);
-    }, 1800);
-  };
-
-  // ── 4. Cloud Telemetry Live Monitor State ──
-  const [cloudPing, setCloudPing] = useState(12.4);
-  const [testingCloud, setTestingCloud] = useState(false);
-
-  const triggerCloudTest = () => {
-    setTestingCloud(true);
-    setTimeout(() => {
-      setCloudPing((prev) => Number((10 + Math.random() * 4).toFixed(1)));
-      setTestingCloud(false);
-    }, 800);
-  };
-
-  // ── 5. E-Commerce Speed Checkout Simulator State ──
-  const [currency, setCurrency] = useState('AED');
-  const [checkoutTime, setCheckoutTime] = useState(null);
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-
-  const triggerCheckoutDemo = () => {
-    setIsCheckingOut(true);
-    setCheckoutTime(null);
-    const start = performance.now();
-    setTimeout(() => {
-      const end = performance.now();
-      setCheckoutTime(Math.round(end - start + 140)); // Realistic ~280ms
-      setIsCheckingOut(false);
-    }, 280);
-  };
-
-  // Services Master Catalog
   const services = [
     {
       id: "ai-automation",
       category: "ai",
       title: "AI Voice Agents & WhatsApp Automation",
-      subtitle: "Autonomous calling bots, WhatsApp lead engines & CRM workflows",
+      subtitle: "Autonomous Inbound/Outbound Telephony & Conversational CRM Bots",
       badge: "CORE AUTOMATION",
       badgeColor: "#00bba7",
-      icon: <Bot size={28} color="#00bba7" />,
-      heroImage: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=80",
-      tagline: "Replace repetitive manual follow-ups with 24/7 intelligent voice and conversational chat bots.",
-      description: "We engineer conversational AI voice bots and workflow automation pipelines tailored to UAE and global enterprise standards. Handle customer inquiries with under 500ms latency, automate appointment bookings, qualify incoming prospects, and synchronize records directly with your CRM.",
-      capabilities: [
-        "Human-like AI Voice Agents for inbound and outbound calling (< 450ms latency)",
-        "Official Meta WhatsApp Business API automations with automated booking",
-        "Two-way bi-directional CRM integration (HubSpot, Salesforce, Zoho, Pipedrive)",
-        "Intelligent multi-lingual capabilities (English, Arabic, Hindi, Russian)",
-        "Automated calendar booking and dynamic SMS/email confirmation loops"
+      metricPill: "⚡ Sub-450ms Voice Latency",
+      icon: Bot,
+      image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=80",
+      description: "Replace repetitive manual follow-ups with 24/7 autonomous voice and WhatsApp assistants. Engineered for the GCC and international markets with natural Arabic and English voice synthesis, sub-450ms response latency, and direct bi-directional CRM booking synchronization.",
+      deliverables: [
+        "Inbound & outbound voice agents trained on your specific service catalog",
+        "Official Meta WhatsApp Business API integration with automated workflows",
+        "Direct calendar slot reservation & instant SMS/Email confirmation dispatch",
+        "Two-way bi-directional synchronization with HubSpot, Salesforce & Zoho",
+        "HIPAA & enterprise privacy compliance with zero data retention option"
       ],
-      result: "Live in under 7 days · 0 missed calls · 24/7 autonomous intake",
-      demoType: "chat-simulator"
+      techStack: ["WebRTC Streaming", "Meta WhatsApp API", "Twilio / SIP", "HubSpot / Zoho", "OpenAI / Anthropic"],
+      outcome: "Zero missed inquiries · 70% reduction in appointment no-shows · Live in < 7 days"
     },
     {
       id: "web-mobile-apps",
       category: "apps",
       title: "Web & Mobile Application Engineering",
-      subtitle: "iOS, Android, React, Next.js & enterprise full-stack portals",
-      badge: "CROSS-PLATFORM ENGINEERING",
+      subtitle: "Native iOS, Android, Next.js & Full-Stack Cloud Platforms",
+      badge: "CROSS-PLATFORM APPS",
       badgeColor: "#3b82f6",
-      icon: <Smartphone size={28} color="#3b82f6" />,
-      heroImage: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80",
-      tagline: "Engineered for 60fps native performance, intuitive UI/UX, and maximum user retention.",
-      description: "From consumer-facing iOS & Android mobile apps to high-throughput enterprise SaaS portals, we build modern applications using React, Next.js, Flutter, and Node.js. Our architectures prioritize lightning-fast load times, offline availability, and intuitive interfaces.",
-      capabilities: [
-        "Native and cross-platform mobile apps for iOS and Android (Flutter & React Native)",
-        "Enterprise Next.js 14/15 web applications with server-side rendering (SSR)",
-        "Progressive Web Apps (PWAs) with offline sync and push notifications",
-        "Design systems, Figma wireframing and pixel-perfect high-converting UI/UX",
-        "Scalable GraphQL & RESTful API backends with robust database indexing"
+      metricPill: "📱 60 FPS Native Smoothness",
+      icon: Smartphone,
+      image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80",
+      description: "From high-conversion consumer mobile applications to complex internal enterprise web portals, we architect digital products built for lightning-fast speeds, offline capabilities, and frictionless user experiences that maximize customer retention.",
+      deliverables: [
+        "Native & cross-platform iOS and Android mobile apps using Flutter and React Native",
+        "Enterprise Next.js and React web applications with Server-Side Rendering (SSR)",
+        "Progressive Web Apps (PWAs) with background offline sync and push notifications",
+        "Comprehensive Figma UI/UX design systems and conversion-focused wireframing",
+        "Scalable RESTful & GraphQL API microservices with sub-5ms query optimization"
       ],
-      result: "99/100 Lighthouse performance · 60 FPS native smoothness · Sub-second FCP",
-      demoType: "device-simulator"
+      techStack: ["React / Next.js", "Flutter", "React Native", "Node.js / Express", "PostgreSQL / Redis"],
+      outcome: "99/100 Lighthouse performance · Sub-second page loads · 60 FPS native interaction"
     },
     {
       id: "crm-lead-solutions",
       category: "crm",
       title: "CRM & Automated Lead Routing Engines",
-      subtitle: "Real-time lead qualification, instant routing & pipeline automation",
+      subtitle: "Instant Multi-Channel Intake, AI Qualification & Pipeline Automation",
       badge: "SALES VELOCITY",
       badgeColor: "#8b5cf6",
-      icon: <Workflow size={28} color="#8b5cf6" />,
-      heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-      tagline: "Convert inbound inquiries into booked client consultations within 60 seconds.",
-      description: "Stop losing valuable prospects to slow manual responses. We build automated lead intake pipelines that capture inquiries from web forms, WhatsApp, and paid ads, automatically score them by intent and budget, and route them to the right sales executive with instant alerts.",
-      capabilities: [
-        "Sub-60-second automated response loops for all web and social inquiries",
-        "AI-powered lead enrichment and budget/intent qualification scoring",
-        "Automated round-robin distribution to specialized account managers",
-        "Full pipeline visibility dashboards for C-suite and sales directors",
-        "Automated follow-up drip sequences across WhatsApp, Email and SMS"
+      metricPill: "🚀 Sub-60s Lead Response",
+      icon: Workflow,
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      description: "Stop bleeding ad spend to slow manual responses. MaxR builds automated speed-to-lead pipelines that capture inquiries from web forms, WhatsApp, and paid campaigns, qualify intent and budget instantly, and route pre-vetted leads to your top sales executives within 60 seconds.",
+      deliverables: [
+        "Sub-60-second automated response loops for all web, social, and ad inquiries",
+        "AI-powered prospect qualification scoring by intent, budget, and timeline",
+        "Automated round-robin distribution to specialized account executives",
+        "Automated multi-channel nurturing drip funnels across WhatsApp, Email & SMS",
+        "Real-time pipeline analytics and C-suite conversion telemetry dashboards"
       ],
-      result: "42s average response time · +340% increase in lead-to-meeting conversions",
-      demoType: "crm-simulator"
+      techStack: ["HubSpot Enterprise", "Salesforce", "Zoho CRM", "n8n / Make", "Webhook Webhooks"],
+      outcome: "Average lead response under 45 seconds · +340% increase in booked sales calls"
     },
     {
       id: "cloud-saas-architecture",
       category: "cloud",
-      title: "Custom SaaS & Enterprise Cloud Architecture",
-      subtitle: "Cloud-native infrastructure, microservices & 99.99% high availability",
+      title: "Enterprise Cloud & SaaS Architecture",
+      subtitle: "High-Availability Multi-Tenant Systems, Microservices & CI/CD",
       badge: "ENTERPRISE CLOUD",
       badgeColor: "#059669",
-      icon: <Cpu size={28} color="#059669" />,
-      heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-      tagline: "Bespoke digital architecture built to solve complex operational bottlenecks without vendor lock-in.",
-      description: "When off-the-shelf software falls short, we design custom SaaS platforms and cloud infrastructure. We implement secure multi-tenant architectures, optimize database query engines, and deploy modern CI/CD automation on AWS, GCP, and Azure.",
-      capabilities: [
-        "End-to-end bespoke SaaS product engineering from MVP to enterprise scale",
-        "Microservices architecture, Docker containerization & Kubernetes orchestration",
-        "Automated CI/CD deployment pipelines with zero-downtime rolling updates",
-        "Database clustering, read-replica scaling, and sub-3ms query optimization",
-        "Rigorous SOC2-ready security hardening, end-to-end encryption & RBAC"
+      metricPill: "☁️ 99.99% Availability SLA",
+      icon: Cpu,
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+      description: "When off-the-shelf software cannot meet your operational scale, we engineer custom SaaS platforms and dedicated cloud infrastructure. We implement secure multi-tenant architectures, database clustering, and automated CI/CD pipelines without costly vendor lock-in.",
+      deliverables: [
+        "Custom SaaS product architecture engineered from initial MVP to enterprise scale",
+        "Docker containerization, Kubernetes orchestration, and serverless compute",
+        "Zero-downtime rolling deployment pipelines with automated regression testing",
+        "Database clustering, read-replica scaling, and high-throughput Redis caching",
+        "Enterprise security hardening, role-based access control (RBAC), and encryption"
       ],
-      result: "99.995% uptime SLA · 12ms API latency · Zero vendor lock-in",
-      demoType: "cloud-simulator"
+      techStack: ["AWS / Azure / GCP", "Docker / K8s", "PostgreSQL", "Redis Caching", "Terraform / CI/CD"],
+      outcome: "99.99% uptime availability · 12ms average API latency · Zero vendor lock-in"
     },
     {
       id: "digital-marketing-seo",
       category: "growth",
       title: "Digital Marketing, SEO & Performance Growth",
-      subtitle: "Technical SEO, Google & Meta performance ad funnels & brand authority",
+      subtitle: "High-Intent Search Authority, Paid Acquisition Funnels & CRO",
       badge: "REVENUE GROWTH",
       badgeColor: "#f59e0b",
-      icon: <TrendingUp size={28} color="#f59e0b" />,
-      heroImage: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=80",
-      tagline: "Precision digital infrastructure designed to build market dominance and drive qualified revenue.",
-      description: "We combine technical engineering with commercial marketing rigor. Our team optimizes your core web vitals for top search rankings, crafts high-converting landing pages, and runs ROI-focused performance campaigns across Google Search, Meta, and LinkedIn.",
-      capabilities: [
-        "Technical SEO auditing, structured schema markup, and high-intent keyword dominance",
+      metricPill: "📈 4.8× Average Ad ROAS",
+      icon: TrendingUp,
+      image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=1200&q=80",
+      description: "We merge software engineering rigor with commercial marketing strategy. MaxR optimizes technical core web vitals for search dominance, builds high-converting landing pages, and runs ROI-focused performance campaigns across Google Search, Meta, and LinkedIn.",
+      deliverables: [
+        "Technical SEO optimization, schema markup architecture, and search dominance",
         "High-conversion Landing Page optimization (CRO) with A/B split testing",
-        "Targeted Google Search, Display, and Performance Max ad management",
-        "Meta & LinkedIn precision B2B and B2C acquisition funnels",
-        "Executive analytics dashboards with full multi-touch attribution modeling"
+        "Precision Google Search, Display, and Performance Max campaign management",
+        "Targeted Meta & LinkedIn B2B/B2C client acquisition funnels",
+        "Multi-touch attribution reporting and executive ROI revenue dashboards"
       ],
-      result: "#1 Google rankings in competitive UAE niches · 4.8x average ad ROAS",
-      demoType: "seo-simulator"
+      techStack: ["Google Ads / PMax", "Meta Ads Manager", "Google Analytics 4", "Semrush / Ahrefs", "HubSpot Ads"],
+      outcome: "#1 organic rankings in competitive UAE niches · 4.8× average verified ROAS"
     },
     {
       id: "headless-ecommerce",
       category: "commerce",
-      title: "Headless E-Commerce & Omnichannel Platforms",
-      subtitle: "Next-gen Shopify Plus, sub-second checkout & ERP inventory sync",
+      title: "Headless E-Commerce & Retail Platforms",
+      subtitle: "Next-Gen Shopify Plus, Sub-Second Checkout & ERP Inventory Sync",
       badge: "MODERN COMMERCE",
       badgeColor: "#ec4899",
-      icon: <ShoppingCart size={28} color="#ec4899" />,
-      heroImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
-      tagline: "Ultra-fast digital commerce storefronts engineered for high transaction volume and zero cart abandonment.",
-      description: "Upgrade legacy, slow e-commerce stores to decoupled headless architectures. We build lightning-fast web storefronts powered by Shopify Plus, Medusa, and custom microservices with automated ERP inventory synchronization across GCC and international fulfillment hubs.",
-      capabilities: [
+      metricPill: "🛒 280ms Checkout Latency",
+      icon: ShoppingCart,
+      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
+      description: "Transform sluggish e-commerce stores into blazing-fast headless digital commerce platforms. We build decoupled storefronts powered by Shopify Plus, Medusa, and custom microservices with automated ERP inventory synchronization across GCC and international fulfillment hubs.",
+      deliverables: [
         "Headless e-commerce web storefronts with sub-second page transitions",
-        "Multi-currency, localized GCC payment gateways (Apple Pay, Tabby, Tamara, Stripe)",
-        "Real-time ERP warehouse inventory sync and automated order dispatching",
-        "Custom checkout optimization algorithms designed to cut cart drop-off by 40%",
-        "Personalized product recommendation engines powered by lightweight AI"
+        "Native integration with localized GCC payment gateways (Apple Pay, Tabby, Tamara)",
+        "Real-time ERP warehouse inventory synchronization and automated dispatching",
+        "Checkout friction reduction algorithms designed to cut cart abandonment by 40%",
+        "Lightweight AI product recommendation engines that increase average order value"
       ],
-      result: "280ms checkout latency · +48% mobile checkout conversion lift",
-      demoType: "ecommerce-simulator"
+      techStack: ["Shopify Plus", "Next.js Commerce", "Stripe / Tabby / Tamara", "Medusa.js", "Custom ERP Sync"],
+      outcome: "280ms checkout latency · +48% mobile checkout conversion lift"
     }
   ];
 
@@ -240,751 +166,586 @@ export default function ServicesPage({ onOpenContact }) {
     ? services 
     : services.filter(s => s.category === activeFilter);
 
+  const filterTabs = [
+    { id: 'all', label: 'All Solutions (6)' },
+    { id: 'ai', label: 'AI & Voice Agents' },
+    { id: 'apps', label: 'App Development' },
+    { id: 'crm', label: 'CRM & Lead Engines' },
+    { id: 'cloud', label: 'Cloud & SaaS' },
+    { id: 'growth', label: 'Marketing & SEO' },
+    { id: 'commerce', label: 'Headless E-Commerce' }
+  ];
+
   return (
-    <div className="services-page" style={{ padding: 'clamp(2.5rem, 5vw, 4.5rem) 0 5.5rem', background: '#F5F8F7' }}>
+    <div className="services-page" style={{ padding: 'clamp(2.5rem, 5vw, 4rem) 0 5.5rem', background: '#F5F8F7' }}>
       <div className="container">
         
-        {/* ── Page Hero ── */}
-        <div style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto clamp(2.5rem, 5vw, 4rem)' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
-            <span style={{ width: '22px', height: '2px', background: '#00bba7' }} />
-            <span style={{ fontSize: '0.825rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#00bba7' }}>
-              WHAT WE DO & LIVE DEMOS
-            </span>
+        {/* ── 1. HERO SECTION ── */}
+        <div style={{ textAlign: 'center', maxWidth: '860px', margin: '0 auto clamp(2.5rem, 5vw, 4rem)' }}>
+          <div className="about-hero-badge">
+            <span className="about-pulse-dot" />
+            <span>Enterprise Engineering & Automation Solutions</span>
           </div>
 
           <h1 
             style={{ 
-              fontSize: 'clamp(2.4rem, 4.8vw, 3.8rem)', 
+              fontFamily: "'Space Grotesk', -apple-system, sans-serif", 
+              fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)', 
               fontWeight: 900, 
               color: '#080607', 
-              letterSpacing: '-0.035em',
-              lineHeight: 1.1,
+              letterSpacing: '-0.035em', 
+              lineHeight: 1.12, 
               marginTop: 0, 
-              marginBottom: '1rem',
-              fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+              marginBottom: '1.25rem' 
             }}
           >
-            Engineering & Automation Built for <br />
+            End-to-End Technology Architecture.<br />
             <span style={{ 
               background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               display: 'inline-block'
             }}>
-              Real Business Acceleration.
+              Engineered for Real Business Impact.
             </span>
           </h1>
 
-          <p style={{ fontSize: 'clamp(1rem, 1.25vw, 1.15rem)', color: '#3F5565', lineHeight: 1.65, margin: '0 auto 2.25rem', maxWidth: '680px' }}>
-            Explore our core capabilities below. Each service features an <strong>interactive live simulation</strong> so you can experience how MaxR technology works in real-time.
+          <p style={{ fontSize: 'clamp(1.05rem, 1.3vw, 1.18rem)', color: '#3F5565', lineHeight: 1.65, maxWidth: '720px', margin: '0 auto' }}>
+            From autonomous AI voice agents and custom enterprise platforms to automated lead routing and high-performance cloud systems, MaxR builds digital infrastructure that delivers measurable operational leverage.
           </p>
-
-          {/* Service Category Filter Pills */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            {[
-              { id: 'all', label: 'All Services (6)' },
-              { id: 'ai', label: 'AI & Voice Agents' },
-              { id: 'apps', label: 'App Development' },
-              { id: 'crm', label: 'CRM & Leads' },
-              { id: 'cloud', label: 'Cloud Architecture' },
-              { id: 'growth', label: 'Digital Marketing & SEO' },
-              { id: 'commerce', label: 'Headless E-Commerce' }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveFilter(tab.id)}
-                style={{
-                  background: activeFilter === tab.id ? '#080607' : '#FFFFFF',
-                  color: activeFilter === tab.id ? '#54CFB0' : '#475569',
-                  border: `1.5px solid ${activeFilter === tab.id ? '#080607' : '#E2E8F0'}`,
-                  borderRadius: '999px',
-                  padding: '7px 16px',
-                  fontSize: '0.85rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: activeFilter === tab.id ? '0 4px 12px rgba(8,6,7,0.15)' : 'none'
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
         </div>
 
-        {/* ── Services Cards with Interactive Live Demos ── */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-          {filteredServices.map((service, index) => (
-            <div 
-              key={service.id}
-              id={service.id}
-              style={{
-                background: '#FFFFFF',
-                borderRadius: '20px',
-                border: '1.5px solid #E1E8E5',
-                overflow: 'hidden',
-                boxShadow: '0 12px 40px rgba(8, 6, 7, 0.05)',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-                alignItems: 'stretch',
-                transition: 'border-color 0.25s ease'
-              }}
-            >
-              {/* ── Left Column: Service Details & Capabilities ── */}
-              <div style={{ padding: 'clamp(2rem, 3.5vw, 3rem)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                  {/* Category Badge & Live Pulse */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                    <span 
-                      style={{ 
-                        fontSize: '0.75rem', 
-                        fontWeight: 800, 
-                        textTransform: 'uppercase', 
-                        color: service.badgeColor, 
-                        background: `${service.badgeColor}15`,
-                        padding: '4px 10px',
-                        borderRadius: '6px',
-                        letterSpacing: '0.08em' 
-                      }}
-                    >
-                      {service.badge}
-                    </span>
-
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 700, color: '#059669' }}>
-                      <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 8px #10b981' }} />
-                      <span>LIVE DEMO READY</span>
-                    </div>
-                  </div>
-
-                  {/* Service Title */}
-                  <h2 
-                    style={{ 
-                      fontSize: 'clamp(1.6rem, 2.4vw, 2.1rem)', 
-                      fontWeight: 800, 
-                      color: '#080607', 
-                      margin: '0 0 0.5rem 0',
-                      letterSpacing: '-0.025em',
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      lineHeight: 1.2
-                    }}
-                  >
-                    {service.title}
-                  </h2>
-
-                  <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0f766e', marginBottom: '1rem', lineHeight: 1.4 }}>
-                    {service.subtitle}
-                  </p>
-
-                  <p style={{ color: '#3F5565', fontSize: '0.95rem', lineHeight: 1.65, marginBottom: '1.75rem' }}>
-                    {service.description}
-                  </p>
-
-                  {/* Capabilities List */}
-                  <div style={{ background: '#FAFBFB', borderRadius: '12px', padding: '1.25rem 1.4rem', border: '1px solid #E2E8F0', marginBottom: '1.75rem' }}>
-                    <span style={{ fontSize: '0.8rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#080607', display: 'block', marginBottom: '0.75rem' }}>
-                      Key Capabilities Delivered:
-                    </span>
-                    <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      {service.capabilities.map((cap, cidx) => (
-                        <li key={cidx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.875rem', color: '#334155', lineHeight: 1.45 }}>
-                          <CheckCircle2 size={15} color="#00bba7" style={{ flexShrink: 0, marginTop: '3px' }} />
-                          <span>{cap}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Bottom Result Pill & Action Button */}
-                <div>
-                  <div 
-                    style={{ 
-                      padding: '0.75rem 1rem', 
-                      background: '#ECFDF5', 
-                      border: '1px solid #A7F3D0', 
-                      borderRadius: '8px', 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: '8px', 
-                      marginBottom: '1.5rem' 
-                    }}
-                  >
-                    <Award size={16} color="#059669" />
-                    <span style={{ fontSize: '0.85rem', color: '#065f46', fontWeight: 700 }}>
-                      {service.result}
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-                    <button 
-                      onClick={onOpenContact} 
-                      style={{ 
-                        background: '#00bba7', 
-                        color: '#080607', 
-                        fontWeight: 800,
-                        fontSize: '0.925rem',
-                        padding: '0.85rem 1.75rem',
-                        borderRadius: '8px',
-                        border: 'none',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        boxShadow: '0 4px 14px rgba(0, 187, 167, 0.3)',
-                        transition: 'all 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 187, 167, 0.45)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 187, 167, 0.3)';
-                      }}
-                    >
-                      <span>Consult on {service.badge}</span>
-                      <ArrowRight size={16} />
-                    </button>
-
-                    <Link
-                      to="/contact"
-                      style={{
-                        color: '#080607',
-                        fontWeight: 700,
-                        fontSize: '0.9rem',
-                        textDecoration: 'none',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px'
-                      }}
-                    >
-                      <span>Get Scope & Pricing</span>
-                      <ArrowRight size={14} />
-                    </Link>
-                  </div>
-                </div>
+        {/* ── 2. STRATEGIC METRICS STRIP ── */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem', marginBottom: '3.5rem' }}>
+          {stats.map((s, idx) => (
+            <div key={idx} className="about-stat-card">
+              <span style={{ 
+                display: 'inline-block', 
+                fontSize: '0.7rem', 
+                fontWeight: 750, 
+                color: '#008779', 
+                background: 'rgba(0, 187, 167, 0.1)', 
+                padding: '3px 8px', 
+                borderRadius: '6px', 
+                marginBottom: '8px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>
+                {s.tag}
+              </span>
+              <div style={{ 
+                fontSize: 'clamp(2rem, 3vw, 2.5rem)', 
+                fontWeight: 900, 
+                color: '#080607', 
+                fontFamily: "'Space Grotesk', sans-serif",
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1
+              }}>
+                {s.value}
               </div>
-
-              {/* ── Right Column: Interactive Live Demo & Image Showcase ── */}
-              <div 
-                style={{ 
-                  background: '#080607', 
-                  borderLeft: '1px solid #E1E8E5',
-                  padding: 'clamp(1.75rem, 3vw, 2.5rem)', 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  justifyContent: 'center',
-                  position: 'relative'
-                }}
-              >
-                {/* ── LIVE DEMO 1: AI Voice & Chat Simulator ── */}
-                {service.demoType === 'chat-simulator' && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '0.85rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#00bba7', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#080607' }}>
-                          <Bot size={18} />
-                        </div>
-                        <div>
-                          <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#FFFFFF', display: 'block' }}>MaxR Autonomous Voice Bot</span>
-                          <span style={{ fontSize: '0.725rem', color: '#54CFB0' }}>● Sub-450ms Natural Voice Engine</span>
-                        </div>
-                      </div>
-                      {voiceActive && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-                          <span style={{ width: '3px', height: '14px', background: '#54CFB0', borderRadius: '2px', animation: 'pulse 0.5s infinite' }} />
-                          <span style={{ width: '3px', height: '22px', background: '#54CFB0', borderRadius: '2px', animation: 'pulse 0.7s infinite' }} />
-                          <span style={{ width: '3px', height: '10px', background: '#54CFB0', borderRadius: '2px', animation: 'pulse 0.4s infinite' }} />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Chat Bubble Window */}
-                    <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '12px', padding: '1rem', minHeight: '230px', maxHeight: '270px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                      {chatMessages.map((msg, mIdx) => (
-                        <div key={mIdx} style={{ alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start', maxWidth: '88%' }}>
-                          <div 
-                            style={{ 
-                              padding: '8px 12px', 
-                              borderRadius: msg.sender === 'user' ? '12px 12px 2px 12px' : '12px 12px 12px 2px',
-                              background: msg.sender === 'user' ? '#00bba7' : 'rgba(255,255,255,0.12)',
-                              color: msg.sender === 'user' ? '#080607' : '#FFFFFF',
-                              fontSize: '0.85rem',
-                              lineHeight: 1.45,
-                              fontWeight: msg.sender === 'user' ? 650 : 400
-                            }}
-                          >
-                            {msg.text}
-                          </div>
-                          {msg.action && (
-                            <div style={{ fontSize: '0.675rem', color: '#54CFB0', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                              <Check size={12} />
-                              <span>{msg.action}</span>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                      {isAiTyping && (
-                        <div style={{ alignSelf: 'flex-start', padding: '6px 12px', borderRadius: '8px', background: 'rgba(255,255,255,0.1)', color: '#54CFB0', fontSize: '0.75rem' }}>
-                          MaxR AI is typing & validating calendar...
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Interactive Prompt Taps */}
-                    <div>
-                      <span style={{ fontSize: '0.725rem', color: 'rgba(255,255,255,0.5)', display: 'block', marginBottom: '6px' }}>
-                        Click a prompt to test live automated bot response:
-                      </span>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                        <button
-                          onClick={() => simulateAiChat(
-                            "What are your WhatsApp AI bot setup timelines?",
-                            "Our WhatsApp & Voice AI engines go live in 5-7 business days, with fully trained bilingual models and live CRM synchronization.",
-                            "Timeline Verified: 5-7 Days • SLA Guaranteed"
-                          )}
-                          style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(84,207,176,0.3)', color: '#FFFFFF', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', cursor: 'pointer' }}
-                        >
-                          ⚡ "Setup Timelines?"
-                        </button>
-
-                        <button
-                          onClick={() => simulateAiChat(
-                            "Book an executive discovery session for Thursday 2 PM",
-                            "Perfect! I have reserved Thursday at 2:00 PM GST for you with our senior solutions engineer. An invite has been dispatched to your calendar.",
-                            "Slot Locked: Thursday 2:00 PM • Calendar Dispatched"
-                          )}
-                          style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(84,207,176,0.3)', color: '#FFFFFF', padding: '4px 10px', borderRadius: '6px', fontSize: '0.75rem', cursor: 'pointer' }}
-                        >
-                          📅 "Book Thursday 2 PM"
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* ── LIVE DEMO 2: Web & Mobile App Viewport Simulator ── */}
-                {service.demoType === 'device-simulator' && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '0.85rem' }}>
-                      <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#FFFFFF' }}>Interactive Multi-Device Preview</span>
-                      <div style={{ display: 'flex', gap: '6px' }}>
-                        {['mobile', 'web', 'pwa'].map(mode => (
-                          <button
-                            key={mode}
-                            onClick={() => setDeviceMode(mode)}
-                            style={{
-                              background: deviceMode === mode ? '#00bba7' : 'rgba(255,255,255,0.08)',
-                              color: deviceMode === mode ? '#080607' : '#FFFFFF',
-                              border: 'none',
-                              borderRadius: '6px',
-                              padding: '4px 8px',
-                              fontSize: '0.725rem',
-                              fontWeight: 700,
-                              cursor: 'pointer',
-                              textTransform: 'uppercase'
-                            }}
-                          >
-                            {mode}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Dynamic Viewport Container */}
-                    <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '12px', padding: '1.25rem', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center' }}>
-                      <img 
-                        src={service.heroImage} 
-                        alt="App Architecture Demo" 
-                        style={{ width: '100%', height: '140px', objectFit: 'cover', borderRadius: '8px', marginBottom: '1rem' }} 
-                      />
-
-                      {/* Scorecards */}
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
-                        <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '8px', padding: '8px 4px' }}>
-                          <span style={{ fontSize: '0.675rem', color: '#94a3b8', display: 'block' }}>Lighthouse</span>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#54CFB0' }}>99/100</span>
-                        </div>
-                        <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '8px', padding: '8px 4px' }}>
-                          <span style={{ fontSize: '0.675rem', color: '#94a3b8', display: 'block' }}>Frame Rate</span>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#54CFB0' }}>60 FPS</span>
-                        </div>
-                        <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '8px', padding: '8px 4px' }}>
-                          <span style={{ fontSize: '0.675rem', color: '#94a3b8', display: 'block' }}>FCP Speed</span>
-                          <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#54CFB0' }}>0.4s</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <CheckCircle2 size={14} color="#00bba7" />
-                      <span>Currently previewing: {deviceMode === 'mobile' ? 'iOS & Android Native Bundle' : deviceMode === 'web' ? 'Next.js 14 SSR Portal' : 'Progressive Web App'}</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* ── LIVE DEMO 3: CRM Lead Routing Velocity Simulator ── */}
-                {service.demoType === 'crm-simulator' && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '0.85rem' }}>
-                      <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#FFFFFF' }}>Live Lead Velocity Pipeline</span>
-                      <button
-                        onClick={runLeadSimulation}
-                        disabled={isSimulatingLead}
-                        style={{
-                          background: isSimulatingLead ? '#334155' : '#00bba7',
-                          color: '#080607',
-                          border: 'none',
-                          borderRadius: '6px',
-                          padding: '5px 10px',
-                          fontSize: '0.725rem',
-                          fontWeight: 800,
-                          cursor: isSimulatingLead ? 'not-allowed' : 'pointer'
-                        }}
-                      >
-                        {isSimulatingLead ? 'Simulating...' : '⚡ Test Inbound Lead'}
-                      </button>
-                    </div>
-
-                    {/* 4 Pipeline Stages */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      {[
-                        { title: '1. Inbound Capture (WhatsApp / Web)', detail: 'Lead: Sarah M. (Commercial Villa inquiry)', time: '0.0s' },
-                        { title: '2. AI Scoring & Intent Qualification', detail: 'Budget: AED 8.5M+ • High Intent (Score: 98/100)', time: '+0.2s' },
-                        { title: '3. CRM Routing & Auto Assignment', detail: 'Dispatched to Senior Advisor: Ahmed R.', time: '+0.4s' },
-                        { title: '4. Instant Confirmation & Calendar Link', detail: 'Automated WhatsApp welcome + Calendar slot sent', time: '+0.8s' }
-                      ].map((stage, sIdx) => {
-                        const isDone = pipelineStep >= sIdx;
-                        return (
-                          <div 
-                            key={sIdx}
-                            style={{
-                              padding: '8px 12px',
-                              borderRadius: '8px',
-                              background: isDone ? 'rgba(84, 207, 176, 0.12)' : 'rgba(255,255,255,0.04)',
-                              border: `1px solid ${isDone ? '#54CFB0' : 'rgba(255,255,255,0.08)'}`,
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'space-between',
-                              transition: 'all 0.3s ease'
-                            }}
-                          >
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                              <CheckCircle2 size={14} color={isDone ? '#54CFB0' : '#475569'} />
-                              <div>
-                                <span style={{ fontSize: '0.775rem', fontWeight: 700, color: isDone ? '#FFFFFF' : '#94a3b8', display: 'block' }}>
-                                  {stage.title}
-                                </span>
-                                <span style={{ fontSize: '0.7rem', color: isDone ? 'rgba(255,255,255,0.7)' : '#64748b' }}>
-                                  {stage.detail}
-                                </span>
-                              </div>
-                            </div>
-                            <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#54CFB0' }}>{stage.time}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {/* ── LIVE DEMO 4: Cloud Telemetry Console ── */}
-                {service.demoType === 'cloud-simulator' && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '0.85rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Terminal size={16} color="#00bba7" />
-                        <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#FFFFFF' }}>Telemetry Console (AWS / UAE)</span>
-                      </div>
-                      <button
-                        onClick={triggerCloudTest}
-                        disabled={testingCloud}
-                        style={{
-                          background: 'rgba(255,255,255,0.1)',
-                          border: '1px solid rgba(84,207,176,0.3)',
-                          color: '#54CFB0',
-                          padding: '4px 10px',
-                          borderRadius: '6px',
-                          fontSize: '0.725rem',
-                          fontWeight: 700,
-                          cursor: 'pointer'
-                        }}
-                      >
-                        {testingCloud ? 'Pinging...' : '⚡ Ping Nodes'}
-                      </button>
-                    </div>
-
-                    <div style={{ background: 'rgba(0,0,0,0.4)', borderRadius: '10px', padding: '1rem', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'monospace' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.75rem', color: '#94a3b8' }}>
-                        <span>Cluster: dxb-primary-mesh</span>
-                        <span style={{ color: '#54CFB0' }}>● Healthy</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.75rem', color: '#94a3b8' }}>
-                        <span>API Gateway Latency:</span>
-                        <span style={{ color: '#FFFFFF', fontWeight: 'bold' }}>{cloudPing} ms</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.75rem', color: '#94a3b8' }}>
-                        <span>PostgreSQL Read Replica:</span>
-                        <span style={{ color: '#FFFFFF', fontWeight: 'bold' }}>2.1 ms query time</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#94a3b8' }}>
-                        <span>Uptime Guarantee:</span>
-                        <span style={{ color: '#54CFB0', fontWeight: 'bold' }}>99.995% SLA</span>
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <div style={{ flex: 1, background: 'rgba(255,255,255,0.06)', borderRadius: '6px', padding: '6px', textAlign: 'center' }}>
-                        <span style={{ fontSize: '0.65rem', color: '#94a3b8', display: 'block' }}>Zero Lock-In</span>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#FFFFFF' }}>Open Architecture</span>
-                      </div>
-                      <div style={{ flex: 1, background: 'rgba(255,255,255,0.06)', borderRadius: '6px', padding: '6px', textAlign: 'center' }}>
-                        <span style={{ fontSize: '0.65rem', color: '#94a3b8', display: 'block' }}>Autoscaling</span>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#54CFB0' }}>100k+ Concurrent</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* ── LIVE DEMO 5: Digital Marketing & SEO SERP Simulator ── */}
-                {service.demoType === 'seo-simulator' && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '0.85rem' }}>
-                      <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#FFFFFF' }}>Google UAE Search Preview</span>
-                      <span style={{ fontSize: '0.725rem', color: '#54CFB0', fontWeight: 700 }}>Rank #1 Organic</span>
-                    </div>
-
-                    {/* Mock Google Result Card */}
-                    <div style={{ background: '#FFFFFF', borderRadius: '10px', padding: '1rem', color: '#080607', boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                        <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#00bba7' }} />
-                        <span style={{ fontSize: '0.725rem', color: '#475569' }}>maxr.ae › technology › dubai</span>
-                      </div>
-                      <h4 style={{ fontSize: '0.95rem', fontWeight: 750, color: '#1a0dab', margin: '0 0 4px 0', lineHeight: 1.25 }}>
-                        Enterprise AI Automation & Software Engineering in Dubai | MaxR
-                      </h4>
-                      <p style={{ fontSize: '0.775rem', color: '#4b5563', margin: 0, lineHeight: 1.4 }}>
-                        Accelerate business growth with autonomous AI voice bots, custom web development, and cloud CRM pipelines. Serving UAE & GCC enterprises.
-                      </p>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '6px', fontSize: '0.7rem', color: '#059669', fontWeight: 700 }}>
-                        <span>★★★★★ Rating: 5.0 · 40+ Enterprise Reviews</span>
-                      </div>
-                    </div>
-
-                    {/* Stats Metric Bar */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
-                      <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '8px', padding: '8px 10px' }}>
-                        <span style={{ fontSize: '0.675rem', color: '#94a3b8', display: 'block' }}>Search Volume</span>
-                        <span style={{ fontSize: '0.9rem', fontWeight: 900, color: '#54CFB0' }}>+240% Inbound Lift</span>
-                      </div>
-                      <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '8px', padding: '8px 10px' }}>
-                        <span style={{ fontSize: '0.675rem', color: '#94a3b8', display: 'block' }}>Average ROAS</span>
-                        <span style={{ fontSize: '0.9rem', fontWeight: 900, color: '#FFFFFF' }}>4.8x Meta & Google</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* ── LIVE DEMO 6: E-Commerce Sub-Second Speed Simulator ── */}
-                {service.demoType === 'ecommerce-simulator' && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '0.85rem' }}>
-                      <span style={{ fontSize: '0.875rem', fontWeight: 800, color: '#FFFFFF' }}>Instant Checkout Simulator</span>
-                      <div style={{ display: 'flex', gap: '4px' }}>
-                        {['AED', 'USD', 'SAR'].map(cur => (
-                          <button
-                            key={cur}
-                            onClick={() => setCurrency(cur)}
-                            style={{
-                              background: currency === cur ? '#00bba7' : 'rgba(255,255,255,0.08)',
-                              color: currency === cur ? '#080607' : '#FFFFFF',
-                              border: 'none',
-                              borderRadius: '4px',
-                              padding: '2px 6px',
-                              fontSize: '0.7rem',
-                              fontWeight: 700,
-                              cursor: 'pointer'
-                            }}
-                          >
-                            {cur}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Interactive Product Checkout Tile */}
-                    <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '10px', padding: '1rem', border: '1px solid rgba(255,255,255,0.1)' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                        <span style={{ fontSize: '0.825rem', color: '#FFFFFF', fontWeight: 700 }}>Enterprise Commerce SKU-99</span>
-                        <span style={{ fontSize: '0.85rem', color: '#54CFB0', fontWeight: 800 }}>{currency} 1,450.00</span>
-                      </div>
-
-                      <button
-                        onClick={triggerCheckoutDemo}
-                        disabled={isCheckingOut}
-                        style={{
-                          width: '100%',
-                          background: isCheckingOut ? '#475569' : '#00bba7',
-                          color: '#080607',
-                          border: 'none',
-                          borderRadius: '6px',
-                          padding: '8px',
-                          fontSize: '0.825rem',
-                          fontWeight: 800,
-                          cursor: isCheckingOut ? 'not-allowed' : 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '6px'
-                        }}
-                      >
-                        <Zap size={14} />
-                        <span>{isCheckingOut ? 'Executing Sub-Second Auth...' : 'Test 1-Click Checkout Speed'}</span>
-                      </button>
-
-                      {checkoutTime && (
-                        <div style={{ marginTop: '10px', padding: '6px 10px', background: 'rgba(84,207,176,0.15)', border: '1px solid #54CFB0', borderRadius: '6px', textAlign: 'center' }}>
-                          <span style={{ fontSize: '0.75rem', color: '#54CFB0', fontWeight: 800 }}>
-                            ✓ Transaction Settled & Inventory Synced in {checkoutTime}ms ⚡
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.725rem', color: '#94a3b8' }}>
-                      <span>Apple Pay & Tabby Ready</span>
-                      <span style={{ color: '#54CFB0' }}>Sub-300ms Global P95</span>
-                    </div>
-                  </div>
-                )}
-
+              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#080607', marginTop: '6px' }}>
+                {s.label}
               </div>
-
+              <div style={{ fontSize: '0.775rem', color: '#64748b', marginTop: '4px' }}>
+                {s.sub}
+              </div>
             </div>
           ))}
         </div>
 
-        {/* ── Bottom Executive CTA Banner (Horizontal MNC Style) ── */}
+        {/* ── 3. SERVICE FILTER PILLS ── */}
         <div 
           style={{ 
-            marginTop: '5rem', 
-            background: 'linear-gradient(135deg, #080607 0%, #111827 100%)', 
-            borderRadius: '20px', 
-            padding: 'clamp(2.5rem, 5vw, 3.5rem) clamp(1.75rem, 4vw, 3.5rem)', 
-            border: '1.5px solid rgba(84, 207, 176, 0.35)', 
-            boxShadow: '0 20px 50px rgba(8, 6, 7, 0.25)',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '2rem'
+            display: 'flex', 
+            gap: '8px', 
+            overflowX: 'auto', 
+            paddingBottom: '1rem', 
+            marginBottom: '3rem',
+            scrollbarWidth: 'none',
+            justifyContent: 'flex-start',
+            flexWrap: 'nowrap'
           }}
         >
-          <div style={{ flex: '1 1 480px', maxWidth: '650px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
-              <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#54CFB0' }}>
-                READY TO SCALE?
-              </span>
-            </div>
+          {filterTabs.map((tab) => {
+            const isActive = activeFilter === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveFilter(tab.id)}
+                style={{
+                  padding: '9px 18px',
+                  borderRadius: '999px',
+                  fontSize: '0.85rem',
+                  fontWeight: isActive ? 800 : 600,
+                  border: isActive ? '1.5px solid #00bba7' : '1px solid #E2E8F0',
+                  background: isActive ? '#080607' : '#FFFFFF',
+                  color: isActive ? '#54CFB0' : '#475569',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.2s ease',
+                  boxShadow: isActive ? '0 4px 14px rgba(0, 187, 167, 0.2)' : '0 1px 4px rgba(8,6,7,0.03)'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.borderColor = '#00bba7';
+                    e.currentTarget.style.color = '#008779';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.borderColor = '#E2E8F0';
+                    e.currentTarget.style.color = '#475569';
+                  }
+                }}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
 
+        {/* ── 4. THE 6 ENTERPRISE SERVICE CARDS ── */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2.5rem', marginBottom: '4.5rem' }}>
+          {filteredServices.map((service) => {
+            const IconComp = service.icon;
+            return (
+              <div 
+                key={service.id} 
+                id={service.id}
+                className="service-card-premium"
+              >
+                {/* Visual Header Image Banner */}
+                <div 
+                  style={{ 
+                    position: 'relative', 
+                    width: '100%', 
+                    height: '220px', 
+                    overflow: 'hidden',
+                    background: '#080607'
+                  }}
+                >
+                  <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="service-img-zoom"
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
+                  />
+
+                  {/* Dark Gradient Overlay */}
+                  <div 
+                    style={{ 
+                      position: 'absolute', 
+                      inset: 0, 
+                      background: 'linear-gradient(180deg, rgba(8,6,7,0.15) 0%, rgba(8,6,7,0.7) 65%, rgba(8,6,7,0.95) 100%)',
+                      zIndex: 1
+                    }} 
+                  />
+
+                  {/* Overlaid Badges and Icon */}
+                  <div 
+                    style={{ 
+                      position: 'absolute', 
+                      inset: 0, 
+                      zIndex: 2, 
+                      padding: '1.5rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span 
+                        style={{ 
+                          fontSize: '0.72rem', 
+                          fontWeight: 800, 
+                          color: '#FFFFFF', 
+                          background: 'rgba(255,255,255,0.18)',
+                          backdropFilter: 'blur(8px)',
+                          padding: '4px 10px', 
+                          borderRadius: '6px',
+                          border: '1px solid rgba(255,255,255,0.25)',
+                          letterSpacing: '0.06em'
+                        }}
+                      >
+                        {service.badge}
+                      </span>
+
+                      <span 
+                        style={{ 
+                          fontSize: '0.72rem', 
+                          fontWeight: 800, 
+                          color: '#080607', 
+                          background: '#54CFB0', 
+                          padding: '4px 10px', 
+                          borderRadius: '999px',
+                          boxShadow: '0 2px 8px rgba(84,207,176,0.4)'
+                        }}
+                      >
+                        {service.metricPill}
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <div 
+                        style={{ 
+                          width: '42px', 
+                          height: '42px', 
+                          borderRadius: '10px', 
+                          background: '#080607', 
+                          border: '1.5px solid #54CFB0',
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 14px rgba(0,0,0,0.3)'
+                        }}
+                      >
+                        <IconComp size={22} color="#54CFB0" />
+                      </div>
+                      <span style={{ fontSize: '0.85rem', fontWeight: 750, color: '#FFFFFF', textShadow: '0 1px 4px rgba(0,0,0,0.4)' }}>
+                        {service.subtitle}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card Content Body */}
+                <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'space-between' }}>
+                  <div>
+                    <h2 
+                      style={{ 
+                        fontSize: '1.45rem', 
+                        fontWeight: 900, 
+                        color: '#080607', 
+                        margin: '0 0 0.85rem 0',
+                        letterSpacing: '-0.025em',
+                        lineHeight: 1.25,
+                        fontFamily: "'Space Grotesk', sans-serif"
+                      }}
+                    >
+                      {service.title}
+                    </h2>
+
+                    <p style={{ color: '#475569', fontSize: '0.925rem', lineHeight: 1.65, margin: '0 0 1.5rem 0' }}>
+                      {service.description}
+                    </p>
+
+                    {/* Key Deliverables Checkmarks */}
+                    <div style={{ background: '#FAFBFB', borderRadius: '12px', padding: '1.25rem', border: '1px solid #E2E8F0', marginBottom: '1.5rem' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#080607', display: 'block', marginBottom: '0.75rem' }}>
+                        Architectural Deliverables:
+                      </span>
+                      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '7px' }}>
+                        {service.deliverables.map((item, dIdx) => (
+                          <li key={dIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '0.85rem', color: '#334155', lineHeight: 1.45 }}>
+                            <CheckCircle2 size={15} color="#00bba7" style={{ flexShrink: 0, marginTop: '2px' }} />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Tech Stack Ecosystem Chips */}
+                    <div style={{ marginBottom: '1.75rem' }}>
+                      <span style={{ fontSize: '0.72rem', fontWeight: 750, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: '0.6rem' }}>
+                        Supported Tech Stack:
+                      </span>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        {service.techStack.map((tech, tIdx) => (
+                          <span key={tIdx} className="service-tech-chip">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Outcome Pill & Action Trigger */}
+                  <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '1.25rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem', background: '#ECFDF5', padding: '8px 12px', borderRadius: '8px', border: '1px solid #A7F3D0' }}>
+                      <Award size={15} color="#059669" style={{ flexShrink: 0 }} />
+                      <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#065f46' }}>
+                        {service.outcome}
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                      <Link 
+                        to="/contact"
+                        className="btn-primary"
+                        style={{ 
+                          background: '#080607', 
+                          color: '#FFFFFF', 
+                          fontWeight: 750, 
+                          padding: '0.7rem 1.4rem', 
+                          fontSize: '0.85rem',
+                          borderRadius: '8px',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          textDecoration: 'none',
+                          flex: 1,
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 14px rgba(8, 6, 7, 0.15)',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#00bba7';
+                          e.currentTarget.style.color = '#080607';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#080607';
+                          e.currentTarget.style.color = '#FFFFFF';
+                        }}
+                      >
+                        <span>Request Service Scope</span>
+                        <ArrowRight size={14} />
+                      </Link>
+
+                      <a 
+                        href="https://wa.me/97145648887"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ 
+                          background: '#FFFFFF', 
+                          border: '1.5px solid #25D366', 
+                          color: '#080607', 
+                          fontWeight: 700, 
+                          padding: '0.7rem 1rem', 
+                          fontSize: '0.85rem',
+                          borderRadius: '8px',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          textDecoration: 'none',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#25D366';
+                          e.currentTarget.style.color = '#FFFFFF';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#FFFFFF';
+                          e.currentTarget.style.color = '#080607';
+                        }}
+                        title="Chat on WhatsApp"
+                      >
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.89 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.711 1.456h.005c6.554 0 11.89-5.336 11.893-11.894 0-3.177-1.237-6.164-3.488-8.414z"/>
+                        </svg>
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── 5. THE 4-PHASE RAPID DELIVERY SPRINT FRAMEWORK ── */}
+        <div 
+          style={{ 
+            background: '#FFFFFF', 
+            borderRadius: '20px', 
+            border: '1.5px solid #E2E8F0', 
+            padding: 'clamp(2.5rem, 4.5vw, 3.5rem)', 
+            boxShadow: '0 8px 30px rgba(8, 6, 7, 0.04)',
+            marginBottom: '4.5rem'
+          }}
+        >
+          <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 2.75rem' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#008779', display: 'block', marginBottom: '0.5rem' }}>
+              AGILE DEPLOYMENT LIFECYCLE
+            </span>
             <h2 
               style={{ 
-                fontSize: 'clamp(1.9rem, 3.2vw, 2.7rem)', 
+                fontSize: 'clamp(1.85rem, 2.8vw, 2.4rem)', 
                 fontWeight: 900, 
-                marginBottom: '0.75rem',
-                color: '#FFFFFF',
-                letterSpacing: '-0.035em',
-                lineHeight: 1.15,
-                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                color: '#080607', 
+                margin: 0,
+                letterSpacing: '-0.03em',
+                fontFamily: "'Space Grotesk', sans-serif"
               }}
             >
-              Let’s Engineer Your Next <br />
-              <span style={{ 
-                background: 'linear-gradient(135deg, #54CFB0 0%, #00bba7 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                display: 'inline-block'
-              }}>
-                Commercial Competitive Advantage.
-              </span>
+              From Scoping to Production in Days.
             </h2>
-
-            <p style={{ color: 'rgba(255,255,255,0.78)', margin: 0, fontSize: '0.98rem', lineHeight: 1.6 }}>
-              Book an exploratory technical session with MaxR. We analyze your operational workflows, pinpoint automation opportunities, and provide a detailed deployment roadmap within 24 hours.
+            <p style={{ color: '#475569', fontSize: '0.975rem', marginTop: '0.5rem', lineHeight: 1.6 }}>
+              No bureaucratic delays or multi-month scoping cycles. Our proven agile delivery frameworks get production systems live in four disciplined steps.
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flexShrink: 0 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-              <button 
-                onClick={onOpenContact} 
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
+            {[
+              {
+                step: "01",
+                title: "Architectural Audit",
+                timeline: "Day 1 – 2",
+                desc: "We analyze your tech stack, map manual bottlenecks, identify API integrations, and finalize target deliverables."
+              },
+              {
+                step: "02",
+                title: "Sprint Engineering",
+                timeline: "Day 3 – 5",
+                desc: "Our senior engineers build the automations, write clean modular microservices, and train custom voice/chat models."
+              },
+              {
+                step: "03",
+                title: "Testing & Security",
+                timeline: "Day 6",
+                desc: "Rigorous load testing, sub-500ms latency verification, webhook failure fallbacks, and TLS 1.3 data security hardening."
+              },
+              {
+                step: "04",
+                title: "Live Production SLA",
+                timeline: "Day 7+",
+                desc: "Seamless rollout with 99.9% uptime monitoring, real-time telemetry dashboards, and ongoing optimization support."
+              }
+            ].map((st, sIdx) => (
+              <div 
+                key={sIdx}
+                style={{ 
+                  background: '#F8FAFC', 
+                  borderRadius: '14px', 
+                  padding: '1.75rem 1.5rem', 
+                  border: '1px solid #E2E8F0',
+                  position: 'relative'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                  <div 
+                    style={{ 
+                      width: '42px', 
+                      height: '42px', 
+                      borderRadius: '50%', 
+                      border: '2px solid #54CFB0', 
+                      background: '#FFFFFF', 
+                      color: '#080607', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      fontSize: '0.95rem',
+                      fontWeight: 900,
+                      fontFamily: "'Space Grotesk', sans-serif"
+                    }}
+                  >
+                    {st.step}
+                  </div>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#008779', background: 'rgba(0,187,167,0.1)', padding: '3px 8px', borderRadius: '4px' }}>
+                    {st.timeline}
+                  </span>
+                </div>
+
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#080607', margin: '0 0 0.5rem 0', fontFamily: "'Space Grotesk', sans-serif" }}>
+                  {st.title}
+                </h3>
+                <p style={{ color: '#475569', fontSize: '0.875rem', lineHeight: 1.55, margin: 0 }}>
+                  {st.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── 6. ENTERPRISE CLOSING CTA ── */}
+        <div 
+          style={{ 
+            background: 'linear-gradient(145deg, #080607 0%, #0d1a16 100%)', 
+            borderRadius: '24px', 
+            padding: 'clamp(2.75rem, 5.5vw, 4.25rem) clamp(1.5rem, 4vw, 3.5rem)', 
+            border: '1.5px solid rgba(84, 207, 176, 0.4)', 
+            boxShadow: '0 20px 50px rgba(8, 6, 7, 0.35)', 
+            textAlign: 'center',
+            color: '#FFFFFF',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <div style={{ maxWidth: '680px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#54CFB0', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'inline-block', marginBottom: '0.85rem' }}>
+              BESPOKE ARCHITECTURAL DELIVERY
+            </span>
+            
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2rem, 3.8vw, 3rem)', 
+                fontWeight: 900, 
+                color: '#FFFFFF', 
+                margin: '0 0 1rem', 
+                letterSpacing: '-0.03em',
+                lineHeight: 1.18,
+                fontFamily: "'Space Grotesk', sans-serif"
+              }}
+            >
+              Have a Custom Technical Requirement? <br />
+              <span style={{ color: '#54CFB0' }}>Let's Build It Right.</span>
+            </h2>
+
+            <p style={{ fontSize: '1.05rem', color: '#CBD5E1', lineHeight: 1.65, marginBottom: '2.25rem' }}>
+              Speak directly with our senior solutions architects in Dubai and Chennai. We will review your current systems, evaluate ROI opportunities, and deliver an actionable technical roadmap.
+            </p>
+
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link 
+                to="/contact"
+                className="btn-primary"
                 style={{ 
                   background: '#54CFB0', 
                   color: '#080607', 
                   fontWeight: 800, 
-                  padding: '0.95rem 2rem', 
+                  padding: '0.85rem 2.25rem', 
                   fontSize: '0.95rem',
                   borderRadius: '8px',
-                  border: 'none',
-                  cursor: 'pointer',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
-                  boxShadow: '0 4px 18px rgba(84, 207, 176, 0.4)',
-                  transition: 'all 0.2s ease',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.background = '#FFFFFF';
-                  e.currentTarget.style.boxShadow = '0 8px 26px rgba(84, 207, 176, 0.5)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.background = '#54CFB0';
-                  e.currentTarget.style.boxShadow = '0 4px 18px rgba(84, 207, 176, 0.4)';
+                  boxShadow: '0 8px 24px rgba(84, 207, 176, 0.35)'
                 }}
               >
-                <span>Schedule a Consultation</span>
-                <ArrowRight size={16} />
-              </button>
-
-              <Link
-                to="/voice-agents"
-                style={{
-                  background: 'rgba(255,255,255,0.08)',
-                  color: '#FFFFFF',
-                  border: '1.5px solid rgba(255,255,255,0.2)',
-                  fontWeight: 700,
-                  padding: '0.95rem 1.75rem',
-                  fontSize: '0.95rem',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  transition: 'all 0.2s ease',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#54CFB0';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                }}
-              >
-                <span>Listen to Voice AI Demos</span>
+                <span>Schedule Architectural Consultation</span>
                 <ArrowRight size={16} />
               </Link>
-            </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'rgba(255,255,255,0.65)' }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#54CFB0', display: 'inline-block' }} />
-              <span>Dedicated NDA • UAE & GCC Onboarding Support • 24hr Turnaround</span>
+              <a 
+                href="https://wa.me/97145648887"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ 
+                  background: 'rgba(255, 255, 255, 0.08)', 
+                  border: '1px solid rgba(255, 255, 255, 0.2)', 
+                  color: '#FFFFFF', 
+                  fontWeight: 700, 
+                  padding: '0.85rem 1.75rem', 
+                  fontSize: '0.95rem',
+                  borderRadius: '8px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#25D366';
+                  e.currentTarget.style.borderColor = '#25D366';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.color = '#FFFFFF';
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.89 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.711 1.456h.005c6.554 0 11.89-5.336 11.893-11.894 0-3.177-1.237-6.164-3.488-8.414z"/>
+                </svg>
+                <span>Direct WhatsApp</span>
+              </a>
             </div>
           </div>
         </div>

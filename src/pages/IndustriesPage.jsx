@@ -261,10 +261,6 @@ export default function IndustriesPage({ onOpenContact }) {
         
         {/* ── 1. HERO HEADER ── */}
         <div style={{ textAlign: 'center', maxWidth: '860px', margin: '0 auto clamp(2.5rem, 5vw, 4rem)' }}>
-          <div className="about-hero-badge">
-            <span className="about-pulse-dot" />
-            <span>Vertical AI & Engineering • 8 Core Domains</span>
-          </div>
 
           <h1 
             style={{ 
