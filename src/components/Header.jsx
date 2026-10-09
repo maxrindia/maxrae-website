@@ -175,6 +175,7 @@ export default function Header() {
                     key={item.path} 
                     style={{ position: 'relative' }}
                     onMouseEnter={() => handleMouseEnter(item.dropdownKey)}
+                    onMouseLeave={handleMouseLeave}
                   >
                     <Link
                       to={item.path}
@@ -221,6 +222,185 @@ export default function Header() {
                           background: '#54CFB0'
                         }}
                       />
+                    )}
+
+                    {/* ── Anchored Clean Dropdown: "What We Do" (Names Only, Compact 3 Columns) ── */}
+                    {isDropdownActive && item.dropdownKey === 'services' && (
+                      <div
+                        className="header-dropdown-menu"
+                        style={{
+                          position: 'absolute',
+                          top: 'calc(100% + 12px)',
+                          left: '50%',
+                          transform: 'translateX(-35%)',
+                          width: '560px',
+                          background: '#FFFFFF',
+                          borderRadius: '12px',
+                          border: '1px solid #E2E8F0',
+                          boxShadow: '0 20px 45px rgba(8, 6, 7, 0.12)',
+                          padding: '1.25rem 1.5rem',
+                          zIndex: 9999
+                        }}
+                      >
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '1rem' }}>
+                          {/* Col 1 */}
+                          <div>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#00bba7', display: 'block', marginBottom: '10px' }}>
+                              AI & Automation
+                            </span>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              {[
+                                { title: "Voice & AI Agents", path: "/voice-agents" },
+                                { title: "Workflow Automation", path: "/services" },
+                                { title: "WhatsApp Lead Bots", path: "/services" },
+                                { title: "Data & BI Analytics", path: "/services" }
+                              ].map((s, idx) => (
+                                <Link
+                                  key={idx}
+                                  to={s.path}
+                                  onClick={() => setActiveDropdown(null)}
+                                  style={{ fontSize: '0.875rem', color: '#1E293B', fontWeight: 600, textDecoration: 'none', transition: 'all 0.15s ease', padding: '3px 0' }}
+                                  onMouseEnter={(e) => { e.currentTarget.style.color = '#00bba7'; e.currentTarget.style.transform = 'translateX(2px)'; }}
+                                  onMouseLeave={(e) => { e.currentTarget.style.color = '#1E293B'; e.currentTarget.style.transform = 'translateX(0)'; }}
+                                >
+                                  {s.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Col 2 */}
+                          <div>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#080607', display: 'block', marginBottom: '10px' }}>
+                              Digital Engineering
+                            </span>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              {[
+                                { title: "Web Development", path: "/services" },
+                                { title: "Mobile App Engineering", path: "/services" },
+                                { title: "SaaS Architecture", path: "/services" },
+                                { title: "Cloud & DevOps", path: "/services" }
+                              ].map((s, idx) => (
+                                <Link
+                                  key={idx}
+                                  to={s.path}
+                                  onClick={() => setActiveDropdown(null)}
+                                  style={{ fontSize: '0.875rem', color: '#1E293B', fontWeight: 600, textDecoration: 'none', transition: 'all 0.15s ease', padding: '3px 0' }}
+                                  onMouseEnter={(e) => { e.currentTarget.style.color = '#00bba7'; e.currentTarget.style.transform = 'translateX(2px)'; }}
+                                  onMouseLeave={(e) => { e.currentTarget.style.color = '#1E293B'; e.currentTarget.style.transform = 'translateX(0)'; }}
+                                >
+                                  {s.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Col 3 */}
+                          <div>
+                            <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#080607', display: 'block', marginBottom: '10px' }}>
+                              Commercial Growth
+                            </span>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              {[
+                                { title: "CRM & Lead Solutions", path: "/services" },
+                                { title: "Digital Marketing & SEO", path: "/services" },
+                                { title: "Headless E-Commerce", path: "/services" },
+                                { title: "Digital Transformation", path: "/services" }
+                              ].map((s, idx) => (
+                                <Link
+                                  key={idx}
+                                  to={s.path}
+                                  onClick={() => setActiveDropdown(null)}
+                                  style={{ fontSize: '0.875rem', color: '#1E293B', fontWeight: 600, textDecoration: 'none', transition: 'all 0.15s ease', padding: '3px 0' }}
+                                  onMouseEnter={(e) => { e.currentTarget.style.color = '#00bba7'; e.currentTarget.style.transform = 'translateX(2px)'; }}
+                                  onMouseLeave={(e) => { e.currentTarget.style.color = '#1E293B'; e.currentTarget.style.transform = 'translateX(0)'; }}
+                                >
+                                  {s.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Bottom link */}
+                        <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '10px', display: 'flex', justifyContent: 'flex-end' }}>
+                          <Link
+                            to="/services"
+                            onClick={() => setActiveDropdown(null)}
+                            style={{ fontSize: '0.825rem', fontWeight: 700, color: '#00bba7', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                          >
+                            <span>Explore All Services</span>
+                            <ArrowRight size={13} />
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ── Anchored Clean Dropdown: "Industries" (Names Only, Compact 2 Columns) ── */}
+                    {isDropdownActive && item.dropdownKey === 'industries' && (
+                      <div
+                        className="header-dropdown-menu"
+                        style={{
+                          position: 'absolute',
+                          top: 'calc(100% + 12px)',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: '420px',
+                          background: '#FFFFFF',
+                          borderRadius: '12px',
+                          border: '1px solid #E2E8F0',
+                          boxShadow: '0 20px 45px rgba(8, 6, 7, 0.12)',
+                          padding: '1.25rem 1.5rem',
+                          zIndex: 9999
+                        }}
+                      >
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px 1.5rem', marginBottom: '1rem' }}>
+                          {[
+                            { name: "Healthcare & Clinics", icon: <Stethoscope size={15} color="#00bba7" /> },
+                            { name: "Professional Services", icon: <Briefcase size={15} color="#00bba7" /> },
+                            { name: "Retail & E-Commerce", icon: <ShoppingBag size={15} color="#00bba7" /> },
+                            { name: "Real Estate & PropTech", icon: <Building2 size={15} color="#00bba7" /> },
+                            { name: "FinTech & Banking", icon: <TrendingUp size={15} color="#00bba7" /> },
+                            { name: "Logistics & Supply Chain", icon: <Truck size={15} color="#00bba7" /> },
+                            { name: "Education & EdTech", icon: <GraduationCap size={15} color="#00bba7" /> },
+                            { name: "Hospitality & Tourism", icon: <Utensils size={15} color="#00bba7" /> }
+                          ].map((ind, idx) => (
+                            <Link
+                              key={idx}
+                              to="/industries"
+                              onClick={() => setActiveDropdown(null)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                fontSize: '0.875rem',
+                                color: '#1E293B',
+                                fontWeight: 600,
+                                textDecoration: 'none',
+                                padding: '4px 0',
+                                transition: 'all 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => { e.currentTarget.style.color = '#00bba7'; e.currentTarget.style.transform = 'translateX(2px)'; }}
+                              onMouseLeave={(e) => { e.currentTarget.style.color = '#1E293B'; e.currentTarget.style.transform = 'translateX(0)'; }}
+                            >
+                              {ind.icon}
+                              <span>{ind.name}</span>
+                            </Link>
+                          ))}
+                        </div>
+
+                        {/* Bottom link */}
+                        <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '10px', display: 'flex', justifyContent: 'flex-end' }}>
+                          <Link
+                            to="/industries"
+                            onClick={() => setActiveDropdown(null)}
+                            style={{ fontSize: '0.825rem', fontWeight: 700, color: '#00bba7', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                          >
+                            <span>Explore All Industries</span>
+                            <ArrowRight size={13} />
+                          </Link>
+                        </div>
+                      </div>
                     )}
                   </div>
                 );
@@ -350,419 +530,6 @@ export default function Header() {
 
         </div>
 
-        {/* ── 1. WHAT WE DO DROPDOWN (Hover Triggered, Solid White, No Spotlight Card) ── */}
-        {activeDropdown === 'services' && (
-          <div 
-            onMouseEnter={() => handleMouseEnter('services')}
-            onMouseLeave={handleMouseLeave}
-            className="header-dropdown-menu"
-            style={{
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              right: 0,
-              width: '100%',
-              background: '#FFFFFF',
-              borderBottom: '1px solid #E2E8F0',
-              boxShadow: '0 24px 48px rgba(8, 6, 7, 0.09)',
-              padding: '2.5rem 0 2rem',
-              zIndex: 999
-            }}
-          >
-            <div className="container">
-              {/* 3 Perfectly Balanced Columns */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '3rem', marginBottom: '2rem' }}>
-                
-                {/* Column 1: AI & Intelligent Systems */}
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
-                    <span style={{ width: '12px', height: '2px', background: '#00bba7' }} />
-                    <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0f766e' }}>
-                      AI & Automation
-                    </span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {[
-                      { title: "Voice & AI Agents", path: "/voice-agents", desc: "Autonomous multilingual voice agents for 24/7 client booking" },
-                      { title: "Workflow Automation", path: "/services", desc: "End-to-end intelligent RPA and back-office pipelines" },
-                      { title: "WhatsApp Lead Bots", path: "/services", desc: "Instant conversational sales qualifiers & instant intake" },
-                      { title: "Data & BI Analytics", path: "/services", desc: "Unified executive dashboards and real-time insights" }
-                    ].map((item, idx) => (
-                      <Link 
-                        key={idx}
-                        to={item.path}
-                        onClick={() => setActiveDropdown(null)}
-                        style={{ textDecoration: 'none', display: 'block', padding: '6px 8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#F5F8F7';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'transparent';
-                        }}
-                      >
-                        <span style={{ fontSize: '0.925rem', color: '#080607', fontWeight: 700, display: 'block', marginBottom: '2px' }}>
-                          {item.title}
-                        </span>
-                        <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                          {item.desc}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Column 2: Digital Engineering */}
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
-                    <span style={{ width: '12px', height: '2px', background: '#00bba7' }} />
-                    <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#080607' }}>
-                      Digital Engineering
-                    </span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {[
-                      { title: "Web Development", path: "/services", desc: "High-performance enterprise websites and portals" },
-                      { title: "Mobile App Engineering", path: "/services", desc: "Native iOS & Android mobile software experiences" },
-                      { title: "SaaS Custom Architecture", path: "/services", desc: "Scalable cloud-native platforms with multi-tenant design" },
-                      { title: "Cloud & DevOps Scaling", path: "/services", desc: "Modern CI/CD, AWS/Azure serverless infrastructure" }
-                    ].map((item, idx) => (
-                      <Link 
-                        key={idx}
-                        to={item.path}
-                        onClick={() => setActiveDropdown(null)}
-                        style={{ textDecoration: 'none', display: 'block', padding: '6px 8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#F5F8F7';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'transparent';
-                        }}
-                      >
-                        <span style={{ fontSize: '0.925rem', color: '#080607', fontWeight: 700, display: 'block', marginBottom: '2px' }}>
-                          {item.title}
-                        </span>
-                        <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                          {item.desc}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Column 3: Commercial Growth */}
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem' }}>
-                    <span style={{ width: '12px', height: '2px', background: '#00bba7' }} />
-                    <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#080607' }}>
-                      Commercial Growth
-                    </span>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {[
-                      { title: "CRM & Lead Solutions", path: "/services", desc: "HubSpot, Salesforce & custom customer data platforms" },
-                      { title: "Digital Marketing & SEO", path: "/services", desc: "Precision enterprise acquisition and conversion growth" },
-                      { title: "Headless E-Commerce", path: "/services", desc: "Next-gen Shopify Plus & custom transaction stacks" },
-                      { title: "Digital Transformation", path: "/services", desc: "Modernize legacy enterprise workflows into cloud speed" }
-                    ].map((item, idx) => (
-                      <Link 
-                        key={idx}
-                        to={item.path}
-                        onClick={() => setActiveDropdown(null)}
-                        style={{ textDecoration: 'none', display: 'block', padding: '6px 8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#F5F8F7';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'transparent';
-                        }}
-                      >
-                        <span style={{ fontSize: '0.925rem', color: '#080607', fontWeight: 700, display: 'block', marginBottom: '2px' }}>
-                          {item.title}
-                        </span>
-                        <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                          {item.desc}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Bottom Quick Bar */}
-              <div 
-                style={{ 
-                  borderTop: '1px solid #E2E8F0', 
-                  paddingTop: '1.25rem', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: '1rem'
-                }}
-              >
-                <span style={{ fontSize: '0.85rem', color: '#64748b' }}>
-                  Looking for tailored enterprise technology solutions for your company?
-                </span>
-                <Link
-                  to="/services"
-                  onClick={() => setActiveDropdown(null)}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    color: '#00bba7',
-                    fontWeight: 750,
-                    fontSize: '0.875rem',
-                    textDecoration: 'none'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
-                  onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
-                >
-                  <span>Explore All Services</span>
-                  <ArrowRight size={14} />
-                </Link>
-              </div>
-
-            </div>
-          </div>
-        )}
-
-        {/* ── 2. INDUSTRIES DROPDOWN (Hover Triggered, Clean 4-Column Grid) ── */}
-        {activeDropdown === 'industries' && (
-          <div 
-            onMouseEnter={() => handleMouseEnter('industries')}
-            onMouseLeave={handleMouseLeave}
-            className="header-dropdown-menu"
-            style={{
-              position: 'absolute',
-              top: '100%',
-              left: 0,
-              right: 0,
-              width: '100%',
-              background: '#FFFFFF',
-              borderBottom: '1px solid #E2E8F0',
-              boxShadow: '0 24px 48px rgba(8, 6, 7, 0.09)',
-              padding: '2.5rem 0 2rem',
-              zIndex: 999
-            }}
-          >
-            <div className="container">
-              {/* 4 Clean Columns of Industries */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem', marginBottom: '2rem' }}>
-                
-                {/* Column 1 */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <Link
-                    to="/industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F5F8F7'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#e6f9f4', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00bba7', flexShrink: 0 }}>
-                      <Stethoscope size={18} />
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.92rem', fontWeight: 750, color: '#080607', display: 'block', marginBottom: '2px' }}>
-                        Healthcare & Clinics
-                      </span>
-                      <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                        Patient booking, WhatsApp recalls & clinical workflows
-                      </span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F5F8F7'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#080607', flexShrink: 0 }}>
-                      <Briefcase size={18} />
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.92rem', fontWeight: 750, color: '#080607', display: 'block', marginBottom: '2px' }}>
-                        Professional Services
-                      </span>
-                      <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                        Legal, tax & consulting intake pre-qualification
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-
-                {/* Column 2 */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <Link
-                    to="/industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F5F8F7'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#e6f9f4', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00bba7', flexShrink: 0 }}>
-                      <ShoppingBag size={18} />
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.92rem', fontWeight: 750, color: '#080607', display: 'block', marginBottom: '2px' }}>
-                        Retail & E-Commerce
-                      </span>
-                      <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                        High-volume storefronts, cart recovery & tracking bots
-                      </span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F5F8F7'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#080607', flexShrink: 0 }}>
-                      <Building2 size={18} />
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.92rem', fontWeight: 750, color: '#080607', display: 'block', marginBottom: '2px' }}>
-                        Real Estate & PropTech
-                      </span>
-                      <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                        Property portals, CRM automation & lead routing
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-
-                {/* Column 3 */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <Link
-                    to="/industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F5F8F7'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#e6f9f4', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00bba7', flexShrink: 0 }}>
-                      <TrendingUp size={18} />
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.92rem', fontWeight: 750, color: '#080607', display: 'block', marginBottom: '2px' }}>
-                        FinTech & Banking
-                      </span>
-                      <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                        Secure transactions, automated KYC & compliance BI
-                      </span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F5F8F7'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#080607', flexShrink: 0 }}>
-                      <Truck size={18} />
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.92rem', fontWeight: 750, color: '#080607', display: 'block', marginBottom: '2px' }}>
-                        Logistics & Supply Chain
-                      </span>
-                      <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                        Fleet tracking, dispatch automation & ERP links
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-
-                {/* Column 4 */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <Link
-                    to="/industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F5F8F7'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#e6f9f4', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#00bba7', flexShrink: 0 }}>
-                      <GraduationCap size={18} />
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.92rem', fontWeight: 750, color: '#080607', display: 'block', marginBottom: '2px' }}>
-                        Education & EdTech
-                      </span>
-                      <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                        Digital learning portals & admission workflows
-                      </span>
-                    </div>
-                  </Link>
-
-                  <Link
-                    to="/industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{ textDecoration: 'none', display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '8px', borderRadius: '8px', transition: 'all 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F5F8F7'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                  >
-                    <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#080607', flexShrink: 0 }}>
-                      <Utensils size={18} />
-                    </div>
-                    <div>
-                      <span style={{ fontSize: '0.92rem', fontWeight: 750, color: '#080607', display: 'block', marginBottom: '2px' }}>
-                        Hospitality & Tourism
-                      </span>
-                      <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'block', lineHeight: 1.4 }}>
-                        Guest bookings & 24/7 AI concierge automation
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-
-              </div>
-
-              {/* Bottom Quick Bar */}
-              <div 
-                style={{ 
-                  borderTop: '1px solid #E2E8F0', 
-                  paddingTop: '1.25rem', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: '1rem'
-                }}
-              >
-                <span style={{ fontSize: '0.85rem', color: '#64748b' }}>
-                  Looking for domain-specific automation tailored to your operational model?
-                </span>
-                <Link
-                  to="/industries"
-                  onClick={() => setActiveDropdown(null)}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    color: '#00bba7',
-                    fontWeight: 750,
-                    fontSize: '0.875rem',
-                    textDecoration: 'none'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
-                  onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
-                >
-                  <span>Explore All Industries</span>
-                  <ArrowRight size={14} />
-                </Link>
-              </div>
-
-            </div>
-          </div>
-        )}
       </header>
 
       {/* ── Mobile Navigation Drawer (Clean White MNC Style) ── */}

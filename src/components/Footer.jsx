@@ -261,7 +261,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 3: Social Media Logos Only on Right Corner (Badges Removed) */}
+          {/* Column 3: Social Media Logos Only on Right Corner (No Words/Text per Request 2) */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               fontSize: '1.1rem', 
@@ -277,12 +277,13 @@ export default function Footer() {
               <span>Connect With MaxR</span>
             </h3>
 
-            {/* Social Grid with Official Authentic Colorful Cards */}
+            {/* Social Logos Only (Exact Real Brand Colorful Icons) */}
             <div 
               style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(2, 1fr)', 
-                gap: '10px' 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                gap: '12px',
+                alignItems: 'center'
               }}
             >
               {socialChannels.map((item, idx) => (
@@ -291,54 +292,32 @@ export default function Footer() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={item.name}
+                  title={item.name}
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                    padding: '10px 12px',
+                    width: '42px',
+                    height: '42px',
                     borderRadius: '10px',
-                    background: '#FFFFFF',
-                    border: '1px solid #E1E8E5',
+                    background: item.bg,
+                    color: item.color,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     textDecoration: 'none',
-                    color: '#080607',
-                    boxShadow: '0 2px 8px rgba(8, 6, 7, 0.04)',
-                    transition: 'all 0.22s ease'
+                    boxShadow: '0 3px 10px rgba(0, 0, 0, 0.12)',
+                    transition: 'all 0.22s ease',
+                    flexShrink: 0
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.borderColor = '#54CFB0';
-                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(8, 6, 7, 0.08)';
+                    e.currentTarget.style.transform = 'translateY(-3px) scale(1.06)';
+                    e.currentTarget.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.2)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.borderColor = '#E1E8E5';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(8, 6, 7, 0.04)';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                    e.currentTarget.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.12)';
                   }}
                 >
-                  <div 
-                    style={{ 
-                      width: '32px', 
-                      height: '32px', 
-                      borderRadius: '7px', 
-                      background: item.bg, 
-                      color: item.color, 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      boxShadow: '0 2px 6px rgba(0,0,0,0.12)'
-                    }}
-                  >
-                    {item.iconSvg}
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.825rem', fontWeight: 750, display: 'block', color: '#080607', lineHeight: 1.2 }}>
-                      {item.name}
-                    </span>
-                    <span style={{ fontSize: '0.7rem', color: '#64748b' }}>
-                      Official
-                    </span>
-                  </div>
+                  {item.iconSvg}
                 </a>
               ))}
             </div>

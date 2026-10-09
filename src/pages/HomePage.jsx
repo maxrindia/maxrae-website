@@ -775,10 +775,10 @@ export default function HomePage() {
         className="industries-editorial-section"
         aria-label="Industries We Serve"
       >
-        {/* Dynamic Full-Section Background Images with Smooth Crossfade & Scale */}
-        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
+        {/* Dynamic Background Image: Visible ONLY when hovering an industry (Plain background when untouched per Request 1) */}
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0, background: '#080607' }}>
           {industries.map((ind, idx) => {
-            const isVisible = displayIndustry === idx;
+            const isVisible = hoveredIndustry === idx;
             return (
               <img
                 key={ind.name}
@@ -787,26 +787,36 @@ export default function HomePage() {
                 className="industries-bg-layer"
                 style={{
                   opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'scale(1)' : 'scale(1.05)',
+                  transform: isVisible ? 'scale(1)' : 'scale(1.04)',
                   visibility: isVisible ? 'visible' : 'hidden',
-                  transition: 'opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 850ms cubic-bezier(0.16, 1, 0.3, 1), visibility 600ms'
+                  transition: 'opacity 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1), visibility 500ms'
                 }}
-                loading={idx === 0 ? 'eager' : 'lazy'}
+                loading="lazy"
               />
             );
           })}
-          {/* Subtle Dark Editorial Overlay */}
-          <div className="industries-overlay" />
+          {/* Editorial Overlay (activates over image on hover, plain dark otherwise) */}
+          <div 
+            style={{ 
+              position: 'absolute', 
+              inset: 0, 
+              background: hoveredIndustry !== null 
+                ? 'linear-gradient(135deg, rgba(8, 6, 7, 0.55) 0%, rgba(8, 6, 7, 0.40) 50%, rgba(8, 6, 7, 0.60) 100%)' 
+                : 'transparent',
+              transition: 'background 0.4s ease',
+              zIndex: 1 
+            }} 
+          />
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
           {/* Section Heading */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '2rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '2.5rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
                 <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
                 <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
-                  INDUSTRIES
+                  INDUSTRIES WE SERVE
                 </span>
               </div>
               
@@ -820,80 +830,90 @@ export default function HomePage() {
                   margin: 0
                 }}
               >
-                Technology for Every Industry.
+                Technology Built for Every Sector.
               </h2>
             </div>
 
             <p style={{ fontSize: '1rem', color: 'rgba(255, 255, 255, 0.75)', lineHeight: 1.6, margin: 0, maxWidth: '440px' }}>
-              Every industry has different challenges. MaxR brings together digital solutions, technology and automation to support different business needs.
+              Every industry has distinct operational challenges. Hover any sector below to preview how MaxR designs and accelerates targeted technology.
             </p>
           </div>
 
-          {/* 8 Industry Cards Grid with Full Details & Dynamic Background on Hover/Click */}
-          <div className="industries-cards-grid">
+          {/* Clean Interactive Industries Grid (No Bulky Cards - Names Only per Request 1) */}
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
+              gap: '1rem' 
+            }}
+          >
             {industries.map((ind, idx) => {
-              const isSelected = activeIndustry === idx;
-              const isCurrentDisplay = displayIndustry === idx;
+              const isHovered = hoveredIndustry === idx;
+              const Icon = ind.icon;
 
               return (
-                <div
+                <Link
                   key={ind.name}
-                  className={`industry-showcase-card ${isCurrentDisplay ? 'is-active' : ''}`}
-                  onClick={() => {
-                    setActiveIndustry(idx);
-                    setHoveredIndustry(null);
-                  }}
+                  to="/industries"
                   onMouseEnter={() => setHoveredIndustry(idx)}
                   onMouseLeave={() => setHoveredIndustry(null)}
-                  tabIndex={0}
-                  role="button"
-                  aria-pressed={isSelected}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setActiveIndustry(idx);
-                      setHoveredIndustry(null);
-                    }
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '1.25rem 1.4rem',
+                    borderRadius: '12px',
+                    background: isHovered ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.05)',
+                    border: `1.5px solid ${isHovered ? '#54CFB0' : 'rgba(255, 255, 255, 0.12)'}`,
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    textDecoration: 'none',
+                    color: '#FFFFFF',
+                    transition: 'all 0.25s ease',
+                    boxShadow: isHovered ? '0 12px 32px rgba(0, 0, 0, 0.35)' : 'none',
+                    transform: isHovered ? 'translateY(-2px)' : 'none'
                   }}
                 >
-                  {/* Card Header: Icon Wrap (Number Removed per Request 4) */}
-                  <div className="industry-card-header">
-                    <div className="industry-card-icon-wrap">
-                      <ArrowUpRight className="industry-card-arrow" size={16} />
-                    </div>
-                  </div>
-
-                  {/* Card Body: Title & Description */}
-                  <h3 className="industry-card-title">
-                    {ind.name}
-                  </h3>
-
-                  <p className="industry-card-desc">
-                    {ind.desc}
-                  </p>
-
-                  {/* Capabilities Tags */}
-                  <div className="industry-card-tags">
-                    {ind.capabilities.slice(0, 3).map((cap, cIdx) => (
-                      <span key={cIdx} className="industry-card-tag">
-                        <span className="industry-card-tag-dot" />
-                        {cap}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Card Footer: Explore Link */}
-                  <div className="industry-card-footer">
-                    <Link 
-                      to="/industries"
-                      className="industry-card-link"
-                      onClick={(e) => e.stopPropagation()}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <div 
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: '8px',
+                        background: isHovered ? '#54CFB0' : 'rgba(255, 255, 255, 0.1)',
+                        color: isHovered ? '#080607' : '#54CFB0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.25s ease',
+                        flexShrink: 0
+                      }}
                     >
-                      <span>Explore Industry</span>
-                      <ArrowRight size={14} />
-                    </Link>
+                      <Icon size={19} />
+                    </div>
+                    <span 
+                      style={{ 
+                        fontSize: '1.05rem', 
+                        fontWeight: 700, 
+                        letterSpacing: '-0.015em', 
+                        color: isHovered ? '#54CFB0' : '#FFFFFF', 
+                        transition: 'color 0.25s ease' 
+                      }}
+                    >
+                      {ind.name}
+                    </span>
                   </div>
-                </div>
+
+                  <ArrowRight 
+                    size={17} 
+                    style={{ 
+                      color: isHovered ? '#54CFB0' : 'rgba(255, 255, 255, 0.4)', 
+                      transform: isHovered ? 'translateX(4px)' : 'none', 
+                      transition: 'all 0.25s ease',
+                      flexShrink: 0
+                    }} 
+                  />
+                </Link>
               );
             })}
           </div>
@@ -1362,119 +1382,135 @@ export default function HomePage() {
         <div className="container">
           <div 
             style={{ 
-              maxWidth: '820px', 
-              margin: '0 auto', 
-              textAlign: 'center',
-              background: '#FFFFFF',
-              border: '1px solid #E1E8E5',
-              borderRadius: '16px',
-              padding: 'clamp(2.25rem, 4.5vw, 3.25rem) clamp(1.25rem, 3.5vw, 2.75rem)',
-              boxShadow: '0 8px 30px rgba(8, 6, 7, 0.04)'
+              background: 'linear-gradient(135deg, #080607 0%, #0F171B 100%)',
+              border: '1.5px solid rgba(84, 207, 176, 0.35)',
+              borderRadius: '20px',
+              padding: 'clamp(2.5rem, 4.5vw, 3.5rem) clamp(2rem, 4.5vw, 3.5rem)',
+              boxShadow: '0 20px 50px rgba(8, 6, 7, 0.16)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 'clamp(2rem, 4vw, 4rem)',
+              flexWrap: 'wrap',
+              position: 'relative',
+              overflow: 'hidden'
             }}
           >
-            {/* Eyebrow */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
-              <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7' }}>
-                LET'S BUILD TOGETHER
-              </span>
+            {/* Left side: Eyebrow, Headline & Subtitle */}
+            <div style={{ flex: '1 1 500px', maxWidth: '680px' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+                <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
+                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#54CFB0' }}>
+                  LET'S BUILD TOGETHER
+                </span>
+              </div>
+
+              <h2 
+                style={{ 
+                  fontSize: 'clamp(2rem, 3.2vw, 2.85rem)', 
+                  fontWeight: 900, 
+                  letterSpacing: '-0.035em', 
+                  lineHeight: 1.18, 
+                  color: '#FFFFFF',
+                  margin: '0 0 0.85rem 0',
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                }}
+              >
+                Turn Your Ideas Into{' '}
+                <span style={{ 
+                  background: 'linear-gradient(135deg, #54CFB0 0%, #00bba7 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  display: 'inline-block'
+                }}>
+                  Real Business Impact.
+                </span>
+              </h2>
+
+              <p 
+                style={{ 
+                  fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', 
+                  color: 'rgba(255, 255, 255, 0.82)', 
+                  lineHeight: 1.6, 
+                  margin: 0 
+                }}
+              >
+                Tell us what you're building and let's explore how custom engineering, cloud solutions, and AI automation can accelerate your operational growth.
+              </p>
             </div>
 
-            {/* Headline */}
-            <h2 
-              style={{ 
-                fontSize: 'clamp(1.9rem, 3.5vw, 2.75rem)', 
-                fontWeight: 900, 
-                letterSpacing: '-0.035em', 
-                lineHeight: 1.15, 
-                color: '#080607',
-                margin: '0 0 0.85rem 0',
-                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
-              }}
-            >
-              Turn Your Ideas Into<br />
-              <span style={{ 
-                background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                display: 'inline-block'
-              }}>
-                Real Business Impact.
-              </span>
-            </h2>
+            {/* Right side: Action Buttons horizontally aligned */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flexShrink: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+                <Link
+                  to="/contact"
+                  style={{
+                    background: '#54CFB0',
+                    color: '#080607',
+                    padding: '0.95rem 1.85rem',
+                    borderRadius: '8px',
+                    fontWeight: 800,
+                    fontSize: '0.95rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 18px rgba(84, 207, 176, 0.35)',
+                    transition: 'all 0.2s ease',
+                    whiteSpace: 'nowrap'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 26px rgba(84, 207, 176, 0.45)';
+                    e.currentTarget.style.background = '#FFFFFF';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 18px rgba(84, 207, 176, 0.35)';
+                    e.currentTarget.style.background = '#54CFB0';
+                  }}
+                >
+                  <span>Book a Consultation</span>
+                  <ArrowRight size={16} />
+                </Link>
 
-            {/* Subtitle */}
-            <p 
-              style={{ 
-                fontSize: 'clamp(0.925rem, 1.15vw, 1.05rem)', 
-                color: '#3F5565', 
-                lineHeight: 1.55, 
-                maxWidth: '560px', 
-                margin: '0 auto 1.75rem auto' 
-              }}
-            >
-              Tell us what you're building and let's explore how technology and automation can help you achieve it.
-            </p>
+                <Link
+                  to="/services"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    color: '#FFFFFF',
+                    border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                    padding: '0.95rem 1.85rem',
+                    borderRadius: '8px',
+                    fontWeight: 700,
+                    fontSize: '0.95rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    textDecoration: 'none',
+                    transition: 'all 0.2s ease',
+                    whiteSpace: 'nowrap'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+                    e.currentTarget.style.borderColor = '#54CFB0';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <span>Explore Services</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
 
-            {/* CTA Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-              <Link
-                to="/contact"
-                style={{
-                  background: '#00bba7',
-                  color: '#080607',
-                  padding: '0.85rem 1.85rem',
-                  borderRadius: '8px',
-                  fontWeight: 800,
-                  fontSize: '0.95rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 16px rgba(0, 187, 167, 0.35)',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 187, 167, 0.45)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 187, 167, 0.35)';
-                }}
-              >
-                <span>Book a Consultation</span>
-                <ArrowRight size={16} />
-              </Link>
-
-              <Link
-                to="/services"
-                style={{
-                  background: '#FFFFFF',
-                  color: '#080607',
-                  border: '1.5px solid #080607',
-                  padding: '0.85rem 1.75rem',
-                  borderRadius: '8px',
-                  fontWeight: 700,
-                  fontSize: '0.95rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#F5F8F7';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#FFFFFF';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <span>Explore Services</span>
-                <ArrowRight size={16} />
-              </Link>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: 'rgba(255, 255, 255, 0.65)' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#54CFB0', display: 'inline-block' }} />
+                <span>Response time within 24 hours • Free discovery scope</span>
+              </div>
             </div>
 
           </div>
