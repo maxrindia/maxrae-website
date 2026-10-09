@@ -856,11 +856,8 @@ export default function HomePage() {
                     }
                   }}
                 >
-                  {/* Card Header: Sector Number & Icon Wrap */}
+                  {/* Card Header: Icon Wrap (Number Removed per Request 4) */}
                   <div className="industry-card-header">
-                    <span className="industry-card-sector">
-                      0{idx + 1}
-                    </span>
                     <div className="industry-card-icon-wrap">
                       <ArrowUpRight className="industry-card-arrow" size={16} />
                     </div>
