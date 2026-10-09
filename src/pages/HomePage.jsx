@@ -801,117 +801,76 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Interactive Editorial Showcase (Grid + In-Place Details) */}
-          <div className="industries-showcase-grid">
-            {/* Left: Clean Editorial Multi-Column Navigation */}
-            <div 
-              className="industries-nav-grid" 
-              role="tablist" 
-              aria-label="Industry Categories"
-            >
-              {industries.map((ind, idx) => {
-                const isSelected = activeIndustry === idx;
-                const isCurrentDisplay = displayIndustry === idx;
+          {/* 8 Industry Cards Grid with Full Details & Dynamic Background on Hover/Click */}
+          <div className="industries-cards-grid">
+            {industries.map((ind, idx) => {
+              const isSelected = activeIndustry === idx;
+              const isCurrentDisplay = displayIndustry === idx;
 
-                return (
-                  <button
-                    key={ind.name}
-                    role="tab"
-                    id={`industry-tab-${idx}`}
-                    aria-selected={isSelected}
-                    aria-controls="industry-details-panel"
-                    tabIndex={0}
-                    className={`industry-nav-item ${isCurrentDisplay ? 'is-active' : ''}`}
-                    onClick={() => {
+              return (
+                <div
+                  key={ind.name}
+                  className={`industry-showcase-card ${isCurrentDisplay ? 'is-active' : ''}`}
+                  onClick={() => {
+                    setActiveIndustry(idx);
+                    setHoveredIndustry(null);
+                  }}
+                  onMouseEnter={() => setHoveredIndustry(idx)}
+                  onMouseLeave={() => setHoveredIndustry(null)}
+                  tabIndex={0}
+                  role="button"
+                  aria-pressed={isSelected}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
                       setActiveIndustry(idx);
                       setHoveredIndustry(null);
-                    }}
-                    onMouseEnter={() => setHoveredIndustry(idx)}
-                    onMouseLeave={() => setHoveredIndustry(null)}
-                    onFocus={() => setHoveredIndustry(idx)}
-                    onBlur={() => setHoveredIndustry(null)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        setActiveIndustry(idx);
-                        setHoveredIndustry(null);
-                      } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        const nextIdx = (idx + 1) % industries.length;
-                        setActiveIndustry(nextIdx);
-                        setHoveredIndustry(null);
-                        const nextBtn = document.getElementById(`industry-tab-${nextIdx}`);
-                        if (nextBtn) nextBtn.focus();
-                      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        const prevIdx = (idx - 1 + industries.length) % industries.length;
-                        setActiveIndustry(prevIdx);
-                        setHoveredIndustry(null);
-                        const prevBtn = document.getElementById(`industry-tab-${prevIdx}`);
-                        if (prevBtn) prevBtn.focus();
-                      }
-                    }}
-                  >
-                    <span className="industry-nav-title">
-                      {ind.name}
+                    }
+                  }}
+                >
+                  {/* Card Header: Sector Number & Icon Wrap */}
+                  <div className="industry-card-header">
+                    <span className="industry-card-sector">
+                      0{idx + 1}
                     </span>
-
-                    <div className="industry-nav-meta">
-                      <span className="industry-nav-dot" />
-                      <ArrowUpRight className="industry-nav-arrow" size={16} />
+                    <div className="industry-card-icon-wrap">
+                      <ArrowUpRight className="industry-card-arrow" size={16} />
                     </div>
-                  </button>
-                );
-              })}
-            </div>
+                  </div>
 
-            {/* Right: Selected Industry In-Place Content Panel */}
-            <div 
-              id="industry-details-panel" 
-              role="tabpanel"
-              aria-labelledby={`industry-tab-${activeIndustry}`}
-              className="industries-details-panel"
-            >
-              <div key={displayIndustry} className="industries-details-content">
-                <div className="industry-detail-eyebrow">
-                  <span style={{ width: '12px', height: '2px', background: '#54CFB0' }} />
-                  <span>SECTOR 0{displayIndustry + 1}</span>
-                </div>
+                  {/* Card Body: Title & Description */}
+                  <h3 className="industry-card-title">
+                    {ind.name}
+                  </h3>
 
-                <h3 className="industry-detail-title">
-                  {industries[displayIndustry].name.toUpperCase()}
-                </h3>
+                  <p className="industry-card-desc">
+                    {ind.desc}
+                  </p>
 
-                <p className="industry-detail-desc">
-                  {industries[displayIndustry].desc}
-                </p>
-
-                <div>
-                  <span className="industry-capabilities-label">Relevant capabilities:</span>
-                  <div className="industry-capabilities-tags">
-                    {industries[displayIndustry].capabilities.map((cap, cIdx) => (
-                      <span 
-                        key={cIdx} 
-                        className="industry-cap-tag"
-                        style={{ animationDelay: `${cIdx * 50}ms` }}
-                      >
-                        <span className="industry-cap-dot" />
+                  {/* Capabilities Tags */}
+                  <div className="industry-card-tags">
+                    {ind.capabilities.slice(0, 3).map((cap, cIdx) => (
+                      <span key={cIdx} className="industry-card-tag">
+                        <span className="industry-card-tag-dot" />
                         {cap}
                       </span>
                     ))}
                   </div>
-                </div>
-              </div>
 
-              <Link
-                to="/industries"
-                className="industry-cta-btn"
-                aria-label={`Explore ${industries[displayIndustry].name} Industry solutions`}
-              >
-                <span>Explore Industry</span>
-                <ArrowRight size={16} />
-              </Link>
-            </div>
+                  {/* Card Footer: Explore Link */}
+                  <div className="industry-card-footer">
+                    <Link 
+                      to="/industries"
+                      className="industry-card-link"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span>Explore Industry</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
