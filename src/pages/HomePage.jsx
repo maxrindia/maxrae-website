@@ -808,22 +808,22 @@ export default function HomePage() {
                 alt={ind.name}
                 className="industries-bg-layer"
                 style={{
-                  opacity: isVisible ? 1 : 0,
+                  opacity: isVisible ? 0.8 : 0,
                   transform: isVisible ? 'scale(1)' : 'scale(1.04)',
                   visibility: isVisible ? 'visible' : 'hidden',
-                  transition: 'opacity 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1), visibility 500ms'
+                  transition: 'opacity 550ms cubic-bezier(0.16, 1, 0.3, 1), transform 750ms cubic-bezier(0.16, 1, 0.3, 1), visibility 550ms'
                 }}
                 loading="lazy"
               />
             );
           })}
-          {/* Editorial Overlay (activates over image on hover/click, plain dark otherwise) */}
+          {/* Lighter Editorial Overlay for vivid, visible background images */}
           <div 
             style={{ 
               position: 'absolute', 
               inset: 0, 
               background: currentActiveIdx !== null 
-                ? 'linear-gradient(135deg, rgba(8, 6, 7, 0.65) 0%, rgba(8, 6, 7, 0.50) 50%, rgba(8, 6, 7, 0.70) 100%)' 
+                ? 'linear-gradient(180deg, rgba(8, 6, 7, 0.6) 0%, rgba(8, 6, 7, 0.38) 45%, rgba(8, 6, 7, 0.7) 100%)' 
                 : 'transparent',
               transition: 'background 0.4s ease',
               zIndex: 1 
@@ -832,40 +832,40 @@ export default function HomePage() {
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          {/* Section Heading: Inspired by Reference Screenshot */}
-          <div style={{ marginBottom: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-              <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
-              <span style={{ fontSize: '0.825rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#54CFB0' }}>
+          {/* Section Heading: Editorial layout from reference */}
+          <div style={{ marginBottom: 'clamp(2.75rem, 4.5vw, 4rem)' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+              <span style={{ width: '22px', height: '2px', background: '#54CFB0' }} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#54CFB0' }}>
                 EXPERTISE
               </span>
             </div>
             
             <h2 
               style={{ 
-                fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', 
+                fontSize: 'clamp(2.2rem, 4vw, 3.25rem)', 
                 fontWeight: 900, 
-                letterSpacing: '-0.03em', 
+                letterSpacing: '-0.035em', 
                 lineHeight: 1.15, 
                 color: '#FFFFFF',
-                margin: '0 0 0.85rem 0',
+                margin: '0 0 1rem 0',
                 fontFamily: "'Space Grotesk', -apple-system, sans-serif"
               }}
             >
               Technology Built for Every Sector.
             </h2>
 
-            <p style={{ fontSize: '1rem', color: 'rgba(255, 255, 255, 0.72)', lineHeight: 1.6, margin: 0, maxWidth: '640px' }}>
+            <p style={{ fontSize: 'clamp(0.95rem, 1.15vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.72)', lineHeight: 1.65, margin: 0, maxWidth: '640px' }}>
               Select or hover any sector below to preview how MaxR designs and accelerates targeted technology.
             </p>
           </div>
 
-          {/* Square Pattern Matrix: Transparent Editorial Grid with Subtle Bottom Divider Lines */}
+          {/* Square Pattern Matrix: Transparent Editorial Grid with Exact Reference Layout */}
           <div 
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
-              gap: '2rem 2.5rem' 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', 
+              gap: '2.5rem 2.25rem' 
             }}
           >
             {industries.map((ind, idx) => {
@@ -882,32 +882,31 @@ export default function HomePage() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    minHeight: '230px',
-                    padding: isCurrent ? '1.75rem 1.4rem' : '1.25rem 0.5rem 1.75rem 0.5rem',
-                    borderRadius: isCurrent ? '12px' : '0px',
-                    background: isCurrent ? 'rgba(255, 255, 255, 0.09)' : 'transparent',
-                    backdropFilter: isCurrent ? 'blur(16px)' : 'none',
-                    WebkitBackdropFilter: isCurrent ? 'blur(16px)' : 'none',
-                    border: isCurrent ? '1.5px solid #54CFB0' : '1px solid transparent',
-                    borderBottom: isCurrent ? '1.5px solid #54CFB0' : '1px solid rgba(255, 255, 255, 0.16)',
-                    boxShadow: isCurrent ? '0 16px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15)' : 'none',
-                    transform: isCurrent ? 'translateY(-4px)' : 'none',
-                    opacity: (isAnyActive && !isCurrent) ? 0.35 : 1,
-                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                    minHeight: '235px',
+                    padding: '1.75rem 1.6rem',
+                    borderRadius: '16px',
+                    background: isCurrent ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+                    backdropFilter: isCurrent ? 'blur(20px)' : 'none',
+                    WebkitBackdropFilter: isCurrent ? 'blur(20px)' : 'none',
+                    border: isCurrent ? '1.5px solid rgba(84, 207, 176, 0.55)' : '1.5px solid transparent',
+                    boxShadow: isCurrent ? '0 24px 50px rgba(0, 0, 0, 0.55), 0 0 35px rgba(84, 207, 176, 0.12)' : 'none',
+                    transform: isCurrent ? 'translateY(-6px)' : 'none',
+                    opacity: (isAnyActive && !isCurrent) ? 0.28 : 1,
+                    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
                     cursor: 'pointer'
                   }}
                 >
                   <div>
-                    {/* Sector Title: Uppercase clean editorial typography as in reference */}
+                    {/* Sector Title: Uppercase clean editorial typography */}
                     <h3 
                       style={{ 
-                        fontSize: '1.05rem', 
+                        fontSize: '1.15rem', 
                         fontWeight: 800, 
                         letterSpacing: '0.04em', 
                         textTransform: 'uppercase',
                         color: isCurrent ? '#54CFB0' : '#FFFFFF', 
                         lineHeight: 1.35,
-                        margin: '0 0 0.95rem 0',
+                        margin: '0 0 1rem 0',
                         fontFamily: "'Space Grotesk', -apple-system, sans-serif",
                         transition: 'color 0.25s ease'
                       }}
@@ -915,12 +914,12 @@ export default function HomePage() {
                       {ind.displayTitle}
                     </h3>
 
-                    {/* Sector Smallest Details (Description) */}
+                    {/* Sector Small/Medium Details (Description) */}
                     <p 
                       style={{ 
-                        fontSize: '0.875rem', 
-                        color: isCurrent ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.68)', 
-                        lineHeight: 1.6, 
+                        fontSize: '0.92rem', 
+                        color: isCurrent ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.72)', 
+                        lineHeight: 1.65, 
                         margin: 0,
                         transition: 'color 0.25s ease'
                       }}
@@ -929,16 +928,16 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  {/* Clean Text Link as shown in reference: Our [Industry] » */}
-                  <div style={{ marginTop: '1.5rem', paddingTop: '0.5rem' }}>
+                  {/* Clean Text Link as shown in reference: Our [Industry] >> */}
+                  <div style={{ marginTop: '1.75rem' }}>
                     <Link
                       to="/industries"
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '6px',
-                        fontSize: '0.85rem',
-                        fontWeight: 700,
+                        fontSize: '0.9rem',
+                        fontWeight: 750,
                         color: isCurrent ? '#54CFB0' : 'rgba(255, 255, 255, 0.85)',
                         textDecoration: 'none',
                         transition: 'all 0.25s ease'
@@ -952,8 +951,28 @@ export default function HomePage() {
                         e.currentTarget.style.transform = 'none';
                       }}
                     >
-                      <span>{ind.linkText}</span>
+                      <span>Our {ind.name}</span>
+                      <span style={{ 
+                        display: 'inline-block', 
+                        transform: isCurrent ? 'translateX(3px)' : 'none',
+                        transition: 'transform 0.25s ease',
+                        letterSpacing: '-0.05em',
+                        fontWeight: 900
+                      }}>
+                        &gt;&gt;
+                      </span>
                     </Link>
+
+                    {/* Horizontal Divider Line under each item as shown in user reference */}
+                    <div 
+                      style={{ 
+                        width: '100%', 
+                        height: '1px', 
+                        background: isCurrent ? '#54CFB0' : 'rgba(255, 255, 255, 0.18)', 
+                        marginTop: '1.15rem',
+                        transition: 'background 0.3s ease' 
+                      }} 
+                    />
                   </div>
                 </div>
               );
