@@ -45,9 +45,9 @@ export default function HomePage() {
   const [isServicesHovered, setIsServicesHovered] = useState(false);
 
   // ── Industries Interactive Selection & Preview State ──
-  const [activeIndustry, setActiveIndustry] = useState(0);
+  const [selectedIndustry, setSelectedIndustry] = useState(null);
   const [hoveredIndustry, setHoveredIndustry] = useState(null);
-  const displayIndustry = hoveredIndustry !== null ? hoveredIndustry : activeIndustry;
+  const currentActiveIdx = hoveredIndustry !== null ? hoveredIndustry : selectedIndustry;
 
   // ── Client Stories Video Playback State ──
   const [playingVideo, setPlayingVideo] = useState(null); // null | 'ardhra' | 'parvathi'
@@ -187,8 +187,10 @@ export default function HomePage() {
   const industries = [
     {
       name: "Healthcare",
+      displayTitle: "HEALTHCARE & HEALTH-TECH",
       icon: Heart,
-      desc: "Digital solutions that improve patient experiences, clinical efficiency, and connected healthcare operations.",
+      desc: "Digital patient experiences, clinical workflows, HIPAA-compliant portals, and connected medical operations.",
+      linkText: "Our Healthcare »",
       image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1920&q=80",
       capabilities: [
         "Web Development",
@@ -201,8 +203,10 @@ export default function HomePage() {
     },
     {
       name: "Real Estate",
+      displayTitle: "REAL ESTATE & PROPTECH",
       icon: Building2,
-      desc: "Digital experiences and connected solutions for modern property businesses.",
+      desc: "High-converting property portals, automated CRM lead routing, and connected virtual asset experiences.",
+      linkText: "Our Real Estate »",
       image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
       capabilities: [
         "Web Development",
@@ -215,8 +219,10 @@ export default function HomePage() {
     },
     {
       name: "E-Commerce",
+      displayTitle: "E-COMMERCE & RETAIL",
       icon: ShoppingCart,
-      desc: "High-conversion digital storefronts, connected commerce platforms, and automated inventory workflows.",
+      desc: "High-conversion headless storefronts, multi-currency checkout, and automated inventory sync pipelines.",
+      linkText: "Our E-Commerce »",
       image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80",
       capabilities: [
         "E-Commerce Solutions",
@@ -229,8 +235,10 @@ export default function HomePage() {
     },
     {
       name: "Finance",
+      displayTitle: "FINANCE & FINTECH",
       icon: TrendingUp,
-      desc: "Secure portals, compliance-ready digital workflows, and real-time business financial intelligence.",
+      desc: "Secure compliance workflows, automated KYC intake, executive BI dashboards, and financial transaction portals.",
+      linkText: "Our Finance »",
       image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80",
       capabilities: [
         "Web Development",
@@ -243,8 +251,10 @@ export default function HomePage() {
     },
     {
       name: "Education",
+      displayTitle: "EDUCATION & EDTECH",
       icon: GraduationCap,
-      desc: "Engaging digital learning platforms, institutional portals, and streamlined student admission systems.",
+      desc: "Digital learning management platforms, campus student portals, and automated admission intake funnels.",
+      linkText: "Our Education »",
       image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80",
       capabilities: [
         "Web Development",
@@ -257,8 +267,10 @@ export default function HomePage() {
     },
     {
       name: "Hospitality",
+      displayTitle: "HOSPITALITY & TOURISM",
       icon: Luggage,
-      desc: "Seamless reservation systems, personalized guest communication, and digital loyalty platforms.",
+      desc: "Direct booking engines, 24/7 multilingual guest concierge bots, and integrated loyalty rewards systems.",
+      linkText: "Our Hospitality »",
       image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=80",
       capabilities: [
         "Web Development",
@@ -271,8 +283,10 @@ export default function HomePage() {
     },
     {
       name: "Professional Services",
+      displayTitle: "PROFESSIONAL SERVICES",
       icon: Users,
-      desc: "Refined digital presence, automated client intake, and integrated practice management platforms.",
+      desc: "Refined digital presence, automated client onboarding, and integrated enterprise practice workflows.",
+      linkText: "Our Professional Services »",
       image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80",
       capabilities: [
         "Web Development",
@@ -285,8 +299,10 @@ export default function HomePage() {
     },
     {
       name: "Technology & Startups",
+      displayTitle: "TECHNOLOGY & STARTUPS",
       icon: Rocket,
-      desc: "Rapid full-stack engineering, scalable cloud architectures, and intelligent digital automation.",
+      desc: "Rapid full-stack engineering, scalable multi-tenant cloud platforms, and intelligent AI automation pipelines.",
+      linkText: "Our Technology »",
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80",
       capabilities: [
         "Web Development",
@@ -768,17 +784,23 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          3. INDUSTRIES (Interactive Editorial Showcase)
+          3. INDUSTRIES (Interactive Editorial Showcase: Transparent Matrix Pattern)
           ═════════════════════════════════════════════ */}
       <section 
         id="industries-section"
         className="industries-editorial-section"
         aria-label="Industries We Serve"
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          background: '#080607',
+          padding: 'clamp(5rem, 8vw, 7.5rem) 0'
+        }}
       >
-        {/* Dynamic Background Image: Visible ONLY when hovering an industry (Plain background when untouched per Request 1) */}
+        {/* Dynamic Background Image: Visible ONLY when hovering or clicking an industry */}
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0, background: '#080607' }}>
           {industries.map((ind, idx) => {
-            const isVisible = hoveredIndustry === idx;
+            const isVisible = currentActiveIdx === idx;
             return (
               <img
                 key={ind.name}
@@ -795,13 +817,13 @@ export default function HomePage() {
               />
             );
           })}
-          {/* Editorial Overlay (activates over image on hover, plain dark otherwise) */}
+          {/* Editorial Overlay (activates over image on hover/click, plain dark otherwise) */}
           <div 
             style={{ 
               position: 'absolute', 
               inset: 0, 
-              background: hoveredIndustry !== null 
-                ? 'linear-gradient(135deg, rgba(8, 6, 7, 0.55) 0%, rgba(8, 6, 7, 0.40) 50%, rgba(8, 6, 7, 0.60) 100%)' 
+              background: currentActiveIdx !== null 
+                ? 'linear-gradient(135deg, rgba(8, 6, 7, 0.65) 0%, rgba(8, 6, 7, 0.50) 50%, rgba(8, 6, 7, 0.70) 100%)' 
                 : 'transparent',
               transition: 'background 0.4s ease',
               zIndex: 1 
@@ -810,110 +832,130 @@ export default function HomePage() {
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          {/* Section Heading */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '2.5rem' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-                <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
-                  INDUSTRIES WE SERVE
-                </span>
-              </div>
-              
-              <h2 
-                style={{ 
-                  fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', 
-                  fontWeight: 800, 
-                  letterSpacing: '-0.03em', 
-                  lineHeight: 1.15, 
-                  color: '#FFFFFF',
-                  margin: 0
-                }}
-              >
-                Technology Built for Every Sector.
-              </h2>
+          {/* Section Heading: Inspired by Reference Screenshot */}
+          <div style={{ marginBottom: 'clamp(2.5rem, 4vw, 3.5rem)' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
+              <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
+              <span style={{ fontSize: '0.825rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#54CFB0' }}>
+                EXPERTISE
+              </span>
             </div>
+            
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', 
+                fontWeight: 900, 
+                letterSpacing: '-0.03em', 
+                lineHeight: 1.15, 
+                color: '#FFFFFF',
+                margin: '0 0 0.85rem 0',
+                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+              }}
+            >
+              Technology Built for Every Sector.
+            </h2>
 
-            <p style={{ fontSize: '1rem', color: 'rgba(255, 255, 255, 0.75)', lineHeight: 1.6, margin: 0, maxWidth: '440px' }}>
-              Every industry has distinct operational challenges. Hover any sector below to preview how MaxR designs and accelerates targeted technology.
+            <p style={{ fontSize: '1rem', color: 'rgba(255, 255, 255, 0.72)', lineHeight: 1.6, margin: 0, maxWidth: '640px' }}>
+              Select or hover any sector below to preview how MaxR designs and accelerates targeted technology.
             </p>
           </div>
 
-          {/* Clean Interactive Industries Grid (No Bulky Cards - Names Only per Request 1) */}
+          {/* Square Pattern Matrix: Transparent Editorial Grid with Subtle Bottom Divider Lines */}
           <div 
             style={{ 
               display: 'grid', 
               gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
-              gap: '1rem' 
+              gap: '2rem 2.5rem' 
             }}
           >
             {industries.map((ind, idx) => {
-              const isHovered = hoveredIndustry === idx;
-              const Icon = ind.icon;
+              const isCurrent = currentActiveIdx === idx;
+              const isAnyActive = currentActiveIdx !== null;
 
               return (
-                <Link
+                <div
                   key={ind.name}
-                  to="/industries"
                   onMouseEnter={() => setHoveredIndustry(idx)}
                   onMouseLeave={() => setHoveredIndustry(null)}
+                  onClick={() => setSelectedIndustry(selectedIndustry === idx ? null : idx)}
                   style={{
                     display: 'flex',
-                    alignItems: 'center',
+                    flexDirection: 'column',
                     justifyContent: 'space-between',
-                    padding: '1.25rem 1.4rem',
-                    borderRadius: '12px',
-                    background: isHovered ? 'rgba(255, 255, 255, 0.16)' : 'rgba(255, 255, 255, 0.05)',
-                    border: `1.5px solid ${isHovered ? '#54CFB0' : 'rgba(255, 255, 255, 0.12)'}`,
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    textDecoration: 'none',
-                    color: '#FFFFFF',
-                    transition: 'all 0.25s ease',
-                    boxShadow: isHovered ? '0 12px 32px rgba(0, 0, 0, 0.35)' : 'none',
-                    transform: isHovered ? 'translateY(-2px)' : 'none'
+                    minHeight: '230px',
+                    padding: isCurrent ? '1.75rem 1.4rem' : '1.25rem 0.5rem 1.75rem 0.5rem',
+                    borderRadius: isCurrent ? '12px' : '0px',
+                    background: isCurrent ? 'rgba(255, 255, 255, 0.09)' : 'transparent',
+                    backdropFilter: isCurrent ? 'blur(16px)' : 'none',
+                    WebkitBackdropFilter: isCurrent ? 'blur(16px)' : 'none',
+                    border: isCurrent ? '1.5px solid #54CFB0' : '1px solid transparent',
+                    borderBottom: isCurrent ? '1.5px solid #54CFB0' : '1px solid rgba(255, 255, 255, 0.16)',
+                    boxShadow: isCurrent ? '0 16px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.15)' : 'none',
+                    transform: isCurrent ? 'translateY(-4px)' : 'none',
+                    opacity: (isAnyActive && !isCurrent) ? 0.35 : 1,
+                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                    cursor: 'pointer'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                    <div 
-                      style={{
-                        width: '38px',
-                        height: '38px',
-                        borderRadius: '8px',
-                        background: isHovered ? '#54CFB0' : 'rgba(255, 255, 255, 0.1)',
-                        color: isHovered ? '#080607' : '#54CFB0',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        transition: 'all 0.25s ease',
-                        flexShrink: 0
-                      }}
-                    >
-                      <Icon size={19} />
-                    </div>
-                    <span 
+                  <div>
+                    {/* Sector Title: Uppercase clean editorial typography as in reference */}
+                    <h3 
                       style={{ 
                         fontSize: '1.05rem', 
-                        fontWeight: 700, 
-                        letterSpacing: '-0.015em', 
-                        color: isHovered ? '#54CFB0' : '#FFFFFF', 
-                        transition: 'color 0.25s ease' 
+                        fontWeight: 800, 
+                        letterSpacing: '0.04em', 
+                        textTransform: 'uppercase',
+                        color: isCurrent ? '#54CFB0' : '#FFFFFF', 
+                        lineHeight: 1.35,
+                        margin: '0 0 0.95rem 0',
+                        fontFamily: "'Space Grotesk', -apple-system, sans-serif",
+                        transition: 'color 0.25s ease'
                       }}
                     >
-                      {ind.name}
-                    </span>
+                      {ind.displayTitle}
+                    </h3>
+
+                    {/* Sector Smallest Details (Description) */}
+                    <p 
+                      style={{ 
+                        fontSize: '0.875rem', 
+                        color: isCurrent ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.68)', 
+                        lineHeight: 1.6, 
+                        margin: 0,
+                        transition: 'color 0.25s ease'
+                      }}
+                    >
+                      {ind.desc}
+                    </p>
                   </div>
 
-                  <ArrowRight 
-                    size={17} 
-                    style={{ 
-                      color: isHovered ? '#54CFB0' : 'rgba(255, 255, 255, 0.4)', 
-                      transform: isHovered ? 'translateX(4px)' : 'none', 
-                      transition: 'all 0.25s ease',
-                      flexShrink: 0
-                    }} 
-                  />
-                </Link>
+                  {/* Clean Text Link as shown in reference: Our [Industry] » */}
+                  <div style={{ marginTop: '1.5rem', paddingTop: '0.5rem' }}>
+                    <Link
+                      to="/industries"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        fontSize: '0.85rem',
+                        fontWeight: 700,
+                        color: isCurrent ? '#54CFB0' : 'rgba(255, 255, 255, 0.85)',
+                        textDecoration: 'none',
+                        transition: 'all 0.25s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#54CFB0';
+                        e.currentTarget.style.transform = 'translateX(4px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = isCurrent ? '#54CFB0' : 'rgba(255, 255, 255, 0.85)';
+                        e.currentTarget.style.transform = 'none';
+                      }}
+                    >
+                      <span>{ind.linkText}</span>
+                    </Link>
+                  </div>
+                </div>
               );
             })}
           </div>
