@@ -365,19 +365,19 @@ export default function HomePage() {
       title: "How Automation Improves Business Efficiency",
       readTime: "4 min read",
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-      link: "/blog"
+      link: "/blog/how-automation-improves-business-efficiency"
     },
     {
       title: "Why Modern Websites Must Be Built for Speed and Mobile",
       readTime: "5 min read",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-      link: "/blog"
+      link: "/blog/modern-websites-speed-and-mobile"
     },
     {
       title: "The Growing Role of AI Agents in Customer Service",
       readTime: "6 min read",
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
-      link: "/blog"
+      link: "/blog/voice-ai-agents-customer-service"
     }
   ];
 
@@ -1488,7 +1488,7 @@ export default function HomePage() {
             {insights.map((item) => (
               <Link
                 key={item.title}
-                to="/blog"
+                to={item.link}
                 style={{ 
                   background: '#FFFFFF', 
                   border: '1px solid #E1E8E5', 
