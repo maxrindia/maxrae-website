@@ -4,8 +4,6 @@ import {
   Menu, 
   X, 
   ArrowRight, 
-  Globe, 
-  MessageSquare, 
   ChevronDown,
   Stethoscope,
   Briefcase,
@@ -98,8 +96,7 @@ export default function Header() {
     { label: "Industries", path: "/industries", dropdownKey: "industries" },
     { label: "Who We Are", path: "/about" },
     { label: "Careers", path: "/careers" },
-    { label: "Blog / Insights", path: "/blog" },
-    { label: "Contact", path: "/contact" }
+    { label: "Blog", path: "/blog" }
   ];
 
   const navLinks = currentPath === '/' 
@@ -445,69 +442,15 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Right: World Logo + Message Logo */}
-          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexShrink: 0 }}>
-            {/* World Logo (Global Indicator) */}
-            <div 
-              style={{ 
-                width: '38px',
-                height: '38px',
-                borderRadius: '8px',
-                background: '#F5F8F7',
-                border: '1px solid #E5EAE8',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#3F5565',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-              title="Global Enterprise Solutions"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#54CFB0';
-                e.currentTarget.style.color = '#00bba7';
-                e.currentTarget.style.background = '#FFFFFF';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#E5EAE8';
-                e.currentTarget.style.color = '#3F5565';
-                e.currentTarget.style.background = '#F5F8F7';
-              }}
-            >
-              <Globe size={18} strokeWidth={2} />
-            </div>
-
-            {/* Message Logo (Contact & Consultation) */}
+          {/* Right: Compact Animated Action Button & Mobile Toggle */}
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
             <Link 
               to="/contact" 
-              title="Contact / Book a Consultation"
-              aria-label="Contact MaxR"
-              style={{ 
-                width: '38px',
-                height: '38px',
-                borderRadius: '8px',
-                background: '#080607', 
-                color: '#ffffff', 
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                textDecoration: 'none',
-                transition: 'all 0.2s ease',
-                flexShrink: 0,
-                boxShadow: '0 2px 8px rgba(8, 6, 7, 0.12)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#54CFB0';
-                e.currentTarget.style.color = '#080607';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#080607';
-                e.currentTarget.style.color = '#ffffff';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
+              className="nav-btn-compact"
+              title="Let's Talk"
             >
-              <MessageSquare size={18} strokeWidth={2.2} />
+              <span>Let's Talk</span>
+              <ArrowRight size={13} />
             </Link>
 
             {/* Mobile Hamburger Toggle */}
@@ -595,45 +538,20 @@ export default function Header() {
             ))}
           </div>
 
-          <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid #E5EAE8', display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div 
-              style={{
-                width: '42px',
-                height: '42px',
-                borderRadius: '8px',
-                background: '#F5F8F7',
-                border: '1px solid #E5EAE8',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#3F5565',
-                flexShrink: 0
-              }}
-              title="Global Enterprise"
-            >
-              <Globe size={18} strokeWidth={2} />
-            </div>
-
+          <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid #E5EAE8' }}>
             <Link 
               to="/contact"
               onClick={() => setMobileMenuOpen(false)}
+              className="btn-primary"
               style={{ 
-                flex: 1, 
+                width: '100%', 
                 justifyContent: 'center', 
-                background: '#080607', 
-                color: '#ffffff', 
-                fontWeight: 700, 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '8px',
-                height: '42px', 
-                borderRadius: '8px', 
-                textDecoration: 'none',
-                fontSize: '0.9rem' 
+                padding: '0.65rem 1.25rem',
+                fontSize: '0.875rem'
               }}
             >
-              <MessageSquare size={17} strokeWidth={2.2} />
-              <span>Contact Us</span>
+              <span>Let's Talk</span>
+              <ArrowRight size={15} />
             </Link>
           </div>
         </div>

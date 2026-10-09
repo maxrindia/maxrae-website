@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  BookOpen, 
-  Clock, 
-  ArrowRight, 
-  Calendar, 
-  User, 
-  Tag, 
-  Sparkles, 
   Search,
-  MessageCircle,
-  ChevronRight
+  Sparkles,
+  ArrowRight,
+  MessageCircle
 } from 'lucide-react';
 import { blogPosts } from '../data/blogData.js';
 
-export default function BlogPage({ onOpenContact }) {
+export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const categories = ['All', 'AI Automation', 'Voice Systems', 'Enterprise Architecture', 'Web Engineering', 'Regional Tech'];
+  const categories = [
+    'All', 
+    'AI Automation', 
+    'Voice Systems', 
+    'Enterprise Architecture', 
+    'Web Engineering', 
+    'Regional Tech'
+  ];
 
   // Filter articles based on active category & search query
   const filteredArticles = blogPosts.filter((article) => {
@@ -31,329 +32,448 @@ export default function BlogPage({ onOpenContact }) {
   });
 
   const featuredArticle = blogPosts.find(a => a.featured) || blogPosts[0];
+  // Grid articles (exclude the featured one if viewing All and no search, or list all)
+  const displayArticles = (activeCategory === 'All' && !searchQuery.trim()) 
+    ? filteredArticles.filter(a => a.id !== featuredArticle.id)
+    : filteredArticles;
 
   return (
-    <div className="blog-page" style={{ padding: '2rem 0 5rem', background: '#F5F8F7' }}>
-      <div className="container">
+    <div className="blog-page" style={{ padding: '3.5rem 0 6rem', background: '#FFFFFF', minHeight: '100vh' }}>
+      <div className="container" style={{ maxWidth: '1240px' }}>
 
-        {/* ── Page Header ── */}
-        <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 3.5rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
-            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
-              Tech Insights & Architecture Notes
-            </span>
-          </div>
+        {/* ═════════════════════════════════════════════════════════════════════
+            1. FEATURED ARTICLE SECTION (Google Antigravity Developer Blog Style)
+            ═════════════════════════════════════════════ */}
+        {activeCategory === 'All' && !searchQuery.trim() && featuredArticle && (
+          <div className="blog-featured-grid">
+            
+            {/* Left Column: Featured Title + Meta + Pill Button */}
+            <div>
+              <h1 style={{ 
+                fontFamily: "'Space Grotesk', -apple-system, sans-serif", 
+                fontSize: 'clamp(2.5rem, 4.5vw, 3.8rem)', 
+                fontWeight: 800, 
+                color: '#080607', 
+                letterSpacing: '-0.035em', 
+                lineHeight: 1.05, 
+                margin: '0 0 1.25rem 0' 
+              }}>
+                Featured
+              </h1>
 
-          <h1 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)', fontWeight: 900, color: '#080607', letterSpacing: '-0.035em', lineHeight: 1.1, marginBottom: '1.25rem' }}>
-            Engineering Perspectives for Modern Businesses
-          </h1>
+              <Link 
+                to={`/blog/${featuredArticle.slug}`} 
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                <h2 style={{ 
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif", 
+                  fontSize: 'clamp(1.5rem, 2.4vw, 2.2rem)', 
+                  fontWeight: 750, 
+                  color: '#0F172A', 
+                  lineHeight: 1.25, 
+                  letterSpacing: '-0.02em', 
+                  margin: '0 0 1.25rem 0',
+                  transition: 'color 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#0F172A'}
+                >
+                  {featuredArticle.title}
+                </h2>
+              </Link>
 
-          <p style={{ fontSize: '1.1rem', color: '#556575', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto 2rem' }}>
-            Practical insights on enterprise AI automation, high-performance web systems, telephony pipelines, and scalable digital operations from the MaxR engineering team.
-          </p>
+              {/* Meta row: Date - Read time [Category] */}
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                flexWrap: 'wrap', 
+                marginBottom: '1.75rem', 
+                fontSize: '0.85rem', 
+                color: '#64748B' 
+              }}>
+                <span>{featuredArticle.date}</span>
+                <span>-</span>
+                <span>{featuredArticle.readTime}</span>
+                <span style={{ 
+                  background: '#F1F5F9', 
+                  color: '#475569', 
+                  padding: '3px 10px', 
+                  borderRadius: '999px', 
+                  fontSize: '0.75rem', 
+                  fontWeight: 600,
+                  letterSpacing: '0.01em'
+                }}>
+                  {featuredArticle.category}
+                </span>
+              </div>
 
-          {/* Search Bar */}
-          <div style={{ maxWidth: '480px', margin: '0 auto', position: 'relative' }}>
-            <Search size={18} color="#94a3b8" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }} />
-            <input 
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search articles by topic, keyword, or technology..."
-              style={{
-                width: '100%',
-                padding: '12px 16px 12px 46px',
-                borderRadius: '10px',
-                border: '1.5px solid #E1E8E5',
-                background: '#FFFFFF',
-                fontSize: '0.9rem',
-                color: '#080607',
-                outline: 'none',
-                boxShadow: '0 2px 10px rgba(8,6,7,0.03)'
-              }}
-            />
-          </div>
-        </div>
+              {/* Read blog Pill Button */}
+              <div>
+                <Link 
+                  to={`/blog/${featuredArticle.slug}`} 
+                  className="blog-pill-btn"
+                >
+                  Read blog
+                </Link>
+              </div>
+            </div>
 
-        {/* ── Category Filter Pills ── */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '3.5rem' }}>
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              style={{
-                padding: '8px 20px',
-                borderRadius: '8px',
-                border: activeCategory === cat ? '1px solid #00bba7' : '1px solid #E1E8E5',
-                background: activeCategory === cat ? '#00bba7' : '#FFFFFF',
-                color: activeCategory === cat ? '#FFFFFF' : '#556575',
-                fontWeight: 700,
-                fontSize: '0.85rem',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                boxShadow: activeCategory === cat ? '0 4px 14px rgba(0, 187, 167, 0.25)' : 'none'
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+            {/* Right Column: 16:9 MaxR Dark Tech Featured Card */}
+            <div>
+              <Link 
+                to={`/blog/${featuredArticle.slug}`}
+                style={{ 
+                  display: 'block', 
+                  textDecoration: 'none', 
+                  borderRadius: '20px', 
+                  overflow: 'hidden', 
+                  position: 'relative', 
+                  aspectRatio: '16 / 9', 
+                  background: '#080607', 
+                  boxShadow: '0 12px 36px rgba(8, 6, 7, 0.12)', 
+                  border: '1px solid #1E293B',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow = '0 20px 45px rgba(0, 187, 167, 0.16)';
+                  e.currentTarget.style.borderColor = 'rgba(0, 187, 167, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 12px 36px rgba(8, 6, 7, 0.12)';
+                  e.currentTarget.style.borderColor = '#1E293B';
+                }}
+              >
+                {/* Background image with cinematic dark overlay */}
+                <img 
+                  src={featuredArticle.image} 
+                  alt={featuredArticle.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: 0.38,
+                    filter: 'grayscale(20%)'
+                  }} 
+                />
 
-        {/* ── Featured Article Showcase (Shown when viewing All and no search) ── */}
-        {activeCategory === 'All' && searchQuery.trim() === '' && featuredArticle && (
-          <div style={{ marginBottom: '3.5rem' }}>
-            <div 
-              style={{
-                background: '#FFFFFF',
-                borderRadius: '16px',
-                border: '1px solid #E1E8E5',
-                overflow: 'hidden',
-                boxShadow: '0 8px 30px rgba(8, 6, 7, 0.04)',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))'
-              }}
-            >
-              <div style={{ padding: 'clamp(2.5rem, 4vw, 3.5rem)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
-                    <span style={{ background: '#ECFDF5', color: '#047857', padding: '4px 12px', borderRadius: '999px', fontSize: '0.78rem', fontWeight: 800, border: '1px solid #A7F3D0' }}>
-                      FEATURED INSIGHT
-                    </span>
-                    <span style={{ fontSize: '0.8rem', color: '#556575', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                      <Clock size={14} /> {featuredArticle.readTime}
-                    </span>
-                    <span style={{ fontSize: '0.8rem', color: '#556575' }}>
-                      {featuredArticle.date}
+                {/* Glowing cyber gradient aura */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'radial-gradient(circle at 65% 45%, rgba(0, 187, 167, 0.25) 0%, rgba(8, 6, 7, 0.85) 75%)',
+                  pointerEvents: 'none'
+                }} />
+
+                {/* Center MaxR Branding and Visual */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '2rem',
+                  textAlign: 'center',
+                  zIndex: 2
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                    <img 
+                      src="/assets/maxr-logo.png" 
+                      alt="maxr." 
+                      style={{ 
+                        height: '38px', 
+                        width: 'auto',
+                        filter: 'brightness(0) invert(1)' 
+                      }} 
+                    />
+                    <span style={{ 
+                      fontFamily: "'Space Grotesk', sans-serif", 
+                      fontSize: 'clamp(1.2rem, 2vw, 1.6rem)', 
+                      fontWeight: 700, 
+                      color: '#FFFFFF',
+                      letterSpacing: '-0.02em'
+                    }}>
+                      Research & Architecture
                     </span>
                   </div>
 
-                  <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', fontWeight: 800, color: '#080607', lineHeight: 1.25, marginBottom: '1rem', letterSpacing: '-0.02em' }}>
-                    {featuredArticle.title}
-                  </h2>
+                  <span style={{ 
+                    fontSize: '0.8rem', 
+                    fontWeight: 650, 
+                    color: '#54CFB0', 
+                    letterSpacing: '0.08em', 
+                    textTransform: 'uppercase' 
+                  }}>
+                    Autonomous Enterprise Engineering
+                  </span>
+                </div>
+              </Link>
+            </div>
 
-                  <p style={{ color: '#556575', fontSize: '1rem', lineHeight: 1.6, marginBottom: '1.75rem' }}>
-                    {featuredArticle.excerpt}
-                  </p>
+          </div>
+        )}
+
+        {/* ═════════════════════════════════════════════════════════════════════
+            2. HORIZONTAL CATEGORY TABS + RSS FEED / SEARCH BAR
+            ═════════════════════════════════════════════ */}
+        <div style={{ 
+          borderBottom: '1px solid #E2E8F0', 
+          marginBottom: '3rem', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between', 
+          flexWrap: 'wrap',
+          gap: '1rem'
+        }}>
+          {/* Category Tabs */}
+          <div className="blog-tabs-nav">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  className={`blog-tab-btn ${isActive ? 'is-active' : ''}`}
+                  onClick={() => setActiveCategory(cat)}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right utility: Minimal search + RSS Feed */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', paddingBottom: '8px' }}>
+            {/* Quick Filter Search */}
+            <div style={{ position: 'relative', width: '200px' }}>
+              <Search 
+                size={14} 
+                color="#94A3B8" 
+                style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)' }} 
+              />
+              <input 
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+                style={{
+                  width: '100%',
+                  padding: '5px 10px 5px 30px',
+                  borderRadius: '999px',
+                  border: '1px solid #E2E8F0',
+                  background: '#FFFFFF',
+                  fontSize: '0.8rem',
+                  outline: 'none',
+                  color: '#080607',
+                  fontFamily: 'inherit'
+                }}
+              />
+            </div>
+
+            {/* RSS Feed Icon Button */}
+            <div 
+              style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '6px', 
+                fontSize: '0.825rem', 
+                color: '#64748B', 
+                fontWeight: 600, 
+                cursor: 'pointer',
+                transition: 'color 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#080607'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#64748B'}
+              title="RSS Feed"
+            >
+              <svg 
+                width="14" 
+                height="14" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2.2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <path d="M4 11a9 9 0 0 1 9 9" />
+                <path d="M4 4a16 16 0 0 1 16 16" />
+                <circle cx="5" cy="19" r="1" />
+              </svg>
+              <span>RSS Feed</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ═════════════════════════════════════════════════════════════════════
+            3. TWO-COLUMN ARTICLES GRID (Clean Text on Left, Square Thumb on Right)
+            ═════════════════════════════════════════════ */}
+        <div className="blog-articles-grid">
+          {displayArticles.map((article) => (
+            <div key={article.id} className="blog-item-card">
+              
+              {/* Left Content Column */}
+              <div style={{ flex: 1, minWidth: 0, paddingRight: '0.5rem' }}>
+                <Link 
+                  to={`/blog/${article.slug}`} 
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <h3 style={{ 
+                    fontFamily: "'Space Grotesk', -apple-system, sans-serif", 
+                    fontSize: '1.15rem', 
+                    fontWeight: 750, 
+                    color: '#0F172A', 
+                    lineHeight: 1.35, 
+                    margin: '0 0 0.75rem 0', 
+                    letterSpacing: '-0.015em',
+                    transition: 'color 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#0F172A'}
+                  >
+                    {article.title}
+                  </h3>
+                </Link>
+
+                {/* Meta line: Date - Read time [Category] */}
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '8px', 
+                  flexWrap: 'wrap', 
+                  marginBottom: '1.25rem', 
+                  fontSize: '0.8rem', 
+                  color: '#64748B' 
+                }}>
+                  <span>{article.date}</span>
+                  <span>-</span>
+                  <span>{article.readTime}</span>
+                  <span style={{ 
+                    background: '#F1F5F9', 
+                    color: '#475569', 
+                    padding: '2px 8px', 
+                    borderRadius: '999px', 
+                    fontSize: '0.72rem', 
+                    fontWeight: 600 
+                  }}>
+                    {article.category}
+                  </span>
                 </div>
 
+                {/* Read blog Pill Button */}
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.75rem' }}>
-                    <div style={{ width: 42, height: 42, borderRadius: '50%', background: 'rgba(0,187,167,0.1)', color: '#00bba7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', border: '1px solid rgba(0,187,167,0.2)' }}>
-                      {featuredArticle.authorAvatar || 'MR'}
-                    </div>
-                    <div>
-                      <div style={{ fontWeight: 800, color: '#080607', fontSize: '0.9rem' }}>{featuredArticle.author}</div>
-                      <div style={{ fontSize: '0.78rem', color: '#556575' }}>{featuredArticle.authorRole}</div>
-                    </div>
-                  </div>
-
                   <Link 
-                    to={`/blog/${featuredArticle.slug}`}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '8px',
-                      padding: '12px 24px',
-                      fontWeight: 750,
-                      fontSize: '0.9rem',
-                      cursor: 'pointer',
-                      textDecoration: 'none',
-                      boxShadow: '0 4px 14px rgba(0,187,167,0.25)'
-                    }}
+                    to={`/blog/${article.slug}`} 
+                    className="blog-pill-btn"
                   >
-                    <span>Read Full Article</span>
-                    <ArrowRight size={16} />
+                    Read blog
                   </Link>
                 </div>
               </div>
 
-              {/* Cover Image + Executive Takeaway */}
-              <div style={{ background: '#F5F8F7', borderLeft: '1px solid #E1E8E5', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ height: '220px', overflow: 'hidden' }}>
-                  <img 
-                    src={featuredArticle.image} 
-                    alt={featuredArticle.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                  />
-                </div>
-                <div style={{ padding: 'clamp(1.75rem, 3vw, 2.5rem)', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <div style={{ marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Sparkles size={18} color="#00bba7" />
-                    <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#00bba7' }}>
-                      KEY TAKEAWAY
-                    </span>
-                  </div>
-                  <p style={{ color: '#475569', fontSize: '0.925rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
-                    {featuredArticle.takeaway}
-                  </p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                    {featuredArticle.tags.map((tag, tIdx) => (
-                      <span key={tIdx} style={{ background: '#FFFFFF', color: '#556575', border: '1px solid #E1E8E5', padding: '4px 10px', borderRadius: '6px', fontSize: '0.72rem', fontWeight: 600 }}>
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ── Articles Grid: ALL BLOG DETAILS ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2rem' }}>
-          {filteredArticles.map((article) => (
-            <div
-              key={article.id}
-              style={{
-                background: '#FFFFFF',
-                borderRadius: '16px',
-                border: '1px solid #E1E8E5',
-                overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                boxShadow: '0 4px 20px rgba(8, 6, 7, 0.03)',
-                transition: 'all 0.25s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.borderColor = '#00bba7';
-                e.currentTarget.style.boxShadow = '0 16px 30px rgba(0, 187, 167, 0.08)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = '#E1E8E5';
-                e.currentTarget.style.boxShadow = '0 4px 20px rgba(8, 6, 7, 0.03)';
-              }}
-            >
-              <div>
-                {/* Article Card Image */}
-                <div style={{ height: '190px', overflow: 'hidden', position: 'relative' }}>
-                  <img 
-                    src={article.image} 
-                    alt={article.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                  />
-                  <div style={{ position: 'absolute', top: '12px', left: '12px' }}>
-                    <span style={{ background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)', color: '#047857', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 800, border: '1px solid #A7F3D0' }}>
-                      {article.category}
-                    </span>
-                  </div>
-                </div>
-
-                <div style={{ padding: '1.75rem 1.75rem 1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
-                    <span style={{ fontSize: '0.78rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Clock size={13} /> {article.readTime}
-                    </span>
-                    <span style={{ fontSize: '0.78rem', color: '#64748b' }}>
-                      {article.date}
-                    </span>
-                  </div>
-
-                  <h3 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: '1.25rem', fontWeight: 800, color: '#080607', lineHeight: 1.35, marginBottom: '0.85rem', letterSpacing: '-0.01em' }}>
-                    {article.title}
-                  </h3>
-
-                  <p style={{ color: '#556575', fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
-                    {article.excerpt}
-                  </p>
-
-                  {/* Tags */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '1rem' }}>
-                    {article.tags.map((t, idx) => (
-                      <span key={idx} style={{ background: '#F5F8F7', color: '#64748b', border: '1px solid #E1E8E5', padding: '3px 8px', borderRadius: '6px', fontSize: '0.72rem', fontWeight: 600 }}>
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Card Footer */}
-              <div style={{ padding: '1rem 1.75rem 1.5rem', borderTop: '1px solid #F1F5F4', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(0,187,167,0.12)', color: '#00bba7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.72rem' }}>
-                    {article.authorAvatar || 'MR'}
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#080607' }}>{article.author}</div>
-                  </div>
-                </div>
-                
-                <Link
-                  to={`/blog/${article.slug}`}
-                  style={{
-                    color: '#00bba7',
-                    fontWeight: 800,
-                    fontSize: '0.875rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    textDecoration: 'none'
+              {/* Right Square/Squircle Thumbnail */}
+              <Link 
+                to={`/blog/${article.slug}`}
+                className="blog-thumb-wrap"
+                style={{ 
+                  display: 'block', 
+                  flexShrink: 0, 
+                  width: '135px', 
+                  height: '135px', 
+                  borderRadius: '16px', 
+                  overflow: 'hidden', 
+                  border: '1px solid #E2E8F0', 
+                  background: '#080607',
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.04)',
+                  position: 'relative'
+                }}
+              >
+                <img 
+                  src={article.image} 
+                  alt={article.title} 
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover', 
+                    transition: 'transform 0.3s ease' 
                   }}
-                >
-                  <span>Read Full Article</span>
-                  <ChevronRight size={16} />
-                </Link>
-              </div>
+                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.06)'}
+                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1.0)'}
+                />
+              </Link>
 
             </div>
           ))}
         </div>
 
         {/* ── Empty State ── */}
-        {filteredArticles.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '4rem 1rem', background: '#FFFFFF', borderRadius: '16px', border: '1px solid #E1E8E5', marginTop: '2rem' }}>
-            <BookOpen size={40} color="#94a3b8" style={{ margin: '0 auto 1rem' }} />
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#080607', marginBottom: '0.5rem' }}>No articles match your search</h3>
-            <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Try searching with a different term or clear the filter.</p>
+        {displayArticles.length === 0 && (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '5rem 1rem', 
+            background: '#F8FAFC', 
+            borderRadius: '16px', 
+            border: '1px solid #E2E8F0', 
+            marginTop: '2rem' 
+          }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#080607', marginBottom: '0.5rem' }}>
+              No articles found in this category
+            </h3>
+            <p style={{ color: '#64748B', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+              Try searching with another keyword or select "All".
+            </p>
             <button
               onClick={() => { setSearchQuery(''); setActiveCategory('All'); }}
-              style={{
-                background: '#00bba7',
-                color: '#080607',
-                border: 'none',
-                padding: '8px 20px',
-                borderRadius: '8px',
-                fontWeight: 800,
-                cursor: 'pointer'
-              }}
+              className="blog-pill-btn"
+              style={{ background: '#080607', color: '#FFFFFF', borderColor: '#080607' }}
             >
-              Reset Filters
+              Reset to All
             </button>
           </div>
         )}
 
-        {/* ── Bottom Callout Banner ── */}
+        {/* ═════════════════════════════════════════════════════════════════════
+            4. COMPANY CALLOUT BANNER (MaxR Enterprise Tone)
+            ═════════════════════════════════════════════ */}
         <div style={{ 
-          marginTop: '5rem', 
-          background: '#080607', 
+          marginTop: '6rem', 
+          background: 'linear-gradient(135deg, #080607 0%, #0d1a18 100%)', 
           color: '#FFFFFF',
-          borderRadius: '16px', 
-          padding: 'clamp(2.5rem, 5vw, 4rem) 2rem', 
+          borderRadius: '20px', 
+          padding: 'clamp(2.5rem, 5vw, 4rem) 2.5rem', 
           textAlign: 'center', 
-          border: '1px solid #222', 
-          boxShadow: '0 8px 30px rgba(8,6,7,0.12)' 
+          border: '1px solid rgba(84, 207, 176, 0.18)', 
+          boxShadow: '0 16px 40px rgba(8, 6, 7, 0.12)',
+          position: 'relative',
+          overflow: 'hidden'
         }}>
+          <div style={{
+            position: 'absolute',
+            top: '-50%',
+            right: '-10%',
+            width: '350px',
+            height: '350px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(0, 187, 167, 0.15) 0%, transparent 70%)',
+            pointerEvents: 'none'
+          }} />
+
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
-            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
-              TALK TO OUR ENGINEERS
+            <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0', fontFamily: "'Space Grotesk', sans-serif" }}>
+              TALK TO OUR ARCHITECTS
             </span>
           </div>
 
-          <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 900, color: '#FFFFFF', letterSpacing: '-0.03em', marginBottom: '0.75rem' }}>
-            Have a Specific Engineering or AI Challenge?
+          <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.03em', marginBottom: '0.85rem' }}>
+            Have a Specific AI, Web or Automation Roadmap?
           </h2>
 
-          <p style={{ color: 'rgba(255, 255, 255, 0.78)', maxWidth: '640px', margin: '0 auto 2rem', fontSize: '1rem', lineHeight: 1.6 }}>
-            Our technologists are available to review your operational requirements and outline a concrete execution roadmap.
+          <p style={{ color: 'rgba(255, 255, 255, 0.75)', maxWidth: '640px', margin: '0 auto 2.25rem', fontSize: '1rem', lineHeight: 1.6 }}>
+            Our engineering team is ready to analyze your technical requirements and deliver high-impact production solutions.
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
@@ -362,40 +482,47 @@ export default function BlogPage({ onOpenContact }) {
               style={{ 
                 background: '#00bba7', 
                 color: '#080607', 
-                fontWeight: 800, 
-                padding: '0.9rem 2.2rem', 
-                fontSize: '0.95rem', 
-                borderRadius: '8px', 
+                fontWeight: 750, 
+                padding: '0.85rem 2.2rem', 
+                fontSize: '0.925rem', 
+                borderRadius: '999px', 
                 textDecoration: 'none',
                 boxShadow: '0 4px 16px rgba(0,187,167,0.3)',
                 display: 'inline-flex', 
                 alignItems: 'center', 
-                gap: '8px' 
+                gap: '8px',
+                transition: 'all 0.2s ease'
               }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <span>Book a Free Call →</span>
+              <span>Book Architecture Call</span>
+              <ArrowRight size={16} />
             </Link>
 
             <a
-              href="https://wa.me/971XXXXXXXXX"
+              href="https://wa.me/97145648887"
               target="_blank"
               rel="noopener noreferrer"
               style={{ 
-                background: '#25D366', 
-                color: '#FFFFFF', 
-                fontWeight: 800, 
-                padding: '0.9rem 2.2rem', 
-                fontSize: '0.95rem', 
-                borderRadius: '8px', 
+                background: '#FFFFFF', 
+                color: '#080607', 
+                fontWeight: 750, 
+                padding: '0.85rem 2rem', 
+                fontSize: '0.925rem', 
+                borderRadius: '999px', 
                 textDecoration: 'none',
-                boxShadow: '0 4px 16px rgba(37,211,102,0.3)',
+                border: '1px solid #E2E8F0',
                 display: 'inline-flex', 
                 alignItems: 'center', 
-                gap: '8px' 
+                gap: '8px',
+                transition: 'all 0.2s ease'
               }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <MessageCircle size={18} />
-              <span>WhatsApp Us</span>
+              <MessageCircle size={18} color="#25D366" />
+              <span>WhatsApp Direct</span>
             </a>
           </div>
         </div>
@@ -404,3 +531,4 @@ export default function BlogPage({ onOpenContact }) {
     </div>
   );
 }
+

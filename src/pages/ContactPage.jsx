@@ -72,37 +72,56 @@ export default function ContactPage() {
           {/* Left: Office Information & Commitment */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             
-            {/* Left Info Card — HQ */}
-            <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: 'clamp(2rem, 3.5vw, 2.75rem)', border: '1px solid #E1E8E5', boxShadow: '0 8px 30px rgba(8,6,7,0.03)' }}>
+            {/* Left Info Card — Dual Hub Locations */}
+            <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: 'clamp(1.75rem, 3.5vw, 2.5rem)', border: '1px solid #E1E8E5', boxShadow: '0 8px 30px rgba(8,6,7,0.03)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.5rem' }}>
                 <div style={{ width: 48, height: 48, borderRadius: '12px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(0,187,167,0.2)' }}>
                   <MapPin size={24} color="#00bba7" />
                 </div>
                 <div>
-                  <h3 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: '1.4rem', fontWeight: 800, color: '#080607', margin: 0, letterSpacing: '-0.02em' }}>
-                    Get In Touch
+                  <h3 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: '1.35rem', fontWeight: 800, color: '#080607', margin: 0, letterSpacing: '-0.02em' }}>
+                    Global Offices
                   </h3>
-                  <span style={{ fontSize: '0.85rem', color: '#00bba7', fontWeight: 700 }}>
-                    UAE — Available across the GCC
+                  <span style={{ fontSize: '0.825rem', color: '#00bba7', fontWeight: 700 }}>
+                    Dubai Commercial HQ • Chennai Technology Center
                   </span>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '0.9rem', color: '#080607' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Mail size={16} color="#00bba7" />
-                  <span>Email: <a href="mailto:contact@maxr.ae" style={{ color: '#080607', fontWeight: 700, textDecoration: 'none' }}>contact@maxr.ae</a></span>
+              {/* Dubai Office Block */}
+              <div style={{ borderBottom: '1px solid #E5EAE8', paddingBottom: '1.25rem', marginBottom: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <strong style={{ fontSize: '0.95rem', color: '#080607' }}>Dubai Headquarters (UAE)</strong>
+                  <span style={{ fontSize: '0.72rem', background: '#080607', color: '#54CFB0', padding: '2px 6px', borderRadius: '4px', fontWeight: 700 }}>Commercial HQ</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Clock size={16} color="#00bba7" />
-                  <span style={{ color: '#556575' }}>Hours: Sun – Thu, 9:00 AM – 6:00 PM GST</span>
+                <p style={{ margin: '0 0 6px 0', fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
+                  Office #1812, Grosvenor Business Tower, Barsha Heights (Tecom), Dubai, UAE
+                </p>
+                <div style={{ fontSize: '0.825rem', color: '#080607', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                  <span>T: <a href="tel:+97145648887" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>+971 4 564 8887</a></span>
+                  <span>E: <a href="mailto:contact@maxr.ae" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>contact@maxr.ae</a></span>
+                </div>
+              </div>
+
+              {/* Chennai Office Block */}
+              <div style={{ paddingBottom: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
+                  <strong style={{ fontSize: '0.95rem', color: '#080607' }}>Chennai Technology Hub (India)</strong>
+                  <span style={{ fontSize: '0.72rem', background: '#00bba7', color: '#080607', padding: '2px 6px', borderRadius: '4px', fontWeight: 800 }}>Core R&D Hub</span>
+                </div>
+                <p style={{ margin: '0 0 6px 0', fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
+                  MaxR Consultancy Services Pvt Ltd, 101, 2/29, Cenotaph Road, 1st Street, Alwarpet, Chennai, Tamil Nadu 600018
+                </p>
+                <div style={{ fontSize: '0.825rem', color: '#080607', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                  <span>T: <a href="tel:+914424356789" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>+91 44 2435 6789</a></span>
+                  <span>E: <a href="mailto:india@maxr.ae" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>india@maxr.ae</a></span>
                 </div>
               </div>
 
               {/* Direct WhatsApp Action */}
-              <div style={{ marginTop: '2rem' }}>
+              <div style={{ marginTop: '1.25rem', borderTop: '1px solid #E5EAE8', paddingTop: '1.25rem' }}>
                 <a 
-                  href="https://wa.me/971XXXXXXXXX"
+                  href="https://wa.me/97145648887"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ 
@@ -111,10 +130,10 @@ export default function ContactPage() {
                     gap: '8px', 
                     background: '#25D366', 
                     color: '#FFFFFF', 
-                    padding: '11px 22px', 
+                    padding: '10px 20px', 
                     borderRadius: '8px', 
                     fontWeight: 700, 
-                    fontSize: '0.9rem', 
+                    fontSize: '0.875rem', 
                     textDecoration: 'none',
                     boxShadow: '0 4px 14px rgba(37,211,102,0.25)',
                     transition: 'transform 0.2s ease'
