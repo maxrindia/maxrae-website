@@ -2256,10 +2256,16 @@ ul, ol {
    ══════════════════════════════════════════════════════════════════════════ */
 .footer-edirect-layout {
   display: grid;
-  grid-template-columns: 1.35fr 1.55fr 1.1fr;
-  gap: clamp(2rem, 4vw, 4rem);
+  grid-template-columns: minmax(220px, 1fr) minmax(480px, 3fr) minmax(130px, 0.8fr);
+  gap: clamp(2rem, 3.5vw, 3.5rem);
   align-items: start;
   margin-bottom: 3.5rem;
+}
+
+.footer-whatwedo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px 20px;
 }
 
 .footer-loc-item {
@@ -2359,6 +2365,9 @@ ul, ol {
   .footer-edirect-layout {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+  .footer-whatwedo-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   .footer-badge-box {
     align-items: flex-start;

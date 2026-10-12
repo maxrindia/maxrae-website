@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import ContactModal from './components/ContactModal.jsx';
-import ChatBot from './components/ChatBot.jsx';
 
 // Dedicated Pages matching enterprise requirements
 import HomePage from './pages/HomePage.jsx';
@@ -74,7 +73,6 @@ export default function App() {
   return (
     <BrowserRouter>
       <MainLayout />
-      <ChatBot />
     </BrowserRouter>
   );
 }

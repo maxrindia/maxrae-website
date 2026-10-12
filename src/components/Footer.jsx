@@ -1,36 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Globe,
-  ChevronDown,
-  ArrowUp
-} from 'lucide-react';
 
 export default function Footer() {
-  const [activeLocation, setActiveLocation] = useState('dubai');
-
-  const locations = {
-    dubai: {
-      name: 'Dubai',
-      badge: 'HQ • UAE',
-      office: 'Office #1812',
-      building: 'Grosvenor Business Tower, Barsha Heights (Tecom)',
-      city: 'Dubai, United Arab Emirates',
-      phone: '+971 4 564 8887',
-      email: 'contact@maxr.ae'
-    },
-    chennai: {
-      name: 'Chennai',
-      badge: 'Tech Hub • India',
-      office: 'MaxR Technologies',
-      building: '101, 2/29, Cenotaph 1st St, Alwarpet',
-      city: 'Chennai, Tamil Nadu 600018, India',
-      phone: '+91 44 2435 6789',
-      email: 'india@maxr.ae'
-    }
+  const office = {
+    name: 'MaxR Technologies',
+    building: '101, 2/29, Cenotaph 1st St, Alwarpet',
+    city: 'Chennai, Tamil Nadu 600018, India',
+    phone: '+91 44 2435 6789',
+    email: 'contact@maxr.ae'
   };
 
-  // ── Circular Outline Social Channels (Matching Enterprise Pattern) ──
+  // ── Circular Outline Social Channels ──
   const socialChannels = [
     {
       name: "Facebook",
@@ -82,10 +62,21 @@ export default function Footer() {
       url: "https://www.threads.net/@maxr.ae",
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12.186 24C5.467 24 0 18.533 0 11.814S5.467-.372 12.186-.372c6.719 0 12.186 5.467 12.186 12.186s-5.467 12.186-12.186 12.186zm0-22.186c-5.62 0-10.186 4.566-10.186 10.186s4.566 10.186 10.186 10.186 10.186-4.566 10.186-10.186-4.566-10.186-10.186-10.186zm4.846 13.918c-.378.232-.862.336-1.442.308-.857-.042-1.635-.353-2.316-.927-.584-.492-1.045-1.127-1.371-1.89-.166-.388-.3-.805-.399-1.241-.453.308-.87.697-1.238 1.157-.456.57-.751 1.206-.879 1.892-.128.685-.043 1.348.252 1.97.359.756.969 1.328 1.815 1.701.846.374 1.823.473 2.903.294 1.057-.175 1.989-.645 2.769-1.398l1.397 1.397c-1.066 1.066-2.378 1.737-3.905 1.99-1.527.253-2.955.093-4.24-.475-1.285-.568-2.227-1.455-2.802-2.636-.452-.927-.586-1.936-.4-3.001.186-1.065.656-2.036 1.397-2.885.589-.675 1.282-1.235 2.062-1.666.07-.468.175-.921.314-1.35.378-1.168.995-2.083 1.834-2.721.839-.638 1.859-.938 3.036-.893 1.177.045 2.164.444 2.936 1.186.772.742 1.229 1.71 1.359 2.879.13 1.169-.071 2.455-.599 3.824l-1.879-.724c.421-1.092.571-2.069.45-2.905-.121-.836-.462-1.492-.999-1.954-.537-.462-1.208-.686-1.997-.668-.789.018-1.488.291-2.08.81-.592.519-1.025 1.259-1.288 2.203-.099.355-.175.728-.228 1.112.934-.08 1.889-.043 2.842.112 1.231.2 2.274.72 3.102 1.549.828.829 1.272 1.849 1.321 3.032.049 1.183-.301 2.168-1.042 2.928zm-3.673-3.047c-.571-.093-1.144-.094-1.706-.002.08.318.188.621.322.903.228.479.524.856.88 1.121.356.265.753.377 1.179.333.33-.034.618-.158.857-.369.239-.211.378-.49.413-.827.035-.337-.076-.669-.331-.986-.255-.317-.655-.526-1.184-.619z"/>
+          <path d="M12.186 24C5.467 24 0 18.533 0 11.814S5.467-.372 12.186-.372c6.719 0 12.186 5.467 12.186 12.186s-5.467 12.186-12.186 12.186zm0-22.186c-5.62 0-10.186 4.566-10.186 10.186s4.566 10.186 10.186 10.186s4.566 10.186 10.186 10.186-4.566 10.186-10.186-10.186-4.566-10.186-10.186-10.186zm4.846 13.918c-.378.232-.862.336-1.442.308-.857-.042-1.635-.353-2.316-.927-.584-.492-1.045-1.127-1.371-1.89-.166-.388-.3-.805-.399-1.241-.453.308-.87.697-1.238 1.157-.456.57-.751 1.206-.879 1.892-.128.685-.043 1.348.252 1.97.359.756.969 1.328 1.815 1.701.846.374 1.823.473 2.903.294 1.057-.175 1.989-.645 2.769-1.398l1.397 1.397c-1.066 1.066-2.378 1.737-3.905 1.99-1.527.253-2.955.093-4.24-.475-1.285-.568-2.227-1.455-2.802-2.636-.452-.927-.586-1.936-.4-3.001.186-1.065.656-2.036 1.397-2.885.589-.675 1.282-1.235 2.062-1.666.07-.468.175-.921.314-1.35.378-1.168.995-2.083 1.834-2.721.839-.638 1.859-.938 3.036-.893 1.177.045 2.164.444 2.936 1.186.772.742 1.229 1.71 1.359 2.879.13 1.169-.071 2.455-.599 3.824l-1.879-.724c.421-1.092.571-2.069.45-2.905-.121-.836-.462-1.492-.999-1.954-.537-.462-1.208-.686-1.997-.668-.789.018-1.488.291-2.08.81-.592.519-1.025 1.259-1.288 2.203-.099.355-.175.728-.228 1.112.934-.08 1.889-.043 2.842.112 1.231.2 2.274.72 3.102 1.549.828.829 1.272 1.849 1.321 3.032.049 1.183-.301 2.168-1.042 2.928zm-3.673-3.047c-.571-.093-1.144-.094-1.706-.002.08.318.188.621.322.903.228.479.524.856.88 1.121.356.265.753.377 1.179.333.33-.034.618-.158.857-.369.239-.211.378-.49.413-.827.035-.337-.076-.669-.331-.986-.255-.317-.655-.526-1.184-.619z"/>
         </svg>
       )
     }
+  ];
+
+  const whatWeDoServices = [
+    { title: "AI Automation & Workflows", path: "/services" },
+    { title: "Web & App Development", path: "/services" },
+    { title: "Mobile App Engineering", path: "/services" },
+    { title: "Cloud & DevOps Scaling", path: "/services" },
+    { title: "CRM & Speed-to-Lead", path: "/services" },
+    { title: "Digital Marketing & SEO", path: "/services" },
+    { title: "Data & BI Analytics", path: "/services" },
+    { title: "Industries Served", path: "/industries" }
   ];
 
   return (
@@ -96,15 +87,24 @@ export default function Footer() {
         background: 'linear-gradient(180deg, #FFFFFF 0%, #F9FBFA 100%)', 
         borderTop: '1px solid #E2E8F0', 
         color: '#080607', 
-        padding: '5rem 0 4.5rem' 
+        padding: '5rem 0 3.5rem' 
       }}
     >
       <div className="container">
 
-        {/* ── EDITORIAL DIRECTORY (Locations + What We Do + Company) ── */}
-        <div className="footer-edirect-layout">
+        {/* ── EDITORIAL DIRECTORY (Office + What We Do [4 Cols x 2 Rows] + Company) ── */}
+        <div 
+          className="footer-edirect-layout"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(220px, 1fr) minmax(500px, 3.2fr) minmax(130px, 0.8fr)',
+            gap: 'clamp(2rem, 3.5vw, 3.5rem)',
+            alignItems: 'start',
+            marginBottom: '3.5rem'
+          }}
+        >
           
-          {/* Column 1: Brand Logo, Location Selector & Selected Office */}
+          {/* Column 1: Brand Logo & Office Address */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Link 
               to="/" 
@@ -118,84 +118,43 @@ export default function Footer() {
               />
             </Link>
 
-            {/* Location Switcher & Address (Classic Style with Dubai & Chennai) */}
-            <div style={{ display: 'flex', gap: '2rem', marginBottom: '1.25rem', alignItems: 'flex-start' }}>
-              {/* Location tabs with mint ring/dot indicator */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '95px' }}>
-                {Object.keys(locations).map((locKey) => {
-                  const loc = locations[locKey];
-                  const isActive = activeLocation === locKey;
-                  return (
-                    <button
-                      key={locKey}
-                      type="button"
-                      className={`footer-loc-item ${isActive ? 'is-active' : ''}`}
-                      onClick={() => setActiveLocation(locKey)}
-                    >
-                      <span>{loc.name}</span>
-                      <span className="footer-loc-indicator">
-                        <span className="footer-loc-dot" />
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Dynamic Address details */}
-              <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.55 }}>
-                <p style={{ margin: 0, fontWeight: 750, color: '#080607' }}>
-                  {locations[activeLocation].office}
-                </p>
-                <p style={{ margin: 0 }}>
-                  {locations[activeLocation].building}
-                </p>
-                <p style={{ margin: 0 }}>
-                  {locations[activeLocation].city}
-                </p>
-                <p style={{ margin: '8px 0 0 0' }}>
-                  <span style={{ fontWeight: 600 }}>T.</span>{' '}
-                  <a 
-                    href={`tel:${locations[activeLocation].phone.replace(/\s+/g, '')}`} 
-                    style={{ color: '#080607', textDecoration: 'none', transition: 'color 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = '#080607'}
-                  >
-                    {locations[activeLocation].phone}
-                  </a>
-                </p>
-                <p style={{ margin: '2px 0 0 0' }}>
-                  <span style={{ fontWeight: 600 }}>E.</span>{' '}
-                  <a 
-                    href={`mailto:${locations[activeLocation].email}`} 
-                    style={{ color: '#080607', textDecoration: 'none', transition: 'color 0.2s ease' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = '#080607'}
-                  >
-                    {locations[activeLocation].email}
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            {/* Global Delivery Status Badge */}
-            <div style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center', 
-              gap: '6px', 
-              fontSize: '0.75rem', 
-              color: '#008779', 
-              background: 'rgba(0, 187, 167, 0.08)', 
-              padding: '4px 10px', 
-              borderRadius: '20px', 
-              fontWeight: 650, 
-              width: 'fit-content' 
-            }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00bba7' }} />
-              <span>UAE & India • Global Delivery</span>
+            {/* Address details */}
+            <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.55 }}>
+              <p style={{ margin: 0, fontWeight: 750, color: '#080607' }}>
+                {office.name}
+              </p>
+              <p style={{ margin: 0 }}>
+                {office.building}
+              </p>
+              <p style={{ margin: 0 }}>
+                {office.city}
+              </p>
+              <p style={{ margin: '8px 0 0 0' }}>
+                <span style={{ fontWeight: 600 }}>T.</span>{' '}
+                <a 
+                  href={`tel:${office.phone.replace(/\s+/g, '')}`} 
+                  style={{ color: '#080607', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#080607'}
+                >
+                  {office.phone}
+                </a>
+              </p>
+              <p style={{ margin: '2px 0 0 0' }}>
+                <span style={{ fontWeight: 600 }}>E.</span>{' '}
+                <a 
+                  href={`mailto:${office.email}`} 
+                  style={{ color: '#080607', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#080607'}
+                >
+                  {office.email}
+                </a>
+              </p>
             </div>
           </div>
 
-          {/* Column 2: WHAT WE DO */}
+          {/* Column 2: WHAT WE DO (Split into 4 Columns, 2 Rows) */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               fontSize: '1.05rem', 
@@ -207,17 +166,16 @@ export default function Footer() {
               What We Do
             </h3>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
-              {[
-                { title: "AI Automation & Workflows", path: "/services" },
-                { title: "Web & App Development", path: "/services" },
-                { title: "Mobile App Engineering", path: "/services" },
-                { title: "Cloud & DevOps Scaling", path: "/services" },
-                { title: "CRM & Speed-to-Lead", path: "/services" },
-                { title: "Digital Marketing & SEO", path: "/services" },
-                { title: "Data & BI Analytics", path: "/services" },
-                { title: "Industries Served", path: "/industries" }
-              ].map((srv, sIdx) => (
+            {/* 4 Columns x 2 Rows Grid Layout */}
+            <div 
+              className="footer-whatwedo-grid"
+              style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(4, minmax(130px, 1fr))', 
+                gap: '12px 20px' 
+              }}
+            >
+              {whatWeDoServices.map((srv, sIdx) => (
                 <Link
                   key={sIdx}
                   to={srv.path}
@@ -292,13 +250,13 @@ export default function Footer() {
         </div>
 
         {/* ── CRISP DIVIDER LINE ── */}
-        <div style={{ borderTop: '1px solid #E2E8F0', margin: '3.5rem 0 2.25rem' }} />
+        <div style={{ borderTop: '1px solid #E2E8F0', margin: '3rem 0 2rem' }} />
 
         {/* ═════════════════════════════════════════════════════════════════════
-            ENTERPRISE PATTERN: Circular Outlines + Globe + Centered Legal & Cookie
+            ENTERPRISE PATTERN: Circular Outlines + Centered Legal
             ═════════════════════════════════════════════ */}
         
-        {/* Row 1: Centered Circular Social Icons + Globe ⌵ */}
+        {/* Row 1: Centered Circular Social Icons */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
           {socialChannels.map((item, idx) => (
             <a
@@ -338,31 +296,10 @@ export default function Footer() {
               {item.icon}
             </a>
           ))}
-
-          {/* Globe + Chevron Selector */}
-          <div 
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              color: '#0F172A',
-              marginLeft: '6px',
-              cursor: 'pointer',
-              padding: '6px 8px',
-              borderRadius: '6px',
-              transition: 'color 0.2s ease'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-            onMouseLeave={(e) => e.currentTarget.style.color = '#0F172A'}
-            title="Global Region Selector"
-          >
-            <Globe size={18} />
-            <ChevronDown size={14} />
-          </div>
         </div>
 
         {/* Row 2: Copyright & Contact */}
-        <div style={{ textAlign: 'center', maxWidth: '880px', margin: '0 auto 0.75rem' }}>
+        <div style={{ textAlign: 'center', maxWidth: '880px', margin: '0 auto' }}>
           <p style={{ margin: 0, fontSize: '0.825rem', color: '#475569', lineHeight: 1.75 }}>
             <span>Copyright © 2026 MaxR Technologies Limited</span>
             <span style={{ margin: '0 12px', color: '#94a3b8' }}>•</span>
@@ -370,56 +307,7 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Row 3: Cookies Notice */}
-        <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto' }}>
-          <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748b' }}>
-            We use cookies on our site to deliver optimal browsing experiences and system performance.
-          </p>
-        </div>
-
-        {/* Back to Top Arrow Trigger */}
-        <div style={{ textAlign: 'center', marginTop: '1.25rem' }}>
-          <button
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label="Scroll to top"
-            title="Scroll to top"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              padding: '6px 14px',
-              borderRadius: '999px',
-              background: '#FFFFFF',
-              border: '1px solid #E2E8F0',
-              color: '#475569',
-              fontSize: '0.78rem',
-              fontWeight: 650,
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.03)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#00bba7';
-              e.currentTarget.style.color = '#008779';
-              e.currentTarget.style.background = 'rgba(0,187,167,0.06)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#E2E8F0';
-              e.currentTarget.style.color = '#475569';
-              e.currentTarget.style.background = '#FFFFFF';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
-          >
-            <span>Back to top</span>
-            <ArrowUp size={13} />
-          </button>
-        </div>
-
       </div>
     </footer>
   );
 }
-
