@@ -75,15 +75,13 @@ export default function HomePage() {
   // ── Client Stories Video Playback State ──
   const [playingVideo, setPlayingVideo] = useState(null); // null | 'ardhra' | 'parvathi'
 
-  // ── 1. EXACT 10 SERVICES (With Notched Card Metadata) ──
+  // ── 1. EXACT 10 SERVICES ──
   const services = [
     {
       title: "Web Development",
       category: "WEB DEVELOPMENT",
       desc: "High-performance websites and web applications designed around your business goals.",
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-      badge: "WEB & CLOUD",
-      tags: ["React & Next.js", "Full-Stack", "High Speed"],
       link: "/services"
     },
     {
@@ -91,8 +89,6 @@ export default function HomePage() {
       category: "APP DEVELOPMENT",
       desc: "Native and cross-platform mobile applications that engage users and scale with your business.",
       image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
-      badge: "MOBILE",
-      tags: ["iOS & Android", "React Native", "Flutter"],
       link: "/services"
     },
     {
@@ -100,8 +96,6 @@ export default function HomePage() {
       category: "SOFTWARE DEVELOPMENT",
       desc: "Custom business software, SaaS architectures and enterprise platforms built to automate workflows.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      badge: "ENTERPRISE",
-      tags: ["SaaS Architecture", "Custom CRM", "APIs"],
       link: "/services"
     },
     {
@@ -109,8 +103,6 @@ export default function HomePage() {
       category: "DIGITAL MARKETING",
       desc: "Data-driven SEO, PPC campaigns and organic acquisition strategies that convert visitors into revenue.",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-      badge: "GROWTH",
-      tags: ["SEO & SEM", "Lead Gen", "Performance"],
       link: "/services"
     },
     {
@@ -118,8 +110,6 @@ export default function HomePage() {
       category: "SOCIAL MEDIA",
       desc: "Strategic content creation, community engagement and brand positioning across high-intent channels.",
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80",
-      badge: "BRANDING",
-      tags: ["Content Creation", "Community", "Campaigns"],
       link: "/services"
     },
     {
@@ -127,8 +117,6 @@ export default function HomePage() {
       category: "AI & AUTOMATION",
       desc: "Autonomous workflow bots, AI voice agents and smart integrations that cut manual overhead by 70%.",
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-      badge: "AI SYSTEMS",
-      tags: ["Voice AI", "Workflow Bots", "OpenAI & Claude"],
       link: "/services"
     },
     {
@@ -136,8 +124,6 @@ export default function HomePage() {
       category: "CRM & LEADS",
       desc: "End-to-end sales pipelines, automated lead routing and proactive client engagement engines.",
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
-      badge: "SALES TECH",
-      tags: ["HubSpot & Zoho", "Lead Routing", "Pipelines"],
       link: "/services"
     },
     {
@@ -145,8 +131,6 @@ export default function HomePage() {
       category: "UI/UX & BRANDING",
       desc: "Digital experiences and brand identities that create clarity, customer delight and consistency.",
       image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
-      badge: "EXPERIENCE",
-      tags: ["Figma Systems", "UX Research", "Brand Identity"],
       link: "/services"
     },
     {
@@ -154,8 +138,6 @@ export default function HomePage() {
       category: "CLOUD ARCHITECTURE",
       desc: "Reliable cloud infrastructure, secure database scaling and 24/7 high-availability microservices.",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-      badge: "DEVOPS",
-      tags: ["AWS & Azure", "Microservices", "Security"],
       link: "/services"
     },
     {
@@ -163,8 +145,6 @@ export default function HomePage() {
       category: "DATA & BI",
       desc: "Executive dashboards, real-time KPI telemetry and predictive business intelligence reporting.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      badge: "ANALYTICS",
-      tags: ["PowerBI", "Telemetry", "Predictive Models"],
       link: "/services"
     }
   ];
@@ -561,37 +541,45 @@ export default function HomePage() {
         }}
       >
         <div className="container">
-          {/* Header Strip with Eyebrow, Title and Subtitle */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '3.5rem' }}>
-            <div style={{ maxWidth: '640px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-                <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#008779' }}>
-                  OUR SERVICES
-                </span>
-              </div>
-              
-              <h2 
-                style={{ 
-                  fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
-                  fontWeight: 800, 
-                  letterSpacing: '-0.03em', 
-                  lineHeight: 1.15, 
-                  color: '#080607',
-                  margin: 0,
-                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
-                }}
-              >
-                End-to-End Technology for Modern Businesses.
-              </h2>
+          {/* Centered Header with Big OUR SERVICES and Sub-content */}
+          <div style={{ textAlign: 'center', maxWidth: '840px', margin: '0 auto 3.75rem auto' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+              <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#008779' }}>
+                WHAT WE DO
+              </span>
+              <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
             </div>
 
-            <p style={{ fontSize: '0.95rem', color: '#3F5565', lineHeight: 1.6, margin: 0, maxWidth: '380px' }}>
-              From strategy and digital solutions to automation, we help businesses grow, operate efficiently and stay ahead.
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2.6rem, 4.6vw, 3.8rem)', 
+                fontWeight: 900, 
+                letterSpacing: '-0.035em', 
+                lineHeight: 1.1, 
+                color: '#080607',
+                margin: '0 0 1rem 0',
+                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+              }}
+            >
+              OUR SERVICES
+            </h2>
+
+            <p 
+              style={{ 
+                fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)', 
+                fontWeight: 600,
+                color: '#3F5565', 
+                lineHeight: 1.4, 
+                margin: '0 auto',
+                maxWidth: '680px'
+              }}
+            >
+              End-to-End Technology for Modern Businesses.
             </p>
           </div>
 
-          {/* Notched Project Cards Responsive Grid */}
+          {/* Notched Project Cards Responsive Grid (Clean without tags or badges) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((item) => (
               <NotchedProjectCard
@@ -600,48 +588,12 @@ export default function HomePage() {
                 title={item.title}
                 description={item.desc}
                 image={item.image}
-                badge={item.badge}
-                tags={item.tags}
                 surface="#FFFFFF"
                 accent="#00bba7"
                 accentForeground="#080607"
                 monochrome={false}
               />
             ))}
-          </div>
-
-          {/* Bottom Action CTA */}
-          <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
-            <Link
-              to="/services"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '0.85rem 2rem',
-                borderRadius: '8px',
-                background: '#080607',
-                color: '#FFFFFF',
-                fontWeight: 700,
-                fontSize: '0.95rem',
-                textDecoration: 'none',
-                transition: 'all 0.25s ease',
-                boxShadow: '0 4px 14px rgba(8, 6, 7, 0.15)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#00bba7';
-                e.currentTarget.style.color = '#080607';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#080607';
-                e.currentTarget.style.color = '#FFFFFF';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              <span>Explore All Detailed Capabilities</span>
-              <ArrowRight size={16} />
-            </Link>
           </div>
         </div>
       </section>

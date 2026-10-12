@@ -2,13 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
-  const office = {
-    name: 'MaxR Technologies',
-    building: '101, 2/29, Cenotaph 1st St, Alwarpet',
-    city: 'Chennai, Tamil Nadu 600018, India',
-    phone: '+91 44 2435 6789',
-    email: 'contact@maxr.ae'
-  };
+  const offices = [
+    {
+      country: 'Dubai',
+      phone: '+971 4 564 8887',
+      email: 'contact@maxr.ae'
+    },
+    {
+      country: 'India',
+      phone: '+91 44 2435 6789',
+      email: 'contact@maxr.ae'
+    }
+  ];
 
   // ── Circular Outline Social Channels ──
   const socialChannels = [
@@ -92,19 +97,19 @@ export default function Footer() {
     >
       <div className="container">
 
-        {/* ── EDITORIAL DIRECTORY (Office + What We Do [4 Cols x 2 Rows] + Company) ── */}
+        {/* ── EDITORIAL DIRECTORY (Locations + What We Do [2 Cols x 4 Rows] + Company) ── */}
         <div 
           className="footer-edirect-layout"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(220px, 1fr) minmax(500px, 3.2fr) minmax(130px, 0.8fr)',
+            gridTemplateColumns: 'minmax(220px, 1.2fr) minmax(420px, 2.5fr) minmax(130px, 0.8fr)',
             gap: 'clamp(2rem, 3.5vw, 3.5rem)',
             alignItems: 'start',
             marginBottom: '3.5rem'
           }}
         >
           
-          {/* Column 1: Brand Logo & Office Address */}
+          {/* Column 1: Brand Logo & Locations (Dubai & India) */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Link 
               to="/" 
@@ -118,43 +123,41 @@ export default function Footer() {
               />
             </Link>
 
-            {/* Address details */}
-            <div style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.55 }}>
-              <p style={{ margin: 0, fontWeight: 750, color: '#080607' }}>
-                {office.name}
-              </p>
-              <p style={{ margin: 0 }}>
-                {office.building}
-              </p>
-              <p style={{ margin: 0 }}>
-                {office.city}
-              </p>
-              <p style={{ margin: '8px 0 0 0' }}>
-                <span style={{ fontWeight: 600 }}>T.</span>{' '}
-                <a 
-                  href={`tel:${office.phone.replace(/\s+/g, '')}`} 
-                  style={{ color: '#080607', textDecoration: 'none', transition: 'color 0.2s ease' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#080607'}
-                >
-                  {office.phone}
-                </a>
-              </p>
-              <p style={{ margin: '2px 0 0 0' }}>
-                <span style={{ fontWeight: 600 }}>E.</span>{' '}
-                <a 
-                  href={`mailto:${office.email}`} 
-                  style={{ color: '#080607', textDecoration: 'none', transition: 'color 0.2s ease' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#080607'}
-                >
-                  {office.email}
-                </a>
-              </p>
+            {/* Dubai & India Details (Mobile Number & Email Only) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {offices.map((loc, idx) => (
+                <div key={idx} style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.55 }}>
+                  <p style={{ margin: '0 0 4px 0', fontWeight: 800, color: '#080607', fontSize: '0.95rem' }}>
+                    {loc.country}
+                  </p>
+                  <p style={{ margin: '0 0 2px 0' }}>
+                    <span style={{ fontWeight: 600, color: '#080607' }}>M:</span>{' '}
+                    <a 
+                      href={`tel:${loc.phone.replace(/\s+/g, '')}`} 
+                      style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+                    >
+                      {loc.phone}
+                    </a>
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    <span style={{ fontWeight: 600, color: '#080607' }}>E:</span>{' '}
+                    <a 
+                      href={`mailto:${loc.email}`} 
+                      style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+                    >
+                      {loc.email}
+                    </a>
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Column 2: WHAT WE DO (Split into 4 Columns, 2 Rows) */}
+          {/* Column 2: WHAT WE DO (2 Columns, 4 Rows) */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               fontSize: '1.05rem', 
@@ -166,13 +169,13 @@ export default function Footer() {
               What We Do
             </h3>
 
-            {/* 4 Columns x 2 Rows Grid Layout */}
+            {/* 2 Columns x 4 Rows Grid Layout */}
             <div 
               className="footer-whatwedo-grid"
               style={{ 
                 display: 'grid', 
-                gridTemplateColumns: 'repeat(4, minmax(130px, 1fr))', 
-                gap: '12px 20px' 
+                gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))', 
+                gap: '12px 28px' 
               }}
             >
               {whatWeDoServices.map((srv, sIdx) => (
@@ -201,6 +204,7 @@ export default function Footer() {
               ))}
             </div>
           </div>
+
 
           {/* Column 3: COMPANY */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>

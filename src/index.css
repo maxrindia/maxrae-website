@@ -2837,6 +2837,23 @@ ul, ol {
 .duration-300 { transition-duration: 300ms; }
 .duration-500 { transition-duration: 500ms; }
 
+/* ── Footer Editorial Directory Responsive Rules ── */
+@media (max-width: 991px) {
+  .footer-edirect-layout {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 640px) {
+  .footer-edirect-layout {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+  .footer-whatwedo-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
 
 
 
