@@ -22,7 +22,7 @@ export default function Footer() {
     chennai: {
       name: 'Chennai',
       badge: 'Tech Hub • India',
-      office: 'MaxR Consultancy Services',
+      office: 'MaxR Technologies',
       building: '101, 2/29, Cenotaph 1st St, Alwarpet',
       city: 'Chennai, Tamil Nadu 600018, India',
       phone: '+91 44 2435 6789',
@@ -195,7 +195,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: WHAT WE DO (Clean Enterprise Typography) */}
+          {/* Column 2: WHAT WE DO */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h3 style={{ 
               fontSize: '1.05rem', 
@@ -207,19 +207,16 @@ export default function Footer() {
               What We Do
             </h3>
 
-            {/* Clean 2-Column Services Links */}
-            <div className="footer-services-grid">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
               {[
-                { title: "Voice & AI Agents", path: "/voice-agents" },
-                { title: "Web Development", path: "/services" },
+                { title: "AI Automation & Workflows", path: "/services" },
+                { title: "Web & App Development", path: "/services" },
                 { title: "Mobile App Engineering", path: "/services" },
-                { title: "Workflow Automation", path: "/services" },
-                { title: "SaaS Custom Architecture", path: "/services" },
                 { title: "Cloud & DevOps Scaling", path: "/services" },
-                { title: "CRM & Lead Solutions", path: "/services" },
+                { title: "CRM & Speed-to-Lead", path: "/services" },
                 { title: "Digital Marketing & SEO", path: "/services" },
                 { title: "Data & BI Analytics", path: "/services" },
-                { title: "Digital Transformation", path: "/services" }
+                { title: "Industries Served", path: "/industries" }
               ].map((srv, sIdx) => (
                 <Link
                   key={sIdx}
@@ -261,13 +258,10 @@ export default function Footer() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
               {[
-                { title: "About MaxR", path: "/about" },
-                { title: "Case Studies & Work", path: "/case-studies" },
-                { title: "Voice AI Agents", path: "/voice-agents" },
-                { title: "Engineering Insights", path: "/blog" },
-                { title: "Industries We Serve", path: "/industries" },
-                { title: "Careers & Culture", path: "/careers" },
-                { title: "Contact Our Team", path: "/contact" }
+                { title: "About Us", path: "/about" },
+                { title: "Blog", path: "/blog" },
+                { title: "Careers", path: "/careers" },
+                { title: "Contact Us", path: "/contact" }
               ].map((item, idx) => (
                 <Link
                   key={idx}
@@ -367,49 +361,19 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Row 2: Copyright & Inline Legal Links (Constrained width for clear spacing) */}
+        {/* Row 2: Copyright & Contact */}
         <div style={{ textAlign: 'center', maxWidth: '880px', margin: '0 auto 0.75rem' }}>
           <p style={{ margin: 0, fontSize: '0.825rem', color: '#475569', lineHeight: 1.75 }}>
             <span>Copyright © 2026 MaxR Technologies Limited</span>
             <span style={{ margin: '0 12px', color: '#94a3b8' }}>•</span>
             <Link to="/contact" style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#475569'}>Contact Us</Link>
-            <span style={{ margin: '0 6px', color: '#cbd5e1' }}>/</span>
-            <Link to="/contact" style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#475569'}>Disclaimer</Link>
-            <span style={{ margin: '0 6px', color: '#cbd5e1' }}>/</span>
-            <Link to="/contact" style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#475569'}>Privacy Statement</Link>
-            <span style={{ margin: '0 6px', color: '#cbd5e1' }}>/</span>
-            <Link to="/contact" style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#475569'}>Terms of use</Link>
-            <span style={{ margin: '0 6px', color: '#cbd5e1' }}>/</span>
-            <Link to="/contact" style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#475569'}>Sitemap</Link>
-            <span style={{ margin: '0 6px', color: '#cbd5e1' }}>/</span>
-            <Link to="/contact" style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#475569'}>Raise a Grievance</Link>
           </p>
         </div>
 
         {/* Row 3: Cookies Notice */}
         <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto' }}>
           <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748b' }}>
-            We use cookies on our site. Please read more about{' '}
-            <Link 
-              to="/contact" 
-              style={{ 
-                color: '#008779', 
-                textDecoration: 'none', 
-                fontWeight: 600,
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.color = '#00bba7';
-                e.target.style.textDecoration = 'underline';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.color = '#008779';
-                e.target.style.textDecoration = 'none';
-              }}
-            >
-              cookies policy
-            </Link>
-            {' '}here.
+            We use cookies on our site to deliver optimal browsing experiences and system performance.
           </p>
         </div>
 

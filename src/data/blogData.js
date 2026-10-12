@@ -86,7 +86,7 @@ export const blogPosts = [
         bullets: [
           'Immediate caller identification and historical context lookup within 150ms of ringing.',
           'Live appointment calendar booking directly into team schedules during the conversation.',
-          'Post-call automated call summarization, sentiment extraction, and WhatsApp follow-up confirmation within 5 seconds of hanging up.'
+          'Post-call automated call summarization, sentiment extraction, and automated follow-up confirmation within 5 seconds of hanging up.'
         ]
       }
     ]
@@ -245,7 +245,7 @@ export const blogPosts = [
         heading: 'The High Cost of Operational Friction',
         paragraphs: [
           'When leads sit unanswered for three hours or invoices take four days to approve, businesses lose revenue before they even realize a problem exists.',
-          'Autonomous pipelines bridge the gaps between your marketing campaigns, communication channels (WhatsApp, Email, Phone), and core databases instantly.'
+          'Autonomous pipelines bridge the gaps between your marketing campaigns, communication channels (SMS, Email, Phone), and core databases instantly.'
         ]
       },
       {
@@ -254,7 +254,7 @@ export const blogPosts = [
           'These three workflows generate the fastest return for growing commercial teams:'
         ],
         bullets: [
-          'Instant WhatsApp & Web Lead Triage: Responding to inbound inquiries in under 30 seconds with intelligent qualification bots.',
+          'Instant Multi-Channel & Web Lead Triage: Responding to inbound inquiries in under 30 seconds with intelligent qualification bots.',
           'Autonomous Contract & Invoicing Reconciliation: Parsing PDF agreements, syncing line items to accounting software, and routing payment confirmations.',
           'Cross-Platform Team Dispatch: Automatically creating task tickets, notifying technicians or account reps, and tracking SLA delivery.'
         ]
@@ -323,7 +323,7 @@ export const blogPosts = [
         heading: 'Natural Conversational Capability',
         paragraphs: [
           'Modern voice systems do not ask callers to "press 1 for sales". They listen naturally, understand intent, handle conversational interruptions gracefully, and answer complex questions using live business data.',
-          'From booking consultations to checking order status and screening urgent inquiries, autonomous voice systems represent the next great frontier in client engagement.'
+          'From booking appointments to checking order status and screening urgent inquiries, autonomous voice systems represent the next great frontier in client engagement.'
         ]
       }
     ]

@@ -48,11 +48,11 @@ export default function IndustriesPage({ onOpenContact }) {
       metricBadge: "70% Less No-Shows",
       clientMatch: "Trusted by ARDHRA & Le Spa Wellness",
       challenge: "Clinic reception desks juggle ringing phones while greeting in-clinic patients. Peak morning call volumes lead to 30%+ abandoned calls, patient frustration, and costly missed appointments.",
-      solution: "MaxR deploys HIPAA-compliant autonomous voice and WhatsApp booking assistants that handle inquiries in under 450ms, verify doctor schedules, book consultations directly into your EHR/CRM, and trigger automated WhatsApp confirmations with Google Maps directions.",
+      solution: "MaxR deploys HIPAA-compliant autonomous voice and booking assistants that handle inquiries in under 450ms, verify doctor schedules, book appointments directly into your EHR/CRM, and trigger automated appointment confirmations with Google Maps directions.",
       capabilities: [
         "24/7 Voice Booking Assistant",
         "EHR / CRM Synchronization",
-        "WhatsApp Automated Reminders",
+        "Automated Appointment Reminders",
         "HIPAA / Zero-Retention Privacy",
         "Multi-Dialect Arabic & English"
       ],
@@ -73,12 +73,12 @@ export default function IndustriesPage({ onOpenContact }) {
       metricBadge: "3× Lead Conversion",
       clientMatch: "Trusted by GCC Developers & Brokerages",
       challenge: "In competitive property markets like Dubai, high ad spend generates hundreds of leads every week, but 60% decay because brokers take over 15 minutes to initiate first contact.",
-      solution: "MaxR connects your Meta/Google ads directly to an AI voice and WhatsApp speed-to-lead engine. Inquiries receive an immediate AI qualification call within 60 seconds, collecting budget, preferred unit size, and timeline before booking directly into top brokers' calendars.",
+      solution: "MaxR connects your Meta/Google ads directly to an AI voice and speed-to-lead engine. Inquiries receive an immediate AI qualification call within 60 seconds, collecting budget, preferred unit size, and timeline before booking directly into top brokers' calendars.",
       capabilities: [
         "Sub-60s Speed-to-Lead Voice Bot",
         "Property Portal & Web Development",
         "HubSpot / Salesforce / Zoho Routing",
-        "Brochure & Floor Plan WhatsApp Delivery",
+        "Brochure & Floor Plan Instant Delivery",
         "Executive Sales Telemetry Dashboard"
       ],
       results: [
@@ -93,22 +93,22 @@ export default function IndustriesPage({ onOpenContact }) {
       name: "E-Commerce",
       displayTitle: "E-COMMERCE & RETAIL",
       icon: ShoppingCart,
-      tagline: "High-speed headless storefronts, automated WhatsApp checkout recovery, and 24/7 support bots.",
+      tagline: "High-speed headless storefronts, automated checkout recovery, and 24/7 support bots.",
       image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
       metricBadge: "85% Auto Support",
       clientMatch: "Trusted by ARDHRA D2C & Glomi Retail",
       challenge: "Over 65% of customer inquiries are repetitive ('Where is my tracking number?', 'How do I return?'), while cart abandonment drains paid acquisition margins across saturated retail spaces.",
-      solution: "Omnichannel WhatsApp AI engine synced natively with Shopify, WooCommerce, and custom inventory ERPs. Customers receive live order tracking updates, frictionless automated return processing, and targeted WhatsApp discount sequences for abandoned checkouts.",
+      solution: "Omnichannel AI engine synced natively with Shopify, WooCommerce, and custom inventory ERPs. Customers receive live order tracking updates, frictionless automated return processing, and targeted automated discount sequences for abandoned checkouts.",
       capabilities: [
         "Headless E-Commerce Development",
-        "WhatsApp Cart Recovery Funnels",
+        "Automated Cart Recovery Funnels",
         "Automated Order Tracking AI",
         "Multi-Currency Payment Gateways",
         "Real-Time Inventory Synchronization"
       ],
       results: [
         "85% of tier-1 support tickets resolved without human intervention",
-        "28% increase in abandoned cart recovery via interactive WhatsApp flows",
+        "28% increase in abandoned cart recovery via interactive automated flows",
         "Sub-10 second resolution time for order tracking and exchange requests"
       ]
     },
@@ -178,7 +178,7 @@ export default function IndustriesPage({ onOpenContact }) {
         "Commission-Free Direct Booking Engines",
         "24/7 Multilingual Guest Concierge AI",
         "Dining & Spa Upsell Automation",
-        "Automated WhatsApp Check-In Prompts",
+        "Automated Guest Check-In Prompts",
         "Integrated Loyalty Points Management"
       ],
       results: [
@@ -193,14 +193,14 @@ export default function IndustriesPage({ onOpenContact }) {
       name: "Professional Services",
       displayTitle: "PROFESSIONAL SERVICES & LEGAL",
       icon: Users,
-      tagline: "Automated preliminary qualification, NDA dispatch, and senior partner consultation booking.",
+      tagline: "Automated preliminary qualification, NDA dispatch, and senior partner appointment booking.",
       image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
       metricBadge: "12+ Billable Hrs Saved",
       clientMatch: "Trusted by Corrumatik & Corporate Advisory Firms",
-      challenge: "Senior partners and consultants lose 10+ billable hours every week fielding unqualified inquiries and explaining fee structures to prospects who don't fit the firm's ideal client profile.",
-      solution: "MaxR automates the discovery intake workflow. The AI bot asks targeted preliminary qualifying questions, verifies case eligibility, collects preliminary documents, and only books paid consultations for verified prospects.",
+      challenge: "Senior partners and practice leads lose 10+ billable hours every week fielding unqualified inquiries and explaining fee structures to prospects who don't fit the firm's ideal client profile.",
+      solution: "MaxR automates the client intake workflow. The AI bot asks targeted preliminary qualifying questions, verifies case eligibility, collects preliminary documents, and only books paid sessions for verified prospects.",
       capabilities: [
-        "Automated Client Discovery Intake",
+        "Automated Client Intake Workflow",
         "Digital Agreement & NDA Dispatch",
         "Pre-Qualified Calendar Routing",
         "Practice Management CRM Integration",
@@ -629,39 +629,6 @@ export default function IndustriesPage({ onOpenContact }) {
                         <span>Deploy for {ind.name}</span>
                         <ArrowRight size={15} />
                       </Link>
-
-                      <a 
-                        href="https://wa.me/97145648887"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ 
-                          background: '#FFFFFF', 
-                          border: '1.5px solid #25D366', 
-                          color: '#080607', 
-                          fontWeight: 700, 
-                          padding: '0.75rem 1.25rem', 
-                          fontSize: '0.875rem',
-                          borderRadius: '8px',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          textDecoration: 'none',
-                          transition: 'all 0.2s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#25D366';
-                          e.currentTarget.style.color = '#FFFFFF';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#FFFFFF';
-                          e.currentTarget.style.color = '#080607';
-                        }}
-                      >
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.89 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.711 1.456h.005c6.554 0 11.89-5.336 11.893-11.894 0-3.177-1.237-6.164-3.488-8.414z"/>
-                        </svg>
-                        <span>WhatsApp</span>
-                      </a>
                     </div>
 
                   </div>
@@ -731,41 +698,6 @@ export default function IndustriesPage({ onOpenContact }) {
                 <span>Request Custom Industry Audit</span>
                 <ArrowRight size={16} />
               </Link>
-
-              <a 
-                href="https://wa.me/97145648887"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ 
-                  background: 'rgba(255, 255, 255, 0.08)', 
-                  border: '1px solid rgba(255, 255, 255, 0.2)', 
-                  color: '#FFFFFF', 
-                  fontWeight: 700, 
-                  padding: '0.85rem 1.75rem', 
-                  fontSize: '0.95rem',
-                  borderRadius: '8px',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#25D366';
-                  e.currentTarget.style.borderColor = '#25D366';
-                  e.currentTarget.style.color = '#FFFFFF';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                  e.currentTarget.style.color = '#FFFFFF';
-                }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.89 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.711 1.456h.005c6.554 0 11.89-5.336 11.893-11.894 0-3.177-1.237-6.164-3.488-8.414z"/>
-                </svg>
-                <span>Direct WhatsApp</span>
-              </a>
             </div>
           </div>
         </div>

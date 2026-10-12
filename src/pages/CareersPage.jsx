@@ -6,64 +6,222 @@ export default function CareersPage({ onOpenContact }) {
   return (
     <div style={{ background: '#FFFFFF', color: '#080607', minHeight: '100vh' }}>
       
-      {/* ── Hero Banner ── */}
+      {/* ── CAREERS AT MAXR HERO BANNER ── */}
       <section 
         style={{ 
-          background: 'linear-gradient(135deg, #080607 0%, #0F171B 100%)',
+          background: 'linear-gradient(135deg, #080607 0%, #0F171B 50%, #080607 100%)',
           color: '#FFFFFF',
-          padding: 'clamp(5rem, 8vw, 7.5rem) 0 clamp(3.5rem, 6vw, 5rem)',
+          padding: 'clamp(5rem, 8vw, 7.5rem) 0 clamp(4rem, 6vw, 5.5rem)',
           borderBottom: '1px solid #1E293B',
           position: 'relative',
           overflow: 'hidden'
         }}
       >
+        {/* Ambient Glow Orbs */}
         <div 
           style={{ 
             position: 'absolute', 
             top: '-20%', 
             right: '-10%', 
-            width: '500px', 
-            height: '500px', 
+            width: '550px', 
+            height: '550px', 
             borderRadius: '50%', 
-            background: 'radial-gradient(circle, rgba(84, 207, 176, 0.12) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(0, 187, 167, 0.15) 0%, transparent 70%)',
+            pointerEvents: 'none' 
+          }} 
+        />
+        <div 
+          style={{ 
+            position: 'absolute', 
+            bottom: '-25%', 
+            left: '-10%', 
+            width: '450px', 
+            height: '450px', 
+            borderRadius: '50%', 
+            background: 'radial-gradient(circle, rgba(84, 207, 176, 0.08) 0%, transparent 70%)',
             pointerEvents: 'none' 
           }} 
         />
 
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{ maxWidth: '780px' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
-              <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
-                CAREERS AT MAXR
+          <div style={{ maxWidth: '840px', marginBottom: '3rem' }}>
+            {/* Live Status Pill */}
+            <div 
+              style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                padding: '6px 14px',
+                borderRadius: '999px',
+                background: 'rgba(0, 187, 167, 0.1)',
+                border: '1px solid rgba(0, 187, 167, 0.3)',
+                marginBottom: '1.25rem' 
+              }}
+            >
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#00bba7', boxShadow: '0 0 10px #00bba7' }} />
+              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#54CFB0' }}>
+                CAREERS AT MAXR • GLOBAL HUBS
               </span>
             </div>
 
             <h1 
               style={{ 
-                fontSize: 'clamp(2.4rem, 4.5vw, 3.6rem)', 
-                fontWeight: 800, 
-                letterSpacing: '-0.03em', 
-                lineHeight: 1.15, 
+                fontSize: 'clamp(2.6rem, 5vw, 4rem)', 
+                fontWeight: 900, 
+                letterSpacing: '-0.035em', 
+                lineHeight: 1.1, 
                 color: '#FFFFFF', 
-                margin: '0 0 1.25rem 0' 
+                margin: '0 0 1.25rem 0',
+                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
               }}
             >
-              Build the Future of Digital & AI.
+              Careers at MaxR.
             </h1>
 
             <p 
               style={{ 
-                fontSize: 'clamp(1rem, 1.2vw, 1.15rem)', 
-                color: 'rgba(255, 255, 255, 0.8)', 
-                lineHeight: 1.65, 
-                margin: 0, 
-                maxWidth: '640px' 
+                fontSize: 'clamp(1.1rem, 1.4vw, 1.35rem)', 
+                color: '#54CFB0', 
+                fontWeight: 700, 
+                margin: '0 0 1.25rem 0',
+                lineHeight: 1.35
               }}
             >
-              We bring together technologists, product architects, and creative strategists to solve complex business challenges across the Middle East and globally.
+              Build the Future of Enterprise AI, Voice Agents & High-Performance Software.
             </p>
+
+            <p 
+              style={{ 
+                fontSize: 'clamp(0.975rem, 1.2vw, 1.1rem)', 
+                color: 'rgba(255, 255, 255, 0.75)', 
+                lineHeight: 1.65, 
+                margin: '0 0 2rem 0', 
+                maxWidth: '680px' 
+              }}
+            >
+              Join our engineering and strategy team across Dubai Headquarters and our Chennai Deep Tech Hub. We work with ambitious founders and multinational businesses to build, automate, and scale next-generation digital intelligence.
+            </p>
+
+            {/* Action Buttons */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
+              <a
+                href="#openings"
+                style={{
+                  background: '#00bba7',
+                  color: '#080607',
+                  padding: '0.85rem 1.75rem',
+                  borderRadius: '10px',
+                  fontWeight: 800,
+                  fontSize: '0.95rem',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 6px 20px rgba(0, 187, 167, 0.35)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 10px 26px rgba(0, 187, 167, 0.5)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 187, 167, 0.35)';
+                }}
+              >
+                <span>View Open Opportunities</span>
+                <ArrowRight size={16} />
+              </a>
+
+              <a
+                href="mailto:careers@maxr.ae"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  color: '#FFFFFF',
+                  padding: '0.85rem 1.75rem',
+                  borderRadius: '10px',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                  e.currentTarget.style.borderColor = '#00bba7';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                }}
+              >
+                <Mail size={16} color="#00bba7" />
+                <span>Send Open CV (careers@maxr.ae)</span>
+              </a>
+            </div>
           </div>
+
+          {/* 4 Hero Highlight Perks */}
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', 
+              gap: '1.25rem',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+              paddingTop: '2.5rem'
+            }}
+          >
+            {[
+              {
+                title: "Rapid Deployment Culture",
+                desc: "< 7 days turnaround. Zero endless slide decks — we build real working software."
+              },
+              {
+                title: "Dual Commercial & Tech Hubs",
+                desc: "Dubai HQ commercial presence with deep R&D engineering in Chennai, India."
+              },
+              {
+                title: "Next-Gen AI & Voice Stack",
+                desc: "Realtime speech pipelines, autonomous agent workflows & modern cloud."
+              },
+              {
+                title: "High Autonomy & Direct Access",
+                desc: "Work directly alongside founders and lead architects with high ownership."
+              }
+            ].map((perk, pIdx) => (
+              <div 
+                key={pIdx}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  border: '1px solid rgba(255, 255, 255, 0.07)',
+                  borderRadius: '12px',
+                  padding: '1.25rem',
+                  transition: 'all 0.25s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#00bba7';
+                  e.currentTarget.style.background = 'rgba(0, 187, 167, 0.05)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.07)';
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <div style={{ color: '#00bba7', fontSize: '0.875rem', fontWeight: 800, marginBottom: '6px' }}>
+                  {perk.title}
+                </div>
+                <div style={{ color: '#94A3B8', fontSize: '0.825rem', lineHeight: 1.5 }}>
+                  {perk.desc}
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
@@ -100,7 +258,7 @@ export default function CareersPage({ onOpenContact }) {
               {
                 icon: Users,
                 title: "Global Collaboration",
-                desc: "Our multicultural engineers and domain consultants work seamlessly across UAE, Saudi Arabia, and international hubs."
+                desc: "Our multicultural engineers and domain specialists work seamlessly across UAE, Saudi Arabia, and international hubs."
               }
             ].map((val, idx) => {
               const IconComp = val.icon;
@@ -153,7 +311,7 @@ export default function CareersPage({ onOpenContact }) {
       </section>
 
       {/* ── Current Openings (No Active Openings State) ── */}
-      <section style={{ padding: 'clamp(4.5rem, 7vw, 6.5rem) 0', background: '#FAFCFB' }}>
+      <section id="openings" style={{ padding: 'clamp(4.5rem, 7vw, 6.5rem) 0', background: '#FAFCFB' }}>
         <div className="container">
           <div 
             style={{ 

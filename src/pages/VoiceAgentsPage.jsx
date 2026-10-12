@@ -25,7 +25,7 @@ export default function VoiceAgentsPage({ onOpenContact }) {
     {
       id: "realestate",
       title: "Dubai Luxury Real Estate Inbound",
-      role: "Property Consultant (Palm Jumeirah & Downtown)",
+      role: "Property Specialist (Palm Jumeirah & Downtown)",
       accent: "English (Neutral / Professional)",
       duration: "1:24",
       dialogue: "Agent identifies caller's budget ($2.5M+), qualifies cash vs mortgage buyer, and locks a VIP penthouse viewing slot on Friday at 5:00 PM."

@@ -10,7 +10,6 @@ import {
   Sparkles, 
   CheckCircle2, 
   Share2, 
-  MessageCircle,
   ChevronRight,
   BookOpen
 } from 'lucide-react';
@@ -467,7 +466,7 @@ export default function BlogPostPage({ onOpenContact }) {
               style={{
                 background: '#00bba7',
                 color: '#080607',
-                padding: '0.95rem 1.85rem',
+                padding: '0.95rem 2.25rem',
                 borderRadius: '8px',
                 fontWeight: 800,
                 fontSize: '0.95rem',
@@ -487,39 +486,8 @@ export default function BlogPostPage({ onOpenContact }) {
                 e.currentTarget.style.boxShadow = '0 4px 18px rgba(0, 187, 167, 0.35)';
               }}
             >
-              <span>Book a Free Call →</span>
+              <span>Get in Touch →</span>
             </Link>
-
-            <a
-              href="https://wa.me/971XXXXXXXXX"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                background: '#25D366',
-                color: '#FFFFFF',
-                padding: '0.95rem 1.85rem',
-                borderRadius: '8px',
-                fontWeight: 800,
-                fontSize: '0.95rem',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                textDecoration: 'none',
-                boxShadow: '0 4px 18px rgba(37, 211, 102, 0.35)',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 8px 26px rgba(37, 211, 102, 0.45)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 18px rgba(37, 211, 102, 0.35)';
-              }}
-            >
-              <MessageCircle size={18} />
-              <span>WhatsApp Us</span>
-            </a>
           </div>
 
         </div>

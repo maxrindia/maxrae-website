@@ -249,7 +249,7 @@ export default function Header() {
                               {[
                                 { title: "Voice & AI Agents", path: "/voice-agents" },
                                 { title: "Workflow Automation", path: "/services" },
-                                { title: "WhatsApp Lead Bots", path: "/services" },
+                                { title: "AI Inbound Chatbots", path: "/services" },
                                 { title: "Data & BI Analytics", path: "/services" }
                               ].map((s, idx) => (
                                 <Link

@@ -24,7 +24,7 @@ export default function CaseStudiesPage({ onOpenContact }) {
         { label: "Deployment Speed", value: "5 Days", sub: "From audit to live launch" }
       ],
       challenge: "The agency receives high-intent buyer inquiries for Palm Jumeirah and Downtown luxury penthouses from investors across Europe, Asia, and North America. Over 38% of inbound calls arrived during Dubai off-hours or while senior agents were in physical viewings, causing hot leads to slip away to competing agencies.",
-      solution: "MaxR deployed an ultra-fast AI Voice Agent connected to a local UAE number. The agent greets callers in natural British English or Arabic, verifies buyer budget, pre-qualifies mortgage vs cash buyers, and immediately books viewing appointments on the senior broker's calendar while sending a detailed WhatsApp brochure.",
+      solution: "MaxR deployed an ultra-fast AI Voice Agent connected to a local UAE number. The agent greets callers in natural British English or Arabic, verifies buyer budget, pre-qualifies mortgage vs cash buyers, and immediately books viewing appointments on the senior broker's calendar while sending a detailed digital brochure.",
       testimonial: "“We used to lose high-net-worth investors simply because we couldn't pick up the phone at 11 PM Dubai time. MaxR solved this in 5 days. The AI sounds remarkably human and books viewings flawlessly.”",
       author: "Managing Partner, Prime Luxury Properties Dubai"
     },
@@ -33,14 +33,14 @@ export default function CaseStudiesPage({ onOpenContact }) {
       client: "Metropolitan Dental & Aesthetics Group",
       category: "Healthcare & Patient Intake",
       badge: "Clinic Automation",
-      headline: "Cutting Clinic No-Shows by 68% with 24/7 Voice & WhatsApp Appointment Booking",
+      headline: "Cutting Clinic No-Shows by 68% with 24/7 Voice & SMS Appointment Booking",
       metrics: [
-        { label: "No-Show Reduction", value: "68%", sub: "Through automated WhatsApp reminders" },
+        { label: "No-Show Reduction", value: "68%", sub: "Through automated multi-touch reminders" },
         { label: "Annual Savings", value: "$74,000", sub: "Reduced front-desk overtime" },
         { label: "Patient Satisfaction", value: "98.5%", sub: "Instant zero-hold booking" }
       ],
       challenge: "With three busy clinic locations, the front desk received over 320 daily phone calls for routine bookings, reschedulings, and procedure cost inquiries. Patients were frequently kept on hold for 5+ minutes, leading to abandoned calls and a costly 22% no-show rate.",
-      solution: "MaxR implemented an AI receptionist integrated with the clinic's Practice Management System. The bot answers patient calls 24/7, answers treatment pricing questions, checks doctor schedules, and sends two-way WhatsApp confirmation pings with Google Map directions.",
+      solution: "MaxR implemented an AI receptionist integrated with the clinic's Practice Management System. The bot answers patient calls 24/7, answers treatment pricing questions, checks doctor schedules, and sends two-way automated confirmation pings with Google Map directions.",
       testimonial: "“Our receptionists are no longer glued to ringing phones and can actually focus on welcoming patients with warmth. It completely transformed our clinic's operations.”",
       author: "Clinical Director, Metropolitan Healthcare"
     },
@@ -51,12 +51,12 @@ export default function CaseStudiesPage({ onOpenContact }) {
       badge: "E-Commerce AI",
       headline: "Resolving 85% of Support Tickets Instantly & Recovering $140,000 in Abandoned Carts",
       metrics: [
-        { label: "First-Response Time", value: "< 8 Sec", sub: "Via Official WhatsApp AI" },
+        { label: "First-Response Time", value: "< 8 Sec", sub: "Via Intelligent AI Assistant" },
         { label: "Support Deflection", value: "85%", sub: "Autonomous resolution" },
         { label: "Recovered Revenue", value: "$140,000+", sub: "In abandoned checkouts" }
       ],
       challenge: "Handling 12,000 monthly orders created an influx of 'Where is my order?' inquiries and return requests. Support ticket response times stretched to 24 hours, hurting customer retention.",
-      solution: "MaxR connected an autonomous WhatsApp AI assistant directly to Shopify and fulfillment 3PL APIs. Customers receive instant tracking links, automated replacement requests, and personalized discount codes.",
+      solution: "MaxR connected an autonomous AI assistant directly to Shopify and fulfillment 3PL APIs. Customers receive instant tracking links, automated replacement requests, and personalized discount codes.",
       testimonial: "“MaxR automated our entire post-purchase customer journey. Our customer retention scores hit an all-time high within the first month of deployment.”",
       author: "VP of Operations, Velocity Brands"
     }

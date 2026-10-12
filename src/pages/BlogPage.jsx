@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   Search,
   Sparkles,
-  ArrowRight,
-  MessageCircle
+  ArrowRight
 } from 'lucide-react';
 import { blogPosts } from '../data/blogData.js';
 
@@ -496,34 +495,9 @@ export default function BlogPage() {
               onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              <span>Book Architecture Call</span>
+              <span>Get in Touch</span>
               <ArrowRight size={16} />
             </Link>
-
-            <a
-              href="https://wa.me/97145648887"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ 
-                background: '#FFFFFF', 
-                color: '#080607', 
-                fontWeight: 750, 
-                padding: '0.85rem 2rem', 
-                fontSize: '0.925rem', 
-                borderRadius: '999px', 
-                textDecoration: 'none',
-                border: '1px solid #E2E8F0',
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: '8px',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <MessageCircle size={18} color="#25D366" />
-              <span>WhatsApp Direct</span>
-            </a>
           </div>
         </div>
 

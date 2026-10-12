@@ -6,7 +6,6 @@ import {
   CheckCircle2, 
   ShieldCheck, 
   Send,
-  MessageCircle,
   AlertCircle
 } from 'lucide-react';
 
@@ -25,19 +24,24 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus('submitting');
     try {
-      const response = await fetch("https://formspree.io/f/XXXXXXXX", {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        mobile: formData.phone,
+        service: formData.service,
+        message: formData.message,
+        source: "contact_form",
+        timestamp: new Date().toISOString()
+      };
+      await fetch("https://script.google.com/macros/s/AKfycbzNv7oaosVQ2kh9wkIXPNLiGeCg-eeKFxgJv9uJ_4a2mG4qVexS-q4Hlzyi4mNHTIgTrg/exec", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Content-Type": "text/plain;charset=utf-8"
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload),
+        mode: "no-cors"
       });
-      if (response.ok) {
-        setStatus('success');
-      } else {
-        setStatus('error');
-      }
+      setStatus('success');
     } catch (err) {
       setStatus('error');
     }
@@ -104,46 +108,18 @@ export default function ContactPage() {
               </div>
 
               {/* Chennai Office Block */}
-              <div style={{ paddingBottom: '1rem' }}>
+              <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
                   <strong style={{ fontSize: '0.95rem', color: '#080607' }}>Chennai Technology Hub (India)</strong>
                   <span style={{ fontSize: '0.72rem', background: '#00bba7', color: '#080607', padding: '2px 6px', borderRadius: '4px', fontWeight: 800 }}>Core R&D Hub</span>
                 </div>
                 <p style={{ margin: '0 0 6px 0', fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
-                  MaxR Consultancy Services Pvt Ltd, 101, 2/29, Cenotaph Road, 1st Street, Alwarpet, Chennai, Tamil Nadu 600018
+                  MaxR Technologies Pvt Ltd, 101, 2/29, Cenotaph Road, 1st Street, Alwarpet, Chennai, Tamil Nadu 600018
                 </p>
                 <div style={{ fontSize: '0.825rem', color: '#080607', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                   <span>T: <a href="tel:+914424356789" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>+91 44 2435 6789</a></span>
                   <span>E: <a href="mailto:india@maxr.ae" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>india@maxr.ae</a></span>
                 </div>
-              </div>
-
-              {/* Direct WhatsApp Action */}
-              <div style={{ marginTop: '1.25rem', borderTop: '1px solid #E5EAE8', paddingTop: '1.25rem' }}>
-                <a 
-                  href="https://wa.me/97145648887"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ 
-                    display: 'inline-flex', 
-                    alignItems: 'center', 
-                    gap: '8px', 
-                    background: '#25D366', 
-                    color: '#FFFFFF', 
-                    padding: '10px 20px', 
-                    borderRadius: '8px', 
-                    fontWeight: 700, 
-                    fontSize: '0.875rem', 
-                    textDecoration: 'none',
-                    boxShadow: '0 4px 14px rgba(37,211,102,0.25)',
-                    transition: 'transform 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                >
-                  <MessageCircle size={17} />
-                  <span>Connect on WhatsApp</span>
-                </a>
               </div>
             </div>
 
@@ -216,7 +192,7 @@ export default function ContactPage() {
                 {status === 'error' && (
                   <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#FEF2F2', border: '1px solid #FCA5A5', color: '#B91C1C', fontSize: '0.875rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <AlertCircle size={16} />
-                    <span>Something went wrong. Please email us at contact@maxr.ae</span>
+                    <span>Something went wrong. Please email contact@maxr.ae</span>
                   </div>
                 )}
 
@@ -258,7 +234,7 @@ export default function ContactPage() {
 
                     <div className="form-group">
                       <label className="form-label" htmlFor="phone" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#080607', marginBottom: '6px' }}>
-                        Phone / WhatsApp *
+                        Phone Number *
                       </label>
                       <input
                         id="phone"
@@ -267,7 +243,7 @@ export default function ContactPage() {
                         type="tel"
                         className="form-input"
                         style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #E1E8E5', fontSize: '0.9rem', outline: 'none', background: '#FAFCFB' }}
-                        placeholder="+971 50 ... / +91 ..."
+                        placeholder="+971 50 123 4567"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       />
@@ -276,16 +252,15 @@ export default function ContactPage() {
 
                   <div className="form-group" style={{ marginBottom: '1.25rem' }}>
                     <label className="form-label" htmlFor="company" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#080607', marginBottom: '6px' }}>
-                      Company Name *
+                      Company Name (Optional)
                     </label>
                     <input
                       id="company"
                       name="company"
-                      required
                       type="text"
                       className="form-input"
                       style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', border: '1px solid #E1E8E5', fontSize: '0.9rem', outline: 'none', background: '#FAFCFB' }}
-                      placeholder="Your Company Name"
+                      placeholder="Your Company Name (Optional)"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     />
@@ -303,10 +278,17 @@ export default function ContactPage() {
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                     >
-                      <option value="AI Automation">AI Automation (Voice Agents, Chatbots & Workflows)</option>
-                      <option value="Web & App Development">Web & App Development (High-Performance Applications)</option>
-                      <option value="Digital Marketing">Digital Marketing (Performance SEO & Paid Growth)</option>
-                      <option value="Voice AI Agents">Voice AI Agents (24/7 Phone Calling Bots)</option>
+                      <option value="Voice & AI Agents">Voice & AI Agents (24/7 Phone Calling & Speech AI)</option>
+                      <option value="Web Development">Web Development (High-Performance Websites & Portals)</option>
+                      <option value="Mobile App Engineering">Mobile App Engineering (iOS & Android)</option>
+                      <option value="Workflow Automation">Workflow Automation (Cross-App & System Integrations)</option>
+                      <option value="SaaS Custom Architecture">SaaS Custom Architecture (Cloud Platforms & Multi-Tenant)</option>
+                      <option value="Cloud & DevOps Scaling">Cloud & DevOps Scaling (99.9% Uptime Infrastructure)</option>
+                      <option value="CRM & Lead Solutions">CRM & Lead Solutions (Instant Lead Capture & Speed-to-Lead)</option>
+                      <option value="Digital Marketing & SEO">Digital Marketing & SEO (Top Google Rankings & High-ROI Ads)</option>
+                      <option value="Data & BI Analytics">Data & BI Analytics (Real-Time Dashboards & KPI Reporting)</option>
+                      <option value="Digital Transformation">Digital Transformation (Modernizing Enterprise Workflows)</option>
+                      <option value="Other / General Inquiry">Other / General Inquiry</option>
                     </select>
                   </div>
 

@@ -14,12 +14,24 @@ import {
   Users,
   TrendingUp,
   Rocket,
-  CheckCircle2, 
-  MessageCircle 
+  CheckCircle2
 } from 'lucide-react';
+import AnimatedCounter from '../components/AnimatedCounter.jsx';
 
 export default function HomePage() {
   const heroRef = useRef(null);
+
+  // ── Animated "How It Works" Active Step State ──
+  const [activeStep, setActiveStep] = useState(0);
+  const [isProcessHovered, setIsProcessHovered] = useState(false);
+
+  useEffect(() => {
+    if (isProcessHovered) return;
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % 3);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [isProcessHovered]);
 
   // ── Scroll to Top Visibility ──
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -353,7 +365,7 @@ export default function HomePage() {
       quote: "MAXR helped us strengthen our digital presence and streamline customer engagement.",
       tags: ["AI Automation", "Lead Capture", "Customer Engagement"],
       servicesRendered: [
-        "AI Automation & WhatsApp Lead Engine",
+        "AI Automation & Inbound Systems",
         "24/7 Customer Support AI Bots",
         "Digital Presence & Web Architecture"
       ]
@@ -399,11 +411,6 @@ export default function HomePage() {
 
   return (
     <div style={{ background: '#FFFFFF', color: '#080607', overflowX: 'hidden' }}>
-
-      {/* Hide sibling floating modal button from App.jsx on HomePage */}
-      <style>{`
-        button[title="Schedule Discovery Session"] { display: none !important; }
-      `}</style>
 
       {/* ═════════════════════════════════════════════════════════════════════
           1. HERO SECTION (Dynamic Auto-Switching Background Experience)
@@ -509,41 +516,75 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          2. STATS BAR (Between Hero and Services)
+          2. STATS BAR (Between Hero and Services) - Animated Numbers
           ═════════════════════════════════════════════ */}
       <section 
         style={{ 
-          background: '#F5F8F7', 
+          background: 'linear-gradient(180deg, #F8FAFA 0%, #EFF5F3 100%)', 
           borderTop: '1px solid #E1E8E5', 
           borderBottom: '1px solid #E1E8E5', 
-          padding: '2.5rem 0' 
+          padding: '2.75rem 0' 
         }}
       >
         <div className="container">
           <div 
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-              gap: '2rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', 
+              gap: '1.5rem',
               textAlign: 'center' 
             }}
           >
-            <div>
-              <div style={{ fontSize: 'clamp(2.2rem, 3.5vw, 2.75rem)', fontWeight: 900, color: '#080607', fontFamily: "'Space Grotesk', -apple-system, sans-serif" }}>50+</div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: 600, marginTop: '4px' }}>Projects Delivered</div>
-            </div>
-            <div>
-              <div style={{ fontSize: 'clamp(2.2rem, 3.5vw, 2.75rem)', fontWeight: 900, color: '#080607', fontFamily: "'Space Grotesk', -apple-system, sans-serif" }}>20+</div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: 600, marginTop: '4px' }}>Clients Served</div>
-            </div>
-            <div>
-              <div style={{ fontSize: 'clamp(2.2rem, 3.5vw, 2.75rem)', fontWeight: 900, color: '#00bba7', fontFamily: "'Space Grotesk', -apple-system, sans-serif" }}>3×</div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: 600, marginTop: '4px' }}>Average ROI</div>
-            </div>
-            <div>
-              <div style={{ fontSize: 'clamp(2.2rem, 3.5vw, 2.75rem)', fontWeight: 900, color: '#080607', fontFamily: "'Space Grotesk', -apple-system, sans-serif" }}>&lt; 7</div>
-              <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: 600, marginTop: '4px' }}>Days to Deploy</div>
-            </div>
+            {[
+              { target: 50, suffix: "+", label: "Projects Delivered", highlight: false },
+              { target: 20, suffix: "+", label: "Clients Served", highlight: false },
+              { target: 3, suffix: "×", label: "Average ROI", highlight: true },
+              { target: 7, prefix: "< ", label: "Days to Deploy", highlight: false }
+            ].map((st, sIdx) => (
+              <div 
+                key={sIdx}
+                style={{
+                  background: '#FFFFFF',
+                  borderRadius: '14px',
+                  padding: '1.25rem 1rem',
+                  border: '1px solid #E2E8F0',
+                  boxShadow: '0 4px 16px rgba(8, 6, 7, 0.03)',
+                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  cursor: 'default'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.borderColor = '#00bba7';
+                  e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 187, 167, 0.12)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = '#E2E8F0';
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(8, 6, 7, 0.03)';
+                }}
+              >
+                <div 
+                  style={{ 
+                    fontSize: 'clamp(2.3rem, 3.8vw, 2.9rem)', 
+                    fontWeight: 900, 
+                    color: st.highlight ? '#00bba7' : '#080607', 
+                    fontFamily: "'Space Grotesk', -apple-system, sans-serif",
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.1
+                  }}
+                >
+                  <AnimatedCounter 
+                    target={st.target} 
+                    prefix={st.prefix || ''} 
+                    suffix={st.suffix || ''} 
+                    duration={1800} 
+                  />
+                </div>
+                <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: 650, marginTop: '6px' }}>
+                  {st.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -798,44 +839,53 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          4. HOW IT WORKS SECTION (3 Steps Horizontal Layout)
+          4. HOW IT WORKS (Animated Interactive Process Journey)
           ═════════════════════════════════════════════ */}
       <section 
+        id="how-it-works"
         style={{ 
-          background: '#F5F8F7', 
+          background: 'linear-gradient(180deg, #FAFCFB 0%, #F4F8F6 100%)', 
           borderBottom: '1px solid #E1E8E5',
-          padding: 'clamp(4.5rem, 6.5vw, 6rem) 0'
+          padding: 'clamp(4.5rem, 6.5vw, 6.5rem) 0',
+          position: 'relative',
+          overflow: 'hidden'
         }}
+        onMouseEnter={() => setIsProcessHovered(true)}
+        onMouseLeave={() => setIsProcessHovered(false)}
       >
         <div className="container">
-          <div style={{ maxWidth: '640px', marginBottom: '3.5rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-              <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#080607' }}>
-                HOW IT WORKS
+          <div style={{ maxWidth: '680px', marginBottom: '3.5rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+              <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
+              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#008779' }}>
+                HOW IT WORKS • 3-STEP PROCESS
               </span>
             </div>
             
             <h2 
               style={{ 
-                fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
-                fontWeight: 800, 
+                fontSize: 'clamp(2.2rem, 3.8vw, 3rem)', 
+                fontWeight: 900, 
                 letterSpacing: '-0.03em', 
                 lineHeight: 1.15, 
                 color: '#080607',
-                margin: 0
+                margin: '0 0 0.75rem 0',
+                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
               }}
             >
               A Clear, Direct Process.
             </h2>
+            <p style={{ fontSize: '1rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+              From initial audit to production launch and scale — we eliminate slow agency overhead with agile 2-week execution sprints.
+            </p>
           </div>
 
-          {/* 3 Steps Horizontal Layout with Connecting Line */}
+          {/* 3 Interactive Animated Step Cards with Connecting Track */}
           <div 
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-              gap: '2.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+              gap: '2rem',
               position: 'relative'
             }}
           >
@@ -843,76 +893,155 @@ export default function HomePage() {
               {
                 step: "01",
                 title: "Understand",
-                desc: "We audit your workflow and identify exactly where time and money are being lost."
+                desc: "We audit your workflow and identify exactly where time and money are being lost.",
+                tags: ["Workflow Audit", "Bottleneck Mapping", "ROI Targets"]
               },
               {
                 step: "02",
                 title: "Build",
-                desc: "We design and deploy the solution — automations, apps, or campaigns. You see progress every two weeks."
+                desc: "We design and deploy the solution — automations, apps, or campaigns. You see progress every two weeks.",
+                tags: ["2-Week Sprints", "Direct Dev Slack", "Live Production"]
               },
               {
                 step: "03",
                 title: "Grow",
-                desc: "You get results. We monitor, optimise, and scale what works. Post-launch support is included."
+                desc: "You get results. We monitor, optimise, and scale what works. Post-launch support is included.",
+                tags: ["Realtime Telemetry", "Continuous Tuning", "24/7 SLA Support"]
               }
-            ].map((st, sIdx) => (
-              <div 
-                key={sIdx}
-                style={{
-                  background: '#FFFFFF',
-                  borderRadius: '16px',
-                  padding: '2.25rem 2rem',
-                  border: '1px solid #E1E8E5',
-                  boxShadow: '0 4px 16px rgba(8, 6, 7, 0.03)',
-                  position: 'relative'
-                }}
-              >
-                {/* Outlined Circle Step Number with Mint Border */}
+            ].map((st, sIdx) => {
+              const isActive = activeStep === sIdx;
+
+              return (
                 <div 
+                  key={sIdx}
+                  onClick={() => setActiveStep(sIdx)}
                   style={{
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '50%',
-                    border: '2px solid #54CFB0',
                     background: '#FFFFFF',
-                    color: '#080607',
+                    borderRadius: '18px',
+                    padding: '2.5rem 2rem',
+                    border: isActive ? '2px solid #00bba7' : '1px solid #E1E8E5',
+                    boxShadow: isActive 
+                      ? '0 16px 36px rgba(0, 187, 167, 0.16)' 
+                      : '0 4px 18px rgba(8, 6, 7, 0.03)',
+                    transform: isActive ? 'translateY(-6px)' : 'translateY(0)',
+                    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                    position: 'relative',
+                    cursor: 'pointer',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '0.95rem',
-                    fontWeight: 900,
-                    marginBottom: '1.25rem',
-                    fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
+                  }}
+                  onMouseEnter={() => {
+                    setActiveStep(sIdx);
+                    setIsProcessHovered(true);
                   }}
                 >
-                  {st.step}
+                  <div>
+                    {/* Top Row: Outlined Step Number + Active Status Pill */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                      <div 
+                        style={{
+                          width: '52px',
+                          height: '52px',
+                          borderRadius: '50%',
+                          border: isActive ? '2px solid #00bba7' : '2px solid #CBD5E1',
+                          background: isActive ? '#00bba7' : '#FFFFFF',
+                          color: isActive ? '#080607' : '#080607',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '1.05rem',
+                          fontWeight: 900,
+                          fontFamily: "'Space Grotesk', -apple-system, sans-serif",
+                          boxShadow: isActive ? '0 0 18px rgba(0, 187, 167, 0.45)' : 'none',
+                          transform: isActive ? 'scale(1.1)' : 'scale(1)',
+                          transition: 'all 0.3s ease'
+                        }}
+                      >
+                        {st.step}
+                      </div>
+
+                      {isActive && (
+                        <span 
+                          style={{ 
+                            fontSize: '0.72rem', 
+                            fontWeight: 800, 
+                            color: '#008779', 
+                            background: 'rgba(0, 187, 167, 0.12)', 
+                            padding: '4px 10px', 
+                            borderRadius: '999px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px'
+                          }}
+                        >
+                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00bba7' }} />
+                          <span>ACTIVE STEP</span>
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 
+                      style={{ 
+                        fontSize: '1.45rem', 
+                        fontWeight: 900, 
+                        color: '#080607', 
+                        margin: '0 0 0.85rem 0',
+                        letterSpacing: '-0.02em',
+                        fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                      }}
+                    >
+                      {st.title}
+                    </h3>
+
+                    <p 
+                      style={{ 
+                        fontSize: '0.95rem', 
+                        color: '#475569', 
+                        lineHeight: 1.65, 
+                        margin: '0 0 1.5rem 0' 
+                      }}
+                    >
+                      {st.desc}
+                    </p>
+                  </div>
+
+                  {/* Micro-tags / Deliverables */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', paddingTop: '1rem', borderTop: '1px solid #F1F5F9' }}>
+                    {st.tags.map((tag, tIdx) => (
+                      <span 
+                        key={tIdx}
+                        style={{
+                          fontSize: '0.74rem',
+                          fontWeight: 650,
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                          backgroundColor: isActive ? 'rgba(0, 187, 167, 0.08)' : '#F1F5F9',
+                          color: isActive ? '#008779' : '#64748B',
+                          transition: 'all 0.25s ease'
+                        }}
+                      >
+                        ✓ {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Bottom Active Progress Line Indicator */}
+                  <div 
+                    style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: '18px',
+                      right: '18px',
+                      height: '3px',
+                      borderRadius: '3px 3px 0 0',
+                      background: isActive ? '#00bba7' : 'transparent',
+                      transition: 'background 0.3s ease'
+                    }}
+                  />
                 </div>
-
-                <h3 
-                  style={{ 
-                    fontSize: '1.35rem', 
-                    fontWeight: 800, 
-                    color: '#080607', 
-                    margin: '0 0 0.75rem 0',
-                    letterSpacing: '-0.02em',
-                    fontFamily: "'Space Grotesk', -apple-system, sans-serif"
-                  }}
-                >
-                  {st.title}
-                </h3>
-
-                <p 
-                  style={{ 
-                    fontSize: '0.925rem', 
-                    color: '#3F5565', 
-                    lineHeight: 1.6, 
-                    margin: 0 
-                  }}
-                >
-                  {st.desc}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
         </div>
@@ -1597,41 +1726,9 @@ export default function HomePage() {
                   whiteSpace: 'nowrap'
                 }}
               >
-                <span>Book a Free Call</span>
+                <span>Get in Touch</span>
                 <ArrowRight size={14} />
               </Link>
-
-              <a
-                href="https://wa.me/97145648887"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background: '#25D366',
-                  color: '#FFFFFF',
-                  padding: '0.65rem 1.4rem',
-                  borderRadius: '8px',
-                  fontWeight: 750,
-                  fontSize: '0.85rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '7px',
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 14px rgba(37, 211, 102, 0.35)',
-                  transition: 'all 0.22s ease',
-                  whiteSpace: 'nowrap'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(37, 211, 102, 0.45)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(37, 211, 102, 0.35)';
-                }}
-              >
-                <MessageCircle size={16} />
-                <span>WhatsApp Us</span>
-              </a>
             </div>
 
             {/* Bottom Scroll-To-Top Arrow Trigger */}
@@ -1677,47 +1774,7 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          10. FLOATING WHATSAPP BUTTON (Bottom Right - Logo Only)
-          ═════════════════════════════════════════════ */}
-      <a
-        href="https://wa.me/97145648887"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat with MaxR on WhatsApp"
-        title="Chat with MaxR on WhatsApp"
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          zIndex: 10001,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '52px',
-          height: '52px',
-          borderRadius: '50%',
-          background: '#25D366',
-          color: '#FFFFFF',
-          textDecoration: 'none',
-          boxShadow: '0 8px 24px rgba(37, 211, 102, 0.45)',
-          transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-3px) scale(1.08)';
-          e.currentTarget.style.boxShadow = '0 12px 28px rgba(37, 211, 102, 0.6)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0) scale(1)';
-          e.currentTarget.style.boxShadow = '0 8px 24px rgba(37, 211, 102, 0.45)';
-        }}
-      >
-        <svg width="27" height="27" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.89 9.885m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.711 1.456h.005c6.554 0 11.89-5.336 11.893-11.894 0-3.177-1.237-6.164-3.488-8.414z"/>
-        </svg>
-      </a>
-
-      {/* ═════════════════════════════════════════════════════════════════════
-          11. FLOATING SCROLL-TO-TOP BUTTON (Floats Above WhatsApp)
+          10. FLOATING SCROLL-TO-TOP BUTTON
           ═════════════════════════════════════════════ */}
       <button
         type="button"

@@ -12,11 +12,36 @@ export default function ContactModal({ isOpen, onClose }) {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbzNv7oaosVQ2kh9wkIXPNLiGeCg-eeKFxgJv9uJ_4a2mG4qVexS-q4Hlzyi4mNHTIgTrg/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          mobile: formData.phone,
+          service: formData.service,
+          message: formData.message,
+          source: "contact_modal",
+          timestamp: new Date().toISOString()
+        }),
+        mode: "no-cors"
+      });
+    } catch (err) {
+      // silently proceed to confirmation
+    } finally {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }
   };
 
   const handleReset = () => {
@@ -48,11 +73,11 @@ export default function ContactModal({ isOpen, onClose }) {
             </div>
 
             <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0a1428', marginBottom: '0.5rem' }}>
-              Consultation Requested
+              Inquiry Received
             </h3>
 
             <p style={{ color: '#475569', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-              Thank you, <strong>{formData.name}</strong>. A MaxR consultant will contact you at <strong>{formData.email}</strong> within 1 business day.
+              Thank you, <strong>{formData.name}</strong>. Our team will contact you at <strong>{formData.email}</strong> within 1 business day.
             </p>
 
             <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '1rem', textAlign: 'left', marginBottom: '1.5rem', fontSize: '0.85rem', color: '#334155' }}>
@@ -70,11 +95,11 @@ export default function ContactModal({ isOpen, onClose }) {
             <div style={{ marginBottom: '1.75rem' }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 10px', background: 'rgba(0,187,167,0.12)', borderRadius: '6px', marginBottom: '8px' }}>
                 <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#00bba7', fontWeight: 700 }}>
-                  MaxR Technologies · Consultation
+                  MaxR Technologies · Get in Touch
                 </span>
               </div>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0a1428', margin: 0 }}>
-                Schedule a Discovery Session
+                Send Us a Message
               </h3>
               <p style={{ color: '#64748b', fontSize: '0.875rem', marginTop: '0.35rem' }}>
                 Discuss AI automations, operational optimization, or digital growth for your business.
@@ -115,7 +140,7 @@ export default function ContactModal({ isOpen, onClose }) {
 
                 <div className="form-group">
                   <label className="form-label" htmlFor="modal-phone">
-                    Phone / WhatsApp *
+                    Phone Number *
                   </label>
                   <input
                     id="modal-phone"
@@ -124,23 +149,22 @@ export default function ContactModal({ isOpen, onClose }) {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="form-input"
-                    placeholder="+971 50 ... / +1 ..."
+                    placeholder="+971 50 123 4567"
                   />
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="form-label" htmlFor="modal-company">
-                  Company Name *
+                  Company Name (Optional)
                 </label>
                 <input
                   id="modal-company"
-                  required
                   type="text"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   className="form-input"
-                  placeholder="Your Company Name"
+                  placeholder="Your Company Name (Optional)"
                 />
               </div>
 
@@ -154,9 +178,17 @@ export default function ContactModal({ isOpen, onClose }) {
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                   className="form-select"
                 >
-                  <option value="AI Automation (Voice Agents, Chatbots, CRM & Workflows)">AI Automation (Voice Agents, Chatbots, CRM & Workflows)</option>
-                  <option value="Business Consultation (Strategy, Growth & Operations)">Business Consultation (Strategy, Growth & Operations)</option>
-                  <option value="Digital Marketing (Websites, SEO & Paid Ads)">Digital Marketing (Websites, SEO & Paid Ads)</option>
+                  <option value="Voice & AI Agents">Voice & AI Agents (24/7 Phone Calling & Speech AI)</option>
+                  <option value="Web Development">Web Development (High-Performance Websites & Portals)</option>
+                  <option value="Mobile App Engineering">Mobile App Engineering (iOS & Android)</option>
+                  <option value="Workflow Automation">Workflow Automation (Cross-App & System Integrations)</option>
+                  <option value="SaaS Custom Architecture">SaaS Custom Architecture (Cloud Platforms & Multi-Tenant)</option>
+                  <option value="Cloud & DevOps Scaling">Cloud & DevOps Scaling (99.9% Uptime Infrastructure)</option>
+                  <option value="CRM & Lead Solutions">CRM & Lead Solutions (Instant Lead Capture & Speed-to-Lead)</option>
+                  <option value="Digital Marketing & SEO">Digital Marketing & SEO (Top Google Rankings & High-ROI Ads)</option>
+                  <option value="Data & BI Analytics">Data & BI Analytics (Real-Time Dashboards & KPI Reporting)</option>
+                  <option value="Digital Transformation">Digital Transformation (Modernizing Enterprise Workflows)</option>
+                  <option value="Other / General Inquiry">Other / General Inquiry</option>
                 </select>
               </div>
 
@@ -185,7 +217,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 style={{ width: '100%', justifyContent: 'center', fontSize: '1rem', padding: '0.85rem', background: '#00bba7', color: '#040811', fontWeight: 700 }}
               >
                 <Send size={16} />
-                Submit Discovery Request
+                Send Message
               </button>
             </form>
           </>

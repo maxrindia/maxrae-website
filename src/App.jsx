@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import ContactModal from './components/ContactModal.jsx';
+import ChatBot from './components/ChatBot.jsx';
 
 // Dedicated Pages matching enterprise requirements
 import HomePage from './pages/HomePage.jsx';
@@ -16,7 +17,6 @@ import CaseStudiesPage from './pages/CaseStudiesPage.jsx';
 import VoiceAgentsPage from './pages/VoiceAgentsPage.jsx';
 import CareersPage from './pages/CareersPage.jsx';
 
-import { MessageSquare } from 'lucide-react';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -60,49 +60,11 @@ function MainLayout() {
       {/* ── Global Footer ── */}
       <Footer />
 
-      {/* ── Consultation Modal ── */}
+      {/* ── Contact Modal ── */}
       <ContactModal 
         isOpen={contactModalOpen} 
         onClose={() => setContactModalOpen(false)} 
       />
-
-      {/* ── Floating Consultation Quick Action Button ── */}
-      <div 
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-          zIndex: 999
-        }}
-      >
-        <button
-          onClick={() => setContactModalOpen(true)}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '12px 20px',
-            borderRadius: '9999px',
-            background: 'linear-gradient(135deg, #00bba7, #0d9488)',
-            color: '#040811',
-            border: 'none',
-            fontWeight: 700,
-            fontSize: '0.875rem',
-            boxShadow: '0 8px 24px rgba(0, 187, 167, 0.45)',
-            cursor: 'pointer',
-            transition: 'transform 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-          onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-          title="Schedule Discovery Session"
-        >
-          <MessageSquare size={16} />
-          <span>Book Consultation</span>
-        </button>
-      </div>
 
     </div>
   );
@@ -112,6 +74,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <MainLayout />
+      <ChatBot />
     </BrowserRouter>
   );
 }
