@@ -594,29 +594,23 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Integrated HowItWorks Component (Horizontal-based tech cards) */}
+          {/* Integrated HowItWorks Component */}
           <HowItWorks
             features={[
               {
-                step: "01",
-                title: "Understand",
+                title: "Audit & Discover",
                 description: "We audit your workflow and identify exactly where time and money are being lost.",
-                tags: ["Workflow Audit", "Bottleneck Mapping", "ROI Targets"],
-                colorTheme: "mint"
+                colorTheme: "orange",
               },
               {
-                step: "02",
-                title: "Build",
-                description: "We design and deploy the solution — automations, apps, or campaigns. You see progress every two weeks.",
-                tags: ["2-Week Sprints", "Direct Dev Slack", "Live Production"],
-                colorTheme: "mint"
+                title: "Build & Deploy",
+                description: "We design and deploy the solution — automations, apps, or campaigns with 2-week agile sprints.",
+                colorTheme: "blue",
               },
               {
-                step: "03",
-                title: "Grow",
-                description: "You get results. We monitor, optimise, and scale what works. Post-launch support is included.",
-                tags: ["Realtime Telemetry", "Continuous Tuning", "24/7 SLA Support"],
-                colorTheme: "mint"
+                title: "Optimize & Scale",
+                description: "We monitor, optimize, and scale what works. Continuous telemetry and 24/7 SLA support included.",
+                colorTheme: "purple",
               }
             ]}
           />

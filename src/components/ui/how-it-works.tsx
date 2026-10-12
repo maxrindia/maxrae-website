@@ -3,113 +3,266 @@
 import React from "react";
 import { LazyMotion, domAnimation, m } from "motion/react";
 
-export interface Step {
-  step?: string;
+interface CardProps {
+  number: string;
   title: string;
   description: string;
-  tags?: string[];
-  colorTheme?: "orange" | "blue" | "purple" | "mint";
+  colorTheme?: "orange" | "blue" | "purple";
+  className?: string;
+  rotate?: string;
+  colors?: {
+    bg: string;
+    text: string;
+    border: string;
+  };
+}
+
+const Pin = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M16 3a1 1 0 0 1 .117 1.993l-.117 .007v4.764l1.894 3.789a1 1 0 0 1 .1 .331l.006 .116v2a1 1 0 0 1 -.883 .993l-.117 .007h-4v4a1 1 0 0 1 -1.993 .117l-.007 -.117v-4h-4a1 1 0 0 1 -.993 -.883l-.007 -.117v-2a1 1 0 0 1 .06 -.34l.046 -.107l1.894 -3.791v-4.762a1 1 0 0 1 -.117 -1.993l.117 -.007h8z" />
+  </svg>
+);
+
+const Card = ({
+  number,
+  title,
+  description,
+  colorTheme = "blue",
+  className,
+  rotate,
+  colors: customColors,
+}: CardProps) => {
+  const defaultBgColors = {
+    orange: "bg-orange-50 dark:bg-orange-500/10",
+    blue: "bg-blue-50 dark:bg-blue-500/10",
+    purple: "bg-purple-50 dark:bg-purple-500/10",
+  };
+  const defaultTextColors = {
+    orange: "text-orange-500 dark:text-orange-400",
+    blue: "text-blue-600 dark:text-blue-400",
+    purple: "text-purple-600 dark:text-purple-400",
+  };
+  const defaultBorderColors = {
+    orange: "border-orange-100 dark:border-orange-500/20",
+    blue: "border-blue-100 dark:border-blue-500/20",
+    purple: "border-purple-100 dark:border-purple-500/20",
+  };
+
+  const bgColor = customColors?.bg || defaultBgColors[colorTheme];
+  const textColor = customColors?.text || defaultTextColors[colorTheme];
+  const borderColor = customColors?.border || defaultBorderColors[colorTheme];
+
+  return (
+    <div
+      className={`relative w-full md:w-[280px] transition-transform duration-300 hover:z-30 hover:scale-105 ${rotate} ${className}`}
+    >
+      <div className="bg-white dark:bg-neutral-900 p-2 rounded-[25px] shadow-[0px_10px_20px_0px_#D3D3D3] dark:shadow-none border border-neutral-100 dark:border-neutral-800">
+        <Pin className={`w-8 h-8 ${textColor} z-20 mb-6 mx-auto`} />
+        <div
+          className={`${bgColor} border ${borderColor} rounded-[15px] p-[15px] h-full flex flex-col relative overflow-hidden`}
+        >
+          <span
+            className={`${textColor} text-4xl font-handwriting mb-5`}
+            style={{
+              fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif',
+            }}
+          >
+            {number}
+          </span>
+          <h3 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-100 leading-none mb-[10px]">
+            {title}
+          </h3>
+          <p className="text-neutral-500 dark:text-neutral-400 text-sm/5 tracking-tight">
+            {description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export interface Step {
+  title: string;
+  description: string;
+  colorTheme?: "orange" | "blue" | "purple";
+  colors?: {
+    bg: string;
+    text: string;
+    border: string;
+  };
+}
+
+export interface StepPosition {
+  className?: string;
+  rotate?: string;
 }
 
 export interface HowItWorksProps {
   features?: Step[];
   className?: string;
+  stepPositions?: StepPosition[];
 }
+
+const DEFAULT_CARD_POSITIONS: StepPosition[] = [
+  { className: "md:absolute md:top-0 md:left-[15%]", rotate: "rotate-8" },
+  {
+    className: "md:absolute md:top-[120px] md:right-[15%]",
+    rotate: "-rotate-8",
+  },
+  { className: "md:absolute md:top-[450px] md:left-[15%]", rotate: "rotate-8" },
+  {
+    className: "md:absolute md:top-[570px] md:right-[10%]",
+    rotate: "-rotate-8",
+  },
+  { className: "md:absolute md:top-[850px] md:left-[15%]", rotate: "rotate-8" },
+];
 
 export default function HowItWorks({
   features,
-  className = "",
+  className,
+  stepPositions,
 }: HowItWorksProps) {
   const defaultFeatures: Step[] = [
     {
-      step: "01",
-      title: "Understand",
+      title: "Create Account",
       description:
-        "We audit your workflow and identify exactly where time and money are being lost.",
-      tags: ["Workflow Audit", "Bottleneck Mapping", "ROI Targets"],
-      colorTheme: "mint",
+        "Sign up in minutes. Enter your details and verify your email to get started.",
+      colorTheme: "orange",
     },
     {
-      step: "02",
-      title: "Build",
+      title: "Verify Identity",
       description:
-        "We design and deploy the solution — automations, apps, or campaigns. You see progress every two weeks.",
-      tags: ["2-Week Sprints", "Direct Dev Slack", "Live Production"],
-      colorTheme: "mint",
+        "Complete your profile verification to ensure secure transactions and compliance.",
+      colorTheme: "blue",
     },
     {
-      step: "03",
-      title: "Grow",
+      title: "Select Plan",
       description:
-        "You get results. We monitor, optimise, and scale what works. Post-launch support is included.",
-      tags: ["Realtime Telemetry", "Continuous Tuning", "24/7 SLA Support"],
-      colorTheme: "mint",
+        "Choose from a variety of investment plans tailored to your financial goals.",
+      colorTheme: "purple",
+    },
+    {
+      title: "Analyze & Invest",
+      description:
+        "Review returns and make your first investment with confidence.",
+      colorTheme: "orange",
+    },
+    {
+      title: "Track Growth",
+      description:
+        "Monitor your portfolio in real-time and watch your wealth grow over time.",
+      colorTheme: "blue",
     },
   ];
 
   const data = features && features.length > 0 ? features : defaultFeatures;
+  const positions = stepPositions || DEFAULT_CARD_POSITIONS;
+
+  let height = 1130;
+  if (data.length === 1) height = 400;
+  else if (data.length === 2) height = 450;
+  else if (data.length === 3) height = 800;
+  else if (data.length === 4) height = 900;
+  else height = 1130;
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className={`relative w-full ${className}`}>
-        {/* Horizontal Process Track Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-          {data.map((step, index) => {
-            const stepNum = step.step || `0${index + 1}`;
+      <div
+        className={`bg-white dark:bg-black max-md:pt-10 max-md:pb-25 md:py-20 px-8 relative ${className}`}
+      >
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.08] dark:opacity-[0.15]"
+          style={{
+            backgroundImage: "linear-gradient(#000 1px, transparent 1px)",
+            backgroundSize: "100% 32px",
+            marginTop: "4px",
+          }}
+        ></div>
+        <div
+          className="absolute inset-0 pointer-events-none opacity-0 dark:opacity-[0.1]"
+          style={{
+            backgroundImage: "linear-gradient(#fff 1px, transparent 1px)",
+            backgroundSize: "100% 32px",
+            marginTop: "4px",
+          }}
+        ></div>
+        <div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r"></div>
+        <div className="from-background pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l"></div>
 
-            return (
-              <m.div
-                key={step.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                className="group relative flex flex-col justify-between bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 rounded-[20px] p-7 md:p-8 shadow-sm hover:shadow-xl hover:border-[#00bba7]/50 transition-all duration-300"
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div
+            className="relative w-full max-w-[1000px] mx-auto flex flex-col space-y-8 md:space-y-0 md:block h-auto md:h-[var(--md-height)]"
+            style={{ "--md-height": `${height}px` } as React.CSSProperties}
+          >
+            {data.length > 1 && (
+              <svg
+                className="absolute top-0 left-0 w-full h-full pointer-events-none hidden md:block z-0"
+                viewBox={`0 0 1000 ${height}`}
+                preserveAspectRatio="none"
               >
-                {/* Horizontal Top Header: Step Number & Progress Badge */}
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span
-                      className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white font-bold text-lg group-hover:bg-[#00bba7] group-hover:text-black transition-colors duration-300"
-                      style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
-                    >
-                      {stepNum}
-                    </span>
+                {(() => {
+                  const pathD = data.reduce((acc, _, index) => {
+                    if (index >= data.length - 1) return acc;
+                    if (index === 0)
+                      return "M 290 150 C 500 150, 550 270, 710 270"; // 1 -> 2
+                    if (index === 1)
+                      return acc + " C 850 270, 500 350, 290 450"; // 2 -> 3
+                    if (index === 2)
+                      return acc + " C 290 600, 550 720, 750 720"; // 3 -> 4
+                    if (index === 3)
+                      return acc + " C 950 720, 500 800, 290 850"; // 4 -> 5
+                    return acc;
+                  }, "");
+                  return (
+                    <m.path
+                      d={pathD}
+                      stroke="currentColor"
+                      className="text-neutral-300 dark:text-neutral-700"
+                      strokeWidth="2"
+                      strokeDasharray="8 6"
+                      fill="none"
+                      strokeLinecap="round"
+                      vectorEffect="non-scaling-stroke"
+                      initial={{ strokeDashoffset: 0 }}
+                      animate={{
+                        strokeDashoffset: -140, // Multiple of 14 (8+6) for seamless loop
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    />
+                  );
+                })()}
+              </svg>
+            )}
 
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#008779] bg-[#e6f9f4] dark:bg-[#00bba7]/10 px-3 py-1 rounded-full">
-                      Step {index + 1}
-                    </span>
-                  </div>
+            {data.map((step, index) => {
+              const position = positions[index % positions.length];
 
-                  <h3
-                    className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-3 tracking-tight group-hover:text-[#008779] transition-colors"
-                    style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
-                  >
-                    {step.title}
-                  </h3>
-
-                  <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed mb-6">
-                    {step.description}
-                  </p>
-                </div>
-
-                {/* Horizontal Tags Pills */}
-                {step.tags && step.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-neutral-100 dark:border-neutral-800">
-                    {step.tags.map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="text-[11px] font-semibold text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-2.5 py-1 rounded-md"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </m.div>
-            );
-          })}
+              return (
+                <Card
+                  key={step.title}
+                  number={`0${index + 1}`}
+                  title={step.title}
+                  description={step.description}
+                  colorTheme={step.colorTheme || "blue"}
+                  colors={step.colors}
+                  rotate={position.rotate}
+                  className={position.className}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </LazyMotion>
