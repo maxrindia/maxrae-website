@@ -17,6 +17,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import AnimatedCounter from '../components/AnimatedCounter.jsx';
+import { NotchedProjectCard } from '../components/ui/notched-project-card';
 
 export default function HomePage() {
   const heroRef = useRef(null);
@@ -64,12 +65,7 @@ export default function HomePage() {
     return () => clearInterval(heroTimer);
   }, [heroImages.length]);
 
-  // ── Services Carousel State (Infinite Looping / Circular Continuation) ──
-  const [currentService, setCurrentService] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStartX, setDragStartX] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isServicesHovered, setIsServicesHovered] = useState(false);
+
 
   // ── Industries Interactive Selection & Preview State ──
   const [selectedIndustry, setSelectedIndustry] = useState(null);
@@ -79,13 +75,15 @@ export default function HomePage() {
   // ── Client Stories Video Playback State ──
   const [playingVideo, setPlayingVideo] = useState(null); // null | 'ardhra' | 'parvathi'
 
-  // ── 1. EXACT 10 SERVICES (Circular Array: 0 = Web Dev, 9 = Data & Business) ──
+  // ── 1. EXACT 10 SERVICES (With Notched Card Metadata) ──
   const services = [
     {
       title: "Web Development",
       category: "WEB DEVELOPMENT",
       desc: "High-performance websites and web applications designed around your business goals.",
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+      badge: "WEB & CLOUD",
+      tags: ["React & Next.js", "Full-Stack", "High Speed"],
       link: "/services"
     },
     {
@@ -93,6 +91,8 @@ export default function HomePage() {
       category: "APP DEVELOPMENT",
       desc: "Native and cross-platform mobile applications that engage users and scale with your business.",
       image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
+      badge: "MOBILE",
+      tags: ["iOS & Android", "React Native", "Flutter"],
       link: "/services"
     },
     {
@@ -100,6 +100,8 @@ export default function HomePage() {
       category: "SOFTWARE DEVELOPMENT",
       desc: "Custom business software, SaaS architectures and enterprise platforms built to automate workflows.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      badge: "ENTERPRISE",
+      tags: ["SaaS Architecture", "Custom CRM", "APIs"],
       link: "/services"
     },
     {
@@ -107,6 +109,8 @@ export default function HomePage() {
       category: "DIGITAL MARKETING",
       desc: "Data-driven SEO, PPC campaigns and organic acquisition strategies that convert visitors into revenue.",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      badge: "GROWTH",
+      tags: ["SEO & SEM", "Lead Gen", "Performance"],
       link: "/services"
     },
     {
@@ -114,6 +118,8 @@ export default function HomePage() {
       category: "SOCIAL MEDIA",
       desc: "Strategic content creation, community engagement and brand positioning across high-intent channels.",
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80",
+      badge: "BRANDING",
+      tags: ["Content Creation", "Community", "Campaigns"],
       link: "/services"
     },
     {
@@ -121,6 +127,8 @@ export default function HomePage() {
       category: "AI & AUTOMATION",
       desc: "Autonomous workflow bots, AI voice agents and smart integrations that cut manual overhead by 70%.",
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      badge: "AI SYSTEMS",
+      tags: ["Voice AI", "Workflow Bots", "OpenAI & Claude"],
       link: "/services"
     },
     {
@@ -128,6 +136,8 @@ export default function HomePage() {
       category: "CRM & LEADS",
       desc: "End-to-end sales pipelines, automated lead routing and proactive client engagement engines.",
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+      badge: "SALES TECH",
+      tags: ["HubSpot & Zoho", "Lead Routing", "Pipelines"],
       link: "/services"
     },
     {
@@ -135,6 +145,8 @@ export default function HomePage() {
       category: "UI/UX & BRANDING",
       desc: "Digital experiences and brand identities that create clarity, customer delight and consistency.",
       image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+      badge: "EXPERIENCE",
+      tags: ["Figma Systems", "UX Research", "Brand Identity"],
       link: "/services"
     },
     {
@@ -142,6 +154,8 @@ export default function HomePage() {
       category: "CLOUD ARCHITECTURE",
       desc: "Reliable cloud infrastructure, secure database scaling and 24/7 high-availability microservices.",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+      badge: "DEVOPS",
+      tags: ["AWS & Azure", "Microservices", "Security"],
       link: "/services"
     },
     {
@@ -149,66 +163,11 @@ export default function HomePage() {
       category: "DATA & BI",
       desc: "Executive dashboards, real-time KPI telemetry and predictive business intelligence reporting.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      badge: "ANALYTICS",
+      tags: ["PowerBI", "Telemetry", "Predictive Models"],
       link: "/services"
     }
   ];
-
-  // Circular offset calculation: when currentService=0 (Web Dev), slide 9 (Data & BI) has offset = -1 (left side)
-  const getCardOffset = (idx) => {
-    let diff = (idx - currentService) % services.length;
-    if (diff > services.length / 2) diff -= services.length;
-    if (diff < -services.length / 2) diff += services.length;
-    return diff;
-  };
-
-  const nextService = useCallback(() => {
-    setCurrentService((prev) => (prev + 1) % services.length);
-  }, [services.length]);
-
-  const prevService = useCallback(() => {
-    setCurrentService((prev) => (prev - 1 + services.length) % services.length);
-  }, [services.length]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight') nextService();
-      if (e.key === 'ArrowLeft') prevService();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [nextService, prevService]);
-
-  // Touch and drag handlers
-  const handlePointerDown = (e) => {
-    setIsDragging(true);
-    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX) ?? 0;
-    setDragStartX(clientX);
-    setDragOffset(0);
-  };
-
-  const handlePointerMove = (e) => {
-    if (!isDragging) return;
-    const clientX = e.clientX ?? (e.touches && e.touches[0].clientX) ?? 0;
-    setDragOffset(clientX - dragStartX);
-  };
-
-  const handlePointerUp = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    if (dragOffset < -50) nextService();
-    else if (dragOffset > 50) prevService();
-    setDragOffset(0);
-  };
-
-  // Services Carousel Slow Auto-Scroll Timer
-  useEffect(() => {
-    if (isServicesHovered || isDragging) return;
-    const servicesTimer = setInterval(() => {
-      nextService();
-    }, 4500);
-    return () => clearInterval(servicesTimer);
-  }, [isServicesHovered, isDragging, nextService]);
 
   // ── 2. EXACT 8 INDUSTRIES ──
   const industries = [
@@ -590,24 +549,24 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          3. OUR SERVICES (Infinite Loop Carousel)
+          3. OUR SERVICES (Notched Project Cards)
           ═════════════════════════════════════════════ */}
       <section 
         id="services-carousel-section"
         style={{ 
           background: '#FFFFFF', 
           borderBottom: '1px solid #E1E8E5',
-          padding: 'clamp(4rem, 6vw, 5.5rem) 0',
-          overflow: 'hidden'
+          padding: 'clamp(4.5rem, 6.5vw, 6.5rem) 0',
+          position: 'relative'
         }}
       >
         <div className="container">
           {/* Header Strip with Eyebrow, Title and Subtitle */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '3rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '1.5rem', marginBottom: '3.5rem' }}>
             <div style={{ maxWidth: '640px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-                <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
+                <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
+                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#008779' }}>
                   OUR SERVICES
                 </span>
               </div>
@@ -619,221 +578,70 @@ export default function HomePage() {
                   letterSpacing: '-0.03em', 
                   lineHeight: 1.15, 
                   color: '#080607',
-                  margin: 0
+                  margin: 0,
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
                 }}
               >
                 End-to-End Technology for Modern Businesses.
               </h2>
             </div>
 
-            <p style={{ fontSize: '0.95rem', color: '#3F5565', lineHeight: 1.5, margin: 0, maxWidth: '380px' }}>
+            <p style={{ fontSize: '0.95rem', color: '#3F5565', lineHeight: 1.6, margin: 0, maxWidth: '380px' }}>
               From strategy and digital solutions to automation, we help businesses grow, operate efficiently and stay ahead.
             </p>
           </div>
-        </div>
 
-        {/* Circular Continuous Looping Track */}
-        <div 
-          style={{ 
-            width: '100%', 
-            overflow: 'hidden',
-            padding: '1rem 0 1.5rem',
-            cursor: isDragging ? 'grabbing' : 'grab',
-            position: 'relative',
-            minHeight: 'clamp(420px, 48vh, 500px)'
-          }}
-          onMouseEnter={() => setIsServicesHovered(true)}
-          onMouseLeave={() => setIsServicesHovered(false)}
-          onMouseDown={handlePointerDown}
-          onMouseMove={handlePointerMove}
-          onMouseUp={handlePointerUp}
-          onTouchStart={handlePointerDown}
-          onTouchMove={handlePointerMove}
-          onTouchEnd={handlePointerUp}
-        >
-          <div 
-            style={{ 
-              position: 'relative', 
-              width: '100%', 
-              height: 'clamp(400px, 46vh, 480px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            {services.map((item, idx) => {
-              const offset = getCardOffset(idx);
-              const isActive = offset === 0;
-              const isVisible = Math.abs(offset) <= 1;
-
-              return (
-                <div
-                  key={item.title}
-                  onClick={() => {
-                    setCurrentService(idx);
-                  }}
-                  style={{
-                    position: 'absolute',
-                    width: 'clamp(320px, 48vw, 680px)',
-                    height: 'clamp(380px, 44vh, 460px)',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    cursor: isActive ? 'default' : 'pointer',
-                    transform: `translateX(calc(${offset} * (clamp(320px, 48vw, 680px) + clamp(16px, 2.5vw, 30px)) + ${dragOffset}px)) scale(${isActive ? 1 : 0.88})`,
-                    opacity: isActive ? 1 : (isVisible ? 0.65 : 0),
-                    zIndex: isActive ? 10 : (isVisible ? 5 : 0),
-                    pointerEvents: isVisible ? 'auto' : 'none',
-                    boxShadow: isActive ? '0 20px 45px rgba(8, 6, 7, 0.18)' : '0 6px 18px rgba(8, 6, 7, 0.04)',
-                    transition: isDragging ? 'none' : 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease, box-shadow 0.55s ease'
-                  }}
-                >
-                  {/* Full-Bleed Background Image */}
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block'
-                    }}
-                  />
-
-                  {/* Dark Gradient Overlay */}
-                  <div 
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(180deg, rgba(8,6,7,0.1) 0%, rgba(8,6,7,0.55) 45%, rgba(8,6,7,0.92) 100%)',
-                      zIndex: 1
-                    }}
-                  />
-
-                  {/* Active Card Pointer Arrow Indicator */}
-                  {isActive && (
-                    <div 
-                      style={{
-                        position: 'absolute',
-                        top: '1.25rem',
-                        right: '1.25rem',
-                        background: '#54CFB0',
-                        color: '#080607',
-                        padding: '5px 12px',
-                        borderRadius: '20px',
-                        fontSize: '0.75rem',
-                        fontWeight: 800,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '5px',
-                        boxShadow: '0 4px 14px rgba(84, 207, 176, 0.4)',
-                        zIndex: 3
-                      }}
-                    >
-                      <span>Active</span>
-                      <ArrowDown size={13} strokeWidth={2.5} />
-                    </div>
-                  )}
-
-                  {/* Content Overlay */}
-                  <div 
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      zIndex: 2,
-                      padding: 'clamp(1.75rem, 3.5vw, 2.75rem)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'flex-end'
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-                      <span style={{ width: '12px', height: '2px', background: '#54CFB0' }} />
-                      <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0' }}>
-                        {item.category}
-                      </span>
-                    </div>
-
-                    <h3 
-                      style={{
-                        fontSize: 'clamp(1.65rem, 2.5vw, 2.25rem)',
-                        fontWeight: 800,
-                        color: '#FFFFFF',
-                        letterSpacing: '-0.025em',
-                        lineHeight: 1.15,
-                        margin: '0 0 0.75rem 0'
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-
-                    <p 
-                      style={{
-                        fontSize: 'clamp(0.9rem, 1.05vw, 0.975rem)',
-                        color: 'rgba(255, 255, 255, 0.88)',
-                        lineHeight: 1.55,
-                        maxWidth: '480px',
-                        margin: '0 0 1.5rem 0'
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-
-                    {/* View More Action Button */}
-                    <Link
-                      to={item.link}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '0.75rem 1.4rem',
-                        borderRadius: '8px',
-                        background: isActive ? '#54CFB0' : 'rgba(255, 255, 255, 0.22)',
-                        backdropFilter: 'blur(8px)',
-                        border: isActive ? 'none' : '1px solid rgba(255, 255, 255, 0.4)',
-                        color: isActive ? '#080607' : '#FFFFFF',
-                        fontWeight: 750,
-                        fontSize: '0.875rem',
-                        textDecoration: 'none',
-                        transition: 'all 0.2s ease',
-                        width: 'fit-content',
-                        boxShadow: isActive ? '0 4px 14px rgba(84, 207, 176, 0.3)' : 'none'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = '#FFFFFF';
-                        e.currentTarget.style.color = '#080607';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = isActive ? '#54CFB0' : 'rgba(255, 255, 255, 0.22)';
-                        e.currentTarget.style.color = isActive ? '#080607' : '#FFFFFF';
-                      }}
-                    >
-                      <span>View More</span>
-                      <ArrowRight size={15} />
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Centered Slide Indicator Pills */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1.75rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            {services.map((_, i) => (
-              <span
-                key={i}
-                onClick={() => setCurrentService(i)}
-                style={{
-                  width: i === currentService ? '28px' : '8px',
-                  height: '8px',
-                  borderRadius: '4px',
-                  background: i === currentService ? '#54CFB0' : '#E1E8E5',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease'
-                }}
+          {/* Notched Project Cards Responsive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((item) => (
+              <NotchedProjectCard
+                key={item.title}
+                href={item.link}
+                title={item.title}
+                description={item.desc}
+                image={item.image}
+                badge={item.badge}
+                tags={item.tags}
+                surface="#FFFFFF"
+                accent="#00bba7"
+                accentForeground="#080607"
+                monochrome={false}
               />
             ))}
+          </div>
+
+          {/* Bottom Action CTA */}
+          <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
+            <Link
+              to="/services"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '0.85rem 2rem',
+                borderRadius: '8px',
+                background: '#080607',
+                color: '#FFFFFF',
+                fontWeight: 700,
+                fontSize: '0.95rem',
+                textDecoration: 'none',
+                transition: 'all 0.25s ease',
+                boxShadow: '0 4px 14px rgba(8, 6, 7, 0.15)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#00bba7';
+                e.currentTarget.style.color = '#080607';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#080607';
+                e.currentTarget.style.color = '#FFFFFF';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <span>Explore All Detailed Capabilities</span>
+              <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </section>
