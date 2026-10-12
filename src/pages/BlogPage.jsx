@@ -89,7 +89,8 @@ export default function BlogPage() {
                 flexWrap: 'wrap', 
                 marginBottom: '1.75rem', 
                 fontSize: '0.85rem', 
-                color: '#64748B' 
+                color: '#64748B',
+                fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)"
               }}>
                 <span>{featuredArticle.date}</span>
                 <span>-</span>
@@ -101,7 +102,8 @@ export default function BlogPage() {
                   borderRadius: '999px', 
                   fontSize: '0.75rem', 
                   fontWeight: 600,
-                  letterSpacing: '0.01em'
+                  letterSpacing: '0.01em',
+                  fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)"
                 }}>
                   {featuredArticle.category}
                 </span>
@@ -204,7 +206,8 @@ export default function BlogPage() {
                     fontWeight: 650, 
                     color: '#54CFB0', 
                     letterSpacing: '0.08em', 
-                    textTransform: 'uppercase' 
+                    textTransform: 'uppercase',
+                    fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)"
                   }}>
                     Autonomous Enterprise Engineering
                   </span>
@@ -345,7 +348,8 @@ export default function BlogPage() {
                   flexWrap: 'wrap', 
                   marginBottom: '1.25rem', 
                   fontSize: '0.8rem', 
-                  color: '#64748B' 
+                  color: '#64748B',
+                  fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)"
                 }}>
                   <span>{article.date}</span>
                   <span>-</span>
@@ -356,7 +360,8 @@ export default function BlogPage() {
                     padding: '2px 8px', 
                     borderRadius: '999px', 
                     fontSize: '0.72rem', 
-                    fontWeight: 600 
+                    fontWeight: 600,
+                    fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)"
                   }}>
                     {article.category}
                   </span>
@@ -462,7 +467,7 @@ export default function BlogPage() {
 
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
             <span style={{ width: '18px', height: '2px', background: '#54CFB0' }} />
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0', fontFamily: "'Space Grotesk', sans-serif" }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#54CFB0', fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
               TALK TO OUR ARCHITECTS
             </span>
           </div>

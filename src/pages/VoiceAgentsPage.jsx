@@ -1,325 +1,599 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   PhoneCall, 
-  Volume2, 
-  Play, 
-  Pause, 
-  Clock, 
-  ShieldCheck, 
-  CheckCircle2, 
   ArrowRight, 
-  Mic, 
-  Headphones, 
+  CheckCircle2, 
   Zap, 
   Globe2, 
   Sparkles, 
-  Calculator 
+  Clock, 
+  Bot,
+  Database,
+  Calendar
 } from 'lucide-react';
+import TechBadge from '../components/TechLogos';
 
 export default function VoiceAgentsPage({ onOpenContact }) {
-  const [activeAudioSample, setActiveAudioSample] = useState(null);
-  const [callsPerDay, setCallsPerDay] = useState(50);
-  const [minutesPerCall, setMinutesPerCall] = useState(5);
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
 
-  const audioDemos = [
+  const voiceServices = [
     {
-      id: "realestate",
-      title: "Dubai Luxury Real Estate Inbound",
-      role: "Property Specialist (Palm Jumeirah & Downtown)",
-      accent: "English (Neutral / Professional)",
-      duration: "1:24",
-      dialogue: "Agent identifies caller's budget ($2.5M+), qualifies cash vs mortgage buyer, and locks a VIP penthouse viewing slot on Friday at 5:00 PM."
+      icon: PhoneCall,
+      title: "24/7 Autonomous Inbound Reception",
+      description: "Answers phone lines instantly with sub-500ms latency. Greets callers, triages urgent inquiries, and routes high-value VIP calls."
     },
     {
-      id: "clinic",
-      title: "Dental & Aesthetic Clinic Intake",
-      role: "Clinic Reception & Care Coordinator",
-      accent: "English / Arabic Dialect",
-      duration: "1:10",
-      dialogue: "Patient inquiries about Invisalign pricing and dental whitening. Bot checks Dr. Sarah's availability and books a slot with automated SMS confirmation."
+      icon: Zap,
+      title: "Speed-to-Lead Outbound Qualification",
+      description: "Auto-dials new web leads within 45 seconds of form submission. Qualifies budget, intent, and timeline before scheduling calendar appointments."
     },
     {
-      id: "support",
-      title: "24/7 E-Commerce Order Resolution",
-      role: "Tier-1 Customer Support Bot",
-      accent: "English (Friendly / Clear)",
-      duration: "0:58",
-      dialogue: "Customer asks about an urgent delayed shipment. Bot accesses Shopify order tracking, issues status, and offers free express delivery credit."
+      icon: Calendar,
+      title: "Live CRM & Calendar Slot Booking",
+      description: "Direct real-time two-way sync with Google Calendar, Outlook, Zoho, HubSpot, and Salesforce. Locks booking slots on the call."
+    },
+    {
+      icon: Globe2,
+      title: "Bilingual English & Arabic Dialects",
+      description: "Natural accent adaptation across Gulf Arabic and enterprise English, with human-like turn-taking and graceful interruption handling."
+    },
+    {
+      icon: Database,
+      title: "Instant Post-Call Action Automations",
+      description: "Triggers automated WhatsApp confirmations, creates CRM deal tickets, logs structured call summaries, and updates pipeline statuses."
+    },
+    {
+      icon: Bot,
+      title: "Custom Domain Knowledge Integration",
+      description: "Trained strictly on your product catalog, clinical pricing, service menus, and FAQ vectors with zero hallucination guardrails."
     }
   ];
 
-  // ROI Calculator Calculations
-  const monthlyCalls = callsPerDay * 30;
-  const hoursSpentMonthly = Math.round((monthlyCalls * minutesPerCall) / 60);
-  const estimatedSavingsUSD = Math.round(hoursSpentMonthly * 25 * 0.8); // 80% automated, $25/hr loaded agent cost
+  const voiceTechStack = [
+    "Zoho",
+    "n8n",
+    "Zapier",
+    "Make.com",
+    "Twilio",
+    "OpenAI API",
+    "Retell AI",
+    "ElevenLabs",
+    "Vapi",
+    "Calendly",
+    "HubSpot",
+    "Salesforce"
+  ];
 
   return (
-    <div className="voice-agents-page" style={{ padding: '2rem 0 5rem', background: '#F5F8F7', color: '#080607' }}>
-      <div className="container">
-        
-        {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 4rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
-            <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
-              MaxR Pulse Voice Engine
-            </span>
+    <div className="voice-agents-page" style={{ background: '#FAFBFB', minHeight: '100vh', color: '#080607' }}>
+      
+      {/* ═════════════════════════════════════════════════════════════════════
+          1. COMPACT HERO SECTION
+          ═════════════════════════════════════════════ */}
+      <section 
+        style={{ 
+          background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F9F7 100%)', 
+          borderBottom: '1px solid #E1E8E5',
+          padding: 'clamp(2.5rem, 4vw, 3.5rem) 0 clamp(2rem, 3vw, 3rem) 0',
+          position: 'relative'
+        }}
+      >
+        <div className="container">
+          
+          {/* Micro Breadcrumb */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.25rem', fontSize: '0.825rem' }}>
+            <Link to="/" style={{ color: '#64748b', textDecoration: 'none', fontWeight: 600 }}>Home</Link>
+            <span style={{ color: '#cbd5e1' }}>/</span>
+            <Link to="/services" style={{ color: '#008779', textDecoration: 'none', fontWeight: 700 }}>Services</Link>
+            <span style={{ color: '#cbd5e1' }}>/</span>
+            <Link to="/services/voice-agents" style={{ color: '#080607', textDecoration: 'none', fontWeight: 700 }}>Voice AI Agents</Link>
           </div>
 
-          <h1 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(2.4rem, 4.5vw, 3.8rem)', fontWeight: 900, color: '#080607', letterSpacing: '-0.035em', lineHeight: 1.1, marginBottom: '1rem' }}>
-            Next-Generation AI Voice Agents with <br />
-            <span style={{ color: '#00bba7' }}>
-              Sub-500ms Natural Latency
-            </span>
-          </h1>
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+              gap: 'clamp(2rem, 4vw, 3.5rem)',
+              alignItems: 'center' 
+            }}
+          >
+            {/* Left Content Column */}
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+                <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
+                <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#008779' }}>
+                  AUTONOMOUS VOICE & AI AGENTS
+                </span>
+              </div>
 
-          <p style={{ fontSize: '1.1rem', color: '#556575', lineHeight: 1.6, maxWidth: '680px', margin: '0 auto' }}>
-            Never let a ringing phone go to voicemail. MaxR Voice Agents sound remarkably human, handle natural interruptions, understand complex nuances, and book appointments 24 hours a day.
-          </p>
-        </div>
-
-        {/* Audio Samples Showcase */}
-        <div style={{ maxWidth: '960px', margin: '0 auto 5rem' }}>
-          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem' }}>
-              <Headphones size={18} color="#00bba7" />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
-                Interactive Preview
-              </span>
-            </div>
-            <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', fontWeight: 800, color: '#080607', letterSpacing: '-0.02em', margin: 0 }}>
-              Listen to Live AI Agent Demonstrations
-            </h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-            {audioDemos.map((sample) => (
-              <div 
-                key={sample.id}
-                style={{
-                  background: '#FFFFFF',
-                  borderRadius: '16px',
-                  border: activeAudioSample === sample.id ? '2px solid #00bba7' : '1px solid #E1E8E5',
-                  padding: '1.75rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  boxShadow: '0 8px 30px rgba(8,6,7,0.03)',
-                  transition: 'all 0.2s ease'
+              <h1 
+                style={{ 
+                  fontSize: 'clamp(2.1rem, 3.6vw, 3.1rem)', 
+                  fontWeight: 900, 
+                  letterSpacing: '-0.035em', 
+                  lineHeight: 1.15, 
+                  color: '#080607', 
+                  margin: '0 0 1rem 0',
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <span style={{ fontSize: '0.75rem', background: '#ECFDF5', color: '#047857', padding: '3px 10px', borderRadius: '999px', fontWeight: 700, border: '1px solid #A7F3D0' }}>
-                    {sample.accent}
-                  </span>
-                  <span style={{ fontSize: '0.78rem', color: '#556575', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <Clock size={12} /> {sample.duration}
-                  </span>
-                </div>
+                Enterprise Voice & AI Agents That Never Miss a Lead
+              </h1>
 
-                <h3 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: '1.2rem', fontWeight: 800, color: '#080607', marginBottom: '0.25rem', letterSpacing: '-0.01em' }}>
-                  {sample.title}
-                </h3>
-                
-                <p style={{ fontSize: '0.825rem', color: '#0d9488', fontWeight: 700, marginBottom: '0.75rem' }}>
-                  Role: {sample.role}
-                </p>
+              <p 
+                style={{ 
+                  fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', 
+                  color: '#475569', 
+                  lineHeight: 1.6, 
+                  margin: '0 0 1.75rem 0',
+                  fontWeight: 450,
+                  maxWidth: '560px'
+                }}
+              >
+                We build human-like AI voice agents with sub-500ms latency. They handle inbound calls, qualify outbound leads, and book slots directly in your CRM 24 hours a day.
+              </p>
 
-                <p style={{ fontSize: '0.9rem', color: '#556575', lineHeight: 1.55, flex: 1, marginBottom: '1.5rem' }}>
-                  {sample.dialogue}
-                </p>
-
+              {/* Action Button */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', marginBottom: '1.75rem' }}>
                 <button
-                  onClick={() => setActiveAudioSample(activeAudioSample === sample.id ? null : sample.id)}
+                  type="button"
+                  onClick={onOpenContact}
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    padding: '10px 16px',
+                    backgroundColor: '#00bba7',
+                    color: '#080607',
+                    border: 'none',
                     borderRadius: '8px',
-                    background: activeAudioSample === sample.id ? 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)' : '#F5F8F7',
-                    color: activeAudioSample === sample.id ? '#ffffff' : '#080607',
-                    border: activeAudioSample === sample.id ? 'none' : '1px solid #E1E8E5',
-                    fontWeight: 700,
-                    fontSize: '0.85rem',
+                    padding: '0.8rem 1.6rem',
+                    fontSize: '0.92rem',
+                    fontWeight: 800,
+                    letterSpacing: '-0.01em',
                     cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    boxShadow: activeAudioSample === sample.id ? '0 4px 14px rgba(0,187,167,0.25)' : 'none'
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 6px 18px rgba(0, 187, 167, 0.25)',
+                    transition: 'all 0.2s ease',
+                    fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#00a392';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#00bba7';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  {activeAudioSample === sample.id ? <Pause size={16} /> : <Play size={16} />}
-                  <span>{activeAudioSample === sample.id ? "Playing Voice Preview" : "Play Voice Sample"}</span>
+                  <span>Build Your Voice Agent</span>
+                  <ArrowRight size={15} />
                 </button>
+              </div>
+
+              {/* Compact Inline Metric Badges */}
+              <div 
+                style={{ 
+                  display: 'inline-flex', 
+                  flexWrap: 'wrap',
+                  gap: '12px',
+                  padding: '10px 16px',
+                  background: '#FFFFFF',
+                  borderRadius: '12px',
+                  border: '1px solid #E2E8F0',
+                  boxShadow: '0 2px 10px rgba(8, 6, 7, 0.03)'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#008779', fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
+                    &lt; 450ms
+                  </span>
+                  <span style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 600 }}>Response Latency</span>
+                </div>
+                <span style={{ color: '#CBD5E1' }}>•</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#008779', fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
+                    100%
+                  </span>
+                  <span style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 600 }}>Call Coverage</span>
+                </div>
+                <span style={{ color: '#CBD5E1' }}>•</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#008779', fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
+                    3.8×
+                  </span>
+                  <span style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 600 }}>Booking Conversion</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Media Preview */}
+            <div style={{ position: 'relative' }}>
+              <div 
+                style={{ 
+                  borderRadius: '18px', 
+                  overflow: 'hidden', 
+                  boxShadow: '0 20px 40px -10px rgba(8, 6, 7, 0.12)',
+                  border: '1px solid rgba(0, 0, 0, 0.08)',
+                  position: 'relative',
+                  aspectRatio: '16 / 10',
+                  maxHeight: '340px',
+                  background: '#080607'
+                }}
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1200&q=80" 
+                  alt="Voice and AI Agents" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+                
+                {/* Subtle Overlay Badge */}
+                <div 
+                  style={{ 
+                    position: 'absolute', 
+                    bottom: '1rem', 
+                    left: '1rem', 
+                    right: '1rem', 
+                    background: 'rgba(255, 255, 255, 0.94)',
+                    backdropFilter: 'blur(8px)',
+                    borderRadius: '12px',
+                    padding: '0.75rem 1rem',
+                    border: '1px solid rgba(255, 255, 255, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#008779', fontSize: '0.8rem', fontWeight: 800 }}>
+                    <Sparkles size={15} />
+                    <span>MaxR Enterprise AI Voice</span>
+                  </div>
+                  <span style={{ fontSize: '0.78rem', color: '#080607', fontWeight: 700 }}>
+                    Real-Time SIP & CRM Sync
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════════════════════════════
+          2. WHAT SERVICES WE PROVIDE: VOICE & AI AGENT SERVICES + TECH STACK
+          ═════════════════════════════════════════════ */}
+      <section style={{ padding: 'clamp(3rem, 5vw, 4.5rem) 0' }}>
+        <div className="container">
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+              gap: 'clamp(2.5rem, 5vw, 4rem)',
+              alignItems: 'start'
+            }}
+          >
+            {/* Left: What Voice & AI Agent Services We Deliver */}
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
+                <span style={{ width: '14px', height: '2px', background: '#00bba7' }} />
+                <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#008779' }}>
+                  VOICE & AI AGENT SERVICES
+                </span>
+              </div>
+              <h2 
+                style={{ 
+                  fontSize: 'clamp(1.8rem, 2.8vw, 2.4rem)', 
+                  fontWeight: 900, 
+                  color: '#080607', 
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.2,
+                  margin: '0 0 1.75rem 0',
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                }}
+              >
+                What We Build & Deliver in Voice AI
+              </h2>
+
+              {/* Numbered Strip List */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                {voiceServices.map((service, idx) => {
+                  const IconComp = service.icon || Bot;
+                  return (
+                    <div 
+                      key={idx}
+                      style={{
+                        padding: '1.1rem 1.25rem',
+                        backgroundColor: '#FFFFFF',
+                        borderRadius: '12px',
+                        border: '1px solid #E8ECEB',
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '14px',
+                        transition: 'all 0.2s ease',
+                        cursor: 'default'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#00bba7';
+                        e.currentTarget.style.backgroundColor = '#F8FCFA';
+                        e.currentTarget.style.transform = 'translateX(4px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = '#E8ECEB';
+                        e.currentTarget.style.backgroundColor = '#FFFFFF';
+                        e.currentTarget.style.transform = 'none';
+                      }}
+                    >
+                      <div 
+                        style={{ 
+                          width: '34px', 
+                          height: '34px', 
+                          borderRadius: '8px', 
+                          backgroundColor: 'rgba(0, 187, 167, 0.1)', 
+                          color: '#008779',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          marginTop: '2px'
+                        }}
+                      >
+                        <IconComp size={18} />
+                      </div>
+
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '3px' }}>
+                          <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#080607', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
+                            {service.title}
+                          </h3>
+                          <span style={{ fontSize: '0.75rem', fontWeight: 900, color: '#94A3B8', fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
+                            0{idx + 1}
+                          </span>
+                        </div>
+                        <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5, margin: 0 }}>
+                          {service.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right: Automation & Telephony Tech Stack (Zoho, n8n, Zapier, Make, Twilio, etc.) */}
+            <div 
+              style={{ 
+                background: '#FFFFFF', 
+                border: '1.5px solid #E2E8F0', 
+                borderRadius: '18px', 
+                padding: '2rem 1.75rem',
+                boxShadow: '0 4px 20px rgba(8, 6, 7, 0.03)'
+              }}
+            >
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
+                <span style={{ width: '14px', height: '2px', background: '#00bba7' }} />
+                <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#008779' }}>
+                  AUTOMATION & TELEPHONY LOGOS
+                </span>
+              </div>
+              
+              <h3 
+                style={{ 
+                  fontSize: '1.35rem', 
+                  fontWeight: 900, 
+                  color: '#080607', 
+                  letterSpacing: '-0.02em', 
+                  margin: '0 0 0.5rem 0',
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                }}
+              >
+                Integrated Tools & AI Engines
+              </h3>
+
+              <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: 1.5, margin: '0 0 1.5rem 0' }}>
+                Direct webhooks and native connectors to Zoho, n8n, Zapier, Make, and enterprise SIP telephony.
+              </p>
+
+              {/* Tech Badges with Brand SVG Logos */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '1.75rem' }}>
+                {voiceTechStack.map((tech) => (
+                  <TechBadge key={tech} name={tech} />
+                ))}
+              </div>
+
+              {/* Verified Voice Standards */}
+              <div 
+                style={{ 
+                  borderTop: '1px solid #F1F5F9', 
+                  paddingTop: '1.25rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px'
+                }}
+              >
+                {[
+                  "Natural interruption & graceful human handoff",
+                  "Dedicated UAE / US / UK phone numbers with instant SIP trunking",
+                  "100% HIPAA and enterprise call encryption standards"
+                ].map((std, sIdx) => (
+                  <div key={sIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.84rem', color: '#334155', fontWeight: 600 }}>
+                    <CheckCircle2 size={15} color="#00bba7" style={{ flexShrink: 0 }} />
+                    <span>{std}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════════════════════════
+          3. 1-LINE HORIZONTAL DEPLOYMENT STEPPER
+          ═════════════════════════════════════════════ */}
+      <section 
+        style={{ 
+          background: '#FFFFFF', 
+          borderTop: '1px solid #E1E8E5', 
+          borderBottom: '1px solid #E1E8E5', 
+          padding: 'clamp(2.5rem, 4vw, 3.25rem) 0' 
+        }}
+      >
+        <div className="container">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '2rem' }}>
+            <div>
+              <span style={{ fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#008779', display: 'block', marginBottom: '4px' }}>
+                HOW WE DEPLOY
+              </span>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#080607', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
+                Voice Agent Launch Process
+              </h3>
+            </div>
+            <span style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 600 }}>
+              Live in under 7 business days
+            </span>
+          </div>
+
+          <div 
+            style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', 
+              gap: '1.25rem'
+            }}
+          >
+            {[
+              { step: "01", title: "Script & Persona Design", desc: "We map your FAQs, objections, and conversation branch logic." },
+              { step: "02", title: "CRM & Tool Integration", desc: "Connect webhooks to Zoho, n8n, Make, and your calendar booking links." },
+              { step: "03", title: "Latency & Audio Tuning", desc: "We tune turn-taking pauses and test edge phone line clarity." },
+              { step: "04", title: "Live SIP Number Routing", desc: "Deploy your dedicated inbound/outbound business numbers." }
+            ].map((p, idx) => (
+              <div 
+                key={idx}
+                style={{
+                  padding: '1.25rem 1.15rem',
+                  backgroundColor: '#F8FAF9',
+                  borderRadius: '12px',
+                  border: '1px solid #E2E8F0',
+                  position: 'relative'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                  <span style={{ fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)", fontSize: '1.2rem', fontWeight: 900, color: '#00bba7' }}>
+                    {p.step}
+                  </span>
+                  <span style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', color: '#64748B' }}>
+                    PHASE 0{idx + 1}
+                  </span>
+                </div>
+                <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#080607', margin: '0 0 0.35rem 0', fontFamily: "'Space Grotesk', sans-serif" }}>
+                  {p.title}
+                </h4>
+                <p style={{ fontSize: '0.84rem', color: '#64748B', lineHeight: 1.45, margin: 0 }}>
+                  {p.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Technical Architecture Specs */}
-        <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: 'clamp(2.5rem, 4vw, 3.5rem)', border: '1px solid #E1E8E5', boxShadow: '0 8px 30px rgba(8,6,7,0.03)', marginBottom: '5rem' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
-              <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00bba7', fontFamily: "'Space Grotesk', sans-serif" }}>
-                Under The Hood
-              </span>
-            </div>
-            <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', fontWeight: 900, color: '#080607', letterSpacing: '-0.03em', margin: 0 }}>
-              Why MaxR Voice Outperforms Standard Bots
-            </h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem' }}>
-            <div>
-              <div style={{ width: 44, height: 44, borderRadius: '10px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', border: '1px solid rgba(0,187,167,0.2)' }}>
-                <Zap size={22} color="#00bba7" />
+      {/* ═════════════════════════════════════════════
+          4. CONCISE DOUBLE-ROW CTA STRIP
+          ═════════════════════════════════════════════ */}
+      <section 
+        style={{ 
+          background: '#080607', 
+          borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+          padding: 'clamp(2.5rem, 4vw, 3.25rem) 0',
+          position: 'relative',
+          color: '#FFFFFF'
+        }}
+      >
+        <div className="container">
+          <div 
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between', 
+              gap: '2rem', 
+              flexWrap: 'wrap' 
+            }}
+          >
+            {/* Left side: Double-Row (Line 1 Headline, Line 2 Subtitle) */}
+            <div style={{ flex: '1 1 auto', maxWidth: '760px' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem' }}>
+                <span style={{ width: '14px', height: '2px', background: '#54CFB0' }} />
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#54CFB0' }}>
+                  START YOUR PROJECT
+                </span>
               </div>
-              <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.15rem', fontWeight: 800, color: '#080607', marginBottom: '0.5rem', letterSpacing: '-0.01em' }}>
-                Sub-500ms Natural Latency
-              </h3>
-              <p style={{ color: '#556575', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
-                Using optimized streaming websockets and local edge inference, voice packets travel and respond faster than a human blink, removing awkward pauses.
-              </p>
-            </div>
-
-            <div>
-              <div style={{ width: 44, height: 44, borderRadius: '10px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', border: '1px solid rgba(0,187,167,0.2)' }}>
-                <Mic size={22} color="#00bba7" />
-              </div>
-              <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.15rem', fontWeight: 800, color: '#080607', marginBottom: '0.5rem', letterSpacing: '-0.01em' }}>
-                Full Interruption Handling
-              </h3>
-              <p style={{ color: '#556575', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
-                If a caller interrupts mid-sentence, the agent instantly stops talking and listens to the caller's correction, exactly like a professional receptionist.
-              </p>
-            </div>
-
-            <div>
-              <div style={{ width: 44, height: 44, borderRadius: '10px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', border: '1px solid rgba(0,187,167,0.2)' }}>
-                <Globe2 size={22} color="#00bba7" />
-              </div>
-              <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.15rem', fontWeight: 800, color: '#080607', marginBottom: '0.5rem', letterSpacing: '-0.01em' }}>
-                Regional Telephony & Dialects
-              </h3>
-              <p style={{ color: '#556575', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
-                Connects directly to your local Dubai (+971) or India (+91) phone lines. Custom-trained on Arabic dialects and English regional accents.
-              </p>
-            </div>
-
-            <div>
-              <div style={{ width: 44, height: 44, borderRadius: '10px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem', border: '1px solid rgba(0,187,167,0.2)' }}>
-                <ShieldCheck size={22} color="#00bba7" />
-              </div>
-              <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.15rem', fontWeight: 800, color: '#080607', marginBottom: '0.5rem', letterSpacing: '-0.01em' }}>
-                Deterministic Knowledge Guardrails
-              </h3>
-              <p style={{ color: '#556575', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
-                The agent only speaks truth from your approved FAQs and inventory sheets. Zero hallucinations, with automated graceful handoff to human managers.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Interactive ROI Calculator */}
-        <div style={{ maxWidth: '840px', margin: '0 auto', background: '#FFFFFF', borderRadius: '16px', padding: 'clamp(2.5rem, 4vw, 3.5rem)', border: '1px solid #E1E8E5', boxShadow: '0 8px 30px rgba(8,6,7,0.04)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '2rem' }}>
-            <div style={{ width: 48, height: 48, borderRadius: '12px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(0,187,167,0.2)' }}>
-              <Calculator size={26} color="#00bba7" />
-            </div>
-            <div>
-              <h2 style={{ fontFamily: "'Space Grotesk', -apple-system, sans-serif", fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', fontWeight: 800, color: '#080607', margin: 0, letterSpacing: '-0.02em' }}>
-                Calculate Your Monthly Automation ROI
+              
+              <h2 
+                style={{ 
+                  fontSize: 'clamp(1.6rem, 2.6vw, 2.2rem)', 
+                  fontWeight: 900, 
+                  letterSpacing: '-0.03em', 
+                  lineHeight: 1.2, 
+                  color: '#FFFFFF',
+                  margin: '0 0 0.4rem 0',
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                }}
+              >
+                Ready to Deploy Voice & AI Agents for Your Business?
               </h2>
-              <p style={{ color: '#556575', fontSize: '0.9rem', margin: '4px 0 0' }}>
-                See how much time and operational budget MaxR Voice Agents save your company.
+
+              <p 
+                style={{ 
+                  fontSize: 'clamp(0.88rem, 1vw, 0.98rem)', 
+                  color: 'rgba(255, 255, 255, 0.78)', 
+                  lineHeight: 1.5, 
+                  margin: 0 
+                }}
+              >
+                No commitment. Speak directly with our AI telephony team to get a scoped deployment roadmap.
               </p>
             </div>
-          </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
-            {/* Slider 1 */}
-            <div>
-              <label style={{ display: 'block', fontSize: '0.875rem', color: '#080607', fontWeight: 700, marginBottom: '0.5rem' }}>
-                Inbound Calls Per Day: <span style={{ color: '#00bba7' }}>{callsPerDay} calls</span>
-              </label>
-              <input 
-                type="range" 
-                min="10" 
-                max="500" 
-                step="10"
-                value={callsPerDay}
-                onChange={(e) => setCallsPerDay(Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#00bba7' }}
-              />
+            {/* Right side: Action Button */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <button
+                type="button"
+                onClick={onOpenContact}
+                style={{
+                  backgroundColor: '#00bba7',
+                  color: '#080607',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '0.85rem 1.85rem',
+                  fontSize: '0.92rem',
+                  fontWeight: 800,
+                  letterSpacing: '-0.01em',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: '0 6px 20px rgba(0, 187, 167, 0.35)',
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap',
+                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#00a392';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#00bba7';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <span>Schedule Scoping Session</span>
+                <ArrowRight size={15} />
+              </button>
             </div>
 
-            {/* Slider 2 */}
-            <div>
-              <label style={{ display: 'block', fontSize: '0.875rem', color: '#080607', fontWeight: 700, marginBottom: '0.5rem' }}>
-                Average Call Duration: <span style={{ color: '#00bba7' }}>{minutesPerCall} minutes</span>
-              </label>
-              <input 
-                type="range" 
-                min="2" 
-                max="15" 
-                step="1"
-                value={minutesPerCall}
-                onChange={(e) => setMinutesPerCall(Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#00bba7' }}
-              />
-            </div>
-          </div>
-
-          {/* Results Box */}
-          <div style={{ background: '#F5F8F7', borderRadius: '12px', padding: '1.75rem', border: '1px solid #E1E8E5', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.5rem', textAlign: 'center' }}>
-            <div>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '2rem', fontWeight: 900, color: '#080607', letterSpacing: '-0.02em' }}>
-                {monthlyCalls.toLocaleString()}
-              </div>
-              <div style={{ fontSize: '0.8rem', color: '#556575', fontWeight: 600, marginTop: '2px' }}>Calls Handled / Month</div>
-            </div>
-
-            <div>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '2rem', fontWeight: 900, color: '#00bba7', letterSpacing: '-0.02em' }}>
-                {hoursSpentMonthly} hrs
-              </div>
-              <div style={{ fontSize: '0.8rem', color: '#556575', fontWeight: 600, marginTop: '2px' }}>Human Hours Saved / Month</div>
-            </div>
-
-            <div>
-              <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '2rem', fontWeight: 900, color: '#0d9488', letterSpacing: '-0.02em' }}>
-                ~${estimatedSavingsUSD.toLocaleString()}
-              </div>
-              <div style={{ fontSize: '0.8rem', color: '#556575', fontWeight: 600, marginTop: '2px' }}>Estimated Monthly Operational ROI</div>
-            </div>
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <button 
-              onClick={onOpenContact} 
-              className="btn-primary" 
-              style={{ 
-                background: 'linear-gradient(135deg, #00bba7 0%, #0d9488 100%)', 
-                color: '#ffffff', 
-                fontWeight: 700, 
-                padding: '0.9rem 2.2rem',
-                borderRadius: '8px',
-                border: 'none',
-                boxShadow: '0 4px 16px rgba(0,187,167,0.25)',
-                cursor: 'pointer',
-                fontSize: '0.95rem',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              Get Custom Voice Agent Demo For Your Business
-              <ArrowRight size={16} />
-            </button>
           </div>
         </div>
+      </section>
 
-      </div>
     </div>
   );
 }

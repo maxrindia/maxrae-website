@@ -33,7 +33,7 @@ export default function ServicesPage({ onOpenContact }) {
         "Bilingual natural conversations in Arabic dialects & English",
         "Direct connection to your local phone lines (+971 / +91) and CRM"
       ],
-      link: "/voice-agents",
+      link: "/services/voice-agents",
       linkText: "Explore Voice Agents →"
     },
     {

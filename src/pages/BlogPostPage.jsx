@@ -134,17 +134,18 @@ export default function BlogPostPage({ onOpenContact }) {
               borderRadius: '999px', 
               fontSize: '0.8rem', 
               fontWeight: 800, 
-              border: '1px solid #A7F3D0' 
+              border: '1px solid #A7F3D0',
+              fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)"
             }}>
               {post.category}
             </span>
 
-            <span style={{ fontSize: '0.825rem', color: '#64748b', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ fontSize: '0.825rem', color: '#64748b', display: 'inline-flex', alignItems: 'center', gap: '5px', fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
               <Clock size={14} />
               <span>{post.readTime}</span>
             </span>
 
-            <span style={{ fontSize: '0.825rem', color: '#64748b', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ fontSize: '0.825rem', color: '#64748b', display: 'inline-flex', alignItems: 'center', gap: '5px', fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
               <Calendar size={14} />
               <span>{post.date}</span>
             </span>
@@ -563,10 +564,10 @@ export default function BlogPostPage({ onOpenContact }) {
                   </div>
                   <div style={{ padding: '1.5rem 1.5rem 1rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-                      <span style={{ background: '#ECFDF5', color: '#047857', padding: '3px 10px', borderRadius: '999px', fontSize: '0.72rem', fontWeight: 800 }}>
+                      <span style={{ background: '#ECFDF5', color: '#047857', padding: '3px 10px', borderRadius: '999px', fontSize: '0.72rem', fontWeight: 800, fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
                         {rel.category}
                       </span>
-                      <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                      <span style={{ fontSize: '0.75rem', color: '#64748b', fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)" }}>
                         {rel.readTime}
                       </span>
                     </div>

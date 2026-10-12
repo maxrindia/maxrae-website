@@ -76,7 +76,7 @@ export default function ContactPage() {
           {/* Left: Office Information & Commitment */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             
-            {/* Left Info Card — Dual Hub Locations */}
+            {/* Left Info Card — Global Offices */}
             <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: 'clamp(1.75rem, 3.5vw, 2.5rem)', border: '1px solid #E1E8E5', boxShadow: '0 8px 30px rgba(8,6,7,0.03)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '1.5rem' }}>
                 <div style={{ width: 48, height: 48, borderRadius: '12px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(0,187,167,0.2)' }}>
@@ -87,38 +87,46 @@ export default function ContactPage() {
                     Global Offices
                   </h3>
                   <span style={{ fontSize: '0.825rem', color: '#00bba7', fontWeight: 700 }}>
-                    Dubai Commercial HQ • Chennai Technology Center
+                    Dubai • Chennai
                   </span>
                 </div>
               </div>
 
               {/* Dubai Office Block */}
               <div style={{ borderBottom: '1px solid #E5EAE8', paddingBottom: '1.25rem', marginBottom: '1.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-                  <strong style={{ fontSize: '0.95rem', color: '#080607' }}>Dubai Headquarters (UAE)</strong>
-                  <span style={{ fontSize: '0.72rem', background: '#080607', color: '#54CFB0', padding: '2px 6px', borderRadius: '4px', fontWeight: 700 }}>Commercial HQ</span>
+                <div style={{ marginBottom: '8px' }}>
+                  <strong style={{ fontSize: '1rem', color: '#080607', fontFamily: "'Space Grotesk', sans-serif" }}>Dubai (UAE)</strong>
                 </div>
-                <p style={{ margin: '0 0 6px 0', fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
-                  Office #1812, Grosvenor Business Tower, Barsha Heights (Tecom), Dubai, UAE
-                </p>
-                <div style={{ fontSize: '0.825rem', color: '#080607', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                  <span>T: <a href="tel:+97145648887" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>+971 4 564 8887</a></span>
-                  <span>E: <a href="mailto:contact@maxr.ae" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>contact@maxr.ae</a></span>
+                <div style={{ fontSize: '0.875rem', color: '#080607', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <div>
+                    <span style={{ color: '#475569', fontWeight: 600 }}>Tel:</span>{' '}
+                    <a href="tel:+97145648887" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>+971 4 564 8887</a>
+                  </div>
+                  <div>
+                    <span style={{ color: '#475569', fontWeight: 600 }}>Sales:</span>{' '}
+                    <a href="mailto:sales@maxr.ae" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>sales@maxr.ae</a>
+                  </div>
+                  <div>
+                    <span style={{ color: '#475569', fontWeight: 600 }}>Support:</span>{' '}
+                    <a href="mailto:support@maxr.ae" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>support@maxr.ae</a>
+                  </div>
                 </div>
               </div>
 
               {/* Chennai Office Block */}
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-                  <strong style={{ fontSize: '0.95rem', color: '#080607' }}>Chennai Technology Hub (India)</strong>
-                  <span style={{ fontSize: '0.72rem', background: '#00bba7', color: '#080607', padding: '2px 6px', borderRadius: '4px', fontWeight: 800 }}>Core R&D Hub</span>
+                <div style={{ marginBottom: '8px' }}>
+                  <strong style={{ fontSize: '1rem', color: '#080607', fontFamily: "'Space Grotesk', sans-serif" }}>Chennai (India)</strong>
                 </div>
-                <p style={{ margin: '0 0 6px 0', fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
-                  MaxR Technologies Pvt Ltd, 101, 2/29, Cenotaph Road, 1st Street, Alwarpet, Chennai, Tamil Nadu 600018
-                </p>
-                <div style={{ fontSize: '0.825rem', color: '#080607', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-                  <span>T: <a href="tel:+914424356789" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>+91 44 2435 6789</a></span>
-                  <span>E: <a href="mailto:india@maxr.ae" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>india@maxr.ae</a></span>
+                <div style={{ fontSize: '0.875rem', color: '#080607', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <div>
+                    <span style={{ color: '#475569', fontWeight: 600 }}>Tel:</span>{' '}
+                    <a href="tel:+917778884359" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>+91 77788 84359</a>
+                  </div>
+                  <div>
+                    <span style={{ color: '#475569', fontWeight: 600 }}>Email:</span>{' '}
+                    <a href="mailto:hello@maxr.io" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>hello@maxr.io</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -192,7 +200,7 @@ export default function ContactPage() {
                 {status === 'error' && (
                   <div style={{ padding: '12px 16px', borderRadius: '8px', background: '#FEF2F2', border: '1px solid #FCA5A5', color: '#B91C1C', fontSize: '0.875rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <AlertCircle size={16} />
-                    <span>Something went wrong. Please email contact@maxr.ae</span>
+                    <span>Something went wrong. Please email sales@maxr.ae</span>
                   </div>
                 )}
 

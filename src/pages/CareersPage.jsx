@@ -104,8 +104,12 @@ export default function CareersPage({ onOpenContact }) {
 
             {/* Action Buttons */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
-              <a
-                href="#openings"
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById('openings');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
                 style={{
                   background: '#00bba7',
                   color: '#080607',
@@ -113,7 +117,9 @@ export default function CareersPage({ onOpenContact }) {
                   borderRadius: '10px',
                   fontWeight: 800,
                   fontSize: '0.95rem',
-                  textDecoration: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '8px',
@@ -131,7 +137,7 @@ export default function CareersPage({ onOpenContact }) {
               >
                 <span>View Open Opportunities</span>
                 <ArrowRight size={16} />
-              </a>
+              </button>
 
               <a
                 href="mailto:careers@maxr.ae"

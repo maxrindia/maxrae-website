@@ -43,6 +43,7 @@ export default function HomePage() {
 
 
 
+
   // ── Industries Interactive Selection & Preview State ──
   const [selectedIndustry, setSelectedIndustry] = useState(null);
   const [hoveredIndustry, setHoveredIndustry] = useState(null);
@@ -58,76 +59,77 @@ export default function HomePage() {
       category: "WEB DEVELOPMENT",
       desc: "High-performance websites and web applications designed around your business goals.",
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/web-development"
     },
     {
       title: "App Development",
       category: "APP DEVELOPMENT",
       desc: "Native and cross-platform mobile applications that engage users and scale with your business.",
       image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/app-development"
     },
     {
       title: "Software & Product Development",
       category: "SOFTWARE DEVELOPMENT",
       desc: "Custom business software, SaaS architectures and enterprise platforms built to automate workflows.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/software-development"
     },
     {
       title: "Digital Marketing",
       category: "DIGITAL MARKETING",
       desc: "Data-driven SEO, PPC campaigns and organic acquisition strategies that convert visitors into revenue.",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/digital-marketing"
     },
     {
       title: "Social Media Management",
       category: "SOCIAL MEDIA",
       desc: "Strategic content creation, community engagement and brand positioning across high-intent channels.",
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/social-media-management"
     },
     {
       title: "AI & Automation",
       category: "AI & AUTOMATION",
       desc: "Autonomous workflow bots, AI voice agents and smart integrations that cut manual overhead by 70%.",
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/ai-automation"
     },
     {
       title: "CRM & Lead Solutions",
       category: "CRM & LEADS",
       desc: "End-to-end sales pipelines, automated lead routing and proactive client engagement engines.",
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/crm-lead-solutions"
     },
     {
       title: "UI/UX & Branding",
       category: "UI/UX & BRANDING",
       desc: "Digital experiences and brand identities that create clarity, customer delight and consistency.",
       image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/ui-ux-branding"
     },
     {
       title: "Cloud & Technology",
       category: "CLOUD ARCHITECTURE",
       desc: "Reliable cloud infrastructure, secure database scaling and 24/7 high-availability microservices.",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/cloud-technology"
     },
     {
       title: "Data & Business Intelligence",
       category: "DATA & BI",
       desc: "Executive dashboards, real-time KPI telemetry and predictive business intelligence reporting.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      link: "/services"
+      link: "/services/data-bi-analytics"
     }
   ];
 
   // ── 2. EXACT 8 INDUSTRIES ──
   const industries = [
     {
+      slug: "healthcare",
       name: "Healthcare",
       displayTitle: "HEALTHCARE & HEALTH-TECH",
       icon: Heart,
@@ -144,6 +146,7 @@ export default function HomePage() {
       ctaText: "Explore Industry →"
     },
     {
+      slug: "real-estate",
       name: "Real Estate",
       displayTitle: "REAL ESTATE & PROPTECH",
       icon: Building2,
@@ -160,6 +163,7 @@ export default function HomePage() {
       ctaText: "Explore Industry →"
     },
     {
+      slug: "ecommerce",
       name: "E-Commerce",
       displayTitle: "E-COMMERCE & RETAIL",
       icon: ShoppingCart,
@@ -176,6 +180,7 @@ export default function HomePage() {
       ctaText: "Explore Industry →"
     },
     {
+      slug: "finance",
       name: "Finance",
       displayTitle: "FINANCE & FINTECH",
       icon: TrendingUp,
@@ -192,6 +197,7 @@ export default function HomePage() {
       ctaText: "Explore Industry →"
     },
     {
+      slug: "education",
       name: "Education",
       displayTitle: "EDUCATION & EDTECH",
       icon: GraduationCap,
@@ -208,6 +214,7 @@ export default function HomePage() {
       ctaText: "Explore Industry →"
     },
     {
+      slug: "hospitality",
       name: "Hospitality",
       displayTitle: "HOSPITALITY & TOURISM",
       icon: Luggage,
@@ -224,6 +231,7 @@ export default function HomePage() {
       ctaText: "Explore Industry →"
     },
     {
+      slug: "professional-services",
       name: "Professional Services",
       displayTitle: "PROFESSIONAL SERVICES",
       icon: Users,
@@ -240,6 +248,7 @@ export default function HomePage() {
       ctaText: "Explore Industry →"
     },
     {
+      slug: "technology",
       name: "Technology & Startups",
       displayTitle: "TECHNOLOGY & STARTUPS",
       icon: Rocket,
@@ -292,7 +301,7 @@ export default function HomePage() {
       logo: "/assets/clients/parvathi.png",
       videoSrc: "/assets/Client Video/parvathi-J3kE264L.mp4",
       thumbnail: "/assets/clients/parvathi_thumb.jpg",
-      quote: "MAXR analyzed our business, identified growth opportunities, and created a strategic roadmap that helped us achieve 5X business growth within 6 months.",
+      quote: "MAXR analyzed our business, identified growth opportunities, and created a strategic roadmap that helped us achieve 5X business growth.",
       tags: ["Business Strategy", "Growth Roadmap", "Market Expansion"],
       servicesRendered: [
         "Strategic Business Growth Advisory",
@@ -362,13 +371,14 @@ export default function HomePage() {
                 lineHeight: 1.65, 
                 color: '#3F5565', 
                 maxWidth: '620px', 
-                margin: '0 0 2.75rem 0' 
+                margin: '0 0 2.75rem 0',
+                fontFamily: "'Inter', sans-serif"
               }}
             >
               AI automation, custom software, and digital marketing — built to deliver results from day one.
             </p>
 
-            {/* CTA Buttons - Compact with Animation Effects */}
+            {/* CTA Buttons */}
             <div 
               style={{ 
                 display: 'flex', 
@@ -378,16 +388,22 @@ export default function HomePage() {
               }}
             >
               <Link
-                to="/case-studies"
+                to="/services"
                 className="btn-animated"
                 style={{
                   padding: '0.65rem 1.45rem',
                   fontSize: '0.875rem',
                   fontWeight: 750,
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  backgroundColor: '#00bba7',
+                  color: '#080607',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px'
                 }}
               >
-                <span>See Our Work</span>
+                <span>Explore Services</span>
                 <ArrowRight size={15} />
               </Link>
 
@@ -398,7 +414,11 @@ export default function HomePage() {
                   padding: '0.65rem 1.45rem',
                   fontSize: '0.875rem',
                   fontWeight: 700,
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px'
                 }}
               >
                 <span>Talk to Us</span>
@@ -488,7 +508,7 @@ export default function HomePage() {
           3. OUR SERVICES (Notched Project Cards)
           ═════════════════════════════════════════════ */}
       <section 
-        id="services-carousel-section"
+        id="services"
         style={{ 
           background: '#FFFFFF', 
           borderBottom: '1px solid #E1E8E5',
@@ -555,65 +575,59 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          4. HOW IT WORKS (Horizontal Cards)
+          4. HOW WE WORK (Animated Interactive Process Journey)
           ═════════════════════════════════════════════ */}
       <section 
         id="how-it-works"
         style={{ 
           background: 'linear-gradient(180deg, #FAFCFB 0%, #F4F8F6 100%)', 
           borderBottom: '1px solid #E1E8E5',
-          padding: 'clamp(4.5rem, 6.5vw, 6.5rem) 0',
+          padding: 'clamp(3.5rem, 5vw, 4.75rem) 0 clamp(4rem, 6vw, 5.5rem) 0',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'visible'
         }}
       >
         <div className="container">
-          <div style={{ maxWidth: '680px', marginBottom: '3.5rem' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+          {/* Centered Header: Matching Image Content */}
+          <div style={{ textAlign: 'center', maxWidth: '860px', margin: '0 auto 2.75rem auto' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '0.85rem' }}>
               <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
-              <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#008779' }}>
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#008779' }}>
                 HOW IT WORKS • 3-STEP PROCESS
               </span>
+              <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
             </div>
             
             <h2 
               style={{ 
-                fontSize: 'clamp(2.2rem, 3.8vw, 3rem)', 
+                fontSize: 'clamp(2.4rem, 4.2vw, 3.6rem)', 
                 fontWeight: 900, 
-                letterSpacing: '-0.03em', 
+                letterSpacing: '-0.035em', 
                 lineHeight: 1.15, 
                 color: '#080607',
-                margin: '0 0 0.75rem 0',
+                margin: '0 0 1rem 0',
                 fontFamily: "'Space Grotesk', -apple-system, sans-serif"
               }}
             >
               A Clear, Direct Process.
             </h2>
-            <p style={{ fontSize: '1rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+
+            <p 
+              style={{ 
+                fontSize: 'clamp(1.05rem, 1.6vw, 1.25rem)', 
+                fontWeight: 500,
+                color: '#4B5563', 
+                lineHeight: 1.55, 
+                margin: '0 auto',
+                maxWidth: '740px'
+              }}
+            >
               From initial audit to production launch and scale — we eliminate slow agency overhead with agile 2-week execution sprints.
             </p>
           </div>
 
-          {/* Integrated HowItWorks Component */}
-          <HowItWorks
-            features={[
-              {
-                title: "Audit & Discover",
-                description: "We audit your workflow and identify exactly where time and money are being lost.",
-                colorTheme: "orange",
-              },
-              {
-                title: "Build & Deploy",
-                description: "We design and deploy the solution — automations, apps, or campaigns with 2-week agile sprints.",
-                colorTheme: "blue",
-              },
-              {
-                title: "Optimize & Scale",
-                description: "We monitor, optimize, and scale what works. Continuous telemetry and 24/7 SLA support included.",
-                colorTheme: "purple",
-              }
-            ]}
-          />
+          {/* Integrated HowItWorks Process Flow */}
+          <HowItWorks />
         </div>
       </section>
 
@@ -621,7 +635,7 @@ export default function HomePage() {
           5. INDUSTRIES (Interactive Editorial Showcase: Transparent Matrix Pattern)
           ═════════════════════════════════════════════ */}
       <section 
-        id="industries-section"
+        id="industries"
         className="industries-editorial-section"
         aria-label="Industries We Serve"
         style={{
@@ -666,32 +680,29 @@ export default function HomePage() {
         </div>
 
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          {/* Section Heading: Editorial layout */}
-          <div style={{ marginBottom: 'clamp(2.75rem, 4.5vw, 4rem)' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem' }}>
-              <span style={{ width: '22px', height: '2px', background: '#54CFB0' }} />
+          {/* Section Heading: Centered layout */}
+          <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto clamp(2.75rem, 4.5vw, 4rem) auto' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+              <span style={{ width: '20px', height: '2px', background: '#54CFB0' }} />
               <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#54CFB0' }}>
                 EXPERTISE
               </span>
+              <span style={{ width: '20px', height: '2px', background: '#54CFB0' }} />
             </div>
             
             <h2 
               style={{ 
-                fontSize: 'clamp(2.2rem, 4vw, 3.25rem)', 
+                fontSize: 'clamp(2.3rem, 4vw, 3.4rem)', 
                 fontWeight: 900, 
                 letterSpacing: '-0.035em', 
                 lineHeight: 1.15, 
-                color: '#FFFFFF',
-                margin: '0 0 1rem 0',
+                color: '#FFFFFF', 
+                margin: 0,
                 fontFamily: "'Space Grotesk', -apple-system, sans-serif"
               }}
             >
               Technology Built for Every Sector.
             </h2>
-
-            <p style={{ fontSize: 'clamp(0.95rem, 1.15vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.72)', lineHeight: 1.65, margin: 0, maxWidth: '640px' }}>
-              Select or hover any sector below to preview how MaxR designs and accelerates targeted technology.
-            </p>
           </div>
 
           {/* Square Pattern Matrix: Transparent Editorial Grid */}
@@ -765,7 +776,7 @@ export default function HomePage() {
                   {/* Clean Text Link: Our [Industry] >> */}
                   <div style={{ marginTop: '1.75rem' }}>
                     <Link
-                      to="/industries"
+                      to={`/industries/${ind.slug}`}
                       style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -889,45 +900,29 @@ export default function HomePage() {
       >
         <div className="container">
           
-          {/* Header Strip */}
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '3rem' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-                <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
-                  Real Results
-                </span>
-              </div>
-              
-              <h2 
-                style={{ 
-                  fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
-                  fontWeight: 800, 
-                  letterSpacing: '-0.03em', 
-                  lineHeight: 1.15, 
-                  color: '#080607', 
-                  margin: 0 
-                }}
-              >
-                Real Impact. Lasting Partnerships.
-              </h2>
+          {/* Centered Header Strip */}
+          <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 3.5rem auto' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '0.85rem' }}>
+              <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#008779' }}>
+                Real Results
+              </span>
+              <span style={{ width: '18px', height: '2px', background: '#00bba7' }} />
             </div>
-
-            <Link
-              to="/about"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                color: '#0f766e',
-                fontWeight: 700,
-                fontSize: '0.925rem',
-                textDecoration: 'none'
+            
+            <h2 
+              style={{ 
+                fontSize: 'clamp(2.3rem, 4vw, 3.3rem)', 
+                fontWeight: 900, 
+                letterSpacing: '-0.035em', 
+                lineHeight: 1.15, 
+                color: '#080607', 
+                margin: 0,
+                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
               }}
             >
-              <span>Learn More About Us</span>
-              <ArrowRight size={15} />
-            </Link>
+              Real Impact. Lasting Partnerships.
+            </h2>
           </div>
 
           {/* 2-Card Video Grid */}
@@ -1073,35 +1068,13 @@ export default function HomePage() {
                     ))}
                   </div>
 
-                  <div style={{ marginBottom: '1rem' }}>
+                  <div style={{ marginBottom: '0.25rem' }}>
                     <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#080607', margin: '0 0 2px 0' }}>
                       {story.company}
                     </h4>
                     <p style={{ fontSize: '0.825rem', color: '#64748b', margin: 0 }}>
                       {story.industry}
                     </p>
-                  </div>
-
-                  <div 
-                    style={{ 
-                      background: '#F5F8F7', 
-                      border: '1px solid #E1E8E5', 
-                      borderRadius: '8px', 
-                      padding: '0.75rem 0.9rem', 
-                      marginBottom: '0.5rem' 
-                    }}
-                  >
-                    <span style={{ fontSize: '0.725rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#080607', display: 'block', marginBottom: '5px' }}>
-                      Services Delivered by MaxR:
-                    </span>
-                    <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '3px' }}>
-                      {story.servicesRendered.map((sItem, sIdx) => (
-                        <li key={sIdx} style={{ fontSize: '0.825rem', color: '#3F5565', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <CheckCircle2 size={13} color="#00bba7" />
-                          <span>{sItem}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </div>
               </div>

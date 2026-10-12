@@ -29,14 +29,14 @@ export default function AboutPage({ onOpenContact }) {
       title: "Founder & CEO",
       focus: "Product Vision & Strategy",
       bio: "Leads client strategy, product vision, and AI system architecture across Dubai, the GCC, and international markets.",
-      location: "Dubai Headquarters (UAE)"
+      location: "Chennai"
     },
     {
       name: "Gopi",
       title: "Co-Founder & CTO",
       focus: "Technology & Engineering",
       bio: "Leads MaxR's engineering team, conversational voice pipelines, workflow engines, and scalable cloud infrastructure.",
-      location: "Chennai Tech Hub (India)"
+      location: "Chennai"
     }
   ];
 
@@ -121,7 +121,7 @@ export default function AboutPage({ onOpenContact }) {
                   fontSize: 'clamp(2.1rem, 3.2vw, 2.6rem)', 
                   fontWeight: 900, 
                   color: '#080607', 
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "var(--font-mono, 'IBM Plex Mono', monospace)",
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1
                 }}
@@ -171,7 +171,7 @@ export default function AboutPage({ onOpenContact }) {
               MaxR was created to help businesses eliminate manual bottlenecks and scale through intelligent technology. We believe you shouldn't have to hire bloated teams or deal with slow traditional agencies to get modern AI and web systems running.
             </p>
             <p style={{ color: '#475569', fontSize: '1rem', lineHeight: 1.7, margin: 0 }}>
-              By pairing our <strong>Commercial Strategy in Dubai</strong> with our <strong>Technology & Engineering Center in Chennai</strong>, we deliver rapid turnarounds, high security, and systems that start delivering value in your first 30 days.
+              Operating across <strong>Dubai</strong> and <strong>Chennai</strong>, we deliver rapid turnarounds, high security, and systems that start delivering value in your first 30 days.
             </p>
           </div>
 
@@ -341,9 +341,9 @@ export default function AboutPage({ onOpenContact }) {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.75rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.75rem' }}>
             
-            {/* DUBAI HQ */}
+            {/* DUBAI */}
             <div 
               style={{
                 background: '#FFFFFF',
@@ -362,48 +362,37 @@ export default function AboutPage({ onOpenContact }) {
                 e.currentTarget.style.borderColor = '#E2E8F0';
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: '10px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Building2 size={20} color="#00bba7" />
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#080607', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
-                      Dubai Headquarters
-                    </h3>
-                    <span style={{ fontSize: '0.78rem', color: '#008779', fontWeight: 700 }}>
-                      United Arab Emirates
-                    </span>
-                  </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.5rem' }}>
+                <div style={{ width: 42, height: 42, borderRadius: '10px', background: 'rgba(0,187,167,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Building2 size={20} color="#00bba7" />
                 </div>
-                <span style={{ background: '#080607', color: '#54CFB0', fontSize: '0.72rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px' }}>
-                  Head Office
-                </span>
+                <div>
+                  <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#080607', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
+                    Dubai
+                  </h3>
+                  <span style={{ fontSize: '0.82rem', color: '#008779', fontWeight: 700 }}>
+                    United Arab Emirates
+                  </span>
+                </div>
               </div>
 
-              <div style={{ background: '#F8FAFC', borderRadius: '10px', padding: '1rem', border: '1px solid #E2E8F0', marginBottom: '1.25rem', fontSize: '0.85rem', color: '#334155', lineHeight: 1.5 }}>
-                <p style={{ margin: 0, fontWeight: 750, color: '#080607' }}>Office #1812</p>
-                <p style={{ margin: 0 }}>Grosvenor Business Tower, Barsha Heights (Tecom)</p>
-                <p style={{ margin: 0, fontWeight: 600 }}>Dubai, United Arab Emirates</p>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', color: '#475569' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Phone size={14} color="#00bba7" />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem', color: '#475569' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Phone size={16} color="#00bba7" />
                   <span><strong>Tel:</strong> <a href="tel:+97145648887" style={{ color: '#080607', textDecoration: 'none' }}>+971 4 564 8887</a></span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Mail size={14} color="#00bba7" />
-                  <span><strong>Email:</strong> <a href="mailto:contact@maxr.ae" style={{ color: '#080607', textDecoration: 'none' }}>contact@maxr.ae</a></span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Mail size={16} color="#00bba7" />
+                  <span><strong>Sales:</strong> <a href="mailto:sales@maxr.ae" style={{ color: '#080607', textDecoration: 'none' }}>sales@maxr.ae</a></span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Clock size={14} color="#00bba7" />
-                  <span><strong>Hours:</strong> Sun – Thu, 9:00 AM – 6:00 PM GST</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Mail size={16} color="#00bba7" />
+                  <span><strong>Support:</strong> <a href="mailto:support@maxr.ae" style={{ color: '#080607', textDecoration: 'none' }}>support@maxr.ae</a></span>
                 </div>
               </div>
             </div>
 
-            {/* CHENNAI TECH HUB */}
+            {/* CHENNAI */}
             <div 
               style={{
                 background: '#FFFFFF',
@@ -422,43 +411,28 @@ export default function AboutPage({ onOpenContact }) {
                 e.currentTarget.style.borderColor = '#E2E8F0';
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: '10px', background: 'rgba(84,207,176,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <MapPin size={20} color="#0d9488" />
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '1.25rem', fontWeight: 900, color: '#080607', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
-                      Chennai Technology Hub
-                    </h3>
-                    <span style={{ fontSize: '0.78rem', color: '#0d9488', fontWeight: 700 }}>
-                      Engineering Center • India
-                    </span>
-                  </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.5rem' }}>
+                <div style={{ width: 42, height: 42, borderRadius: '10px', background: 'rgba(84,207,176,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <MapPin size={20} color="#0d9488" />
                 </div>
-                <span style={{ background: '#00bba7', color: '#080607', fontSize: '0.72rem', fontWeight: 800, padding: '3px 8px', borderRadius: '4px' }}>
-                  Tech Hub
-                </span>
+                <div>
+                  <h3 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#080607', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
+                    Chennai
+                  </h3>
+                  <span style={{ fontSize: '0.82rem', color: '#0d9488', fontWeight: 700 }}>
+                    India
+                  </span>
+                </div>
               </div>
 
-              <div style={{ background: '#F8FAFC', borderRadius: '10px', padding: '1rem', border: '1px solid #E2E8F0', marginBottom: '1.25rem', fontSize: '0.85rem', color: '#334155', lineHeight: 1.5 }}>
-                <p style={{ margin: 0, fontWeight: 750, color: '#080607' }}>MaxR Technologies Pvt Ltd</p>
-                <p style={{ margin: 0 }}>101, 2/29, Cenotaph Road, 1st Street, Alwarpet</p>
-                <p style={{ margin: 0, fontWeight: 600 }}>Chennai, Tamil Nadu 600018, India</p>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', color: '#475569' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Phone size={14} color="#00bba7" />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem', color: '#475569' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Phone size={16} color="#00bba7" />
                   <span><strong>Tel:</strong> <a href="tel:+914424356789" style={{ color: '#080607', textDecoration: 'none' }}>+91 44 2435 6789</a></span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Mail size={14} color="#00bba7" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <Mail size={16} color="#00bba7" />
                   <span><strong>Email:</strong> <a href="mailto:india@maxr.ae" style={{ color: '#080607', textDecoration: 'none' }}>india@maxr.ae</a></span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Clock size={14} color="#00bba7" />
-                  <span><strong>Hours:</strong> Mon – Fri, 9:30 AM – 6:30 PM IST</span>
                 </div>
               </div>
             </div>
@@ -466,58 +440,58 @@ export default function AboutPage({ onOpenContact }) {
           </div>
         </div>
 
-        {/* ── 6. SIMPLE CLOSING ACTION ── */}
+        {/* ── 6. CLOSING CTA (Single-line concise dedicated section) ── */}
         <div 
           style={{ 
-            background: 'linear-gradient(145deg, #080607 0%, #0d1a16 100%)', 
-            borderRadius: '20px', 
-            padding: 'clamp(2.5rem, 5vw, 3.5rem) 2rem', 
-            border: '1px solid rgba(84, 207, 176, 0.35)', 
-            boxShadow: '0 16px 40px rgba(8, 6, 7, 0.25)', 
-            textAlign: 'center',
-            color: '#FFFFFF',
-            maxWidth: '780px',
-            margin: '0 auto'
+            borderTop: '1px solid #E2E8F0', 
+            paddingTop: '3.5rem',
+            marginTop: '2rem',
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between', 
+            gap: '2rem', 
+            flexWrap: 'wrap'
           }}
         >
-          <h2 
-            style={{ 
-              fontSize: 'clamp(1.8rem, 3.2vw, 2.4rem)', 
-              fontWeight: 800, 
-              color: '#FFFFFF', 
-              margin: '0 0 0.75rem 0', 
-              letterSpacing: '-0.025em',
-              fontFamily: "'Space Grotesk', sans-serif"
-            }}
-          >
-            Ready to Build Something Great?
-          </h2>
-
-          <p style={{ fontSize: '1rem', color: '#CBD5E1', lineHeight: 1.6, margin: '0 0 1.75rem 0', maxWidth: '540px', marginInline: 'auto' }}>
-            Whether you want to automate customer calls, build a custom app, or scale your operations, our team is ready to help.
-          </p>
-
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link 
-              to="/contact"
-              className="btn-primary"
+          <div>
+            <h2 
               style={{ 
-                background: '#54CFB0', 
+                fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', 
+                fontWeight: 900, 
                 color: '#080607', 
-                fontWeight: 800, 
-                padding: '0.75rem 1.75rem', 
-                fontSize: '0.9rem',
-                borderRadius: '8px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                textDecoration: 'none'
+                margin: '0 0 0.4rem 0', 
+                letterSpacing: '-0.025em',
+                fontFamily: "'Space Grotesk', sans-serif"
               }}
             >
-              <span>Talk to Our Team</span>
-              <ArrowRight size={15} />
-            </Link>
+              Ready to Build Something Great?
+            </h2>
+            <p style={{ fontSize: '0.95rem', color: '#64748B', margin: 0 }}>
+              Automate customer calls, build custom software, or scale operations with our team.
+            </p>
           </div>
+
+          <Link 
+            to="/contact"
+            className="btn-primary"
+            style={{ 
+              background: '#00bba7', 
+              color: '#080607', 
+              fontWeight: 800, 
+              padding: '0.85rem 2rem', 
+              fontSize: '0.925rem',
+              borderRadius: '8px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              textDecoration: 'none',
+              boxShadow: '0 4px 14px rgba(0, 187, 167, 0.25)',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            <span>Talk to Our Team</span>
+            <ArrowRight size={15} />
+          </Link>
         </div>
 
       </div>

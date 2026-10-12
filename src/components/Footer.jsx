@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Phone, Mail } from 'lucide-react';
 
 export default function Footer() {
   const offices = [
     {
       country: 'Dubai',
-      phone: '+971 4 564 8887',
-      email: 'contact@maxr.ae'
+      phone: '',
+      email: 'support@maxr.ae'
     },
     {
       country: 'India',
-      phone: '+91 44 2435 6789',
-      email: 'contact@maxr.ae'
+      phone: '+91 77788 84359',
+      email: 'hello@maxr.io'
     }
   ];
 
@@ -74,14 +75,14 @@ export default function Footer() {
   ];
 
   const whatWeDoServices = [
-    { title: "AI Automation & Workflows", path: "/services" },
-    { title: "Web & App Development", path: "/services" },
-    { title: "Mobile App Engineering", path: "/services" },
-    { title: "Cloud & DevOps Scaling", path: "/services" },
-    { title: "CRM & Speed-to-Lead", path: "/services" },
-    { title: "Digital Marketing & SEO", path: "/services" },
-    { title: "Data & BI Analytics", path: "/services" },
-    { title: "Industries Served", path: "/industries" }
+    { title: "Web Development", path: "/services/web-development" },
+    { title: "Mobile App Engineering", path: "/services/app-development" },
+    { title: "Software & SaaS Platforms", path: "/services/software-development" },
+    { title: "AI & Workflow Automation", path: "/services/ai-automation" },
+    { title: "CRM & Speed-to-Lead", path: "/services/crm-lead-solutions" },
+    { title: "Cloud & Technology", path: "/services/cloud-technology" },
+    { title: "Digital Marketing & SEO", path: "/services/digital-marketing" },
+    { title: "Data & BI Analytics", path: "/services/data-bi-analytics" }
   ];
 
   return (
@@ -144,29 +145,33 @@ export default function Footer() {
                   </div>
 
                   {/* Second Column: Mobile & Mail details */}
-                  <div>
-                    <p style={{ margin: '0 0 2px 0' }}>
-                      <span style={{ fontWeight: 600, color: '#080607' }}>M:</span>{' '}
-                      <a 
-                        href={`tel:${loc.phone.replace(/\s+/g, '')}`} 
-                        style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }}
-                        onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                        onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
-                      >
-                        {loc.phone}
-                      </a>
-                    </p>
-                    <p style={{ margin: 0 }}>
-                      <span style={{ fontWeight: 600, color: '#080607' }}>E:</span>{' '}
-                      <a 
-                        href={`mailto:${loc.email}`} 
-                        style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }}
-                        onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                        onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
-                      >
-                        {loc.email}
-                      </a>
-                    </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    {loc.phone && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                        <Phone size={13} color="#00bba7" style={{ flexShrink: 0 }} />
+                        <a 
+                          href={`tel:${loc.phone.replace(/\s+/g, '')}`} 
+                          style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease', lineHeight: 1.4 }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+                        >
+                          {loc.phone}
+                        </a>
+                      </div>
+                    )}
+                    {loc.email && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                        <Mail size={13} color="#00bba7" style={{ flexShrink: 0 }} />
+                        <a 
+                          href={`mailto:${loc.email}`} 
+                          style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease', lineHeight: 1.4 }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+                        >
+                          {loc.email}
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </React.Fragment>
               ))}
@@ -321,7 +326,7 @@ export default function Footer() {
         {/* Row 2: Copyright & Contact */}
         <div style={{ textAlign: 'center', maxWidth: '880px', margin: '0 auto' }}>
           <p style={{ margin: 0, fontSize: '0.825rem', color: '#475569', lineHeight: 1.75 }}>
-            <span>Copyright © 2026 MaxR Technologies Limited</span>
+            <span>Copyright © 2026 MaxR Technologies</span>
             <span style={{ margin: '0 12px', color: '#94a3b8' }}>•</span>
             <Link to="/contact" style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseEnter={(e) => e.target.style.color = '#00bba7'} onMouseLeave={(e) => e.target.style.color = '#475569'}>Contact Us</Link>
           </p>

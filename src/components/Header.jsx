@@ -174,40 +174,87 @@ export default function Header() {
                     onMouseEnter={() => handleMouseEnter(item.dropdownKey)}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <Link
-                      to={item.path}
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        color: isDropdownActive || isActive ? '#080607' : '#2b3442',
-                        fontWeight: isDropdownActive || isActive ? 700 : 500,
-                        fontSize: '0.925rem',
-                        letterSpacing: '-0.01em',
-                        padding: '0.5rem 0.2rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '5px',
-                        textDecoration: 'none',
-                        transition: 'color 0.2s ease',
-                        fontFamily: 'inherit'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = '#00bba7';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = isDropdownActive || isActive ? '#080607' : '#2b3442';
-                      }}
-                    >
-                      <span>{item.label}</span>
-                      <ChevronDown 
-                        size={14} 
-                        style={{ 
-                          transform: isDropdownActive ? 'rotate(180deg)' : 'rotate(0deg)', 
-                          transition: 'transform 0.25s ease' 
-                        }} 
-                      />
-                    </Link>
+                    {currentPath === '/' ? (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setActiveDropdown(null);
+                          const targetId = item.dropdownKey === 'services' ? 'services' : 'industries';
+                          const el = document.getElementById(targetId);
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          color: isDropdownActive || isActive ? '#080607' : '#2b3442',
+                          fontWeight: isDropdownActive || isActive ? 700 : 500,
+                          fontSize: '0.925rem',
+                          letterSpacing: '-0.01em',
+                          padding: '0.5rem 0.2rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          textDecoration: 'none',
+                          transition: 'color 0.2s ease',
+                          fontFamily: 'inherit'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = '#00bba7';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = isDropdownActive || isActive ? '#080607' : '#2b3442';
+                        }}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown 
+                          size={14} 
+                          style={{ 
+                            transform: isDropdownActive ? 'rotate(180deg)' : 'rotate(0deg)', 
+                            transition: 'transform 0.25s ease' 
+                          }} 
+                        />
+                      </button>
+                    ) : (
+                      <Link
+                        to={item.path}
+                        onClick={() => setActiveDropdown(null)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          color: isDropdownActive || isActive ? '#080607' : '#2b3442',
+                          fontWeight: isDropdownActive || isActive ? 700 : 500,
+                          fontSize: '0.925rem',
+                          letterSpacing: '-0.01em',
+                          padding: '0.5rem 0.2rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '5px',
+                          textDecoration: 'none',
+                          transition: 'color 0.2s ease',
+                          fontFamily: 'inherit'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = '#00bba7';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = isDropdownActive || isActive ? '#080607' : '#2b3442';
+                        }}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown 
+                          size={14} 
+                          style={{ 
+                            transform: isDropdownActive ? 'rotate(180deg)' : 'rotate(0deg)', 
+                            transition: 'transform 0.25s ease' 
+                          }} 
+                        />
+                      </Link>
+                    )}
                     {(isActive || isDropdownActive) && (
                       <span 
                         style={{
@@ -230,7 +277,7 @@ export default function Header() {
                           top: 'calc(100% + 12px)',
                           left: '50%',
                           transform: 'translateX(-35%)',
-                          width: '560px',
+                          width: '580px',
                           background: '#FFFFFF',
                           borderRadius: '12px',
                           border: '1px solid #E2E8F0',
@@ -239,7 +286,7 @@ export default function Header() {
                           zIndex: 9999
                         }}
                       >
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '1rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '0.5rem' }}>
                           {/* Col 1 */}
                           <div>
                             <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#00bba7', display: 'block', marginBottom: '10px' }}>
@@ -247,10 +294,10 @@ export default function Header() {
                             </span>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                               {[
-                                { title: "Voice & AI Agents", path: "/voice-agents" },
-                                { title: "Workflow Automation", path: "/services" },
-                                { title: "AI Inbound Chatbots", path: "/services" },
-                                { title: "Data & BI Analytics", path: "/services" }
+                                { title: "Voice & AI Agents", path: "/services/voice-agents" },
+                                { title: "AI & Automation", path: "/services/ai-automation" },
+                                { title: "CRM & Speed-to-Lead", path: "/services/crm-lead-solutions" },
+                                { title: "Data & BI Analytics", path: "/services/data-bi-analytics" }
                               ].map((s, idx) => (
                                 <Link
                                   key={idx}
@@ -273,10 +320,10 @@ export default function Header() {
                             </span>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                               {[
-                                { title: "Web Development", path: "/services" },
-                                { title: "Mobile App Engineering", path: "/services" },
-                                { title: "SaaS Architecture", path: "/services" },
-                                { title: "Cloud & DevOps", path: "/services" }
+                                { title: "Web Development", path: "/services/web-development" },
+                                { title: "Mobile App Engineering", path: "/services/app-development" },
+                                { title: "SaaS Product Architecture", path: "/services/software-development" },
+                                { title: "Cloud & Technology", path: "/services/cloud-technology" }
                               ].map((s, idx) => (
                                 <Link
                                   key={idx}
@@ -295,14 +342,13 @@ export default function Header() {
                           {/* Col 3 */}
                           <div>
                             <span style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#080607', display: 'block', marginBottom: '10px' }}>
-                              Commercial Growth
+                              Brand & Growth
                             </span>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                               {[
-                                { title: "CRM & Lead Solutions", path: "/services" },
-                                { title: "Digital Marketing & SEO", path: "/services" },
-                                { title: "Headless E-Commerce", path: "/services" },
-                                { title: "Digital Transformation", path: "/services" }
+                                { title: "Digital Marketing & SEO", path: "/services/digital-marketing" },
+                                { title: "Social Media Strategy", path: "/services/social-media-management" },
+                                { title: "UI/UX & Branding", path: "/services/ui-ux-branding" }
                               ].map((s, idx) => (
                                 <Link
                                   key={idx}
@@ -318,18 +364,6 @@ export default function Header() {
                             </div>
                           </div>
                         </div>
-
-                        {/* Bottom link */}
-                        <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '10px', display: 'flex', justifyContent: 'flex-end' }}>
-                          <Link
-                            to="/services"
-                            onClick={() => setActiveDropdown(null)}
-                            style={{ fontSize: '0.825rem', fontWeight: 700, color: '#00bba7', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                          >
-                            <span>Explore All Services</span>
-                            <ArrowRight size={13} />
-                          </Link>
-                        </div>
                       </div>
                     )}
 
@@ -342,7 +376,7 @@ export default function Header() {
                           top: 'calc(100% + 12px)',
                           left: '50%',
                           transform: 'translateX(-50%)',
-                          width: '420px',
+                          width: '450px',
                           background: '#FFFFFF',
                           borderRadius: '12px',
                           border: '1px solid #E2E8F0',
@@ -351,20 +385,20 @@ export default function Header() {
                           zIndex: 9999
                         }}
                       >
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px 1.5rem', marginBottom: '1rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px 1.5rem' }}>
                           {[
-                            { name: "Healthcare & Clinics", icon: <Stethoscope size={15} color="#00bba7" /> },
-                            { name: "Professional Services", icon: <Briefcase size={15} color="#00bba7" /> },
-                            { name: "Retail & E-Commerce", icon: <ShoppingBag size={15} color="#00bba7" /> },
-                            { name: "Real Estate & PropTech", icon: <Building2 size={15} color="#00bba7" /> },
-                            { name: "FinTech & Banking", icon: <TrendingUp size={15} color="#00bba7" /> },
-                            { name: "Logistics & Supply Chain", icon: <Truck size={15} color="#00bba7" /> },
-                            { name: "Education & EdTech", icon: <GraduationCap size={15} color="#00bba7" /> },
-                            { name: "Hospitality & Tourism", icon: <Utensils size={15} color="#00bba7" /> }
+                            { name: "Healthcare & Clinics", path: "/industries/healthcare", icon: <Stethoscope size={15} color="#00bba7" /> },
+                            { name: "Professional Services", path: "/industries/professional-services", icon: <Briefcase size={15} color="#00bba7" /> },
+                            { name: "Retail & E-Commerce", path: "/industries/ecommerce", icon: <ShoppingBag size={15} color="#00bba7" /> },
+                            { name: "Real Estate & PropTech", path: "/industries/real-estate", icon: <Building2 size={15} color="#00bba7" /> },
+                            { name: "FinTech & Banking", path: "/industries/finance", icon: <TrendingUp size={15} color="#00bba7" /> },
+                            { name: "Education & EdTech", path: "/industries/education", icon: <GraduationCap size={15} color="#00bba7" /> },
+                            { name: "Hospitality & Tourism", path: "/industries/hospitality", icon: <Utensils size={15} color="#00bba7" /> },
+                            { name: "Technology & Startups", path: "/industries/technology", icon: <Truck size={15} color="#00bba7" /> }
                           ].map((ind, idx) => (
                             <Link
                               key={idx}
-                              to="/industries"
+                              to={ind.path}
                               onClick={() => setActiveDropdown(null)}
                               style={{
                                 display: 'flex',
@@ -384,18 +418,6 @@ export default function Header() {
                               <span>{ind.name}</span>
                             </Link>
                           ))}
-                        </div>
-
-                        {/* Bottom link */}
-                        <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '10px', display: 'flex', justifyContent: 'flex-end' }}>
-                          <Link
-                            to="/industries"
-                            onClick={() => setActiveDropdown(null)}
-                            style={{ fontSize: '0.825rem', fontWeight: 700, color: '#00bba7', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                          >
-                            <span>Explore All Industries</span>
-                            <ArrowRight size={13} />
-                          </Link>
                         </div>
                       </div>
                     )}
@@ -518,24 +540,58 @@ export default function Header() {
                 Home
               </Link>
             )}
-            {baseLinks.map((item) => (
-              <Link 
-                key={item.path}
-                className="mobile-nav-link" 
-                to={item.path} 
-                onClick={() => setMobileMenuOpen(false)}
-                style={{ 
-                  textDecoration: 'none', 
-                  color: currentPath.startsWith(item.path) ? '#54CFB0' : '#080607', 
-                  fontSize: '1.05rem', 
-                  fontWeight: 600, 
-                  padding: '10px 0',
-                  borderBottom: '1px solid #F5F8F7'
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {baseLinks.map((item) => {
+              if (currentPath === '/' && (item.dropdownKey === 'services' || item.dropdownKey === 'industries')) {
+                return (
+                  <button
+                    key={item.path}
+                    type="button"
+                    className="mobile-nav-link"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      const targetId = item.dropdownKey === 'services' ? 'services' : 'industries';
+                      const el = document.getElementById(targetId);
+                      if (el) {
+                        el.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      textAlign: 'left',
+                      cursor: 'pointer',
+                      color: '#080607',
+                      fontSize: '1.05rem',
+                      fontWeight: 600,
+                      padding: '10px 0',
+                      borderBottom: '1px solid #F5F8F7',
+                      fontFamily: 'inherit'
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                );
+              }
+
+              return (
+                <Link 
+                  key={item.path}
+                  className="mobile-nav-link" 
+                  to={item.path} 
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{ 
+                    textDecoration: 'none', 
+                    color: currentPath.startsWith(item.path) ? '#54CFB0' : '#080607', 
+                    fontSize: '1.05rem', 
+                    fontWeight: 600, 
+                    padding: '10px 0',
+                    borderBottom: '1px solid #F5F8F7'
+                  }}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
 
           <div style={{ padding: '1.25rem 1.5rem', borderTop: '1px solid #E5EAE8' }}>
