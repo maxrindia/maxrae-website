@@ -123,36 +123,52 @@ export default function Footer() {
               />
             </Link>
 
-            {/* Dubai & India Details (Mobile Number & Email Only) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            {/* 2 Columns x 2 Rows: Col 1 = Country, Col 2 = Mobile & Mail Details */}
+            <div 
+              style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'auto 1fr', 
+                columnGap: '1.25rem', 
+                rowGap: '1.25rem',
+                fontSize: '0.85rem',
+                color: '#475569',
+                lineHeight: 1.5,
+                alignItems: 'start'
+              }}
+            >
               {offices.map((loc, idx) => (
-                <div key={idx} style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.55 }}>
-                  <p style={{ margin: '0 0 4px 0', fontWeight: 800, color: '#080607', fontSize: '0.95rem' }}>
+                <React.Fragment key={idx}>
+                  {/* First Column: Country */}
+                  <div style={{ fontWeight: 800, color: '#080607', fontSize: '0.95rem', paddingTop: '2px' }}>
                     {loc.country}
-                  </p>
-                  <p style={{ margin: '0 0 2px 0' }}>
-                    <span style={{ fontWeight: 600, color: '#080607' }}>M:</span>{' '}
-                    <a 
-                      href={`tel:${loc.phone.replace(/\s+/g, '')}`} 
-                      style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
-                    >
-                      {loc.phone}
-                    </a>
-                  </p>
-                  <p style={{ margin: 0 }}>
-                    <span style={{ fontWeight: 600, color: '#080607' }}>E:</span>{' '}
-                    <a 
-                      href={`mailto:${loc.email}`} 
-                      style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
-                    >
-                      {loc.email}
-                    </a>
-                  </p>
-                </div>
+                  </div>
+
+                  {/* Second Column: Mobile & Mail details */}
+                  <div>
+                    <p style={{ margin: '0 0 2px 0' }}>
+                      <span style={{ fontWeight: 600, color: '#080607' }}>M:</span>{' '}
+                      <a 
+                        href={`tel:${loc.phone.replace(/\s+/g, '')}`} 
+                        style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+                      >
+                        {loc.phone}
+                      </a>
+                    </p>
+                    <p style={{ margin: 0 }}>
+                      <span style={{ fontWeight: 600, color: '#080607' }}>E:</span>{' '}
+                      <a 
+                        href={`mailto:${loc.email}`} 
+                        style={{ color: '#475569', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = '#00bba7'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
+                      >
+                        {loc.email}
+                      </a>
+                    </p>
+                  </div>
+                </React.Fragment>
               ))}
             </div>
           </div>

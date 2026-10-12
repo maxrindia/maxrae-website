@@ -18,36 +18,12 @@ import {
 } from 'lucide-react';
 import AnimatedCounter from '../components/AnimatedCounter.jsx';
 import { NotchedProjectCard } from '../components/ui/notched-project-card';
+import HowItWorks from '../components/ui/how-it-works';
 
 export default function HomePage() {
   const heroRef = useRef(null);
 
-  // ── Animated "How It Works" Active Step State ──
-  const [activeStep, setActiveStep] = useState(0);
-  const [isProcessHovered, setIsProcessHovered] = useState(false);
 
-  useEffect(() => {
-    if (isProcessHovered) return;
-    const timer = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % 3);
-    }, 3800);
-    return () => clearInterval(timer);
-  }, [isProcessHovered]);
-
-  // ── Scroll to Top Visibility ──
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   // ── Hero Banner Dynamic Multi-Image Background State (Auto-Swipe) ──
   const heroImages = [
@@ -326,27 +302,7 @@ export default function HomePage() {
     }
   ];
 
-  // ── 5. INSIGHTS ──
-  const insights = [
-    {
-      title: "How Automation Improves Business Efficiency",
-      readTime: "4 min read",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-      link: "/blog/how-automation-improves-business-efficiency"
-    },
-    {
-      title: "Why Modern Websites Must Be Built for Speed and Mobile",
-      readTime: "5 min read",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-      link: "/blog/modern-websites-speed-and-mobile"
-    },
-    {
-      title: "The Growing Role of AI Agents in Customer Service",
-      readTime: "6 min read",
-      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
-      link: "/blog/voice-ai-agents-customer-service"
-    }
-  ];
+
 
   return (
     <div style={{ background: '#FFFFFF', color: '#080607', overflowX: 'hidden' }}>
@@ -599,7 +555,7 @@ export default function HomePage() {
       </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          4. HOW IT WORKS (Animated Interactive Process Journey)
+          4. HOW IT WORKS (Horizontal Cards)
           ═════════════════════════════════════════════ */}
       <section 
         id="how-it-works"
@@ -610,8 +566,6 @@ export default function HomePage() {
           position: 'relative',
           overflow: 'hidden'
         }}
-        onMouseEnter={() => setIsProcessHovered(true)}
-        onMouseLeave={() => setIsProcessHovered(false)}
       >
         <div className="container">
           <div style={{ maxWidth: '680px', marginBottom: '3.5rem' }}>
@@ -640,170 +594,32 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* 3 Interactive Animated Step Cards with Connecting Track */}
-          <div 
-            style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-              gap: '2rem',
-              position: 'relative'
-            }}
-          >
-            {[
+          {/* Integrated HowItWorks Component (Horizontal-based tech cards) */}
+          <HowItWorks
+            features={[
               {
                 step: "01",
                 title: "Understand",
-                desc: "We audit your workflow and identify exactly where time and money are being lost.",
-                tags: ["Workflow Audit", "Bottleneck Mapping", "ROI Targets"]
+                description: "We audit your workflow and identify exactly where time and money are being lost.",
+                tags: ["Workflow Audit", "Bottleneck Mapping", "ROI Targets"],
+                colorTheme: "mint"
               },
               {
                 step: "02",
                 title: "Build",
-                desc: "We design and deploy the solution — automations, apps, or campaigns. You see progress every two weeks.",
-                tags: ["2-Week Sprints", "Direct Dev Slack", "Live Production"]
+                description: "We design and deploy the solution — automations, apps, or campaigns. You see progress every two weeks.",
+                tags: ["2-Week Sprints", "Direct Dev Slack", "Live Production"],
+                colorTheme: "mint"
               },
               {
                 step: "03",
                 title: "Grow",
-                desc: "You get results. We monitor, optimise, and scale what works. Post-launch support is included.",
-                tags: ["Realtime Telemetry", "Continuous Tuning", "24/7 SLA Support"]
+                description: "You get results. We monitor, optimise, and scale what works. Post-launch support is included.",
+                tags: ["Realtime Telemetry", "Continuous Tuning", "24/7 SLA Support"],
+                colorTheme: "mint"
               }
-            ].map((st, sIdx) => {
-              const isActive = activeStep === sIdx;
-
-              return (
-                <div 
-                  key={sIdx}
-                  onClick={() => setActiveStep(sIdx)}
-                  style={{
-                    background: '#FFFFFF',
-                    borderRadius: '18px',
-                    padding: '2.5rem 2rem',
-                    border: isActive ? '2px solid #00bba7' : '1px solid #E1E8E5',
-                    boxShadow: isActive 
-                      ? '0 16px 36px rgba(0, 187, 167, 0.16)' 
-                      : '0 4px 18px rgba(8, 6, 7, 0.03)',
-                    transform: isActive ? 'translateY(-6px)' : 'translateY(0)',
-                    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-                    position: 'relative',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between'
-                  }}
-                  onMouseEnter={() => {
-                    setActiveStep(sIdx);
-                    setIsProcessHovered(true);
-                  }}
-                >
-                  <div>
-                    {/* Top Row: Outlined Step Number + Active Status Pill */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-                      <div 
-                        style={{
-                          width: '52px',
-                          height: '52px',
-                          borderRadius: '50%',
-                          border: isActive ? '2px solid #00bba7' : '2px solid #CBD5E1',
-                          background: isActive ? '#00bba7' : '#FFFFFF',
-                          color: isActive ? '#080607' : '#080607',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: '1.05rem',
-                          fontWeight: 900,
-                          fontFamily: "'Space Grotesk', -apple-system, sans-serif",
-                          boxShadow: isActive ? '0 0 18px rgba(0, 187, 167, 0.45)' : 'none',
-                          transform: isActive ? 'scale(1.1)' : 'scale(1)',
-                          transition: 'all 0.3s ease'
-                        }}
-                      >
-                        {st.step}
-                      </div>
-
-                      {isActive && (
-                        <span 
-                          style={{ 
-                            fontSize: '0.72rem', 
-                            fontWeight: 800, 
-                            color: '#008779', 
-                            background: 'rgba(0, 187, 167, 0.12)', 
-                            padding: '4px 10px', 
-                            borderRadius: '999px',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                          }}
-                        >
-                          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00bba7' }} />
-                          <span>ACTIVE STEP</span>
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 
-                      style={{ 
-                        fontSize: '1.45rem', 
-                        fontWeight: 900, 
-                        color: '#080607', 
-                        margin: '0 0 0.85rem 0',
-                        letterSpacing: '-0.02em',
-                        fontFamily: "'Space Grotesk', -apple-system, sans-serif"
-                      }}
-                    >
-                      {st.title}
-                    </h3>
-
-                    <p 
-                      style={{ 
-                        fontSize: '0.95rem', 
-                        color: '#475569', 
-                        lineHeight: 1.65, 
-                        margin: '0 0 1.5rem 0' 
-                      }}
-                    >
-                      {st.desc}
-                    </p>
-                  </div>
-
-                  {/* Micro-tags / Deliverables */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', paddingTop: '1rem', borderTop: '1px solid #F1F5F9' }}>
-                    {st.tags.map((tag, tIdx) => (
-                      <span 
-                        key={tIdx}
-                        style={{
-                          fontSize: '0.74rem',
-                          fontWeight: 650,
-                          padding: '3px 8px',
-                          borderRadius: '6px',
-                          backgroundColor: isActive ? 'rgba(0, 187, 167, 0.08)' : '#F1F5F9',
-                          color: isActive ? '#008779' : '#64748B',
-                          transition: 'all 0.25s ease'
-                        }}
-                      >
-                        ✓ {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Bottom Active Progress Line Indicator */}
-                  <div 
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: '18px',
-                      right: '18px',
-                      height: '3px',
-                      borderRadius: '3px 3px 0 0',
-                      background: isActive ? '#00bba7' : 'transparent',
-                      transition: 'background 0.3s ease'
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-
+            ]}
+          />
         </div>
       </section>
 
@@ -1301,131 +1117,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═════════════════════════════════════════════════════════════════════
-          8. INSIGHTS SECTION
-          ═════════════════════════════════════════════ */}
-      <section 
-        style={{ 
-          background: '#F5F8F7', 
-          borderBottom: '1px solid #E1E8E5',
-          padding: 'clamp(4.5rem, 6.5vw, 6rem) 0' 
-        }}
-      >
-        <div className="container">
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.65rem' }}>
-                <span style={{ width: '16px', height: '2px', background: '#54CFB0' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#080607' }}>
-                  INSIGHTS
-                </span>
-              </div>
-              
-              <h2 
-                style={{ 
-                  fontSize: 'clamp(2.1rem, 3.6vw, 2.9rem)', 
-                  fontWeight: 800, 
-                  letterSpacing: '-0.03em', 
-                  lineHeight: 1.15, 
-                  color: '#080607', 
-                  margin: 0 
-                }}
-              >
-                Perspectives on<br />
-                Technology and Growth.
-              </h2>
-            </div>
-
-            <Link
-              to="/blog"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '6px',
-                color: '#0f766e',
-                fontWeight: 700,
-                fontSize: '0.925rem',
-                textDecoration: 'none'
-              }}
-            >
-              <span>View All Insights</span>
-              <ArrowRight size={15} />
-            </Link>
-          </div>
-
-          <div 
-            style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-              gap: '1.75rem' 
-            }}
-          >
-            {insights.map((item) => (
-              <Link
-                key={item.title}
-                to={item.link}
-                style={{ 
-                  background: '#FFFFFF', 
-                  border: '1px solid #E1E8E5', 
-                  borderRadius: '10px', 
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  textDecoration: 'none',
-                  transition: 'transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#54CFB0';
-                  e.currentTarget.style.boxShadow = '0 12px 28px rgba(8, 6, 7, 0.06)';
-                  e.currentTarget.style.transform = 'translateY(-3px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#E1E8E5';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <div style={{ height: '180px', overflow: 'hidden', background: '#F5F8F7' }}>
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
-                  />
-                </div>
-
-                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                  <h3 
-                    style={{ 
-                      fontSize: '1.15rem', 
-                      fontWeight: 700, 
-                      color: '#080607', 
-                      margin: '0 0 1.5rem 0', 
-                      lineHeight: 1.4, 
-                      letterSpacing: '-0.015em' 
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-
-                  <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #F5F8F7', paddingTop: '1rem' }}>
-                    <span style={{ fontSize: '0.825rem', color: '#64748b' }}>
-                      {item.readTime}
-                    </span>
-
-                    <span style={{ color: '#080607', display: 'inline-flex', alignItems: 'center' }}>
-                      <ArrowRight size={15} />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-        </div>
-      </section>
 
       {/* ═════════════════════════════════════════════════════════════════════
-          9. FINAL CTA STRIP
+          8. FINAL CTA STRIP
           ═════════════════════════════════════════════ */}
       <section 
         style={{ 
@@ -1441,20 +1135,21 @@ export default function HomePage() {
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'space-between', 
-              gap: '2.5rem', 
+              gap: '2rem', 
               flexWrap: 'wrap' 
             }}
           >
-            {/* Left side: Headline & Subtext */}
-            <div style={{ flex: '1 1 500px', maxWidth: '680px' }}>
+            {/* Left side: Single-line Headline & Subtext */}
+            <div style={{ flex: '1 1 auto', maxWidth: '820px' }}>
               <h2 
                 style={{ 
-                  fontSize: 'clamp(2.1rem, 3.8vw, 3.1rem)', 
+                  fontSize: 'clamp(1.9rem, 3.2vw, 2.9rem)', 
                   fontWeight: 900, 
                   letterSpacing: '-0.035em', 
-                  lineHeight: 1.15, 
+                  lineHeight: 1.2, 
                   color: '#FFFFFF',
-                  margin: '0 0 1rem 0',
+                  margin: '0 0 0.75rem 0',
+                  whiteSpace: 'nowrap',
                   fontFamily: "'Space Grotesk', -apple-system, sans-serif"
                 }}
               >
@@ -1463,9 +1158,9 @@ export default function HomePage() {
 
               <p 
                 style={{ 
-                  fontSize: 'clamp(1rem, 1.2vw, 1.1rem)', 
+                  fontSize: 'clamp(0.95rem, 1.1vw, 1.05rem)', 
                   color: 'rgba(255, 255, 255, 0.82)', 
-                  lineHeight: 1.6, 
+                  lineHeight: 1.5, 
                   margin: 0 
                 }}
               >
@@ -1473,14 +1168,14 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Right side: Action Buttons - Compact Animated */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            {/* Right side: Action Button */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <Link
                 to="/contact"
                 className="btn-animated"
                 style={{
-                  padding: '0.65rem 1.45rem',
-                  fontSize: '0.85rem',
+                  padding: '0.75rem 1.75rem',
+                  fontSize: '0.875rem',
                   fontWeight: 750,
                   borderRadius: '8px',
                   whiteSpace: 'nowrap'
@@ -1491,94 +1186,9 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Bottom Scroll-To-Top Arrow Trigger */}
-            <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
-              <button
-                type="button"
-                onClick={scrollToTop}
-                aria-label="Scroll to top"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(84, 207, 176, 0.35)',
-                  color: '#FFFFFF',
-                  padding: '9px 18px',
-                  borderRadius: '9999px',
-                  cursor: 'pointer',
-                  fontSize: '0.825rem',
-                  fontWeight: 600,
-                  transition: 'all 0.25s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#00bba7';
-                  e.currentTarget.style.borderColor = '#00bba7';
-                  e.currentTarget.style.color = '#080607';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(84, 207, 176, 0.35)';
-                  e.currentTarget.style.color = '#FFFFFF';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <span>Back to Top</span>
-                <ArrowUp size={15} />
-              </button>
-            </div>
-
           </div>
         </div>
       </section>
-
-      {/* ═════════════════════════════════════════════════════════════════════
-          10. FLOATING SCROLL-TO-TOP BUTTON
-          ═════════════════════════════════════════════ */}
-      <button
-        type="button"
-        onClick={scrollToTop}
-        aria-label="Scroll to top"
-        title="Scroll to top"
-        style={{
-          position: 'fixed',
-          bottom: '86px',
-          right: '27px',
-          zIndex: 10000,
-          width: '46px',
-          height: '46px',
-          borderRadius: '50%',
-          background: '#080607',
-          border: '1.5px solid rgba(84, 207, 176, 0.45)',
-          color: '#54CFB0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          boxShadow: '0 8px 24px rgba(8, 6, 7, 0.3)',
-          opacity: showScrollTop ? 1 : 0,
-          pointerEvents: showScrollTop ? 'auto' : 'none',
-          transform: showScrollTop ? 'translateY(0) scale(1)' : 'translateY(12px) scale(0.85)',
-          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = '#00bba7';
-          e.currentTarget.style.color = '#080607';
-          e.currentTarget.style.borderColor = '#00bba7';
-          e.currentTarget.style.transform = 'translateY(-3px) scale(1.08)';
-          e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 187, 167, 0.45)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = '#080607';
-          e.currentTarget.style.color = '#54CFB0';
-          e.currentTarget.style.borderColor = 'rgba(84, 207, 176, 0.45)';
-          e.currentTarget.style.transform = 'translateY(0) scale(1)';
-          e.currentTarget.style.boxShadow = '0 8px 24px rgba(8, 6, 7, 0.3)';
-        }}
-      >
-        <ArrowUp size={20} strokeWidth={2.4} />
-      </button>
 
     </div>
   );
