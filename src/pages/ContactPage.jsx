@@ -99,10 +99,6 @@ export default function ContactPage() {
                 </div>
                 <div style={{ fontSize: '0.875rem', color: '#080607', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <div>
-                    <span style={{ color: '#475569', fontWeight: 600 }}>Tel:</span>{' '}
-                    <a href="tel:+97145648887" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>+971 4 564 8887</a>
-                  </div>
-                  <div>
                     <span style={{ color: '#475569', fontWeight: 600 }}>Sales:</span>{' '}
                     <a href="mailto:sales@maxr.ae" style={{ color: '#00bba7', fontWeight: 600, textDecoration: 'none' }}>sales@maxr.ae</a>
                   </div>

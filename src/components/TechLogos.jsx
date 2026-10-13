@@ -59,6 +59,23 @@ export const techIcons = {
       <path d="M22.8 16.5c-2.7 4.1-7.5 7.1-13 7.1C4.3 23.6 0 19.3 0 14c0-2.5 1-4.8 2.6-6.5.4 1.7 1.4 3.4 2.8 4.6 2.5 2.2 6.1 3 9.4 2.1-1.3-.8-2.3-1.9-2.9-3.2-1.2-2.5-.9-5.4.7-7.6 1.8-2.4 4.5-3.4 4.5-3.4s-1.6 2.1-1.4 4.2c.2 2 1.9 3.6 3.6 4.7 1.5 1 3.1 1.9 4.4 3.2 1.1 1.2 1.8 2.8 1.8 4.4z"/>
     </svg>
   ),
+  "Ethereum": (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+      <path d="M12 1.5L4.5 13.9L12 18.3L19.5 13.9L12 1.5Z" fill="#627EEA"/>
+      <path d="M12 1.5V18.3L19.5 13.9L12 1.5Z" fill="#454A75"/>
+      <path d="M12 19.8L4.5 15.4L12 22.5L19.5 15.4L12 19.8Z" fill="#627EEA"/>
+      <path d="M12 19.8V22.5L19.5 15.4L12 19.8Z" fill="#454A75"/>
+      <path d="M4.5 13.9L12 18.3V10.5L4.5 13.9Z" fill="#8A92B2"/>
+      <path d="M12 10.5V18.3L19.5 13.9L12 10.5Z" fill="#627EEA"/>
+    </svg>
+  ),
+  "Solidity": (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="#363636">
+      <path d="M16.5 2L12 9.5L7.5 2H16.5Z" fill="#AAAEB5"/>
+      <path d="M12 9.5L16.5 17H7.5L12 9.5Z" fill="#363636"/>
+      <path d="M7.5 17L12 24.5L16.5 17H7.5Z" fill="#AAAEB5"/>
+    </svg>
+  ),
   "Kotlin": (
     <svg viewBox="0 0 24 24" width="18" height="18">
       <rect width="24" height="24" rx="4" fill="#7F52FF"/>
@@ -375,6 +392,8 @@ export function resolveTechIcon(name) {
   if (lower.includes('linkedin')) return techIcons['LinkedIn Creator'];
   if (lower.includes('vercel')) return techIcons['Vercel Edge'];
   if (lower.includes('storybook')) return techIcons['Storybook'];
+  if (lower.includes('eth') || lower.includes('web3') || lower.includes('crypto')) return techIcons['Ethereum'];
+  if (lower.includes('solidity') || lower.includes('contract')) return techIcons['Solidity'];
 
   // Clean fallback SVG (database/code badge)
   return (

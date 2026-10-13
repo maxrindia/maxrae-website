@@ -14,7 +14,9 @@ import {
   Users,
   TrendingUp,
   Rocket,
-  CheckCircle2
+  CheckCircle2,
+  Coins,
+  Factory
 } from 'lucide-react';
 import AnimatedCounter from '../components/AnimatedCounter.jsx';
 import { NotchedProjectCard } from '../components/ui/notched-project-card';
@@ -261,6 +263,40 @@ export default function HomePage() {
         "AI & Automation",
         "Cloud & DevOps",
         "Digital Transformation"
+      ],
+      ctaText: "Explore Industry →"
+    },
+    {
+      slug: "web3-crypto",
+      name: "Web3 & Crypto",
+      displayTitle: "WEB3 & CRYPTO",
+      icon: Coins,
+      desc: "Institutional dApps, multi-chain wallet onboarding, automated community AI agents, and real-time on-chain telemetry.",
+      linkText: "Our Web3 & Crypto »",
+      image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "dApp Development",
+        "Smart Contract Security",
+        "AI Community Agents",
+        "On-Chain Analytics",
+        "Whale Alert Pipelines"
+      ],
+      ctaText: "Explore Industry →"
+    },
+    {
+      slug: "manufacturing",
+      name: "Manufacturing",
+      displayTitle: "MANUFACTURING & SUPPLY CHAIN",
+      icon: Factory,
+      desc: "Shop-floor IoT telemetry, predictive maintenance alerts, ERP sync pipelines, and automated supplier voice communication.",
+      linkText: "Our Manufacturing »",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80",
+      capabilities: [
+        "Smart Factory IoT",
+        "ERP Integrations",
+        "Predictive Maintenance",
+        "Supplier AI Agents",
+        "QA & Compliance Portals"
       ],
       ctaText: "Explore Industry →"
     }

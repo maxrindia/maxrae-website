@@ -40,7 +40,9 @@ export default function IndustryDetailPage({ onOpenContact }) {
     "education": ["Zoho CRM", "Twilio", "Zapier", "Next.js", "Google Ads", "Meta Cloud API"],
     "hospitality": ["Twilio", "OpenAI API", "Make.com", "Next.js", "Google Ads", "Meta Cloud API"],
     "professional-services": ["HubSpot", "Zapier", "Next.js", "Google Ads", "LinkedIn Creator", "Stripe"],
-    "technology": ["React", "Next.js", "TypeScript", "Node.js", "Docker", "AWS", "Stripe", "n8n"]
+    "technology": ["React", "Next.js", "TypeScript", "Node.js", "Docker", "AWS", "Stripe", "n8n"],
+    "web3-crypto": ["Next.js", "Ethereum", "Solidity", "TypeScript", "Node.js", "Docker", "AWS", "OpenAI API"],
+    "manufacturing": ["PostgreSQL", "Docker", "AWS", "Power BI", "Twilio", "Make.com", "n8n"]
   };
 
   const currentTech = sectorTech[slug] || ["Zoho CRM", "Twilio", "n8n", "Next.js", "Zapier"];

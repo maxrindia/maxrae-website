@@ -19,7 +19,9 @@ import {
   Share2, 
   BarChart3,
   Search,
-  Bot
+  Bot,
+  Coins,
+  Factory
 } from 'lucide-react';
 
 export const industriesData = {
@@ -436,6 +438,110 @@ export const industriesData = {
       "Sprint 1 working prototype deployed to production in under 7 days",
       "Zero technical debt with modular, strictly typed codebases",
       "99.9% uptime SLA with automated serverless scaling"
+    ]
+  },
+
+  "web3-crypto": {
+    id: "web3-crypto",
+    name: "Web3 & Crypto",
+    categoryKey: "web3-crypto",
+    tagline: "Institutional-grade dApps, Telegram & Discord AI community agents, tokenomics dashboards, and automated on-chain alerts.",
+    headline: "Smart Contract Portals, AI Community Agents & On-Chain Analytics",
+    heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1920&q=80",
+    metricBadge: "99.99% Uptime",
+    metrics: [
+      { label: "RPC Response Latency", value: "< 25ms" },
+      { label: "Community Queries Automated", value: "85%" },
+      { label: "Security Audit Readiness", value: "100%" }
+    ],
+    servicesProvided: [
+      {
+        icon: Coins,
+        title: "Decentralized Web Applications & Multi-Chain Wallet Connect",
+        description: "High-performance Next.js & Wagmi/Viem frontends with seamless wallet onboarding (MetaMask, Phantom, Coinbase, WalletConnect), gas optimization, and instant transaction signing.",
+        tag: "DAPP FRONTENDS"
+      },
+      {
+        icon: Bot,
+        title: "24/7 Telegram & Discord AI Community Agents",
+        description: "Autonomous support agents trained on protocol whitepapers and tokenomics that moderate communities, verify token holders, answer user inquiries, and filter spam in real-time.",
+        tag: "COMMUNITY AI"
+      },
+      {
+        icon: ShieldCheck,
+        title: "Smart Contract Security & Multi-Sig Workflow Automation",
+        description: "Automated vulnerability scanning, invariant unit testing harnesses, and automated multi-sig treasury workflows built to institutional security standards.",
+        tag: "ON-CHAIN SECURITY"
+      },
+      {
+        icon: BarChart3,
+        title: "Live Tokenomics & On-Chain Analytics Dashboards",
+        description: "Interactive executive BI tracking Total Value Locked (TVL), daily active addresses, liquidity pool depth, staking yields, and token burn schedules.",
+        tag: "ANALYTICS & BI"
+      },
+      {
+        icon: Zap,
+        title: "Automated Whale Alerts & Event Dispatches",
+        description: "Real-time webhook pipelines triggering instant alerts across Telegram, Discord, and X for large transfers, liquidity shifts, or governance voting events.",
+        tag: "ALERT AUTOMATION"
+      }
+    ],
+    results: [
+      "85% automated resolution of repetitive Telegram and Discord support tickets",
+      "Sub-second dApp wallet connection and low-latency RPC query execution",
+      "Real-time treasury monitoring with automated anomaly alerts"
+    ]
+  },
+
+  "manufacturing": {
+    id: "manufacturing",
+    name: "Manufacturing",
+    categoryKey: "manufacturing",
+    tagline: "Streamline shop-floor operations. We build predictive maintenance dashboards, ERP-synced supply chain pipelines, and automated vendor communication.",
+    headline: "Smart Factory IoT Dashboards, ERP Automations & Supply Chain Systems",
+    heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80",
+    metricBadge: "42% Downtime Drop",
+    metrics: [
+      { label: "Downtime Reduction", value: "42%" },
+      { label: "Inventory Accuracy", value: "99.8%" },
+      { label: "PO Processing Speed", value: "4× Faster" }
+    ],
+    servicesProvided: [
+      {
+        icon: Factory,
+        title: "Shop-Floor IoT Telemetry & Real-Time Production Screens",
+        description: "Centralized plant monitoring dashboards tracking machine cycle times, line yield, OEE (Overall Equipment Effectiveness), and temperature sensors across operational facilities.",
+        tag: "SMART FACTORY"
+      },
+      {
+        icon: Database,
+        title: "ERP & Warehouse Automated Supply Chain Pipelines",
+        description: "Two-way automated pipelines linking SAP, Oracle, Zoho, or custom ERPs for real-time inventory counts, automated purchase orders, and shipment dispatch sync.",
+        tag: "ERP PIPELINES"
+      },
+      {
+        icon: Zap,
+        title: "Predictive Maintenance & Machine Anomaly Alerts",
+        description: "Sensor-driven anomaly detection models triggering instant WhatsApp and SMS alerts to plant engineers before critical equipment failure occurs.",
+        tag: "PREDICTIVE AI"
+      },
+      {
+        icon: PhoneCall,
+        title: "Automated Vendor & Supplier Follow-Up Voice Agents",
+        description: "AI calling and WhatsApp engines that follow up on purchase orders, delivery ETAs, and warehouse dispatch verifications without manual coordinator time.",
+        tag: "SUPPLIER AGENTS"
+      },
+      {
+        icon: ShieldCheck,
+        title: "Digitized Quality Assurance & ISO Audit Reporting",
+        description: "Mobile-ready batch inspection logging, barcode verification, and automated compliance report generation replacing error-prone manual paper sheets.",
+        tag: "QA & COMPLIANCE"
+      }
+    ],
+    results: [
+      "42% reduction in unplanned equipment downtime through automated anomaly alerts",
+      "4× faster purchase order confirmation and supplier reconciliation cycles",
+      "Paperless shop-floor records synced directly into executive BI reporting"
     ]
   }
 };

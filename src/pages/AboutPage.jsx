@@ -378,14 +378,6 @@ export default function AboutPage({ onOpenContact }) {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem', color: '#475569' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Phone size={16} color="#00bba7" />
-                  <span><strong>Tel:</strong> <a href="tel:+97145648887" style={{ color: '#080607', textDecoration: 'none' }}>+971 4 564 8887</a></span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Mail size={16} color="#00bba7" />
-                  <span><strong>Sales:</strong> <a href="mailto:sales@maxr.ae" style={{ color: '#080607', textDecoration: 'none' }}>sales@maxr.ae</a></span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Mail size={16} color="#00bba7" />
                   <span><strong>Support:</strong> <a href="mailto:support@maxr.ae" style={{ color: '#080607', textDecoration: 'none' }}>support@maxr.ae</a></span>
                 </div>
@@ -428,11 +420,11 @@ export default function AboutPage({ onOpenContact }) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem', color: '#475569' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Phone size={16} color="#00bba7" />
-                  <span><strong>Tel:</strong> <a href="tel:+914424356789" style={{ color: '#080607', textDecoration: 'none' }}>+91 44 2435 6789</a></span>
+                  <span><strong>Tel:</strong> <a href="tel:+917778884359" style={{ color: '#080607', textDecoration: 'none' }}>+91 77788 84359</a></span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Mail size={16} color="#00bba7" />
-                  <span><strong>Email:</strong> <a href="mailto:india@maxr.ae" style={{ color: '#080607', textDecoration: 'none' }}>india@maxr.ae</a></span>
+                  <span><strong>Email:</strong> <a href="mailto:hello@maxr.io" style={{ color: '#080607', textDecoration: 'none' }}>hello@maxr.io</a></span>
                 </div>
               </div>
             </div>

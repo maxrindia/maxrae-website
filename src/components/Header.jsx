@@ -12,7 +12,9 @@ import {
   TrendingUp,
   Truck,
   GraduationCap,
-  Utensils
+  Utensils,
+  Coins,
+  Factory
 } from 'lucide-react';
 
 export default function Header() {
@@ -376,7 +378,7 @@ export default function Header() {
                           top: 'calc(100% + 12px)',
                           left: '50%',
                           transform: 'translateX(-50%)',
-                          width: '450px',
+                          width: '475px',
                           background: '#FFFFFF',
                           borderRadius: '12px',
                           border: '1px solid #E2E8F0',
@@ -392,7 +394,9 @@ export default function Header() {
                             { name: "Retail & E-Commerce", path: "/industries/ecommerce", icon: <ShoppingBag size={15} color="#00bba7" /> },
                             { name: "Real Estate & PropTech", path: "/industries/real-estate", icon: <Building2 size={15} color="#00bba7" /> },
                             { name: "FinTech & Banking", path: "/industries/finance", icon: <TrendingUp size={15} color="#00bba7" /> },
+                            { name: "Web3 & Crypto", path: "/industries/web3-crypto", icon: <Coins size={15} color="#00bba7" /> },
                             { name: "Education & EdTech", path: "/industries/education", icon: <GraduationCap size={15} color="#00bba7" /> },
+                            { name: "Manufacturing", path: "/industries/manufacturing", icon: <Factory size={15} color="#00bba7" /> },
                             { name: "Hospitality & Tourism", path: "/industries/hospitality", icon: <Utensils size={15} color="#00bba7" /> },
                             { name: "Technology & Startups", path: "/industries/technology", icon: <Truck size={15} color="#00bba7" /> }
                           ].map((ind, idx) => (
