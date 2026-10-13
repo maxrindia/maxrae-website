@@ -479,7 +479,7 @@ export default function Header() {
               <ArrowRight size={13} />
             </Link>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Mobile Hamburger Toggle (Touch-friendly 44px target) */}
             <button 
               className="mobile-toggle" 
               aria-label="Toggle menu"
@@ -489,8 +489,12 @@ export default function Header() {
                 display: 'none', 
                 background: 'none', 
                 border: 'none', 
-                padding: '6px', 
-                cursor: 'pointer' 
+                minWidth: '44px',
+                minHeight: '44px',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                borderRadius: '8px'
               }}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -501,6 +505,21 @@ export default function Header() {
 
       </header>
 
+      {/* ── Mobile Navigation Drawer Backdrop ── */}
+      {mobileMenuOpen && (
+        <div 
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(8, 6, 7, 0.55)',
+            backdropFilter: 'blur(3px)',
+            zIndex: 2099
+          }}
+        />
+      )}
+
       {/* ── Mobile Navigation Drawer (Clean White MNC Style) ── */}
       {mobileMenuOpen && (
         <div 
@@ -510,7 +529,10 @@ export default function Header() {
           style={{ 
             background: '#ffffff', 
             borderLeft: '1px solid #E5EAE8',
-            boxShadow: '-8px 0 30px rgba(0,0,0,0.1)'
+            boxShadow: '-8px 0 30px rgba(0,0,0,0.1)',
+            width: 'min(320px, 86vw)',
+            maxWidth: '100vw',
+            zIndex: 2100
           }}
         >
           <div className="mobile-drawer-header" style={{ borderBottom: '1px solid #E5EAE8', padding: '1.25rem' }}>
@@ -519,7 +541,8 @@ export default function Header() {
             </Link>
             <button 
               onClick={() => setMobileMenuOpen(false)} 
-              style={{ color: '#080607', padding: '4px', background: 'none', border: 'none', cursor: 'pointer' }}
+              aria-label="Close navigation menu"
+              style={{ color: '#080607', width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', borderRadius: '8px' }}
             >
               <X size={24} />
             </button>

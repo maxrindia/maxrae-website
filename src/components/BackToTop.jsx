@@ -40,8 +40,8 @@ export default function BackToTop() {
       title="Back to top"
       style={{
         position: 'fixed',
-        bottom: '90px',
-        right: '28px',
+        bottom: 'clamp(24px, 4vw, 36px)',
+        right: 'clamp(16px, 3vw, 28px)',
         width: '44px',
         height: '44px',
         borderRadius: '50%',

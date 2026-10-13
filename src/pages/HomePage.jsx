@@ -54,6 +54,78 @@ export default function HomePage() {
   // ── Client Stories Video Playback State ──
   const [playingVideo, setPlayingVideo] = useState(null); // null | 'ardhra' | 'parvathi'
 
+  // ── Services Carousel State (Fluid, Centered Active Slide, Touch Swipe) ──
+  const [activeServiceIdx, setActiveServiceIdx] = useState(0);
+  const carouselViewportRef = useRef(null);
+  const carouselTrackRef = useRef(null);
+  const [carouselOffset, setCarouselOffset] = useState(0);
+  const [isSwiping, setIsSwiping] = useState(false);
+  const touchStartRef = useRef(0);
+  const touchDeltaRef = useRef(0);
+
+  const calculateCarouselOffset = useCallback((idx = activeServiceIdx, extraDrag = 0) => {
+    if (!carouselViewportRef.current || !carouselTrackRef.current) return;
+    const viewport = carouselViewportRef.current;
+    const track = carouselTrackRef.current;
+    const slides = track.children;
+    if (!slides || !slides[idx]) return;
+
+    const viewportWidth = viewport.offsetWidth;
+    const currentSlide = slides[idx];
+    const slideLeft = currentSlide.offsetLeft;
+    const slideWidth = currentSlide.offsetWidth;
+
+    // Centered slide translation:
+    const offset = (viewportWidth / 2) - (slideLeft + slideWidth / 2) + extraDrag;
+    setCarouselOffset(offset);
+  }, [activeServiceIdx]);
+
+  useEffect(() => {
+    calculateCarouselOffset(activeServiceIdx);
+  }, [activeServiceIdx, calculateCarouselOffset]);
+
+  useEffect(() => {
+    const onResize = () => calculateCarouselOffset(activeServiceIdx);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [activeServiceIdx, calculateCarouselOffset]);
+
+  const goToPrevService = () => {
+    setActiveServiceIdx((prev) => (prev > 0 ? prev - 1 : services.length - 1));
+  };
+
+  const goToNextService = () => {
+    setActiveServiceIdx((prev) => (prev < services.length - 1 ? prev + 1 : 0));
+  };
+
+  const onTouchStart = (e) => {
+    touchStartRef.current = e.touches[0].clientX;
+    touchDeltaRef.current = 0;
+    setIsSwiping(true);
+  };
+
+  const onTouchMove = (e) => {
+    if (!touchStartRef.current) return;
+    const delta = e.touches[0].clientX - touchStartRef.current;
+    touchDeltaRef.current = delta;
+    calculateCarouselOffset(activeServiceIdx, delta);
+  };
+
+  const onTouchEnd = () => {
+    setIsSwiping(false);
+    const delta = touchDeltaRef.current;
+    const threshold = 40;
+    if (delta < -threshold) {
+      goToNextService();
+    } else if (delta > threshold) {
+      goToPrevService();
+    } else {
+      calculateCarouselOffset(activeServiceIdx, 0);
+    }
+    touchStartRef.current = 0;
+    touchDeltaRef.current = 0;
+  };
+
   // ── 1. EXACT 10 SERVICES ──
   const services = [
     {
@@ -388,12 +460,13 @@ export default function HomePage() {
             {/* Main Headline */}
             <h1 
               style={{ 
-                fontSize: 'clamp(2.5rem, 5.2vw, 4.6rem)', 
+                fontSize: 'clamp(2.1rem, 5vw, 4.5rem)', 
                 fontWeight: 900, 
                 lineHeight: 1.08, 
                 letterSpacing: '-0.04em', 
                 color: '#080607', 
                 margin: '0 0 1.5rem 0',
+                wordBreak: 'break-word',
                 fontFamily: "'Space Grotesk', -apple-system, sans-serif"
               }}
             >
@@ -481,8 +554,8 @@ export default function HomePage() {
           <div 
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', 
-              gap: '1.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', 
+              gap: '1.25rem',
               textAlign: 'center' 
             }}
           >
@@ -591,21 +664,189 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Notched Project Cards Responsive Grid (Clean without tags or badges) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((item) => (
-              <NotchedProjectCard
-                key={item.title}
-                href={item.link}
-                title={item.title}
-                description={item.desc}
-                image={item.image}
-                surface="#FFFFFF"
-                accent="#00bba7"
-                accentForeground="#080607"
-                monochrome={false}
-              />
-            ))}
+          {/* Services Fluid Carousel with Centered Active Slide & Partial Neighbor Peek */}
+          <div 
+            className="services-carousel-wrapper"
+            style={{ position: 'relative', width: '100%', overflow: 'hidden' }}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowLeft') goToPrevService();
+              if (e.key === 'ArrowRight') goToNextService();
+            }}
+            tabIndex={0}
+            role="region"
+            aria-label="Services carousel"
+          >
+            {/* Viewport container */}
+            <div
+              ref={carouselViewportRef}
+              style={{
+                width: '100%',
+                overflow: 'hidden',
+                padding: '1.5rem 0',
+                cursor: isSwiping ? 'grabbing' : 'grab',
+                touchAction: 'pan-y'
+              }}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
+              {/* Carousel Track */}
+              <div
+                ref={carouselTrackRef}
+                style={{
+                  display: 'flex',
+                  alignItems: 'stretch',
+                  gap: 'clamp(1rem, 2.5vw, 2.25rem)',
+                  transform: `translate3d(${carouselOffset}px, 0, 0)`,
+                  transition: isSwiping ? 'none' : 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+                  willChange: 'transform'
+                }}
+              >
+                {services.map((item, idx) => {
+                  const isActive = activeServiceIdx === idx;
+                  return (
+                    <div
+                      key={item.title}
+                      onClick={() => {
+                        if (!isActive) setActiveServiceIdx(idx);
+                      }}
+                      style={{
+                        flex: '0 0 clamp(270px, 80vw, 420px)',
+                        width: 'clamp(270px, 80vw, 420px)',
+                        maxWidth: '85vw',
+                        opacity: isActive ? 1 : 0.58,
+                        transform: isActive ? 'scale(1)' : 'scale(0.95)',
+                        transition: 'opacity 0.35s ease, transform 0.35s ease',
+                        cursor: isActive ? 'default' : 'pointer'
+                      }}
+                    >
+                      <NotchedProjectCard
+                        href={item.link}
+                        title={item.title}
+                        description={item.desc}
+                        image={item.image}
+                        surface="#FFFFFF"
+                        accent="#00bba7"
+                        accentForeground="#080607"
+                        monochrome={false}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Controls Bar: Prev/Next & Dots */}
+            <div 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '1.25rem',
+                marginTop: '2rem',
+                padding: '0 0.5rem'
+              }}
+            >
+              {/* Counter Indicator */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: '0.95rem', fontWeight: 700, color: '#008779' }}>
+                  {String(activeServiceIdx + 1).padStart(2, '0')}
+                </span>
+                <span style={{ color: '#cbd5e1' }}>/</span>
+                <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: '0.85rem', color: '#94a3b8' }}>
+                  {String(services.length).padStart(2, '0')}
+                </span>
+              </div>
+
+              {/* Dots Pagination */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                {services.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    onClick={() => setActiveServiceIdx(dotIdx)}
+                    aria-label={`Go to service ${dotIdx + 1}`}
+                    style={{
+                      width: activeServiceIdx === dotIdx ? '28px' : '8px',
+                      height: '8px',
+                      borderRadius: '999px',
+                      background: activeServiceIdx === dotIdx ? '#00bba7' : '#e2e8f0',
+                      border: 'none',
+                      padding: 0,
+                      cursor: 'pointer',
+                      transition: 'all 0.25s ease'
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Prev / Next Circular Buttons */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <button
+                  type="button"
+                  onClick={goToPrevService}
+                  aria-label="Previous service"
+                  style={{
+                    width: '46px',
+                    height: '46px',
+                    borderRadius: '50%',
+                    background: '#FFFFFF',
+                    border: '1.5px solid #E2E8F0',
+                    color: '#080607',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 8px rgba(8, 6, 7, 0.04)',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#00bba7';
+                    e.currentTarget.style.color = '#00bba7';
+                    e.currentTarget.style.transform = 'translateX(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#E2E8F0';
+                    e.currentTarget.style.color = '#080607';
+                    e.currentTarget.style.transform = 'none';
+                  }}
+                >
+                  <ArrowLeft size={18} />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={goToNextService}
+                  aria-label="Next service"
+                  style={{
+                    width: '46px',
+                    height: '46px',
+                    borderRadius: '50%',
+                    background: '#080607',
+                    border: '1.5px solid #080607',
+                    color: '#FFFFFF',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 14px rgba(8, 6, 7, 0.15)',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#00bba7';
+                    e.currentTarget.style.borderColor = '#00bba7';
+                    e.currentTarget.style.transform = 'translateX(2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#080607';
+                    e.currentTarget.style.borderColor = '#080607';
+                    e.currentTarget.style.transform = 'none';
+                  }}
+                >
+                  <ArrowRight size={18} />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -745,8 +986,8 @@ export default function HomePage() {
           <div 
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', 
-              gap: '2.5rem 2.25rem' 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', 
+              gap: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2.25rem)' 
             }}
           >
             {industries.map((ind, idx) => {
@@ -967,7 +1208,7 @@ export default function HomePage() {
               maxWidth: '880px',
               margin: '0 auto',
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
               gap: '1.75rem' 
             }}
           >
@@ -1146,13 +1387,13 @@ export default function HomePage() {
             <div style={{ flex: '1 1 auto', maxWidth: '820px' }}>
               <h2 
                 style={{ 
-                  fontSize: 'clamp(1.9rem, 3.2vw, 2.9rem)', 
+                  fontSize: 'clamp(1.8rem, 3.2vw, 2.9rem)', 
                   fontWeight: 900, 
                   letterSpacing: '-0.035em', 
                   lineHeight: 1.2, 
                   color: '#FFFFFF',
                   margin: '0 0 0.75rem 0',
-                  whiteSpace: 'nowrap',
+                  wordBreak: 'break-word',
                   fontFamily: "'Space Grotesk', -apple-system, sans-serif"
                 }}
               >

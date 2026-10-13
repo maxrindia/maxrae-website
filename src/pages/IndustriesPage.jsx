@@ -523,10 +523,10 @@ export default function IndustriesPage({ onOpenContact }) {
                 </div>
 
                 {/* Card Main Body */}
-                <div style={{ padding: 'clamp(2rem, 4vw, 3rem)' }}>
+                <div style={{ padding: 'clamp(1.25rem, 3.5vw, 2.75rem)' }}>
                   
                   {/* Challenge & Solution Grid */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
                     
                     {/* The Operational Challenge */}
                     <div style={{ background: '#FAFBFB', padding: '1.5rem', borderRadius: '14px', border: '1px solid #E2E8F0' }}>

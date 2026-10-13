@@ -59,7 +59,7 @@ export default function ContactModal({ isOpen, onClose }) {
 
   return (
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '2.25rem', border: '1px solid rgba(0,187,167,0.3)' }}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: 'clamp(1.25rem, 4vw, 2.25rem)', border: '1px solid rgba(0,187,167,0.3)', width: 'min(580px, 92vw)' }}>
         
         {/* Close button */}
         <button className="modal-close-btn" onClick={onClose} aria-label="Close dialog">
@@ -122,7 +122,7 @@ export default function ContactModal({ isOpen, onClose }) {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '1rem' }}>
                 <div className="form-group">
                   <label className="form-label" htmlFor="modal-email">
                     Business Email *

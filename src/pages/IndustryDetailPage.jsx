@@ -246,7 +246,7 @@ export default function IndustryDetailPage({ onOpenContact }) {
           <div 
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
               gap: 'clamp(2.5rem, 5vw, 4rem)',
               alignItems: 'start'
             }}

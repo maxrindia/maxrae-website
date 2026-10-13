@@ -174,7 +174,7 @@ export default function CareersPage({ onOpenContact }) {
           <div 
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', 
               gap: '1.25rem',
               borderTop: '1px solid rgba(255, 255, 255, 0.1)',
               paddingTop: '2.5rem'
@@ -246,7 +246,7 @@ export default function CareersPage({ onOpenContact }) {
           <div 
             style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
               gap: '2rem' 
             }}
           >

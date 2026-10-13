@@ -71,7 +71,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem', alignItems: 'flex-start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2.5rem', alignItems: 'flex-start' }}>
           
           {/* Left: Office Information & Commitment */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -218,7 +218,7 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
                     <div className="form-group">
                       <label className="form-label" htmlFor="email" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#080607', marginBottom: '6px' }}>
                         Business Email *

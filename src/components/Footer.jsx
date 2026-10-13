@@ -101,13 +101,6 @@ export default function Footer() {
         {/* ── EDITORIAL DIRECTORY (Locations + What We Do [2 Cols x 4 Rows] + Company) ── */}
         <div 
           className="footer-edirect-layout"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'minmax(220px, 1.2fr) minmax(420px, 2.5fr) minmax(130px, 0.8fr)',
-            gap: 'clamp(2rem, 3.5vw, 3.5rem)',
-            alignItems: 'start',
-            marginBottom: '3.5rem'
-          }}
         >
           
           {/* Column 1: Brand Logo & Locations (Dubai & India) */}
@@ -193,11 +186,6 @@ export default function Footer() {
             {/* 2 Columns x 4 Rows Grid Layout */}
             <div 
               className="footer-whatwedo-grid"
-              style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(2, minmax(180px, 1fr))', 
-                gap: '12px 28px' 
-              }}
             >
               {whatWeDoServices.map((srv, sIdx) => (
                 <Link
@@ -292,8 +280,8 @@ export default function Footer() {
               aria-label={item.name}
               title={item.name}
               style={{
-                width: '38px',
-                height: '38px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
                 border: '1.5px solid #0F172A',
                 background: '#FFFFFF',

@@ -528,7 +528,7 @@ export default function BlogPostPage({ onOpenContact }) {
             </Link>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '2rem' }}>
             {relatedPosts.map(rel => (
               <div 
                 key={rel.id}

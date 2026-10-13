@@ -88,7 +88,7 @@ export default function AboutPage({ onOpenContact }) {
         <div 
           style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))', 
             gap: '1.25rem', 
             marginBottom: '3.5rem' 
           }}
@@ -176,7 +176,7 @@ export default function AboutPage({ onOpenContact }) {
           </div>
 
           {/* 3 Core Value Cards (Animated Micro-Interactions) */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.75rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 250px), 1fr))', gap: '1.75rem' }}>
             {values.map((v, vIdx) => (
               <div 
                 key={vIdx}
@@ -272,7 +272,7 @@ export default function AboutPage({ onOpenContact }) {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.75rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.75rem' }}>
             {leadership.map((leader, lIdx) => (
               <div 
                 key={lIdx}
@@ -341,7 +341,7 @@ export default function AboutPage({ onOpenContact }) {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.75rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.75rem' }}>
             
             {/* DUBAI */}
             <div 
