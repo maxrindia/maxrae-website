@@ -88,6 +88,57 @@ export default function ServicesPage({ onOpenContact }) {
       linkText: "Automate Workflows →"
     },
     {
+      id: "ai-chatbots",
+      category: "ai",
+      title: "AI Chatbots & Virtual Assistants",
+      subtitle: "24/7 Intelligent Web & App Customer Support",
+      icon: Bot,
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
+      description: "Custom conversational AI bots trained on your company knowledge base, docs, and FAQs to answer questions instantly, qualify buyers, and escalate complex tickets.",
+      highlights: [
+        "Trained on your private documents, product catalogs & FAQs",
+        "Instant sub-second answers with contextual memory",
+        "Seamless human handoff to live chat agents when needed",
+        "Direct integration into website, mobile apps & CRM"
+      ],
+      link: "/contact",
+      linkText: "Deploy AI Chatbot →"
+    },
+    {
+      id: "whatsapp-automation",
+      category: "ai",
+      title: "WhatsApp Business Automation",
+      subtitle: "Official Meta API Bots, Catalogs & CRM Sync",
+      icon: Zap,
+      image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1200&q=80",
+      description: "Official WhatsApp Cloud API automation for e-commerce orders, automated payment links, dynamic broadcast campaigns, and instant customer notifications.",
+      highlights: [
+        "Official Meta WhatsApp Business Cloud API green-tick setup",
+        "Automated catalog browsing, checkout & invoice delivery",
+        "Targeted broadcasts with 98% open rates and instant replies",
+        "Two-way synchronization with HubSpot, Zoho, Shopify & ERP"
+      ],
+      link: "/contact",
+      linkText: "Automate WhatsApp →"
+    },
+    {
+      id: "social-media-automation",
+      category: "marketing",
+      title: "Social Media Automation",
+      subtitle: "Automated Content Scheduling & Auto-DM Lead Capture",
+      icon: TrendingUp,
+      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80",
+      description: "Eliminate manual social posting overhead with intelligent scheduling pipelines, automated Instagram/LinkedIn DM funnels, and comment-to-lead auto-responders.",
+      highlights: [
+        "Automated multi-platform scheduling (Instagram, LinkedIn, X, TikTok)",
+        "Keyword-triggered Auto-DM funnels to deliver lead magnets",
+        "Automated comment sentiment tracking and instant replies",
+        "Real-time analytics and conversion tracking back into CRM"
+      ],
+      link: "/contact",
+      linkText: "Automate Social Media →"
+    },
+    {
       id: "saas-custom-architecture",
       category: "engineering",
       title: "SaaS Custom Architecture",

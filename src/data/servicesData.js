@@ -541,5 +541,202 @@ export const servicesData = {
         a: "Not necessarily. For most mid-market businesses, we configure cost-effective Google BigQuery or managed PostgreSQL databases that run for minimal monthly fees."
       }
     ]
+  },
+  "voice-agents": {
+    slug: "voice-agents",
+    title: "Voice AI Agents",
+    category: "AI & SPEECH AUTOMATION",
+    headline: "24/7 Conversational Phone Assistants in Arabic & English",
+    subheadline: "Autonomous voice AI agents that handle incoming customer phone calls, qualify intent, and book calendar meetings with human-grade natural speech.",
+    heroImage: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=1600&q=80",
+    metrics: [
+      { label: "Call Response Time", value: "< 450ms" },
+      { label: "Inbound Call Capture", value: "100%" },
+      { label: "Cost Reduction", value: "75%" }
+    ],
+    overview: "Never miss a high-ticket customer phone inquiry again. Our conversational Voice AI agents answer inbound calls around the clock, understand diverse accents and regional Arabic/English dialects, answer inquiries from your knowledge base, and book appointments directly into your sales calendar.",
+    capabilities: [
+      {
+        icon: Bot,
+        title: "24/7 Inbound Phone Receptionist",
+        description: "Zero wait times for callers. Handles multiple simultaneous incoming phone calls without dropping a single lead."
+      },
+      {
+        icon: Zap,
+        title: "Instant Calendar Scheduling",
+        description: "Live checks your Google or Outlook calendar and books qualified consultation slots directly on the phone call."
+      },
+      {
+        icon: Workflow,
+        title: "Two-Way CRM Telemetry",
+        description: "Transcribes phone audio, summarizes call action items, and syncs full call notes directly into HubSpot, Zoho, or Salesforce."
+      },
+      {
+        icon: ShieldCheck,
+        title: "Local UAE & Global Numbers",
+        description: "Seamless connection to local UAE (+971) landlines, mobile numbers, and SIP trunking with zero hardware required."
+      }
+    ],
+    process: [
+      { step: "01", title: "Voice Persona Design", desc: "Selecting voice tone, speed, language models, and brand conversation guidelines." },
+      { step: "02", title: "Knowledge Ingestion", desc: "Feeding your pricing, service offerings, and objections handling scripts." },
+      { step: "03", title: "SIP & CRM Integration", desc: "Connecting to your phone lines and calendar systems." },
+      { step: "04", title: "Live Testing & Deployment", desc: "Rigorous speech latency tuning and deployment into production." }
+    ],
+    techStack: ["OpenAI Realtime", "ElevenLabs", "Twilio SIP", "LiveKit", "Whisper", "WebRTC", "n8n"],
+    faqs: [
+      {
+        q: "Can callers tell it's an AI?",
+        a: "With under-450ms voice latency, natural breathing pauses, and contextual conversational comprehension, callers experience a fluent, respectful, and highly competent conversation."
+      }
+    ]
+  },
+  "ai-chatbots": {
+    slug: "ai-chatbots",
+    title: "AI Chatbots & Virtual Assistants",
+    category: "CONVERSATIONAL AI",
+    headline: "24/7 Knowledge-Trained Chatbots That Turn Visitors into Customers",
+    subheadline: "Smart virtual assistants trained on your internal documentation, product catalogs, and policies to deliver instant, accurate responses on your website and app.",
+    heroImage: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1600&q=80",
+    metrics: [
+      { label: "First Response Time", value: "< 1s" },
+      { label: "Ticket Deflection", value: "68%" },
+      { label: "Lead Qualification Rate", value: "+45%" }
+    ],
+    overview: "Modern buyers demand instant answers at all hours. Our enterprise AI chatbots integrate seamlessly onto your website, customer portal, or mobile app to answer customer questions, gather lead contact info, qualify budget, and trigger instant team alerts.",
+    capabilities: [
+      {
+        icon: Bot,
+        title: "Proprietary Knowledge Retrieval",
+        description: "RAG-powered vector search answers complex customer inquiries without hallucinations or generic replies."
+      },
+      {
+        icon: Workflow,
+        title: "Autonomous Lead Qualification",
+        description: "Asks structured qualifying questions and stores visitor contact details directly in your CRM."
+      },
+      {
+        icon: Users,
+        title: "Seamless Human Escalation",
+        description: "Hands off hot leads or high-priority inquiries to your live human support agents with complete context."
+      },
+      {
+        icon: Zap,
+        title: "Multilingual Intelligence",
+        description: "Communicates fluently in Arabic, English, and over 40 languages with natural cultural context."
+      }
+    ],
+    process: [
+      { step: "01", title: "Knowledge Extraction", desc: "Compiling FAQs, pricing matrices, and sales scripts." },
+      { step: "02", title: "Vector Embedding", desc: "Building secure, high-speed semantic search indexes." },
+      { step: "03", title: "UI Customization", desc: "Matching your website color palette and brand styling." },
+      { step: "04", title: "Continuous Tuning", desc: "Weekly review of conversation logs to sharpen response accuracy." }
+    ],
+    techStack: ["OpenAI GPT-4o", "LangChain", "Pinecone", "Next.js", "React", "Node.js"],
+    faqs: [
+      {
+        q: "How does the bot prevent giving incorrect answers?",
+        a: "We implement strict guardrails and Retrieval-Augmented Generation (RAG) that restricts the bot to only answer from your verified documents."
+      }
+    ]
+  },
+  "whatsapp-automation": {
+    slug: "whatsapp-automation",
+    title: "WhatsApp Business Automation",
+    category: "MESSAGING AUTOMATION",
+    headline: "Automate Sales, Invoices & Support on WhatsApp Cloud API",
+    subheadline: "Turn WhatsApp into your primary revenue channel with official Meta Cloud API integrations, interactive catalogs, and automated notification pipelines.",
+    heroImage: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1600&q=80",
+    metrics: [
+      { label: "Open Rate", value: "98%" },
+      { label: "Customer Response Time", value: "< 3s" },
+      { label: "Conversion Uplift", value: "2.8×" }
+    ],
+    overview: "In Dubai and international markets, WhatsApp is where high-intent conversations happen. We build official Meta WhatsApp Cloud API bots that showcase interactive product catalogs, accept orders, deliver PDF invoices, and send proactive order updates.",
+    capabilities: [
+      {
+        icon: Zap,
+        title: "Official Meta Cloud API Verification",
+        description: "Green-tick official verification and high-tier message throughput without risk of number bans."
+      },
+      {
+        icon: Workflow,
+        title: "Automated Commerce & Catalogs",
+        description: "Interactive product carousels, instant cart checkout links, and automatic invoice PDF generation."
+      },
+      {
+        icon: ShieldCheck,
+        title: "Broadcasting & CRM Sync",
+        description: "Segmented broadcasts with 98% read rates synchronized directly with HubSpot or Google Sheets."
+      },
+      {
+        icon: Bot,
+        title: "AI Customer Agent on WhatsApp",
+        description: "Handles customer inquiries and support questions automatically 24 hours a day."
+      }
+    ],
+    process: [
+      { step: "01", title: "Meta API Approval", desc: "Setting up your official Meta Business Account and verifying phone numbers." },
+      { step: "02", title: "Workflow Architecture", desc: "Mapping customer journey from greeting to catalog purchase and receipt." },
+      { step: "03", title: "Webhook Integration", desc: "Connecting WhatsApp webhooks to your inventory and payment systems." },
+      { step: "04", title: "Launch & Broadcast", desc: "Deploying production flows with automated opt-in compliance." }
+    ],
+    techStack: ["Meta WhatsApp Cloud API", "Node.js", "n8n", "PostgreSQL", "Shopify Webhooks"],
+    faqs: [
+      {
+        q: "Can our existing business landline or mobile number be used?",
+        a: "Yes. Official Meta WhatsApp Cloud API can be registered on your existing company number or on a dedicated new line."
+      }
+    ]
+  },
+  "social-media-automation": {
+    slug: "social-media-automation",
+    title: "Social Media Automation",
+    category: "GROWTH & CONTENT AUTOMATION",
+    headline: "Scalable Multi-Channel Social Content & Auto-DM Lead Capture",
+    subheadline: "Schedule, distribute, and engage across Instagram, LinkedIn, and X with automated publishing pipelines and instant comment-to-DM conversion funnels.",
+    heroImage: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1600&q=80",
+    metrics: [
+      { label: "Manual Hours Saved", value: "25+ hrs/wk" },
+      { label: "DM Lead Conversion", value: "+38%" },
+      { label: "Engagement Speed", value: "Instant" }
+    ],
+    overview: "Consistent social media presence drives authority and deal flow, but manual posting and responding takes hours every day. Our automation pipelines schedule content across all platforms and automatically trigger private DM message funnels whenever users comment on your posts.",
+    capabilities: [
+      {
+        icon: TrendingUp,
+        title: "Multi-Platform Automated Publishing",
+        description: "Automated distribution of approved carousels, videos, and articles across LinkedIn, Instagram, and X."
+      },
+      {
+        icon: Zap,
+        title: "Comment-to-DM Lead Funnels",
+        description: "Instantly sends resources, demo links, and discount codes directly to the DM inbox of commenters."
+      },
+      {
+        icon: Users,
+        title: "Smart Engagement Monitoring",
+        description: "Detects high-intent mentions and flags potential client opportunities to your sales team."
+      },
+      {
+        icon: BarChart3,
+        title: "Unified Analytics Telemetry",
+        description: "Aggregates follower growth, impression metrics, and lead conversions into a single dashboard."
+      }
+    ],
+    process: [
+      { step: "01", title: "Channel Audit", desc: "Reviewing target buyer personas and high-converting content angles." },
+      { step: "02", title: "Pipeline Integration", desc: "Connecting official social platform APIs and webhook listeners." },
+      { step: "03", title: "Auto-DM Funnel Setup", desc: "Writing conversational DM scripts and qualifying flows." },
+      { step: "04", title: "Live Optimization", desc: "A/B testing hooks and lead magnets for maximum conversion." }
+    ],
+    techStack: ["Meta Graph API", "LinkedIn API", "X API", "Make", "n8n", "Airtable"],
+    faqs: [
+      {
+        q: "Is auto-DM compliant with Instagram and LinkedIn policies?",
+        a: "Yes. We only use official verified partner APIs adhering strictly to platform developer guidelines."
+      }
+    ]
   }
 };
+

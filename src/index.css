@@ -24,11 +24,11 @@
   --color-gray-700: #344054;
   --color-gray-900: #080607;
 
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
-  --font-primary: 'Inter', sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-primary: 'Inter', -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
 
   --radius-sm: 4px;
   --radius-md: 6px;
@@ -3054,6 +3054,42 @@ ul, ol {
 .-rotate-2 { transform: rotate(-2deg); }
 .rotate-8 { transform: rotate(8deg); }
 .-rotate-8 { transform: rotate(-8deg); }
+
+/* ── EXPERTISE 5 Columns x 2 Rows Grid ── */
+.expertise-5x2-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(1rem, 1.6vw, 1.5rem);
+}
+
+@media (max-width: 1280px) {
+  .expertise-5x2-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .expertise-5x2-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .expertise-5x2-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .expertise-5x2-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
 
 
 

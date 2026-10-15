@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
-  ArrowLeft,
   ArrowDown,
   ArrowUp,
   Play, 
@@ -54,80 +53,121 @@ export default function HomePage() {
   // ── Client Stories Video Playback State ──
   const [playingVideo, setPlayingVideo] = useState(null); // null | 'ardhra' | 'parvathi'
 
-  // ── Services Carousel State (Fluid, Centered Active Slide, Touch Swipe) ──
-  const [activeServiceIdx, setActiveServiceIdx] = useState(0);
-  const carouselViewportRef = useRef(null);
-  const carouselTrackRef = useRef(null);
-  const [carouselOffset, setCarouselOffset] = useState(0);
-  const [isSwiping, setIsSwiping] = useState(false);
-  const touchStartRef = useRef(0);
-  const touchDeltaRef = useRef(0);
-
-  const calculateCarouselOffset = useCallback((idx = activeServiceIdx, extraDrag = 0) => {
-    if (!carouselViewportRef.current || !carouselTrackRef.current) return;
-    const viewport = carouselViewportRef.current;
-    const track = carouselTrackRef.current;
-    const slides = track.children;
-    if (!slides || !slides[idx]) return;
-
-    const viewportWidth = viewport.offsetWidth;
-    const currentSlide = slides[idx];
-    const slideLeft = currentSlide.offsetLeft;
-    const slideWidth = currentSlide.offsetWidth;
-
-    // Centered slide translation:
-    const offset = (viewportWidth / 2) - (slideLeft + slideWidth / 2) + extraDrag;
-    setCarouselOffset(offset);
-  }, [activeServiceIdx]);
+  // ── Services Dual-Row Infinite Bi-Directional Auto-Scroll State & Physics ──
+  const servicesRow1TrackRef = useRef(null);
+  const servicesRow2TrackRef = useRef(null);
+  const scrollPos1Ref = useRef(0);
+  const scrollPos2Ref = useRef(0);
+  const isHovered1Ref = useRef(false);
+  const isHovered2Ref = useRef(false);
+  const isDragging1Ref = useRef(false);
+  const isDragging2Ref = useRef(false);
+  const startX1Ref = useRef(0);
+  const startX2Ref = useRef(0);
+  const dragStartPos1Ref = useRef(0);
+  const dragStartPos2Ref = useRef(0);
+  const hasMoved1Ref = useRef(false);
+  const hasMoved2Ref = useRef(false);
 
   useEffect(() => {
-    calculateCarouselOffset(activeServiceIdx);
-  }, [activeServiceIdx, calculateCarouselOffset]);
+    let animId;
+    let lastTime = performance.now();
+    const speed = 0.75; // Smooth cinematic glide speed
 
-  useEffect(() => {
-    const onResize = () => calculateCarouselOffset(activeServiceIdx);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [activeServiceIdx, calculateCarouselOffset]);
+    const step = (now) => {
+      const dt = Math.min((now - lastTime) / 16.67, 2);
+      lastTime = now;
 
-  const goToPrevService = () => {
-    setActiveServiceIdx((prev) => (prev > 0 ? prev - 1 : services.length - 1));
+      // Row 1: glides LEFT
+      if (!isHovered1Ref.current && !isDragging1Ref.current && servicesRow1TrackRef.current) {
+        scrollPos1Ref.current += speed * dt;
+        const unit1 = servicesRow1TrackRef.current.scrollWidth / 3;
+        if (unit1 > 0 && scrollPos1Ref.current >= unit1) {
+          scrollPos1Ref.current -= unit1;
+        }
+        servicesRow1TrackRef.current.style.transform = `translate3d(-${scrollPos1Ref.current}px, 0, 0)`;
+      }
+
+      // Row 2: glides RIGHT (opposite direction)
+      if (!isHovered2Ref.current && !isDragging2Ref.current && servicesRow2TrackRef.current) {
+        scrollPos2Ref.current += speed * dt;
+        const unit2 = servicesRow2TrackRef.current.scrollWidth / 3;
+        if (unit2 > 0 && scrollPos2Ref.current >= unit2) {
+          scrollPos2Ref.current -= unit2;
+        }
+        servicesRow2TrackRef.current.style.transform = `translate3d(-${unit2 - scrollPos2Ref.current}px, 0, 0)`;
+      }
+
+      animId = requestAnimationFrame(step);
+    };
+
+    animId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  // Row 1 Pointer Controls (gliding Left)
+  const handleRow1PointerDown = (e) => {
+    isDragging1Ref.current = true;
+    startX1Ref.current = e.clientX;
+    dragStartPos1Ref.current = scrollPos1Ref.current;
+    hasMoved1Ref.current = false;
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_) {}
   };
 
-  const goToNextService = () => {
-    setActiveServiceIdx((prev) => (prev < services.length - 1 ? prev + 1 : 0));
-  };
-
-  const onTouchStart = (e) => {
-    touchStartRef.current = e.touches[0].clientX;
-    touchDeltaRef.current = 0;
-    setIsSwiping(true);
-  };
-
-  const onTouchMove = (e) => {
-    if (!touchStartRef.current) return;
-    const delta = e.touches[0].clientX - touchStartRef.current;
-    touchDeltaRef.current = delta;
-    calculateCarouselOffset(activeServiceIdx, delta);
-  };
-
-  const onTouchEnd = () => {
-    setIsSwiping(false);
-    const delta = touchDeltaRef.current;
-    const threshold = 40;
-    if (delta < -threshold) {
-      goToNextService();
-    } else if (delta > threshold) {
-      goToPrevService();
-    } else {
-      calculateCarouselOffset(activeServiceIdx, 0);
+  const handleRow1PointerMove = (e) => {
+    if (!isDragging1Ref.current) return;
+    const delta = e.clientX - startX1Ref.current;
+    if (Math.abs(delta) > 5) hasMoved1Ref.current = true;
+    let newPos = dragStartPos1Ref.current - delta;
+    if (servicesRow1TrackRef.current) {
+      const unit = servicesRow1TrackRef.current.scrollWidth / 3;
+      if (unit > 0) {
+        while (newPos >= unit) newPos -= unit;
+        while (newPos < 0) newPos += unit;
+      }
+      scrollPos1Ref.current = newPos;
+      servicesRow1TrackRef.current.style.transform = `translate3d(-${newPos}px, 0, 0)`;
     }
-    touchStartRef.current = 0;
-    touchDeltaRef.current = 0;
   };
 
-  // ── 1. EXACT 10 SERVICES ──
+  const handleRow1PointerUp = (e) => {
+    isDragging1Ref.current = false;
+    try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (_) {}
+  };
+
+  // Row 2 Pointer Controls (gliding Right)
+  const handleRow2PointerDown = (e) => {
+    isDragging2Ref.current = true;
+    startX2Ref.current = e.clientX;
+    dragStartPos2Ref.current = scrollPos2Ref.current;
+    hasMoved2Ref.current = false;
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_) {}
+  };
+
+  const handleRow2PointerMove = (e) => {
+    if (!isDragging2Ref.current) return;
+    const delta = e.clientX - startX2Ref.current;
+    if (Math.abs(delta) > 5) hasMoved2Ref.current = true;
+    let newPos = dragStartPos2Ref.current + delta;
+    if (servicesRow2TrackRef.current) {
+      const unit = servicesRow2TrackRef.current.scrollWidth / 3;
+      if (unit > 0) {
+        while (newPos >= unit) newPos -= unit;
+        while (newPos < 0) newPos += unit;
+      }
+      scrollPos2Ref.current = newPos;
+      servicesRow2TrackRef.current.style.transform = `translate3d(-${unit - newPos}px, 0, 0)`;
+    }
+  };
+
+  const handleRow2PointerUp = (e) => {
+    isDragging2Ref.current = false;
+    try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (_) {}
+  };
+
+  // ── 1. EXACT 12 COMPREHENSIVE SERVICES ──
   const services = [
+    // ── Row 1 (6 Services) ──
     {
       title: "Web Development",
       category: "WEB DEVELOPMENT",
@@ -136,51 +176,74 @@ export default function HomePage() {
       link: "/services/web-development"
     },
     {
-      title: "App Development",
+      title: "Mobile App Development",
       category: "APP DEVELOPMENT",
       desc: "Native and cross-platform mobile applications that engage users and scale with your business.",
       image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
       link: "/services/app-development"
     },
     {
-      title: "Software & Product Development",
-      category: "SOFTWARE DEVELOPMENT",
-      desc: "Custom business software, SaaS architectures and enterprise platforms built to automate workflows.",
+      title: "AI Chatbots & Assistants",
+      category: "CHATBOT AUTOMATION",
+      desc: "24/7 intelligent customer support chatbots that resolve queries, qualify leads, and close sales.",
+      image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=80",
+      link: "/services/ai-automation"
+    },
+    {
+      title: "WhatsApp Automation",
+      category: "WHATSAPP AUTOMATION",
+      desc: "Official WhatsApp Business API bots, automated catalog ordering, instant alerts & CRM broadcasts.",
+      image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1200&q=80",
+      link: "/services/ai-automation"
+    },
+    {
+      title: "Software & SaaS Development",
+      category: "SOFTWARE ENGINEERING",
+      desc: "Custom SaaS platforms and enterprise business software built to automate operations.",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
       link: "/services/software-development"
     },
     {
-      title: "Digital Marketing",
+      title: "Digital Marketing & SEO",
       category: "DIGITAL MARKETING",
       desc: "Data-driven SEO, PPC campaigns and organic acquisition strategies that convert visitors into revenue.",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
       link: "/services/digital-marketing"
     },
+
+    // ── Row 2 (6 Services) ──
     {
-      title: "Social Media Management",
-      category: "SOCIAL MEDIA",
-      desc: "Strategic content creation, community engagement and brand positioning across high-intent channels.",
+      title: "Voice AI Agents",
+      category: "VOICE AGENTS",
+      desc: "24/7 multilingual conversational voice agents that answer inbound phone calls and book meetings.",
+      image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=1200&q=80",
+      link: "/voice-agents"
+    },
+    {
+      title: "Social Media Automation",
+      category: "SOCIAL MEDIA AUTOMATION",
+      desc: "Automated social content scheduling, auto-DM response funnels & community engagement bots.",
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80",
       link: "/services/social-media-management"
     },
     {
-      title: "AI & Automation",
+      title: "AI & Workflow Automation",
       category: "AI & AUTOMATION",
-      desc: "Autonomous workflow bots, AI voice agents and smart integrations that cut manual overhead by 70%.",
+      desc: "Autonomous workflow bots, custom AI pipelines & ERP integrations cutting manual work by 70%.",
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
       link: "/services/ai-automation"
     },
     {
       title: "CRM & Lead Solutions",
       category: "CRM & LEADS",
-      desc: "End-to-end sales pipelines, automated lead routing and proactive client engagement engines.",
+      desc: "End-to-end sales pipelines, automated lead routing, and proactive client engagement engines.",
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
       link: "/services/crm-lead-solutions"
     },
     {
       title: "UI/UX & Branding",
       category: "UI/UX & BRANDING",
-      desc: "Digital experiences and brand identities that create clarity, customer delight and consistency.",
+      desc: "Digital experiences, high-converting interfaces, and distinctive corporate brand identities.",
       image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
       link: "/services/ui-ux-branding"
     },
@@ -190,15 +253,12 @@ export default function HomePage() {
       desc: "Reliable cloud infrastructure, secure database scaling and 24/7 high-availability microservices.",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
       link: "/services/cloud-technology"
-    },
-    {
-      title: "Data & Business Intelligence",
-      category: "DATA & BI",
-      desc: "Executive dashboards, real-time KPI telemetry and predictive business intelligence reporting.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      link: "/services/data-bi-analytics"
     }
   ];
+
+  // 6 columns per row, mutually exclusive, continuous bi-directional auto-scrolling
+  const row1Services = services.slice(0, 6);
+  const row2Services = services.slice(6, 12);
 
   // ── 2. EXACT 8 INDUSTRIES ──
   const industries = [
@@ -467,7 +527,7 @@ export default function HomePage() {
                 color: '#080607', 
                 margin: '0 0 1.5rem 0',
                 wordBreak: 'break-word',
-                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif"
               }}
             >
               We Build Technology That Works.
@@ -592,7 +652,7 @@ export default function HomePage() {
                     fontSize: 'clamp(2.3rem, 3.8vw, 2.9rem)', 
                     fontWeight: 900, 
                     color: st.highlight ? '#00bba7' : '#080607', 
-                    fontFamily: "'Space Grotesk', -apple-system, sans-serif",
+                    fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif",
                     letterSpacing: '-0.02em',
                     lineHeight: 1.1
                   }}
@@ -644,7 +704,7 @@ export default function HomePage() {
                 lineHeight: 1.1, 
                 color: '#080607',
                 margin: '0 0 1rem 0',
-                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif"
               }}
             >
               OUR SERVICES
@@ -664,187 +724,155 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Services Fluid Carousel with Centered Active Slide & Partial Neighbor Peek */}
+          {/* Services Dual-Row Infinite Bi-Directional Auto-Scrolling Showcase */}
           <div 
-            className="services-carousel-wrapper"
-            style={{ position: 'relative', width: '100%', overflow: 'hidden' }}
-            onKeyDown={(e) => {
-              if (e.key === 'ArrowLeft') goToPrevService();
-              if (e.key === 'ArrowRight') goToNextService();
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: 'clamp(1.5rem, 2.5vw, 2.25rem)',
+              width: '100%',
+              overflow: 'hidden'
             }}
-            tabIndex={0}
-            role="region"
-            aria-label="Services carousel"
           >
-            {/* Viewport container */}
-            <div
-              ref={carouselViewportRef}
-              style={{
-                width: '100%',
+            {/* ── ROW 1: Gliding LEFT (Services 1 to 5) ── */}
+            <div 
+              className="services-auto-viewport services-row-1"
+              style={{ 
+                position: 'relative', 
+                width: '100%', 
                 overflow: 'hidden',
-                padding: '1.5rem 0',
-                cursor: isSwiping ? 'grabbing' : 'grab',
-                touchAction: 'pan-y'
+                padding: '0.5rem 0',
+                cursor: 'grab',
+                touchAction: 'pan-y',
+                maskImage: 'linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent)'
               }}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
+              onPointerDown={handleRow1PointerDown}
+              onPointerMove={handleRow1PointerMove}
+              onPointerUp={handleRow1PointerUp}
+              onPointerCancel={handleRow1PointerUp}
+              onMouseEnter={() => { isHovered1Ref.current = true; }}
+              onMouseLeave={() => { isHovered1Ref.current = false; }}
+              onClickCapture={(e) => {
+                if (hasMoved1Ref.current) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }
+              }}
+              role="region"
+              aria-label="Our services row 1 auto-scrolling showcase"
             >
-              {/* Carousel Track */}
               <div
-                ref={carouselTrackRef}
+                ref={servicesRow1TrackRef}
                 style={{
                   display: 'flex',
                   alignItems: 'stretch',
-                  gap: 'clamp(1rem, 2.5vw, 2.25rem)',
-                  transform: `translate3d(${carouselOffset}px, 0, 0)`,
-                  transition: isSwiping ? 'none' : 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+                  gap: 'clamp(1.25rem, 2vw, 2rem)',
+                  width: 'max-content',
                   willChange: 'transform'
                 }}
               >
-                {services.map((item, idx) => {
-                  const isActive = activeServiceIdx === idx;
-                  return (
-                    <div
-                      key={item.title}
-                      onClick={() => {
-                        if (!isActive) setActiveServiceIdx(idx);
-                      }}
-                      style={{
-                        flex: '0 0 clamp(270px, 80vw, 420px)',
-                        width: 'clamp(270px, 80vw, 420px)',
-                        maxWidth: '85vw',
-                        opacity: isActive ? 1 : 0.58,
-                        transform: isActive ? 'scale(1)' : 'scale(0.95)',
-                        transition: 'opacity 0.35s ease, transform 0.35s ease',
-                        cursor: isActive ? 'default' : 'pointer'
-                      }}
-                    >
-                      <NotchedProjectCard
-                        href={item.link}
-                        title={item.title}
-                        description={item.desc}
-                        image={item.image}
-                        surface="#FFFFFF"
-                        accent="#00bba7"
-                        accentForeground="#080607"
-                        monochrome={false}
-                      />
-                    </div>
-                  );
-                })}
+                {[...row1Services, ...row1Services, ...row1Services].map((item, idx) => (
+                  <div
+                    key={`row1-${item.title}-${idx}`}
+                    style={{
+                      flex: '0 0 clamp(280px, 24vw, 350px)',
+                      width: 'clamp(280px, 24vw, 350px)',
+                      maxWidth: '85vw',
+                      userSelect: 'none',
+                      WebkitUserSelect: 'none',
+                      transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-6px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                  >
+                    <NotchedProjectCard
+                      href={item.link}
+                      title={item.title}
+                      description={item.desc}
+                      image={item.image}
+                      surface="#FFFFFF"
+                      accent="#00bba7"
+                      accentForeground="#080607"
+                      monochrome={false}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Controls Bar: Prev/Next & Dots */}
+            {/* ── ROW 2: Gliding RIGHT in opposite direction (Services 6 to 10) ── */}
             <div 
+              className="services-auto-viewport services-row-2"
               style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '1.25rem',
-                marginTop: '2rem',
-                padding: '0 0.5rem'
+                position: 'relative', 
+                width: '100%', 
+                overflow: 'hidden',
+                padding: '0.5rem 0',
+                cursor: 'grab',
+                touchAction: 'pan-y',
+                maskImage: 'linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent)'
               }}
+              onPointerDown={handleRow2PointerDown}
+              onPointerMove={handleRow2PointerMove}
+              onPointerUp={handleRow2PointerUp}
+              onPointerCancel={handleRow2PointerUp}
+              onMouseEnter={() => { isHovered2Ref.current = true; }}
+              onMouseLeave={() => { isHovered2Ref.current = false; }}
+              onClickCapture={(e) => {
+                if (hasMoved2Ref.current) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }
+              }}
+              role="region"
+              aria-label="Our services row 2 auto-scrolling showcase"
             >
-              {/* Counter Indicator */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: '0.95rem', fontWeight: 700, color: '#008779' }}>
-                  {String(activeServiceIdx + 1).padStart(2, '0')}
-                </span>
-                <span style={{ color: '#cbd5e1' }}>/</span>
-                <span style={{ fontFamily: "var(--font-mono, monospace)", fontSize: '0.85rem', color: '#94a3b8' }}>
-                  {String(services.length).padStart(2, '0')}
-                </span>
-              </div>
-
-              {/* Dots Pagination */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                {services.map((_, dotIdx) => (
-                  <button
-                    key={dotIdx}
-                    onClick={() => setActiveServiceIdx(dotIdx)}
-                    aria-label={`Go to service ${dotIdx + 1}`}
+              <div
+                ref={servicesRow2TrackRef}
+                style={{
+                  display: 'flex',
+                  alignItems: 'stretch',
+                  gap: 'clamp(1.25rem, 2vw, 2rem)',
+                  width: 'max-content',
+                  willChange: 'transform'
+                }}
+              >
+                {[...row2Services, ...row2Services, ...row2Services].map((item, idx) => (
+                  <div
+                    key={`row2-${item.title}-${idx}`}
                     style={{
-                      width: activeServiceIdx === dotIdx ? '28px' : '8px',
-                      height: '8px',
-                      borderRadius: '999px',
-                      background: activeServiceIdx === dotIdx ? '#00bba7' : '#e2e8f0',
-                      border: 'none',
-                      padding: 0,
-                      cursor: 'pointer',
-                      transition: 'all 0.25s ease'
+                      flex: '0 0 clamp(280px, 24vw, 350px)',
+                      width: 'clamp(280px, 24vw, 350px)',
+                      maxWidth: '85vw',
+                      userSelect: 'none',
+                      WebkitUserSelect: 'none',
+                      transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                     }}
-                  />
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-6px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                  >
+                    <NotchedProjectCard
+                      href={item.link}
+                      title={item.title}
+                      description={item.desc}
+                      image={item.image}
+                      surface="#FFFFFF"
+                      accent="#00bba7"
+                      accentForeground="#080607"
+                      monochrome={false}
+                    />
+                  </div>
                 ))}
-              </div>
-
-              {/* Prev / Next Circular Buttons */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <button
-                  type="button"
-                  onClick={goToPrevService}
-                  aria-label="Previous service"
-                  style={{
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '50%',
-                    background: '#FFFFFF',
-                    border: '1.5px solid #E2E8F0',
-                    color: '#080607',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    boxShadow: '0 2px 8px rgba(8, 6, 7, 0.04)',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#00bba7';
-                    e.currentTarget.style.color = '#00bba7';
-                    e.currentTarget.style.transform = 'translateX(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = '#E2E8F0';
-                    e.currentTarget.style.color = '#080607';
-                    e.currentTarget.style.transform = 'none';
-                  }}
-                >
-                  <ArrowLeft size={18} />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={goToNextService}
-                  aria-label="Next service"
-                  style={{
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '50%',
-                    background: '#080607',
-                    border: '1.5px solid #080607',
-                    color: '#FFFFFF',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 14px rgba(8, 6, 7, 0.15)',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#00bba7';
-                    e.currentTarget.style.borderColor = '#00bba7';
-                    e.currentTarget.style.transform = 'translateX(2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#080607';
-                    e.currentTarget.style.borderColor = '#080607';
-                    e.currentTarget.style.transform = 'none';
-                  }}
-                >
-                  <ArrowRight size={18} />
-                </button>
               </div>
             </div>
           </div>
@@ -870,7 +898,7 @@ export default function HomePage() {
             <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '0.85rem' }}>
               <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
               <span style={{ fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#008779' }}>
-                HOW IT WORKS • 3-STEP PROCESS
+                HOW IT WORKS
               </span>
               <span style={{ width: '16px', height: '2px', background: '#00bba7' }} />
             </div>
@@ -883,7 +911,7 @@ export default function HomePage() {
                 lineHeight: 1.15, 
                 color: '#080607',
                 margin: '0 0 1rem 0',
-                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif"
               }}
             >
               A Clear, Direct Process.
@@ -975,21 +1003,15 @@ export default function HomePage() {
                 lineHeight: 1.15, 
                 color: '#FFFFFF', 
                 margin: 0,
-                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif"
               }}
             >
               Technology Built for Every Sector.
             </h2>
           </div>
 
-          {/* Square Pattern Matrix: Transparent Editorial Grid */}
-          <div 
-            style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', 
-              gap: 'clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2.25rem)' 
-            }}
-          >
+          {/* Square Pattern Matrix: 5 Columns x 2 Rows Grid */}
+          <div className="expertise-5x2-grid">
             {industries.map((ind, idx) => {
               const isCurrent = currentActiveIdx === idx;
               const isAnyActive = currentActiveIdx !== null;
@@ -1004,8 +1026,8 @@ export default function HomePage() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    minHeight: '235px',
-                    padding: '1.75rem 1.6rem',
+                    minHeight: '210px',
+                    padding: '1.4rem 1.25rem',
                     borderRadius: '16px',
                     background: isCurrent ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
                     backdropFilter: isCurrent ? 'blur(20px)' : 'none',
@@ -1029,7 +1051,7 @@ export default function HomePage() {
                         color: isCurrent ? '#54CFB0' : '#FFFFFF', 
                         lineHeight: 1.35,
                         margin: '0 0 1rem 0',
-                        fontFamily: "'Space Grotesk', -apple-system, sans-serif",
+                        fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif",
                         transition: 'color 0.25s ease'
                       }}
                     >
@@ -1195,7 +1217,7 @@ export default function HomePage() {
                 lineHeight: 1.15, 
                 color: '#080607', 
                 margin: 0,
-                fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif"
               }}
             >
               Real Impact. Lasting Partnerships.
@@ -1394,7 +1416,7 @@ export default function HomePage() {
                   color: '#FFFFFF',
                   margin: '0 0 0.75rem 0',
                   wordBreak: 'break-word',
-                  fontFamily: "'Space Grotesk', -apple-system, sans-serif"
+                  fontFamily: "'Plus Jakarta Sans', -apple-system, sans-serif"
                 }}
               >
                 Ready to automate your business?
