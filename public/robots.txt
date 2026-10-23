@@ -1,0 +1,6 @@
+# MaxR Technology — Official Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap Index
+Sitemap: https://maxr.ae/sitemap.xml

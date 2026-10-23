@@ -16,12 +16,82 @@ import ContactPage from './pages/ContactPage.jsx';
 import VoiceAgentsPage from './pages/VoiceAgentsPage.jsx';
 import CareersPage from './pages/CareersPage.jsx';
 
-// Scroll to top on route change
-function ScrollToTop() {
+// Scroll to top and update dynamic SEO page metadata on route change
+function RouteMetaHandler() {
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    let title = "MaxR Technology — Enterprise AI Automation & Digital Systems";
+    let desc = "MaxR Technology delivers enterprise AI automation, voice AI agents, custom web and mobile apps, and scalable digital solutions for high-growth businesses.";
+
+    if (pathname.startsWith('/services/voice-agents') || pathname === '/voice-agents') {
+      title = "Voice AI Agents — 24/7 Phone Answering & Speech AI | MaxR Technology";
+      desc = "Deploy 24/7 multilingual conversational voice AI agents in UAE. Sub-450ms speech latency, automated appointment booking, and seamless CRM integrations.";
+    } else if (pathname.startsWith('/services/web-development')) {
+      title = "Web Development Services — High-Performance Web Apps | MaxR Technology";
+      desc = "Ultra-fast Next.js and React web applications engineered to convert. 99/100 Lighthouse performance, accessible UI, and modern headless architectures.";
+    } else if (pathname.startsWith('/services/app-development')) {
+      title = "Mobile App Development — Native iOS & Android Apps | MaxR Technology";
+      desc = "Custom iOS and Android mobile app engineering with Flutter and React Native. Smooth 60 FPS performance, secure payment gateways, and scalable backends.";
+    } else if (pathname.startsWith('/services/ai-automation')) {
+      title = "Enterprise AI Automation & Workflow Bots | MaxR Technology";
+      desc = "Autonomous workflow bots, custom AI pipelines, and ERP integrations that cut manual overhead by 70%. Built for UAE and global enterprises.";
+    } else if (pathname.startsWith('/services/software-development')) {
+      title = "Custom Software & SaaS Development | MaxR Technology";
+      desc = "Full-stack cloud applications, multi-tenant SaaS platforms, and secure internal tools engineered from the ground up for modern businesses.";
+    } else if (pathname.startsWith('/services/digital-marketing')) {
+      title = "Digital Marketing & SEO Services | MaxR Technology";
+      desc = "Data-driven SEO, PPC campaigns, and conversion optimization strategies that rank your brand at the top of Google and generate qualified inquiries.";
+    } else if (pathname.startsWith('/services/social-media-management')) {
+      title = "Social Media Management & Automation | MaxR Technology";
+      desc = "Multi-channel content scheduling, automated comment-to-DM funnels, and brand engagement systems that turn followers into paying clients.";
+    } else if (pathname.startsWith('/services/crm-lead-solutions')) {
+      title = "CRM Setup & Automated Lead Routing | MaxR Technology";
+      desc = "Capture, qualify, and route incoming leads in under 60 seconds with automated sales pipelines across HubSpot, Zoho, and Salesforce.";
+    } else if (pathname.startsWith('/services/cloud-technology')) {
+      title = "Cloud Infrastructure & DevOps Scaling | MaxR Technology";
+      desc = "High-availability cloud hosting, automated database backups, and zero-downtime CI/CD deployment pipelines on AWS, Azure, and GCP.";
+    } else if (pathname.startsWith('/services/data-bi-analytics')) {
+      title = "Data & Business Intelligence Dashboards | MaxR Technology";
+      desc = "Real-time executive KPI dashboards, automated ETL pipelines, and predictive business intelligence reporting using Looker Studio and Power BI.";
+    } else if (pathname.startsWith('/industries')) {
+      title = "Industry Solutions & Sector-Specific Automation | MaxR Technology";
+      desc = "Custom digital platforms and workflow automation tailored for Healthcare, Real Estate, E-Commerce, Finance, Education, Hospitality, and Web3.";
+    } else if (pathname === '/about') {
+      title = "About MaxR Technology — Enterprise AI & Digital Engineering";
+      desc = "Learn about MaxR Technology, our global delivery team in Dubai and Chennai, our leadership, and our mission to engineer technology that drives ROI.";
+    } else if (pathname === '/contact') {
+      title = "Contact MaxR Technology — Start Your Digital Project";
+      desc = "Speak with our enterprise digital engineers and AI architects in Dubai (UAE) and Chennai (India). Book a strategic technical consultation today.";
+    } else if (pathname === '/blog') {
+      title = "Tech Insights & AI Automation Blog | MaxR Technology";
+      desc = "Engineering perspectives, autonomous AI agent blueprints, voice AI case studies, and enterprise digital transformation insights from MaxR.";
+    } else if (pathname === '/careers') {
+      title = "Careers at MaxR Technology — Join Our Engineering Team";
+      desc = "Explore career opportunities at MaxR Technology in Dubai and Chennai. Build mission-critical enterprise AI, web, and mobile systems.";
+    }
+
+    document.title = title;
+    
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', desc);
+    
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', desc);
+    
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) twTitle.setAttribute('content', title);
+    
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute('content', desc);
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `https://maxr.ae${pathname === '/' ? '' : pathname}`);
   }, [pathname]);
 
   return null;
@@ -32,7 +102,7 @@ function MainLayout() {
 
   return (
     <div className="app-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <ScrollToTop />
+      <RouteMetaHandler />
       
       {/* ── Main Sticky Header with React Router Navigation ── */}
       <Header onOpenContact={() => setContactModalOpen(true)} />
