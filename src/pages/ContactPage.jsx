@@ -8,6 +8,7 @@ import {
   Send,
   AlertCircle
 } from 'lucide-react';
+import { sendLeadSubmission } from '../lib/leadService';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -24,25 +25,18 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus('submitting');
     try {
-      const payload = {
+      await sendLeadSubmission({
         name: formData.name,
         email: formData.email,
-        mobile: formData.phone,
+        phone: formData.phone,
+        company: formData.company,
         service: formData.service,
         message: formData.message,
-        source: "contact_form",
-        timestamp: new Date().toISOString()
-      };
-      await fetch("https://script.google.com/macros/s/AKfycbzNv7oaosVQ2kh9wkIXPNLiGeCg-eeKFxgJv9uJ_4a2mG4qVexS-q4Hlzyi4mNHTIgTrg/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify(payload),
-        mode: "no-cors"
+        source: "Contact Page Form"
       });
       setStatus('success');
     } catch (err) {
+      console.error('Contact form submission error:', err);
       setStatus('error');
     }
   };

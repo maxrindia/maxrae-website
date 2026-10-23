@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2, ShieldCheck, Mail, Building, User, MessageSquare } from 'lucide-react';
+import { sendLeadSubmission } from '../lib/leadService';
 
 export default function ContactModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -20,24 +21,17 @@ export default function ContactModal({ isOpen, onClose }) {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbzNv7oaosVQ2kh9wkIXPNLiGeCg-eeKFxgJv9uJ_4a2mG4qVexS-q4Hlzyi4mNHTIgTrg/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          mobile: formData.phone,
-          service: formData.service,
-          message: formData.message,
-          source: "contact_modal",
-          timestamp: new Date().toISOString()
-        }),
-        mode: "no-cors"
+      await sendLeadSubmission({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        service: formData.service,
+        message: formData.message,
+        source: "Strategic Consultation Modal"
       });
     } catch (err) {
-      // silently proceed to confirmation
+      console.error('Modal form submission error:', err);
     } finally {
       setIsSubmitting(false);
       setSubmitted(true);

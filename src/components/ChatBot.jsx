@@ -20,9 +20,7 @@ import {
   HelpCircle,
   RotateCcw
 } from 'lucide-react';
-
-// Google Apps Script Web App Endpoint
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNv7oaosVQ2kh9wkIXPNLiGeCg-eeKFxgJv9uJ_4a2mG4qVexS-q4Hlzyi4mNHTIgTrg/exec";
+import { sendLeadSubmission } from '../lib/leadService';
 
 // Interactive Service options with dedicated Lucide icons
 const SERVICE_OPTIONS = [
@@ -225,13 +223,13 @@ export default function ChatBot() {
       setIsSubmitting(true);
 
       try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8'
-          },
-          body: JSON.stringify(finalData),
-          mode: 'no-cors'
+        await sendLeadSubmission({
+          name: finalData.name,
+          email: finalData.email,
+          phone: finalData.mobile,
+          service: finalData.service,
+          message: finalData.message,
+          source: "Interactive ChatBot"
         });
 
         // ON SUCCESS
