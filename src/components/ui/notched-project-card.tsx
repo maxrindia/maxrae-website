@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -72,9 +73,13 @@ export function NotchedProjectCard({
     ? "grayscale transition-[filter,scale] duration-500 group-hover:grayscale-0 group-focus-visible:grayscale-0"
     : "transition-[scale] duration-500";
 
+  const isInternal = Boolean(href && href.startsWith('/'));
+  const Component: React.ElementType = isInternal ? Link : 'a';
+  const linkProps = isInternal ? { to: href } : { href };
+
   return (
-    <a
-      href={href}
+    <Component
+      {...linkProps}
       className={cn(
         "group flex flex-col rounded-[28px] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background",
         className,
@@ -179,7 +184,7 @@ export function NotchedProjectCard({
           ))}
         </ul>
       )}
-    </a>
+    </Component>
   );
 }
 

@@ -119,13 +119,15 @@ export default function HomePage() {
     startX1Ref.current = e.clientX;
     dragStartPos1Ref.current = scrollPos1Ref.current;
     hasMoved1Ref.current = false;
-    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_) {}
   };
 
   const handleRow1PointerMove = (e) => {
     if (!isDragging1Ref.current) return;
     const delta = e.clientX - startX1Ref.current;
-    if (Math.abs(delta) > 5) hasMoved1Ref.current = true;
+    if (Math.abs(delta) > 10) {
+      hasMoved1Ref.current = true;
+      try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_) {}
+    }
     let newPos = dragStartPos1Ref.current - delta;
     if (servicesRow1TrackRef.current) {
       const unit = servicesRow1TrackRef.current.scrollWidth / 3;
@@ -141,6 +143,9 @@ export default function HomePage() {
   const handleRow1PointerUp = (e) => {
     isDragging1Ref.current = false;
     try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (_) {}
+    setTimeout(() => {
+      hasMoved1Ref.current = false;
+    }, 120);
   };
 
   // Row 2 Pointer Controls (gliding Right)
@@ -149,13 +154,15 @@ export default function HomePage() {
     startX2Ref.current = e.clientX;
     dragStartPos2Ref.current = scrollPos2Ref.current;
     hasMoved2Ref.current = false;
-    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_) {}
   };
 
   const handleRow2PointerMove = (e) => {
     if (!isDragging2Ref.current) return;
     const delta = e.clientX - startX2Ref.current;
-    if (Math.abs(delta) > 5) hasMoved2Ref.current = true;
+    if (Math.abs(delta) > 10) {
+      hasMoved2Ref.current = true;
+      try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_) {}
+    }
     let newPos = dragStartPos2Ref.current + delta;
     if (servicesRow2TrackRef.current) {
       const unit = servicesRow2TrackRef.current.scrollWidth / 3;
@@ -171,6 +178,9 @@ export default function HomePage() {
   const handleRow2PointerUp = (e) => {
     isDragging2Ref.current = false;
     try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (_) {}
+    setTimeout(() => {
+      hasMoved2Ref.current = false;
+    }, 120);
   };
 
   // ── 1. EXACT 12 COMPREHENSIVE SERVICES ──
@@ -195,14 +205,14 @@ export default function HomePage() {
       category: "CHATBOT AUTOMATION",
       desc: "24/7 intelligent customer support chatbots that resolve queries, qualify leads, and close sales.",
       image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=480&q=75",
-      link: "/services/ai-automation"
+      link: "/services/ai-chatbots"
     },
     {
       title: "WhatsApp Automation",
       category: "WHATSAPP AUTOMATION",
       desc: "Official WhatsApp Business API bots, automated catalog ordering, instant alerts & CRM broadcasts.",
       image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=480&q=75",
-      link: "/services/ai-automation"
+      link: "/services/whatsapp-automation"
     },
     {
       title: "Software & SaaS Development",
@@ -225,14 +235,14 @@ export default function HomePage() {
       category: "VOICE AGENTS",
       desc: "24/7 multilingual conversational voice agents that answer inbound phone calls and book meetings.",
       image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=480&q=75",
-      link: "/voice-agents"
+      link: "/services/voice-agents"
     },
     {
       title: "Social Media Automation",
       category: "SOCIAL MEDIA AUTOMATION",
       desc: "Automated social content scheduling, auto-DM response funnels & community engagement bots.",
       image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=480&q=75",
-      link: "/services/social-media-management"
+      link: "/services/social-media-automation"
     },
     {
       title: "AI & Workflow Automation",
