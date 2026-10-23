@@ -481,7 +481,7 @@ ul, ol {
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
-  background: url('/assets/images/ai-hero-bg.jpg') center/cover no-repeat;
+  background: url('/assets/images/ai-hero-bg.webp') center/cover no-repeat;
   opacity: 0.18;
   mix-blend-mode: screen;
 }

@@ -28,19 +28,27 @@ export default function HomePage() {
 
   // ── Hero Banner Dynamic Multi-Image Background State (Auto-Swipe) ──
   const heroImages = [
-    "/assets/images/hero-bg-dubai.jpg",
-    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80"
+    "/assets/images/hero-bg-dubai.webp",
+    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=75",
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1400&q=75"
   ];
   const [currentHeroBg, setCurrentHeroBg] = useState(0);
+  const [enableCarousel, setEnableCarousel] = useState(false);
 
   useEffect(() => {
+    // Delay loading additional background images until initial paint has completed
+    const t = setTimeout(() => setEnableCarousel(true), 3500);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (!enableCarousel) return;
     const heroTimer = setInterval(() => {
       setCurrentHeroBg((prev) => (prev + 1) % heroImages.length);
     }, 5500);
     return () => clearInterval(heroTimer);
-  }, [heroImages.length]);
+  }, [enableCarousel, heroImages.length]);
 
 
 
@@ -172,42 +180,42 @@ export default function HomePage() {
       title: "Web Development",
       category: "WEB DEVELOPMENT",
       desc: "High-performance websites and web applications designed around your business goals.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=480&q=75",
       link: "/services/web-development"
     },
     {
       title: "Mobile App Development",
       category: "APP DEVELOPMENT",
       desc: "Native and cross-platform mobile applications that engage users and scale with your business.",
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=480&q=75",
       link: "/services/app-development"
     },
     {
       title: "AI Chatbots & Assistants",
       category: "CHATBOT AUTOMATION",
       desc: "24/7 intelligent customer support chatbots that resolve queries, qualify leads, and close sales.",
-      image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=480&q=75",
       link: "/services/ai-automation"
     },
     {
       title: "WhatsApp Automation",
       category: "WHATSAPP AUTOMATION",
       desc: "Official WhatsApp Business API bots, automated catalog ordering, instant alerts & CRM broadcasts.",
-      image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&w=480&q=75",
       link: "/services/ai-automation"
     },
     {
       title: "Software & SaaS Development",
       category: "SOFTWARE ENGINEERING",
       desc: "Custom SaaS platforms and enterprise business software built to automate operations.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=480&q=75",
       link: "/services/software-development"
     },
     {
       title: "Digital Marketing & SEO",
       category: "DIGITAL MARKETING",
       desc: "Data-driven SEO, PPC campaigns and organic acquisition strategies that convert visitors into revenue.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=480&q=75",
       link: "/services/digital-marketing"
     },
 
@@ -216,42 +224,42 @@ export default function HomePage() {
       title: "Voice AI Agents",
       category: "VOICE AGENTS",
       desc: "24/7 multilingual conversational voice agents that answer inbound phone calls and book meetings.",
-      image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?auto=format&fit=crop&w=480&q=75",
       link: "/voice-agents"
     },
     {
       title: "Social Media Automation",
       category: "SOCIAL MEDIA AUTOMATION",
       desc: "Automated social content scheduling, auto-DM response funnels & community engagement bots.",
-      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=480&q=75",
       link: "/services/social-media-management"
     },
     {
       title: "AI & Workflow Automation",
       category: "AI & AUTOMATION",
       desc: "Autonomous workflow bots, custom AI pipelines & ERP integrations cutting manual work by 70%.",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=480&q=75",
       link: "/services/ai-automation"
     },
     {
       title: "CRM & Lead Solutions",
       category: "CRM & LEADS",
       desc: "End-to-end sales pipelines, automated lead routing, and proactive client engagement engines.",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=480&q=75",
       link: "/services/crm-lead-solutions"
     },
     {
       title: "UI/UX & Branding",
       category: "UI/UX & BRANDING",
       desc: "Digital experiences, high-converting interfaces, and distinctive corporate brand identities.",
-      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=480&q=75",
       link: "/services/ui-ux-branding"
     },
     {
       title: "Cloud & Technology",
       category: "CLOUD ARCHITECTURE",
       desc: "Reliable cloud infrastructure, secure database scaling and 24/7 high-availability microservices.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=480&q=75",
       link: "/services/cloud-technology"
     }
   ];
@@ -493,24 +501,30 @@ export default function HomePage() {
       >
         {/* Dynamic Multi-Image Auto-Switching Background */}
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
-          {heroImages.map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt="Hero background"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center right',
-                opacity: currentHeroBg === i ? 1 : 0,
-                transform: currentHeroBg === i ? 'scale(1)' : 'scale(1.05)',
-                transition: 'opacity 1.2s ease-in-out, transform 1.6s ease-out'
-              }}
-            />
-          ))}
+          {heroImages.map((src, i) => {
+            if (i > 0 && !enableCarousel) return null;
+            return (
+              <img
+                key={i}
+                src={src}
+                alt="Hero background"
+                fetchPriority={i === 0 ? "high" : "low"}
+                loading={i === 0 ? "eager" : "lazy"}
+                decoding={i === 0 ? "sync" : "async"}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center right',
+                  opacity: currentHeroBg === i ? 1 : 0,
+                  transform: currentHeroBg === i ? 'scale(1)' : 'scale(1.05)',
+                  transition: 'opacity 1.2s ease-in-out, transform 1.6s ease-out'
+                }}
+              />
+            );
+          })}
           <div className="hero-enterprise-overlay" />
         </div>
 

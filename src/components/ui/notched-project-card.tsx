@@ -86,6 +86,8 @@ export function NotchedProjectCard({
           <img
             src={image}
             alt={screen ? "" : imageAlt}
+            loading="lazy"
+            decoding="async"
             className={cn(
               "absolute inset-0 h-full w-full object-cover",
               tone,
@@ -99,6 +101,8 @@ export function NotchedProjectCard({
             <img
               src={screen.src}
               alt={screen.alt}
+              loading="lazy"
+              decoding="async"
               className={cn(
                 "absolute bottom-0 right-0 w-[82%] origin-bottom-right drop-shadow-[0_18px_40px_rgba(0,0,0,0.5)] group-hover:scale-[1.07]",
                 tone,
