@@ -151,15 +151,18 @@
       user-select: none;
     }
     .loader-logo {
-      height: 38px;
-      width: auto;
+      width: clamp(200px, 30vw, 380px);
+      max-width: 80vw;
+      height: auto;
       display: block;
-      animation: maxrPulseFade 1.8s ease-in-out infinite;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 24px rgba(84, 207, 176, 0.14));
+      animation: maxrPulseFade 2s ease-in-out infinite;
     }
     .loader-bar {
-      margin-top: 22px;
-      width: 96px;
-      height: 2px;
+      margin-top: clamp(24px, 3vh, 36px);
+      width: clamp(140px, 18vw, 220px);
+      height: 3px;
       background: #E5EAE8;
       border-radius: 999px;
       overflow: hidden;
@@ -171,18 +174,18 @@
       left: 0;
       height: 100%;
       width: 45%;
-      background: #54CFB0;
+      background: linear-gradient(90deg, #54CFB0, #00bba7);
       border-radius: 999px;
       animation: maxrBarSlide 1.3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
     @keyframes maxrPulseFade {
       0%, 100% {
-        opacity: 0.55;
-        transform: scale(0.98);
+        opacity: 0.6;
+        transform: scale(0.97);
       }
       50% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1.02);
       }
     }
     @keyframes maxrBarSlide {
