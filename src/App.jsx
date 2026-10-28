@@ -102,6 +102,18 @@ function RouteMetaHandler() {
 function MainLayout() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
+  // Smoothly fade out the initial minimal HTML loader once React is mounted & ready
+  useEffect(() => {
+    const loader = document.getElementById('initial-loader');
+    if (loader) {
+      loader.classList.add('loader-hidden');
+      const timer = setTimeout(() => {
+        if (loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <div className="app-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <RouteMetaHandler />
